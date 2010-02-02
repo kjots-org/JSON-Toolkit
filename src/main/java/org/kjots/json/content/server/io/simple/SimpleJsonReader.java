@@ -171,15 +171,28 @@ public class SimpleJsonReader implements JsonReader {
 
       @Override
       public boolean primitive(Object value) {
-        if (value instanceof Long) {
-          long v = ((Long)value).longValue();
+        if (value instanceof BigDecimal) {
+          BigDecimal numericValue = (BigDecimal)value;
           
-          if (v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE) {
-            value = Integer.valueOf((int)v);
+          // Attempt to coerce the value into an integer.
+          try {
+            value = numericValue.intValueExact();
           }
-        }
-        else if (value instanceof Double) {
-          value = BigDecimal.valueOf((Double)value);
+          catch (ArithmeticException ae1) {
+            // Attempt to coerce the value into a long.
+            try {
+              value = numericValue.longValueExact();
+            }
+            catch (ArithmeticException ae2) {
+              // Attempt to coerce the value into a BigInteger.
+              try {
+                value = numericValue.toBigIntegerExact();
+              }
+              catch (ArithmeticException ae3) {
+                // Ignore this exception - value will remain a BigDecimal
+              }
+            }
+          }
         }
         
         SimpleJsonReader.this.contentHandler.primitive(value);

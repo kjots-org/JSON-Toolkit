@@ -8,6 +8,7 @@ import java.io.IOException;
  * Modified for use in <em>JSON Toolkit</em> by <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>:
  * <ul>
  * <li>Rebased into <code>org.kjots.json.content.rebase.org.json.simple.parser</code></li>
+ * <li>Updated to use <code>java.math.BigDecimal</code> for numeric values</li>
  * </ul>
  * 
  * @see org.xml.sax.ContentHandler
@@ -98,13 +99,13 @@ public interface ContentHandler {
 	/**
 	 * Receive notification of the JSON primitive values:
 	 * 	java.lang.String,
-	 * 	java.lang.Number,
+	 * 	java.math.BigDecimal,
 	 * 	java.lang.Boolean
 	 * 	null
 	 * 
 	 * @param value - Instance of the following:
 	 * 			java.lang.String,
-	 * 			java.lang.Number,
+	 * 			java.math.BigDecimal,
 	 * 			java.lang.Boolean
 	 * 			null
 	 * 
