@@ -174,17 +174,17 @@ public class SimpleJsonReader implements JsonReader {
         if (value instanceof BigDecimal) {
           BigDecimal numericValue = (BigDecimal)value;
           
-          // Attempt to coerce the value into an integer.
+          // Attempt to coerce the value into an integer
           try {
             value = numericValue.intValueExact();
           }
           catch (ArithmeticException ae1) {
-            // Attempt to coerce the value into a long.
+            // Attempt to coerce the value into a long
             try {
               value = numericValue.longValueExact();
             }
             catch (ArithmeticException ae2) {
-              // Attempt to coerce the value into a BigInteger.
+              // Attempt to coerce the value into a BigInteger
               try {
                 value = numericValue.toBigIntegerExact();
               }
