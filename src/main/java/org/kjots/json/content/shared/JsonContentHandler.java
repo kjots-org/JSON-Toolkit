@@ -43,7 +43,7 @@ public interface JsonContentHandler {
   public void startJson();
   
   /**
-   * Handle the end of a JSON content.
+   * Handle the end of the JSON content.
    * <p>
    * This method will only be invoked in the root context and will mark the
    * closing of that context, and thus the end of the JSON content.
