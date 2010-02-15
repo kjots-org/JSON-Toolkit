@@ -15,6 +15,7 @@
  */
 package org.kjots.json.content.shared.text;
 
+import org.kjots.json.content.shared.PartialJsonContentHandler;
 import org.kjots.json.content.shared.JsonContentHandler;
 
 /**
@@ -28,80 +29,12 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
   /**
    * JSON Context.
    */
-  private abstract class JsonContext implements JsonContentHandler {
+  private abstract class JsonContext extends PartialJsonContentHandler {
     /** The parent JSON context. */
     protected final JsonContext parentJsonContext;
     
     /** The first entry flag. */
     private boolean firstEntry = true;
-    
-    /**
-     * Handle the start of the JSON content.
-     */
-    @Override
-    public void startJson() {
-      throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Handle the end of a JSON content.
-     */
-    @Override
-    public void endJson() {
-      throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Handle the start of a JSON object.
-     */
-    @Override
-    public void startObject() {
-      throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Handle the end of a JSON object.
-     */
-    @Override
-    public void endObject() {
-      throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Handle the start of a JSON array.
-     */
-    @Override
-    public void startArray() {
-      throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Handle the end of a JSON array.
-     */
-    @Override
-    public void endArray() {
-      throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Handle the name of a member of a JSON object.
-     *
-     * @param name The name of the member.
-     */
-    @Override
-    public void memberName(String name) {
-      throw new UnsupportedOperationException();
-    }
-    
-    /**
-     * Handle a JSON primitive.
-     *
-     * @param value The value of the JSON primitive.
-     */
-    @Override
-    public void primitive(Object value) {
-      throw new UnsupportedOperationException();
-    }
     
     /**
      * Construct a new JSON Context.
@@ -276,7 +209,7 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
     }
     
     /**
-     * Handle the end of a JSON content.
+     * Handle the end of the JSON content.
      */
     @Override
     public void endJson() {
