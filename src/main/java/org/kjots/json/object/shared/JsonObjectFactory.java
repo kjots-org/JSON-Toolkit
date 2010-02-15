@@ -48,6 +48,15 @@ public abstract class JsonObjectFactory {
    * @return The JSON object.
    */
   public abstract <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass, Object object);
+  
+  /**
+   * Create a new JSON object.
+   *
+   * @return The JSON object.
+   */
+  public JsonObject createJsonObject() {
+    return this.createJsonObject(JsonObject.class);
+  }
 
   /**
    * Create a new JSON object.
@@ -57,6 +66,15 @@ public abstract class JsonObjectFactory {
    * @return The JSON object.
    */
   public abstract <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass);
+  
+  /**
+   * Create a new JSON array.
+   *
+   * @return The JSON array.
+   */
+  public JsonArray createJsonArray() {
+    return this.createJsonArray(JsonArray.class);
+  }
   
   /**
    * Create a new JSON array.
