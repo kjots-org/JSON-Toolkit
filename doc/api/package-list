@@ -1,0 +1,12 @@
+org.kjots.json.content.rebase.org.json.simple.parser
+org.kjots.json.content.server.io
+org.kjots.json.content.server.io.simple
+org.kjots.json.content.shared
+org.kjots.json.content.shared.text
+org.kjots.json.object.client
+org.kjots.json.object.client.impl
+org.kjots.json.object.rebind
+org.kjots.json.object.server.js
+org.kjots.json.object.server.js.impl
+org.kjots.json.object.shared
+org.kjots.json.object.shared.content
