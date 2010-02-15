@@ -31,7 +31,7 @@ package org.kjots.json.content.shared;
  * <p>
  * For example, a class that only concerns itself with the root JSON context
  * (i.e. the context directly after the invocation of {@link JsonContentHandler#startJson()})
- * knows that under normal circumstances the {@link {@link JsonContentHandler#primitive(Object)}
+ * knows that under normal circumstances the {@link JsonContentHandler#primitive(Object)}
  * method will never be invoked - thus such a class need not provide an
  * implementation of that method.
  * <p>

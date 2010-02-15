@@ -41,7 +41,7 @@ public abstract class GwtJsonObjectTest extends GWTTestCase {
    */
   @Override
   public final String getModuleName() {
-    return "org.kjots.json.JsonObjectTest";
+    return "org.kjots.json.object.JsonObjectTest";
   }
   
   /**
