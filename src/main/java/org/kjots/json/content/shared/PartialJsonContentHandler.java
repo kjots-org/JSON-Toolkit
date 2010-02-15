@@ -6,7 +6,7 @@ package org.kjots.json.content.shared;
 /**
  * Partial JSON Content Handler.
  * <p>
- * This class implemented {@link JsonContentHandler} and uses assertions to
+ * This class implements {@link JsonContentHandler} and uses assertions to
  * cause every method to fail (if assertions are enabled).
  * <p>
  * It is intended that this class should be used as the base for classes that
