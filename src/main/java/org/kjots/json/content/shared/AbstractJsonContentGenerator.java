@@ -13,37 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.content.server.io;
-
-import java.io.IOException;
-import java.io.Reader;
-
-import org.kjots.json.content.shared.JsonContentGenerator;
+package org.kjots.json.content.shared;
 
 /**
- * JSON Reader.
+ * Abstract JSON Content Generator.
  * <p>
- * Created: 1st February 2010.
+ * Created: 15th February 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
-public interface JsonReader extends JsonContentGenerator {
-  /**
-   * Parse the given JSON text.
-   * 
-   * @param jsonText The JSON text.
-   * @throws JsonReaderException
-   */
-  public void parse(String jsonText)
-    throws JsonReaderException;
+public class AbstractJsonContentGenerator implements JsonContentGenerator {
+  /** The JSON content handler. */
+  protected JsonContentHandler contentHandler;
   
   /**
-   * Parse the JSON text provided by the given reader.
-   * 
-   * @param reader The reader.
-   * @throws IOException
-   * @throws JsonReaderException
+   * Retrieve the content handler.
+   *
+   * @return The content handler.
+   * @see #setContentHandler(JsonContentHandler)
    */
-  public void parse(Reader reader)
-    throws IOException, JsonReaderException;
+  public JsonContentHandler getContentHandler() {
+    return this.contentHandler;
+  }
+
+  /**
+   * Set the content handler.
+   *
+   * @param contentHandler The content handler.
+   * @see #getContentHandler()
+   */
+  public void setContentHandler(JsonContentHandler contentHandler) {
+    this.contentHandler = contentHandler;
+  }
 }

@@ -24,7 +24,7 @@ import org.kjots.json.content.rebase.org.json.simple.parser.JSONParser;
 import org.kjots.json.content.rebase.org.json.simple.parser.ParseException;
 import org.kjots.json.content.server.io.JsonReader;
 import org.kjots.json.content.server.io.JsonReaderException;
-import org.kjots.json.content.shared.JsonContentHandler;
+import org.kjots.json.content.shared.AbstractJsonContentGenerator;
 
 /**
  * Simple JSON Reader.
@@ -37,32 +37,7 @@ import org.kjots.json.content.shared.JsonContentHandler;
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
-public class SimpleJsonReader implements JsonReader {
-  /** The content handler. */
-  private JsonContentHandler contentHandler;
-
-  /**
-   * Retrieve the content handler.
-   *
-   * @return The content handler.
-   * @see #setSontentHandler(JsonContentHandler)
-   */
-  @Override
-  public JsonContentHandler getContentHandler() {
-    return this.contentHandler;
-  }
-
-  /**
-   * Set the content handler.
-   *
-   * @param contentHandler The content handler.
-   * @see #getContentHandler()
-   */
-  @Override
-  public void setContentHandler(JsonContentHandler contentHandler) {
-    this.contentHandler = contentHandler;
-  }
-  
+public class SimpleJsonReader extends AbstractJsonContentGenerator implements JsonReader {
   /**
    * Parse the given JSON text.
    * 
