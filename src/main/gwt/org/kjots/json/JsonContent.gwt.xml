@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright © 2009 Karl J. Ots <kjots@kjots.org>
+  Copyright © 2010 Karl J. Ots <kjots@kjots.org>
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -16,24 +16,14 @@
 -->
 <!DOCTYPE module SYSTEM "http://google-web-toolkit.googlecode.com/svn/releases/2.0/distro-source/core/src/gwt-module.dtd">
 <!--
-  org.kjots.json.JsonObject
+  org.kjots.json.JsonContent
   
-  Created: 6th December 2009.
+  Created: 15th February 2010.
   
   @author Karl J. Ots <kjots@kjots.org>
-  @since json-object-0.1
 -->
 <module>
-  <inherits name="org.kjots.json.JsonContent"/>
+  <inherits name="com.google.gwt.user.User"/>
   
-  <inherits name="com.google.gwt.inject.Inject"/>
-  
-  <generate-with class="org.kjots.json.object.rebind.GwtJsonObjectFactoryGenerator">
-    <when-type-assignable class="org.kjots.json.object.shared.JsonObjectFactory"/>
-  </generate-with>
-  
-  <source path="object/shared"/>
-  <source path="object/client"/>
-  
-  <entry-point class="org.kjots.json.object.client.JsonObjectGinModule"/>
+  <source path="content/shared"/>
 </module>
