@@ -86,7 +86,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startObject() {
-      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject(JsonObject.class);
+      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
       
       this.jsonObject = jsonObject;
       
@@ -98,7 +98,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startArray() {
-      JsonArray jsonArray = JsonObjectFactory.get().createJsonArray(JsonArray.class);
+      JsonArray jsonArray = JsonObjectFactory.get().createJsonArray();
       
       this.jsonObject = jsonArray;
       
@@ -133,7 +133,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startObject() {
-      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject(JsonObject.class);
+      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
       
       this.jsonObject.setObjectProperty(this.nextMemberName, jsonObject);
       
@@ -153,7 +153,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startArray() {
-      JsonArray jsonArray = JsonObjectFactory.get().createJsonArray(JsonArray.class);
+      JsonArray jsonArray = JsonObjectFactory.get().createJsonArray();
       
       this.jsonObject.setObjectProperty(this.nextMemberName, jsonArray);
       
@@ -230,7 +230,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startObject() {
-      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject(JsonObject.class);
+      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
       
       this.jsonArray.setObjectElement(this.jsonArray.getLength(), jsonObject);
       
@@ -242,7 +242,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startArray() {
-      JsonArray jsonArray = JsonObjectFactory.get().createJsonArray(JsonArray.class);
+      JsonArray jsonArray = JsonObjectFactory.get().createJsonArray();
       
       this.jsonArray.setObjectElement(this.jsonArray.getLength(), jsonArray);
       
