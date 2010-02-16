@@ -67,7 +67,8 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
           this.contentHandler.primitive(Integer.valueOf(jsonArray.getIntegerElement(i)));
         }
         else if (jsonArray.isNumberElement(i)) {
-          this.contentHandler.primitive(BigDecimal.valueOf(jsonArray.getNumberElement(i)));
+          // FIXME: Use BigDecimal.valueOf(double) when available in GWT.
+          this.contentHandler.primitive(new BigDecimal(Double.toString(jsonArray.getNumberElement(i))));
         }
         else if (jsonArray.isStringElement(i)) {
           this.contentHandler.primitive(jsonArray.getStringElement(i));
@@ -101,7 +102,8 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
           this.contentHandler.primitive(Integer.valueOf(jsonObject.getIntegerProperty(propertyName)));
         }
         else if (jsonObject.isNumberProperty(propertyName)) {
-          this.contentHandler.primitive(BigDecimal.valueOf(jsonObject.getNumberProperty(propertyName)));
+          // FIXME: Use BigDecimal.valueOf(double) when available in GWT.
+          this.contentHandler.primitive(new BigDecimal(Double.toString(jsonObject.getNumberProperty(propertyName))));
         }
         else if (jsonObject.isStringProperty(propertyName)) {
           this.contentHandler.primitive(jsonObject.getStringProperty(propertyName));
