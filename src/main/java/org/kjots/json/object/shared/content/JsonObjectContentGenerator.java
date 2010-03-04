@@ -18,7 +18,6 @@ package org.kjots.json.object.shared.content;
 import org.kjots.json.content.shared.AbstractJsonContentGenerator;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonStringArray;
 
 /**
  * JSON Object Content Generator.
@@ -80,10 +79,7 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
     else {
       this.contentHandler.startObject();
       
-      JsonStringArray propertyNames = jsonObject.getPropertyNames();
-      for (int i = 0; i < propertyNames.getLength(); i++) {
-        String propertyName = propertyNames.get(i);
-  
+      for (String propertyName : jsonObject.getPropertyNames()) {
         this.contentHandler.memberName(propertyName);
         
         if (jsonObject.isNullProperty(propertyName)) {

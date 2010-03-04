@@ -15,6 +15,8 @@
  */
 package org.kjots.json.object.shared;
 
+import java.util.Set;
+
 /**
  * JSON Object.
  * <p>
@@ -45,7 +47,7 @@ public interface JsonObject {
    *
    * @return The name of the properties of the JSON object.
    */
-  public JsonStringArray getPropertyNames();
+  public Set<String> getPropertyNames();
   
   /**
    * Determine if the JSON object has a property with the given name.

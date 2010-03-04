@@ -24,9 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
 import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonStringArray;
 
 /**
  * JSON Object Implementation Test Base.
@@ -95,14 +93,7 @@ public abstract class JsonObjectImplTestBase<J> {
       testJsonObject.setObjectProperty(testPropertyName, null);
     }
     
-    JsonStringArray jsonObjectPropertyNames = testJsonObject.getPropertyNames();
-    
-    Set<String> propertyNames = new HashSet<String>();
-    for (int i = 0; i < jsonObjectPropertyNames.getLength(); i++) {
-      propertyNames.add(jsonObjectPropertyNames.get(i));
-    }
-    
-    assertEquals(testPropertyNames, propertyNames);
+    assertEquals(testPropertyNames, testJsonObject.getPropertyNames());
   }
   
   /**

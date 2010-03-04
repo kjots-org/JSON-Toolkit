@@ -15,12 +15,14 @@
  */
 package org.kjots.json.object.server.js.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.script.Invocable;
 import javax.script.ScriptException;
 
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectFactory;
-import org.kjots.json.object.shared.JsonStringArray;
 
 /**
  * JavaScript JSON Object Implementation.
@@ -81,10 +83,18 @@ public class JsJsonObjectImpl implements JsonObject {
    * @return The name of the properties of the JSON object.
    */
   @Override
-  public final JsonStringArray getPropertyNames() {
-    Object jsPropertyNames = this.invokeFunction("getPropertyNames", this.jsObject);
+  public final Set<String> getPropertyNames() {
+    Set<String> propertyNames = new HashSet<String>();
     
-    return new JsJsonStringArrayImpl(this.jsEngine, jsPropertyNames);
+    Object jsPropertyNames = this.invokeFunction("getPropertyNames", this.jsObject);
+    Double numPropertyNames = this.invokeFunction("getArrayLength", jsPropertyNames);
+    for (int i = 0; i < numPropertyNames.intValue(); i++) {
+      String propertyName = this.invokeFunction("getProperty", jsPropertyNames, i);
+      
+      propertyNames.add(propertyName);
+    }
+    
+    return propertyNames;
   }
   
   /**

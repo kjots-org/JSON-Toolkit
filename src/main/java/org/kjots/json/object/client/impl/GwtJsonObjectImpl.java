@@ -15,12 +15,14 @@
  */
 package org.kjots.json.object.client.impl;
 
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayString;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectFactory;
-import org.kjots.json.object.shared.JsonStringArray;
+
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
 
 /**
  * GWT JSON Object Implementation.
@@ -80,8 +82,15 @@ public class GwtJsonObjectImpl implements JsonObject {
    * @return The name of the properties of the JSON object.
    */
   @Override
-  public final JsonStringArray getPropertyNames() {
-    return new GwtJsonStringArrayImpl(this.getJsPropertyNames());
+  public final Set<String> getPropertyNames() {
+    Set<String> propertyNames = new HashSet<String>();
+    
+    JsArrayString jsPropertyNames = this.getJsPropertyNames();
+    for (int i = 0; i < jsPropertyNames.length(); i++) {
+      propertyNames.add(jsPropertyNames.get(i));
+    }
+    
+    return propertyNames;
   };
   
   /**
