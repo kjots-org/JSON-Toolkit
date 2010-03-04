@@ -111,7 +111,7 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    */
   @Override
   protected int getArrayLength(Object array) {
-    Double arrayLength = this.invokeFunction("getArrayLength", array);
+    Number arrayLength = this.invokeFunction("getArrayLength", array);
     
     return arrayLength.intValue();
   }
@@ -163,10 +163,10 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    * @param array The underlying JSON array.
    * @param elementIndex The index of the element.
    * @return The numeric value of the element.
-   * @see #setNumberElement(Object, int, double)
+   * @see #setNumberElement(Object, int, Number)
    */
   @Override
-  protected double getNumberElement(Object array, int elementIndex) {
+  protected Number getNumberElement(Object array, int elementIndex) {
     return this.invokeFunction("getProperty", array, elementIndex);
   }
   
@@ -180,35 +180,7 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    * @see #getNumberElement(Object, int)
    */
   @Override
-  protected void setNumberElement(Object array, int elementIndex, double elementValue) {
-    this.invokeFunction("setProperty", array, elementIndex, elementValue);
-  }
-  
-  /**
-   * Retrieve the integer value of the element at the given index from the
-   * given underlying JSON array.
-   *
-   * @param array The underlying JSON array.
-   * @param elementIndex The index of the element.
-   * @return The integer value of the element.
-   * @see #setIntegerElement(Object, int, int)
-   */
-  @Override
-  protected int getIntegerElement(Object array, int elementIndex) {
-    return this.invokeFunction("getProperty", array, elementIndex);
-  }
-  
-  /**
-   * Set the element with the given name in the given underlying JSON array to
-   * the given integer value.
-   *
-   * @param array The underlying JSON array.
-   * @param elementIndex The index of the element.
-   * @param elementValue The integer value of the element.
-   * @see #getIntegerElement(Object, int)
-   */
-  @Override
-  protected void setIntegerElement(Object array, int elementIndex, int elementValue) {
+  protected void setNumberElement(Object array, int elementIndex, Number elementValue) {
     this.invokeFunction("setProperty", array, elementIndex, elementValue);
   }
   

@@ -91,10 +91,9 @@ public abstract class JsonArrayImplTestBase<J> {
     
     this.setBooleanElement(array, 0, true);
     this.setNumberElement(array, 1, 3.14);
-    this.setIntegerElement(array, 2, 42);
-    this.setStringElement(array, 3, "Test String Element Value");
-    this.setObjectElement(array, 4, this.createUnderlyingJsonObject());
-    this.setObjectElement(array, 5, null);
+    this.setStringElement(array, 2, "Test String Element Value");
+    this.setObjectElement(array, 3, this.createUnderlyingJsonObject());
+    this.setObjectElement(array, 4, null);
     
     JsonArray testJsonArray = this.createJsonArray(array);
     
@@ -103,7 +102,6 @@ public abstract class JsonArrayImplTestBase<J> {
     assertFalse("isBooleanElement(2) != false", testJsonArray.isBooleanElement(2));
     assertFalse("isBooleanElement(3) != false", testJsonArray.isBooleanElement(3));
     assertFalse("isBooleanElement(4) != false", testJsonArray.isBooleanElement(4));
-    assertFalse("isBooleanElement(5) != false", testJsonArray.isBooleanElement(5));
   }
 
   /**
@@ -180,19 +178,17 @@ public abstract class JsonArrayImplTestBase<J> {
     
     this.setBooleanElement(array, 0, true);
     this.setNumberElement(array, 1, 3.14);
-    this.setIntegerElement(array, 2, 42);
-    this.setStringElement(array, 3, "Test String Element Value");
-    this.setObjectElement(array, 4, this.createUnderlyingJsonObject());
-    this.setObjectElement(array, 5, null);
+    this.setStringElement(array, 2, "Test String Element Value");
+    this.setObjectElement(array, 3, this.createUnderlyingJsonObject());
+    this.setObjectElement(array, 4, null);
     
     JsonArray testJsonArray = this.createJsonArray(array);
     
     assertFalse("isNumberElement(0) != false", testJsonArray.isNumberElement(0));
     assertTrue("isNumberElement(1) != true", testJsonArray.isNumberElement(1));
-    assertTrue("isNumberElement(2) != true", testJsonArray.isNumberElement(2));
+    assertFalse("isNumberElement(2) != false", testJsonArray.isNumberElement(2));
     assertFalse("isNumberElement(3) != false", testJsonArray.isNumberElement(3));
     assertFalse("isNumberElement(4) != false", testJsonArray.isNumberElement(4));
-    assertFalse("isNumberElement(5) != false", testJsonArray.isNumberElement(5));
   }
 
   /**
@@ -209,7 +205,7 @@ public abstract class JsonArrayImplTestBase<J> {
     
     JsonArray testJsonArray = this.createJsonArray(array);
     
-    assertEquals(3.14, testJsonArray.getNumberElement(0), 0.001);
+    assertEquals(3.14, testJsonArray.getNumberElement(0).doubleValue(), 0.001);
   }
   
   /**
@@ -227,7 +223,7 @@ public abstract class JsonArrayImplTestBase<J> {
     
     testJsonArray.setNumberElement(0, 3.14);
     
-    assertEquals(3.14, this.getNumberElement(array, 0), 0.001);
+    assertEquals(3.14, this.getNumberElement(array, 0).doubleValue(), 0.001);
   }
   
   /**
@@ -246,104 +242,15 @@ public abstract class JsonArrayImplTestBase<J> {
     testJsonArray.setNumberElement(1, 3.3);
     
     assertEquals(2, this.getArrayLength(array));
-    assertEquals(1.1, this.getNumberElement(array, 0), 0.01);
-    assertEquals(3.3, this.getNumberElement(array, 1), 0.01);
+    assertEquals(1.1, this.getNumberElement(array, 0).doubleValue(), 0.01);
+    assertEquals(3.3, this.getNumberElement(array, 1).doubleValue(), 0.01);
     
     testJsonArray.insertNumberElement(1, 2.2);
     
     assertEquals(3, this.getArrayLength(array));
-    assertEquals(1.1, this.getNumberElement(array, 0), 0.01);
-    assertEquals(2.2, this.getNumberElement(array, 1), 0.01);
-    assertEquals(3.3, this.getNumberElement(array, 2), 0.01);
-  }
-
-  /**
-   * Test the determination of an integer value of a property.
-   * <p>
-   * This test asserts that the JSON object correctly reports that an element
-   * has a integer value.
-   */
-  @Test
-  public void testIsIntegerElement() {
-    J array = this.createUnderlyingJsonArray();
-    
-    this.setBooleanElement(array, 0, true);
-    this.setNumberElement(array, 1, 3.14);
-    this.setIntegerElement(array, 2, 42);
-    this.setStringElement(array, 3, "Test String Element Value");
-    this.setObjectElement(array, 4, this.createUnderlyingJsonObject());
-    this.setObjectElement(array, 5, null);
-    
-    JsonArray testJsonArray = this.createJsonArray(array);
-    
-    assertFalse("isIntegerElement(0) != false", testJsonArray.isIntegerElement(0));
-    assertFalse("isIntegerElement(1) != false", testJsonArray.isIntegerElement(1));
-    assertTrue("isIntegerElement(2) != true", testJsonArray.isIntegerElement(2));
-    assertFalse("isIntegerElement(3) != false", testJsonArray.isIntegerElement(3));
-    assertFalse("isIntegerElement(4) != false", testJsonArray.isIntegerElement(4));
-    assertFalse("isIntegerElement(5) != false", testJsonArray.isIntegerElement(5));
-  }
-
-  /**
-   * Test the retrieval of the integer value of an element.
-   * <p>
-   * This test asserts that the retrieved integer value of an element matches 
-   * the value of the corresponding element of the underlying JSON array.
-   */
-  @Test
-  public void testGetIntegerElement() {
-    J array = this.createUnderlyingJsonArray();
-    
-    this.setIntegerElement(array, 0, 42);
-    
-    JsonArray testJsonArray = this.createJsonArray(array);
-    
-    assertEquals(42, testJsonArray.getIntegerElement(0));
-  }
-  
-  /**
-   * Test the setting of the integer value of an element.
-   * <p>
-   * This test asserts that the setting of the integer value of an element
-   * changes the value of the corresponding element of the underlying
-   * JSON array.
-   */
-  @Test
-  public void testSetIntegerElement() {
-    J array = this.createUnderlyingJsonArray();
-    
-    JsonArray testJsonArray = this.createJsonArray(array);
-    
-    testJsonArray.setIntegerElement(0, 42);
-    
-    assertEquals(42, this.getIntegerElement(array, 0));
-  }
-  
-  /**
-   * Test the insertion of an integer value element.
-   * <p>
-   * This test asserts that the insertion of an integer value element inserts 
-   * a corresponding element in the the underlying JSON array.
-   */
-  @Test
-  public void testInsertIntegerElement() {
-    J array = this.createUnderlyingJsonArray();
-    
-    JsonArray testJsonArray = this.createJsonArray(array);
-    
-    testJsonArray.setIntegerElement(0, 1);
-    testJsonArray.setIntegerElement(1, 3);
-    
-    assertEquals(2, this.getArrayLength(array));
-    assertEquals(1, this.getIntegerElement(array, 0));
-    assertEquals(3, this.getIntegerElement(array, 1));
-    
-    testJsonArray.insertIntegerElement(1, 2);
-    
-    assertEquals(3, this.getArrayLength(array));
-    assertEquals(1, this.getIntegerElement(array, 0));
-    assertEquals(2, this.getIntegerElement(array, 1));
-    assertEquals(3, this.getIntegerElement(array, 2));
+    assertEquals(1.1, this.getNumberElement(array, 0).doubleValue(), 0.01);
+    assertEquals(2.2, this.getNumberElement(array, 1).doubleValue(), 0.01);
+    assertEquals(3.3, this.getNumberElement(array, 2).doubleValue(), 0.01);
   }
 
   /**
@@ -358,19 +265,17 @@ public abstract class JsonArrayImplTestBase<J> {
     
     this.setBooleanElement(array, 0, true);
     this.setNumberElement(array, 1, 3.14);
-    this.setIntegerElement(array, 2, 42);
-    this.setStringElement(array, 3, "Test String Element Value");
-    this.setObjectElement(array, 4, this.createUnderlyingJsonObject());
-    this.setObjectElement(array, 5, null);
+    this.setStringElement(array, 2, "Test String Element Value");
+    this.setObjectElement(array, 3, this.createUnderlyingJsonObject());
+    this.setObjectElement(array, 4, null);
     
     JsonArray testJsonArray = this.createJsonArray(array);
     
     assertFalse("isStringElement(0) != false", testJsonArray.isStringElement(0));
     assertFalse("isStringElement(1) != false", testJsonArray.isStringElement(1));
-    assertFalse("isStringElement(2) != false", testJsonArray.isStringElement(2));
-    assertTrue("isStringElement(3) != true", testJsonArray.isStringElement(3));
+    assertTrue("isStringElement(2) != true", testJsonArray.isStringElement(2));
+    assertFalse("isStringElement(3) != false", testJsonArray.isStringElement(3));
     assertFalse("isStringElement(4) != false", testJsonArray.isStringElement(4));
-    assertFalse("isStringElement(5) != false", testJsonArray.isStringElement(5));
   }
 
   /**
@@ -447,19 +352,17 @@ public abstract class JsonArrayImplTestBase<J> {
     
     this.setBooleanElement(array, 0, true);
     this.setNumberElement(array, 1, 3.14);
-    this.setIntegerElement(array, 2, 42);
-    this.setStringElement(array, 3, "Test String Element Value");
-    this.setObjectElement(array, 4, this.createUnderlyingJsonObject());
-    this.setObjectElement(array, 5, null);
+    this.setStringElement(array, 2, "Test String Element Value");
+    this.setObjectElement(array, 3, this.createUnderlyingJsonObject());
+    this.setObjectElement(array, 4, null);
     
     JsonArray testJsonArray = this.createJsonArray(array);
     
     assertFalse("isObjectElement(0) != false", testJsonArray.isObjectElement(0));
     assertFalse("isObjectElement(1) != false", testJsonArray.isObjectElement(1));
     assertFalse("isObjectElement(2) != false", testJsonArray.isObjectElement(2));
-    assertFalse("isObjectElement(3) != false", testJsonArray.isObjectElement(3));
-    assertTrue("isObjectElement(4) != true", testJsonArray.isObjectElement(4));
-    assertFalse("isObjectElement(5) != false", testJsonArray.isObjectElement(5));
+    assertTrue("isObjectElement(3) != true", testJsonArray.isObjectElement(3));
+    assertFalse("isObjectElement(4) != false", testJsonArray.isObjectElement(4));
   }
 
   /**
@@ -660,9 +563,9 @@ public abstract class JsonArrayImplTestBase<J> {
    * @param array The underlying JSON array.
    * @param elementIndex The index of the element.
    * @return The numeric value of the element.
-   * @see #setNumberElement(Object, int, double)
+   * @see #setNumberElement(Object, int, Number)
    */
-  protected abstract double getNumberElement(J array, int elementIndex);
+  protected abstract Number getNumberElement(J array, int elementIndex);
   
   /**
    * Set the element with the given name in the given underlying JSON array to
@@ -673,29 +576,7 @@ public abstract class JsonArrayImplTestBase<J> {
    * @param elementValue The numeric value of the element.
    * @see #getNumberElement(Object, int)
    */
-  protected abstract void setNumberElement(J array, int elementIndex, double elementValue);
-  
-  /**
-   * Retrieve the integer value of the element at the given index from the
-   * given underlying JSON array.
-   *
-   * @param array The underlying JSON array.
-   * @param elementIndex The index of the element.
-   * @return The integer value of the element.
-   * @see #setIntegerElement(Object, int, int)
-   */
-  protected abstract int getIntegerElement(J array, int elementIndex);
-  
-  /**
-   * Set the element with the given name in the given underlying JSON array to
-   * the given integer value.
-   *
-   * @param array The underlying JSON array.
-   * @param elementIndex The index of the element.
-   * @param elementValue The integer value of the element.
-   * @see #getIntegerElement(Object, int)
-   */
-  protected abstract void setIntegerElement(J array, int elementIndex, int elementValue);
+  protected abstract void setNumberElement(J array, int elementIndex, Number elementValue);
   
   /**
    * Retrieve the string value of the element at the given index from the

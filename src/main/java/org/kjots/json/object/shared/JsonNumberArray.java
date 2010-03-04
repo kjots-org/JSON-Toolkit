@@ -29,9 +29,9 @@ public interface JsonNumberArray extends JsonArray {
    *
    * @param index The index.
    * @return The numeric value.
-   * @see #set(int, double)
+   * @see #set(int, Number)
    */
-  public double get(int index);
+  public Number get(int index);
   
   /**
    * Set the element at the given index to the given numeric value.
@@ -40,13 +40,13 @@ public interface JsonNumberArray extends JsonArray {
    * @param value The numeric value.
    * @see #get(int)
    */
-  public void set(int index, double value);
+  public void set(int index, Number value);
   
   /**
-   * Insert the given double value at the given index.
+   * Insert the given numeric value at the given index.
    *
    * @param index The index.
-   * @param value The double value.
+   * @param value The numeric value.
    */
-  public void insert(int index, double value);
+  public void insert(int index, Number value);
 }

@@ -86,10 +86,10 @@ public class JsJsonNumberMapImplTest extends JsonNumberMapImplTestBase<Object> {
    * @param object The underlying JSON object.
    * @param propertyName The name of the property.
    * @return The number value of the property.
-   * @see #setNumberProperty(Object, String, double)
+   * @see #setNumberProperty(Object, String, Number)
    */
   @Override
-  protected double getNumberProperty(Object object, String propertyName) {
+  protected Number getNumberProperty(Object object, String propertyName) {
     return this.invokeFunction("getProperty", object, propertyName);
   }
   
@@ -103,7 +103,7 @@ public class JsJsonNumberMapImplTest extends JsonNumberMapImplTestBase<Object> {
    * @see #getNumberProperty(Object, String)
    */
   @Override
-  protected void setNumberProperty(Object object, String propertyName, double propertyValue) {
+  protected void setNumberProperty(Object object, String propertyName, Number propertyValue) {
     this.invokeFunction("setProperty", object, propertyName, propertyValue);
   }
   

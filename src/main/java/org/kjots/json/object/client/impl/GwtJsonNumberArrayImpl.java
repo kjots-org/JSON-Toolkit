@@ -42,10 +42,10 @@ public class GwtJsonNumberArrayImpl extends GwtJsonArrayImpl implements JsonNumb
    *
    * @param index The index.
    * @return The numeric value.
-   * @see #set(int, double)
+   * @see #set(int, Number)
    */
   @Override
-  public final double get(int index) {
+  public final Number get(int index) {
     return this.getNumberElement(index);
   }
   
@@ -57,18 +57,18 @@ public class GwtJsonNumberArrayImpl extends GwtJsonArrayImpl implements JsonNumb
    * @see #get(int)
    */
   @Override
-  public final void set(int index, double value) {
+  public final void set(int index, Number value) {
     this.setNumberElement(index, value);
   }
   
   /**
-   * Insert the given double value at the given index.
+   * Insert the given numeric value at the given index.
    *
    * @param index The index.
-   * @param value The double value.
+   * @param value The numeric value.
    */
   @Override
-  public final void insert(int index, double value) {
+  public final void insert(int index, Number value) {
     this.insertNumberElement(index, value);
   }
 }

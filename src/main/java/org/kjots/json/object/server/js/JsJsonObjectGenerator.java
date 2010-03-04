@@ -22,9 +22,6 @@ import static org.objectweb.asm.Opcodes.ALOAD;
 import static org.objectweb.asm.Opcodes.ARETURN;
 import static org.objectweb.asm.Opcodes.ASTORE;
 import static org.objectweb.asm.Opcodes.CHECKCAST;
-import static org.objectweb.asm.Opcodes.DLOAD;
-import static org.objectweb.asm.Opcodes.DRETURN;
-import static org.objectweb.asm.Opcodes.DSTORE;
 import static org.objectweb.asm.Opcodes.DUP;
 import static org.objectweb.asm.Opcodes.ILOAD;
 import static org.objectweb.asm.Opcodes.INVOKEINTERFACE;
@@ -40,14 +37,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Type;
-
 import org.kjots.json.object.server.js.impl.JsJsonObjectImpl;
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
-import org.kjots.json.object.shared.JsonIntegerPropertyAdapter;
 import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectArray;
@@ -56,6 +47,10 @@ import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
 import org.kjots.json.object.shared.JsonProperty;
 import org.kjots.json.object.shared.JsonPropertyAdapter;
 import org.kjots.json.object.shared.JsonStringPropertyAdapter;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Type;
 
 /**
  * JavaScript JSON Object Generator.
@@ -317,10 +312,7 @@ public class JsJsonObjectGenerator {
         this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Z", "getBooleanProperty", ISTORE, ILOAD);
       }
       else if (JsonNumberPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "D", "getNumberProperty", DSTORE, DLOAD);
-      }
-      else if (JsonIntegerPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "I", "getIntegerProperty", ISTORE, ILOAD);
+        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Ljava/lang/Number;", "getNumberProperty", ASTORE, ALOAD);
       }
       else if (JsonStringPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Ljava/lang/String;", "getStringProperty", ASTORE, ALOAD);
@@ -346,11 +338,8 @@ public class JsJsonObjectGenerator {
       if (returnType.equals(boolean.class)) {
         this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Z", "getBooleanProperty", IRETURN);
       }
-      else if (returnType.equals(double.class)) {
-        this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "D", "getNumberProperty", DRETURN);
-      }
-      else if (returnType.equals(int.class)) {
-        this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "I", "getIntegerProperty", IRETURN);
+      else if (returnType.equals(Number.class)) {
+        this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Number;", "getNumberProperty", ARETURN);
       }
       else if (returnType.equals(String.class)) {
         this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/String;", "getStringProperty", ARETURN);
@@ -403,10 +392,7 @@ public class JsJsonObjectGenerator {
         this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Z", "setBooleanProperty", ISTORE, ILOAD);
       }
       else if (JsonNumberPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "D", "setNumberProperty", DSTORE, DLOAD);
-      }
-      else if (JsonIntegerPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "I", "setIntegerProperty", ISTORE, ILOAD);
+        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Ljava/lang/Number;", "setNumberProperty", ASTORE, ALOAD);
       }
       else if (JsonStringPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Ljava/lang/String;", "setStringProperty", ASTORE, ALOAD);
@@ -432,11 +418,8 @@ public class JsJsonObjectGenerator {
       if (parameterType.equals(boolean.class)) {
         this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Z", "setBooleanProperty", ILOAD);
       }
-      else if (parameterType.equals(double.class)) {
-        this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "D", "setNumberProperty", DLOAD);
-      }
-      else if (parameterType.equals(int.class)) {
-        this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "I", "setIntegerProperty", ILOAD);
+      else if (parameterType.equals(Number.class)) {
+        this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Number;", "setNumberProperty", ALOAD);
       }
       else if (parameterType.equals(String.class)) {
         this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/String;", "setStringProperty", ALOAD);
@@ -614,8 +597,6 @@ public class JsJsonObjectGenerator {
     Label start = new Label();
     Label end = new Label();
     
-    int maxsExtra = loadOpcode == DLOAD ? 1 : 0;
-    
     methodVisitor.visitCode();
     
     methodVisitor.visitLabel(start);
@@ -628,7 +609,7 @@ public class JsJsonObjectGenerator {
     
     methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
     methodVisitor.visitLocalVariable(propertyName, primitiveTypeSignature, null, start, end, 1);
-    methodVisitor.visitMaxs(3 + maxsExtra , 2 + maxsExtra);
+    methodVisitor.visitMaxs(3 , 2);
     
     methodVisitor.visitEnd();
   }
@@ -752,8 +733,6 @@ public class JsJsonObjectGenerator {
     Label start = new Label();
     Label end = new Label();
     
-    int maxsExtra = loadOpcode == DLOAD ? 1 : 0;
-    
     methodVisitor.visitCode();
     
     methodVisitor.visitLabel(start);
@@ -771,7 +750,7 @@ public class JsJsonObjectGenerator {
     
     methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
     methodVisitor.visitLocalVariable("_" + propertyName, primitiveTypeSignature, null, start, end, 1);
-    methodVisitor.visitMaxs(2 + maxsExtra, 2 + maxsExtra);
+    methodVisitor.visitMaxs(2, 2);
     
     methodVisitor.visitEnd();
   }
@@ -796,8 +775,6 @@ public class JsJsonObjectGenerator {
     Label start = new Label();
     Label end = new Label();
     
-    int maxsExtra = loadOpcode == DLOAD ? 1 : 0;
-    
     methodVisitor.visitCode();
     methodVisitor.visitLabel(start);
     methodVisitor.visitTypeInsn(NEW, adapterIClassName);
@@ -816,7 +793,7 @@ public class JsJsonObjectGenerator {
     methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
     methodVisitor.visitLocalVariable(propertyName, "L" + propertyIClassName + ";", null, start, end, 1);
     methodVisitor.visitLocalVariable("_" + propertyName, primitiveTypeSignature, null, start, end, 2);
-    methodVisitor.visitMaxs(3 + maxsExtra, 3 + maxsExtra);
+    methodVisitor.visitMaxs(3, 3);
     
     methodVisitor.visitEnd();
   }

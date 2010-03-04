@@ -28,9 +28,6 @@ import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.JsonBooleanMap;
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
-import org.kjots.json.object.shared.JsonIntegerArray;
-import org.kjots.json.object.shared.JsonIntegerMap;
-import org.kjots.json.object.shared.JsonIntegerPropertyAdapter;
 import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.JsonNumberMap;
 import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
@@ -172,10 +169,10 @@ public abstract class JsonObjectGeneratorTestBase {
      * Retrieve the test number property.
      *
      * @return The test number property.
-     * @see #setTestNumberProperty(double)
+     * @see #setTestNumberProperty(Number)
      */
     @JsonProperty(name = "testNumberProperty", operation = OperationType.GET)
-    public double getTestNumberProperty();
+    public Number getTestNumberProperty();
     
     /**
      * Set the test number property.
@@ -184,7 +181,7 @@ public abstract class JsonObjectGeneratorTestBase {
      * @see #getTestNumberProperty()
      */
     @JsonProperty(name = "testNumberProperty", operation = OperationType.SET)
-    public void setTestNumberProperty(double testNumberProperty);
+    public void setTestNumberProperty(Number testNumberProperty);
     
     /**
      * Retrieve the test adapted number property.
@@ -203,42 +200,6 @@ public abstract class JsonObjectGeneratorTestBase {
      */
     @JsonProperty(name = "testAdaptedNumberProperty", operation = OperationType.SET, adapter = TestJsonNumberPropertyAdapter.class)
     public void setTestAdaptedNumberProperty(String testAdaptedNumberProperty);
-    
-    /**
-     * Retrieve the test integer property.
-     *
-     * @return The test integer property.
-     * @see #setTestIntegerProperty(int)
-     */
-    @JsonProperty(name = "testIntegerProperty", operation = OperationType.GET)
-    public int getTestIntegerProperty();
-    
-    /**
-     * Set the test integer property.
-     *
-     * @param testIntegerProperty The test integer property.
-     * @see #getTestIntegerProperty()
-     */
-    @JsonProperty(name = "testIntegerProperty", operation = OperationType.SET)
-    public void setTestIntegerProperty(int testIntegerProperty);
-    
-    /**
-     * Retrieve the test adapted integer property.
-     * 
-     * @return The test adapted integer property.
-     * @see #setTestAdaptedIntegerProperty(String)
-     */
-    @JsonProperty(name = "testAdaptedIntegerProperty", operation = OperationType.GET, adapter = TestJsonIntegerPropertyAdapter.class)
-    public String getTestAdaptedIntegerProperty();
-    
-    /**
-     * Set the test adapted integer property.
-     * 
-     * @param testAdaptedIntegerProperty The test adapted integer property.
-     * @see #getTestAdaptedIntegerProperty()
-     */
-    @JsonProperty(name = "testAdaptedIntegerProperty", operation = OperationType.SET, adapter = TestJsonIntegerPropertyAdapter.class)
-    public void setTestAdaptedIntegerProperty(String testAdaptedIntegerProperty);
     
     /**
      * Retrieve the test string property.
@@ -367,24 +328,6 @@ public abstract class JsonObjectGeneratorTestBase {
     public void setTestNumberArrayProperty(JsonNumberArray testNumberArrayProperty);
     
     /**
-     * Retrieve the test integer array property.
-     *
-     * @return The test integer array property.
-     * @see #setTestIntegerArrayProperty(JsonIntegerArray)
-     */
-    @JsonProperty(name = "testIntegerArrayProperty", operation = OperationType.GET)
-    public JsonIntegerArray getTestIntegerArrayProperty();
-    
-    /**
-     * Set the test integer array property.
-     *
-     * @param testIntegerArrayProperty The test integer array property.
-     * @see #getTestIntegerArrayProperty()
-     */
-    @JsonProperty(name = "testIntegerArrayProperty", operation = OperationType.SET)
-    public void setTestIntegerArrayProperty(JsonIntegerArray testIntegerArrayProperty);
-    
-    /**
      * Retrieve the test string array property.
      *
      * @return The test string array property.
@@ -463,24 +406,6 @@ public abstract class JsonObjectGeneratorTestBase {
      */
     @JsonProperty(name = "testNumberMapProperty", operation = OperationType.SET)
     public void setTestNumberMapProperty(JsonNumberMap testNumberMapProperty);
-    
-    /**
-     * Retrieve the test integer map property.
-     *
-     * @return The test integer map property.
-     * @see #setTestIntegerMapProperty(JsonIntegerMap)
-     */
-    @JsonProperty(name = "testIntegerMapProperty", operation = OperationType.GET)
-    public JsonIntegerMap getTestIntegerMapProperty();
-    
-    /**
-     * Set the test integer map property.
-     *
-     * @param testIntegerMapProperty The test integer map property.
-     * @see #getTestIntegerMapProperty()
-     */
-    @JsonProperty(name = "testIntegerMapProperty", operation = OperationType.SET)
-    public void setTestIntegerMapProperty(JsonIntegerMap testIntegerMapProperty);
     
     /**
      * Retrieve the test string map property.
@@ -573,10 +498,10 @@ public abstract class JsonObjectGeneratorTestBase {
      *
      * @param string The value.
      * @return The JSON number property value.
-     * @see #fromJsonProperty(double)
+     * @see #fromJsonProperty(Number)
      */
     @Override
-    public double toJsonProperty(String string) {
+    public Number toJsonProperty(String string) {
       return Double.parseDouble(string);
     }
     
@@ -588,41 +513,8 @@ public abstract class JsonObjectGeneratorTestBase {
      * @see #toJsonProperty(String)
      */
     @Override
-    public String fromJsonProperty(double propertyValue) {
-      return Double.toString(propertyValue);
-    }
-  }
-  
-  /**
-   * Test JSON Integer Property Adapter
-   * <p>
-   * Created: 13th December 2009.
-   *
-   * @since json-object-0.2
-   */
-  public static class TestJsonIntegerPropertyAdapter implements JsonIntegerPropertyAdapter<String> {
-    /**
-     * Convert to a JSON integer property value.
-     *
-     * @param string The value.
-     * @return The JSON integer property value.
-     * @see #fromJsonProperty(int)
-     */
-    @Override
-    public int toJsonProperty(String string) {
-      return Integer.parseInt(string);
-    }
-    
-    /**
-     * Convert from a JSON integer property value.
-     *
-     * @param propertyValue The JSON integer property value.
-     * @return The value.
-     * @see #toJsonProperty(String)
-     */
-    @Override
-    public String fromJsonProperty(int propertyValue) {
-      return Integer.toString(propertyValue);
+    public String fromJsonProperty(Number propertyValue) {
+      return propertyValue.toString();
     }
   }
   
@@ -910,7 +802,7 @@ public abstract class JsonObjectGeneratorTestBase {
     
     testJsonObject.setNumberProperty("testNumberProperty", 3.14);
     
-    assertEquals(3.14, testJsonObject.getTestNumberProperty(), 0.001);
+    assertEquals(3.14, testJsonObject.getTestNumberProperty().doubleValue(), 0.001);
   }
   
   /**
@@ -926,7 +818,7 @@ public abstract class JsonObjectGeneratorTestBase {
     
     testJsonObject.setTestNumberProperty(3.14);
     
-    assertEquals(3.14, testJsonObject.getNumberProperty("testNumberProperty"), 0.001);
+    assertEquals(3.14, testJsonObject.getNumberProperty("testNumberProperty").doubleValue(), 0.001);
   }
   
   /**
@@ -958,70 +850,7 @@ public abstract class JsonObjectGeneratorTestBase {
     
     testJsonObject.setTestAdaptedNumberProperty(new TestJsonNumberPropertyAdapter().fromJsonProperty(3.14));
     
-    assertEquals(3.14, testJsonObject.getNumberProperty("testAdaptedNumberProperty"), 0.001);
-  }
-  
-  /**
-   * Test the retrieval of the integer value of a property.
-   * <p>
-   * This test asserts that the retrieved integer value of a property matches 
-   * the value of the corresponding property of the underlying JSON object.
-   */
-  @Test
-  public void testGetIntegerProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    
-    testJsonObject.setIntegerProperty("testIntegerProperty", 42);
-    
-    assertEquals(42, testJsonObject.getTestIntegerProperty());
-  }
-  
-  /**
-   * Test the setting of the integer value of a property.
-   * <p>
-   * This test asserts that the setting of the integer value of a property
-   * changes the value of the corresponding property of the underlying JSON
-   * object.
-   */
-  @Test
-  public void testSetIntegerProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    
-    testJsonObject.setTestIntegerProperty(42);
-    
-    assertEquals(42, testJsonObject.getIntegerProperty("testIntegerProperty"));
-  }
-  
-  /**
-   * Test the retrieval of the value of an adapted integer property.
-   * <p>
-   * This test asserts that the retrieved value of an adapted integer property
-   * matches the adapted value of the corresponding property of the underlying
-   * JSON object.
-   */
-  @Test
-  public void testGetAdaptedIntegerProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    
-    testJsonObject.setIntegerProperty("testAdaptedIntegerProperty", 42);
-    
-    assertEquals(new TestJsonIntegerPropertyAdapter().fromJsonProperty(42), testJsonObject.getTestAdaptedIntegerProperty());
-  }
-  
-  /**
-   * Test the setting of the value of an adapted integer property.
-   * <p>
-   * This test asserts that the setting of the value of an adapted property
-   * changes the value of the corresponding property of the underlying JSON
-   * object to the adapted integer value.
-   */
-  @Test
-  public void testSetAdaptedIntegerProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    
-    testJsonObject.setTestAdaptedIntegerProperty(new TestJsonIntegerPropertyAdapter().fromJsonProperty(42));
-    
-    assertEquals(42, testJsonObject.getIntegerProperty("testAdaptedIntegerProperty"));
+    assertEquals(3.14, testJsonObject.getNumberProperty("testAdaptedNumberProperty").doubleValue(), 0.001);
   }
   
   /**
@@ -1262,40 +1091,6 @@ public abstract class JsonObjectGeneratorTestBase {
   }
   
   /**
-   * Test the retrieval of the integer array value of a property.
-   * <p>
-   * This test asserts that the retrieved integer array value of a property
-   * matches the value of the corresponding property of the underlying
-   * JSON object.
-   */
-  @Test
-  public void testGetIntegerArrayProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    JsonIntegerArray testIntegerArrayProperty = JsonObjectFactory.get().createJsonArray(JsonIntegerArray.class);
-    
-    testJsonObject.setObjectProperty("testIntegerArrayProperty", testIntegerArrayProperty);
-    
-    assertEquals(testIntegerArrayProperty, testJsonObject.getTestIntegerArrayProperty());
-  }
-  
-  /**
-   * Test the setting of the integer array value of a property.
-   * <p>
-   * This test asserts that the setting of the integer array value of a property
-   * changes the value of the corresponding property of the underlying JSON
-   * object.
-   */
-  @Test
-  public void testSetIntegerArrayProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    JsonIntegerArray testIntegerArrayProperty = JsonObjectFactory.get().createJsonArray(JsonIntegerArray.class);
-    
-    testJsonObject.setTestIntegerArrayProperty(testIntegerArrayProperty);
-    
-    assertEquals(testIntegerArrayProperty, testJsonObject.getObjectProperty("testIntegerArrayProperty"));
-  }
-  
-  /**
    * Test the retrieval of the string array value of a property.
    * <p>
    * This test asserts that the retrieved string array value of a property
@@ -1449,40 +1244,6 @@ public abstract class JsonObjectGeneratorTestBase {
     testJsonObject.setTestNumberMapProperty(testNumberMapProperty);
     
     assertEquals(testNumberMapProperty, testJsonObject.getObjectProperty("testNumberMapProperty"));
-  }
-  
-  /**
-   * Test the retrieval of the integer map value of a property.
-   * <p>
-   * This test asserts that the retrieved integer map value of a property
-   * matches the value of the corresponding property of the underlying JSON
-   * object.
-   */
-  @Test
-  public void testGetIntegerMapProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    JsonIntegerMap testIntegerMapProperty = JsonObjectFactory.get().createJsonObject(JsonIntegerMap.class);
-    
-    testJsonObject.setObjectProperty("testIntegerMapProperty", testIntegerMapProperty);
-    
-    assertEquals(testIntegerMapProperty, testJsonObject.getTestIntegerMapProperty());
-  }
-  
-  /**
-   * Test the setting of the integer map value of a property.
-   * <p>
-   * This test asserts that the setting of the integer map value of a property
-   * changes the value of the corresponding property of the underlying JSON
-   * object.
-   */
-  @Test
-  public void testSetIntegerMapProperty() {
-    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
-    JsonIntegerMap testIntegerMapProperty = JsonObjectFactory.get().createJsonObject(JsonIntegerMap.class);
-    
-    testJsonObject.setTestIntegerMapProperty(testIntegerMapProperty);
-    
-    assertEquals(testIntegerMapProperty, testJsonObject.getObjectProperty("testIntegerMapProperty"));
   }
   
   /**

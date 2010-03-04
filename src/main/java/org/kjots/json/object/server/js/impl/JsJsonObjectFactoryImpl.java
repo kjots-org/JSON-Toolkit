@@ -7,15 +7,11 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.script.Invocable;
 
-import com.google.inject.Inject;
-
 import org.kjots.json.object.server.js.JsJsonObjectGenerator;
 import org.kjots.json.object.server.js.JsJsonObjectModule;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.JsonBooleanMap;
-import org.kjots.json.object.shared.JsonIntegerArray;
-import org.kjots.json.object.shared.JsonIntegerMap;
 import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.JsonNumberMap;
 import org.kjots.json.object.shared.JsonObject;
@@ -24,6 +20,8 @@ import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.shared.JsonObjectMap;
 import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.JsonStringMap;
+
+import com.google.inject.Inject;
 
 /**
  * JavaScript JSON Object Factory Implementation.
@@ -144,9 +142,6 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
     else if (jsonObjectClass.equals(JsonNumberArray.class)) {
       return new JsJsonNumberArrayImpl(this.jsEngine, object);
     }
-    else if (jsonObjectClass.equals(JsonIntegerArray.class)) {
-      return new JsJsonIntegerArrayImpl(this.jsEngine, object);
-    }
     else if (jsonObjectClass.equals(JsonStringArray.class)) {
       return new JsJsonStringArrayImpl(this.jsEngine, object);
     }
@@ -158,9 +153,6 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
     }
     else if (jsonObjectClass.equals(JsonNumberMap.class)) {
       return new JsJsonNumberMapImpl(this.jsEngine, object);
-    }
-    else if (jsonObjectClass.equals(JsonIntegerMap.class)) {
-      return new JsJsonIntegerMapImpl(this.jsEngine, object);
     }
     else if (jsonObjectClass.equals(JsonStringMap.class)) {
       return new JsJsonStringMapImpl(this.jsEngine, object);

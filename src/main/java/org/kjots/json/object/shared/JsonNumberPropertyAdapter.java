@@ -29,9 +29,9 @@ public interface JsonNumberPropertyAdapter<T> extends JsonPropertyAdapter {
    *
    * @param t The value.
    * @return The JSON number property value.
-   * @see #fromJsonProperty(double)
+   * @see #fromJsonProperty(Number)
    */
-  public double toJsonProperty(T t);
+  public Number toJsonProperty(T t);
   
   /**
    * Convert from a JSON number property value.
@@ -40,5 +40,5 @@ public interface JsonNumberPropertyAdapter<T> extends JsonPropertyAdapter {
    * @return The value.
    * @see #toJsonProperty(Object)
    */
-  public T fromJsonProperty(double propertyValue);
+  public T fromJsonProperty(Number propertyValue);
 }

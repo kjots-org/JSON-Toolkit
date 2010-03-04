@@ -115,34 +115,6 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
   }
 
   /**
-   * @see JsonObjectGeneratorTestBase#testGetIntegerProperty()
-   */
-  public void testGetIntegerProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testGetIntegerProperty();
-  }
-
-  /**
-   * @see JsonObjectGeneratorTestBase#testSetIntegerProperty()
-   */
-  public void testSetIntegerProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testSetIntegerProperty();
-  }
-
-  /**
-   * @see JsonObjectGeneratorTestBase#testGetAdaptedIntegerProperty()
-   */
-  public void testGetAdaptedIntegerProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testGetAdaptedIntegerProperty();
-  }
-
-  /**
-   * @see JsonObjectGeneratorTestBase#testSetAdaptedIntegerProperty()
-   */
-  public void testSetAdaptedIntegerProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testSetAdaptedIntegerProperty();
-  }
-
-  /**
    * @see JsonObjectGeneratorTestBase#testGetStringProperty()
    */
   public void testGetStringProperty() {
@@ -241,20 +213,6 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
   }
 
   /**
-   * @see JsonObjectGeneratorTestBase#testGetIntegerArrayProperty()
-   */
-  public void testGetIntegerArrayProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testGetIntegerArrayProperty();
-  }
-
-  /**
-   * @see JsonObjectGeneratorTestBase#testSetIntegerArrayProperty()
-   */
-  public void testSetIntegerArrayProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testSetIntegerArrayProperty();
-  }
-
-  /**
    * @see JsonObjectGeneratorTestBase#testGetStringArrayProperty()
    */
   public void testGetStringArrayProperty() {
@@ -315,20 +273,6 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
    */
   public void testSetNumberMapProperty() {
     this.gwtJsonObjectGeneratorTestDelegate.testSetNumberMapProperty();
-  }
-
-  /**
-   * @see JsonObjectGeneratorTestBase#testGetIntegerMapProperty()
-   */
-  public void testGetIntegerMapProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testGetIntegerMapProperty();
-  }
-
-  /**
-   * @see JsonObjectGeneratorTestBase#testSetIntegerMapProperty()
-   */
-  public void testSetIntegerMapProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testSetIntegerMapProperty();
   }
 
   /**

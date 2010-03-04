@@ -47,7 +47,7 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
    */
   @Override
   public final int getLength() {
-    Double arrayLength = this.invokeFunction("getArrayLength", this.jsObject);
+    Number arrayLength = this.invokeFunction("getArrayLength", this.jsObject);
     
     return arrayLength.intValue();
   }
@@ -131,11 +131,11 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
    *
    * @param index The index.
    * @return The numeric value.
-   * @see #setNumberElement(int, double)
+   * @see #setNumberElement(int, Number)
    */
   @Override
-  public final double getNumberElement(int index) {
-    return (Double)this.invokeFunction("getProperty", this.jsObject, index);
+  public final Number getNumberElement(int index) {
+    return (Number)this.invokeFunction("getProperty", this.jsObject, index);
   }
   
   /**
@@ -146,71 +146,18 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
    * @see #getNumberElement(int)
    */
   @Override
-  public final void setNumberElement(int index, double value) {
+  public final void setNumberElement(int index, Number value) {
     this.invokeFunction("setProperty", this.jsObject, index, value);
   }
   
   /**
-   * Insert the given number value at the given index.
+   * Insert the given numeric value at the given index.
    *
    * @param index The index.
-   * @param value The number value.
+   * @param value The numeric value.
    */
   @Override
-  public final void insertNumberElement(int index, double value) {
-    this.invokeFunction("insertElement", this.jsObject, index, value);
-  }
-
-  /**
-   * Determine if the element at the given index has an integer value.
-   *
-   * @param index The index.
-   * @return <code>true</code> if element has an integer value.
-   */
-  @Override
-  public final boolean isIntegerElement(int index) {
-    String propertyType = this.invokeFunction("getPropertyType", this.jsObject, index);
-    
-    if (propertyType.equals("number")) {
-      return this.invokeFunction("getProperty", this.jsObject, index) instanceof Integer;
-    }
-    else {
-      return false;
-    }
-  }
-
-  /**
-   * Retrieve the integer value of the element at the given index.
-   *
-   * @param index The index.
-   * @return The integer value.
-   * @see #setIntegerElement(int, int)
-   */
-  @Override
-  public final int getIntegerElement(int index) {
-    return (Integer)this.invokeFunction("getProperty", this.jsObject, index);
-  }
-  
-  /**
-   * Set the element at the given index to the given integer value.
-   *
-   * @param index The index.
-   * @param value The integer value.
-   * @see #getIntegerElement(int)
-   */
-  @Override
-  public final void setIntegerElement(int index, int value) {
-    this.invokeFunction("setProperty", this.jsObject, index, value);
-  }
-  
-  /**
-   * Insert the given integer value at the given index.
-   *
-   * @param index The index.
-   * @param value The integer value.
-   */
-  @Override
-  public final void insertIntegerElement(int index, int value) {
+  public final void insertNumberElement(int index, Number value) {
     this.invokeFunction("insertElement", this.jsObject, index, value);
   }
 

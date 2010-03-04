@@ -98,9 +98,9 @@ public interface JsonArray extends JsonObject {
    *
    * @param index The index.
    * @return The numeric value.
-   * @see #setNumberElement(int, double)
+   * @see #setNumberElement(int, Number)
    */
-  public double getNumberElement(int index);
+  public Number getNumberElement(int index);
   
   /**
    * Set the element at the given index to the given numeric value.
@@ -109,55 +109,15 @@ public interface JsonArray extends JsonObject {
    * @param value The numeric value.
    * @see #getNumberElement(int)
    */
-  public void setNumberElement(int index, double value);
+  public void setNumberElement(int index, Number value);
   
   /**
-   * Insert the given number value at the given index.
+   * Insert the given numeric value at the given index.
    *
    * @param index The index.
-   * @param value The number value.
+   * @param value The numeric value.
    */
-  public void insertNumberElement(int index, double value);
-
-  /**
-   * Determine if the element at the given index has an integer value.
-   * <p>
-   * This method will return <code>false</code> if the element at the given
-   * index is <code>null</code>.
-   *
-   * @param index The index.
-   * @return <code>true</code> if element has an integer value.
-   */
-  public boolean isIntegerElement(int index);
-
-  /**
-   * Retrieve the integer value of the element at the given index.
-   * <p>
-   * This method will return <code>0</code> if there is no element with the
-   * given index of if the element with the given index is <code>null</code>.
-   *
-   * @param index The index.
-   * @return The integer value.
-   * @see #setIntegerElement(int, int)
-   */
-  public int getIntegerElement(int index);
-  
-  /**
-   * Set the element at the given index to the given integer value.
-   *
-   * @param index The index.
-   * @param value The integer value.
-   * @see #getIntegerElement(int)
-   */
-  public void setIntegerElement(int index, int value);
-  
-  /**
-   * Insert the given integer value at the given index.
-   *
-   * @param index The index.
-   * @param value The integer value.
-   */
-  public void insertIntegerElement(int index, int value);
+  public void insertNumberElement(int index, Number value);
 
   /**
    * Determine if the element at the given index has a string value.

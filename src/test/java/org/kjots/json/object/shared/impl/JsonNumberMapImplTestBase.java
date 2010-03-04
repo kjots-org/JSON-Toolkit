@@ -48,7 +48,7 @@ public abstract class JsonNumberMapImplTestBase<J> {
     JsonNumberMap testJsonNumberMap = this.createJsonNumberMap(object);
     
     for (int i = 0; i < 5; i++) {
-      assertEquals("testJsonNumberMap[\"" + Integer.toString(i) + "\"]", i, testJsonNumberMap.get(Integer.toString(i)), 0.1);
+      assertEquals("testJsonNumberMap[\"" + Integer.toString(i) + "\"]", i, testJsonNumberMap.get(Integer.toString(i)).doubleValue(), 0.1);
     }
   }
   
@@ -69,7 +69,7 @@ public abstract class JsonNumberMapImplTestBase<J> {
     }
     
     for (int i = 0; i < 5; i++) {
-      assertEquals("object[\"" + Integer.toString(i) + "\"]", i, this.getNumberProperty(object, Integer.toString(i)), 0.1);
+      assertEquals("object[\"" + Integer.toString(i) + "\"]", i, this.getNumberProperty(object, Integer.toString(i)).doubleValue(), 0.1);
     }
   }
   
@@ -95,9 +95,9 @@ public abstract class JsonNumberMapImplTestBase<J> {
    * @param object The underlying JSON object.
    * @param propertyName The name of the property.
    * @return The number value of the property.
-   * @see #setNumberProperty(Object, String, double)
+   * @see #setNumberProperty(Object, String, Number)
    */
-  protected abstract double getNumberProperty(J object, String propertyName);
+  protected abstract Number getNumberProperty(J object, String propertyName);
   
   /**
    * Set the property with the given name in the given underlying JSON object
@@ -108,6 +108,6 @@ public abstract class JsonNumberMapImplTestBase<J> {
    * @param propertyValue The number value of the property.
    * @see #getNumberProperty(Object, String)
    */
-  protected abstract void setNumberProperty(J object, String propertyName, double propertyValue);
+  protected abstract void setNumberProperty(J object, String propertyName, Number propertyValue);
   
 }

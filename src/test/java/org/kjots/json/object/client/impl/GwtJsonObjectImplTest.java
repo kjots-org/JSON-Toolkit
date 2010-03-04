@@ -103,11 +103,13 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
      * @param object The underlying JSON object.
      * @param propertyName The name of the property.
      * @return The number value of the property.
-     * @see #setNumberProperty(JavaScriptObject, String, double)
+     * @see #setNumberProperty(JavaScriptObject, String, Number)
      */
     @Override
-    protected final native double getNumberProperty(JavaScriptObject object, String propertyName) /*-{
-      return object[propertyName];
+    protected final native Number getNumberProperty(JavaScriptObject object, String propertyName) /*-{
+      var jsPropertyValue = object[propertyName];
+      
+      return jsPropertyValue != null ? @java.lang.Double::valueOf(D)(jsPropertyValue) : null;
     }-*/;
     
     /**
@@ -120,36 +122,10 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
      * @see #getNumberProperty(JavaScriptObject, String)
      */
     @Override
-    protected final native void setNumberProperty(JavaScriptObject object, String propertyName, double propertyValue) /*-{
-      object[propertyName] = propertyValue;
-    }-*/;
-    
-    /**
-     * Retrieve the integer value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The integer value of the property.
-     * @see #setIntegerProperty(JavaScriptObject, String, int)
-     */
-    @Override
-    protected final native int getIntegerProperty(JavaScriptObject object, String propertyName) /*-{
-      return object[propertyName];
-    }-*/;
-    
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given integer value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The integer value of the property.
-     * @see #getIntegerProperty(JavaScriptObject, String)
-     */
-    @Override
-    protected final native void setIntegerProperty(JavaScriptObject object, String propertyName, int propertyValue) /*-{
-      object[propertyName] = propertyValue;
+    protected final native void setNumberProperty(JavaScriptObject object, String propertyName, Number propertyValue) /*-{
+      var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Number::doubleValue()() : null;
+      
+      object[propertyName] = jsPropertyValue;
     }-*/;
     
     /**
@@ -287,27 +263,6 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
    */
   public void testSetNumberProperty() {
     this.gwtJsonObjectImplTestDelegate.testSetNumberProperty();
-  }
-
-  /**
-   * @see JsonObjectImplTestBase#testIsIntegerProperty()
-   */
-  public void testIsIntegerProperty() {
-    this.gwtJsonObjectImplTestDelegate.testIsIntegerProperty();
-  }
-
-  /**
-   * @see JsonObjectImplTestBase#testGetIntegerProperty()
-   */
-  public void testGetIntegerProperty() {
-    this.gwtJsonObjectImplTestDelegate.testGetIntegerProperty();
-  }
-
-  /**
-   * @see JsonObjectImplTestBase#testSetIntegerProperty()
-   */
-  public void testSetIntegerProperty() {
-    this.gwtJsonObjectImplTestDelegate.testSetIntegerProperty();
   }
 
   /**

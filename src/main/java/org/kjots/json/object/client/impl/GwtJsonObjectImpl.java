@@ -160,11 +160,13 @@ public class GwtJsonObjectImpl implements JsonObject {
    *
    * @param propertyName The name of the property.
    * @return The numeric value of the property.
-   * @see #setNumberProperty(String, double)
+   * @see #setNumberProperty(String, Number)
    */
   @Override
-  public final native double getNumberProperty(String propertyName) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+  public final native Number getNumberProperty(String propertyName) /*-{
+    var jsPropertyValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    
+    return jsPropertyValue != null ? @java.lang.Double::valueOf(D)(jsPropertyValue) : null;
   }-*/;
   
   /**
@@ -175,46 +177,10 @@ public class GwtJsonObjectImpl implements JsonObject {
    * @see #getNumberProperty(String)
    */
   @Override
-  public final native void setNumberProperty(String propertyName, double propertyValue) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = propertyValue;
-  }-*/;
-  
-  /**
-   * Determine if the JSON object has a property with the given name and an
-   * integer value.
-   *
-   * @param propertyName The name of the property.
-   * @return <code>true</code> if the JSON object has the property with an integer value.
-   */
-  @Override
-  public final native boolean isIntegerProperty(String propertyName) /*-{
-    var propertyValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+  public final native void setNumberProperty(String propertyName, Number propertyValue) /*-{
+    var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Number::doubleValue()() : null;
     
-    return typeof propertyValue == 'number' && Math.floor(propertyValue) == propertyValue;
-  }-*/;
-
-  /**
-   * Retrieve the integer value of the property with the given name.
-   *
-   * @param propertyName The name of the property.
-   * @return The integer value of the property.
-   * @see #setIntegerProperty(String, int)
-   */
-  @Override
-  public final native int getIntegerProperty(String propertyName) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
-  }-*/;
-  
-  /**
-   * Set the property with the given name to the given integer value.
-   * 
-   * @param propertyName The name of the property.
-   * @param propertyValue The integer value of the property.
-   * @see #getIntegerProperty(String)
-   */
-  @Override
-  public final native void setIntegerProperty(String propertyName, int propertyValue) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = propertyValue;
+    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = jsPropertyValue;
   }-*/;
   
   /**

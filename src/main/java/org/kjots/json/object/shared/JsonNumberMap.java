@@ -29,9 +29,9 @@ public interface JsonNumberMap extends JsonObject {
    *
    * @param key The key.
    * @return The numeric value.
-   * @see #set(String, double)
+   * @see #set(String, Number)
    */
-  public double get(String key);
+  public Number get(String key);
   
   /**
    * Set the element with the given key to the given numeric value.
@@ -40,5 +40,5 @@ public interface JsonNumberMap extends JsonObject {
    * @param value The numeric value.
    * @see #get(String)
    */
-  public void set(String key, double value);
+  public void set(String key, Number value);
 }

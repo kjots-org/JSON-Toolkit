@@ -124,10 +124,10 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    * @param object The underlying JSON object.
    * @param propertyName The name of the property.
    * @return The number value of the property.
-   * @see #setNumberProperty(Object, String, double)
+   * @see #setNumberProperty(Object, String, Number)
    */
   @Override
-  protected double getNumberProperty(Object object, String propertyName) {
+  protected Number getNumberProperty(Object object, String propertyName) {
     return this.invokeFunction("getProperty", object, propertyName);
   }
   
@@ -141,35 +141,7 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    * @see #getNumberProperty(Object, String)
    */
   @Override
-  protected void setNumberProperty(Object object, String propertyName, double propertyValue) {
-    this.invokeFunction("setProperty", object, propertyName, propertyValue);
-  }
-  
-  /**
-   * Retrieve the integer value of the property with the given name from the
-   * given underlying JSON object.
-   *
-   * @param object The underlying JSON object.
-   * @param propertyName The name of the property.
-   * @return The integer value of the property.
-   * @see #setIntegerProperty(Object, String, int)
-   */
-  @Override
-  protected int getIntegerProperty(Object object, String propertyName) {
-    return this.invokeFunction("getProperty", object, propertyName);
-  }
-  
-  /**
-   * Set the property with the given name in the given underlying JSON object
-   * to the given integer value.
-   *
-   * @param object The underlying JSON object.
-   * @param propertyName The name of the property.
-   * @param propertyValue The integer value of the property.
-   * @see #getIntegerProperty(Object, String)
-   */
-  @Override
-  protected void setIntegerProperty(Object object, String propertyName, int propertyValue) {
+  protected void setNumberProperty(Object object, String propertyName, Number propertyValue) {
     this.invokeFunction("setProperty", object, propertyName, propertyValue);
   }
   

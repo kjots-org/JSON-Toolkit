@@ -15,8 +15,6 @@
  */
 package org.kjots.json.object.shared.content;
 
-import java.math.BigDecimal;
-
 import org.kjots.json.content.shared.JsonContentHandler;
 import org.kjots.json.content.shared.PartialJsonContentHandler;
 import org.kjots.json.object.shared.JsonArray;
@@ -185,15 +183,10 @@ public class JsonObjectBuilder implements JsonContentHandler {
         
         this.jsonObject.setBooleanProperty(this.nextMemberName, booleanValue.booleanValue());
       }
-      else if (value instanceof Integer) {
-        Integer integerValue = (Integer)value;
+      else if (value instanceof Number) {
+        Number numberValue = (Number)value;
         
-        this.jsonObject.setIntegerProperty(this.nextMemberName, integerValue.intValue());
-      }
-      else if (value instanceof BigDecimal) {
-        BigDecimal bigDecimalValue = (BigDecimal)value;
-        
-        this.jsonObject.setNumberProperty(this.nextMemberName, bigDecimalValue.doubleValue());
+        this.jsonObject.setNumberProperty(this.nextMemberName, numberValue);
       }
       else if (value instanceof String) {
         String stringValue = (String)value;
@@ -272,15 +265,10 @@ public class JsonObjectBuilder implements JsonContentHandler {
         
         this.jsonArray.setBooleanElement(this.jsonArray.getLength(), booleanValue.booleanValue());
       }
-      else if (value instanceof Integer) {
-        Integer integerValue = (Integer)value;
+      else if (value instanceof Number) {
+        Number numberValue = (Number)value;
         
-        this.jsonArray.setIntegerElement(this.jsonArray.getLength(), integerValue.intValue());
-      }
-      else if (value instanceof BigDecimal) {
-        BigDecimal bigDecimalValue = (BigDecimal)value;
-        
-        this.jsonArray.setNumberElement(this.jsonArray.getLength(), bigDecimalValue.doubleValue());
+        this.jsonArray.setNumberElement(this.jsonArray.getLength(), numberValue);
       }
       else if (value instanceof String) {
         String stringValue = (String)value;

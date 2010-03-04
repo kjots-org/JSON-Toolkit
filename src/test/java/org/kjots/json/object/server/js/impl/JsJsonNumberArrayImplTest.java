@@ -88,7 +88,7 @@ public class JsJsonNumberArrayImplTest extends JsonNumberArrayImplTestBase<Objec
    */
   @Override
   protected int getArrayLength(Object array) {
-    Double arrayLength = this.invokeFunction("getArrayLength", array);
+    Number arrayLength = this.invokeFunction("getArrayLength", array);
     
     return arrayLength.intValue();
   }
@@ -100,10 +100,10 @@ public class JsJsonNumberArrayImplTest extends JsonNumberArrayImplTestBase<Objec
    * @param array The underlying JSON array.
    * @param elementIndex The index of the element.
    * @return The numeric value of the element.
-   * @see #setNumberElement(Object, int, double)
+   * @see #setNumberElement(Object, int, Number)
    */
   @Override
-  protected double getNumberElement(Object array, int elementIndex) {
+  protected Number getNumberElement(Object array, int elementIndex) {
     return this.invokeFunction("getProperty", array, elementIndex);
   }
   
@@ -117,7 +117,7 @@ public class JsJsonNumberArrayImplTest extends JsonNumberArrayImplTestBase<Objec
    * @see #getNumberElement(Object, int)
    */
   @Override
-  protected void setNumberElement(Object array, int elementIndex, double elementValue) {
+  protected void setNumberElement(Object array, int elementIndex, Number elementValue) {
     this.invokeFunction("setProperty", array, elementIndex, elementValue);
   }
   

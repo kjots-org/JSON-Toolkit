@@ -157,7 +157,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     this.setBooleanProperty(object, "booleanProperty", true);
     this.setNumberProperty(object, "numberProperty", 3.14);
-    this.setIntegerProperty(object, "integerProperty", 42);
     this.setStringProperty(object, "stringProperty", "Test String Property Value");
     this.setObjectProperty(object, "objectProperty", this.createUnderlyingJsonObject());
     this.setObjectProperty(object, "nullProperty", null);
@@ -166,7 +165,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     assertTrue("isBooleanProperty(\"booleanProperty\") != true", testJsonObject.isBooleanProperty("booleanProperty"));
     assertFalse("isBooleanProperty(\"numberProperty\") != false", testJsonObject.isBooleanProperty("numberProperty"));
-    assertFalse("isBooleanProperty(\"integerProperty\") != false", testJsonObject.isBooleanProperty("integerProperty"));
     assertFalse("isBooleanProperty(\"stringProperty\") != false", testJsonObject.isBooleanProperty("stringProperty"));
     assertFalse("isBooleanProperty(\"objectProperty\") != false", testJsonObject.isBooleanProperty("objectProperty"));
     assertFalse("isBooleanProperty(\"nullProperty\") != false", testJsonObject.isBooleanProperty("nullProperty"));
@@ -221,7 +219,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     this.setBooleanProperty(object, "booleanProperty", true);
     this.setNumberProperty(object, "numberProperty", 3.14);
-    this.setIntegerProperty(object, "integerProperty", 42);
     this.setStringProperty(object, "stringProperty", "Test String Property Value");
     this.setObjectProperty(object, "objectProperty", this.createUnderlyingJsonObject());
     this.setObjectProperty(object, "nullProperty", null);
@@ -230,7 +227,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     assertFalse("isNumberProperty(\"booleanProperty\") != false", testJsonObject.isNumberProperty("booleanProperty"));
     assertTrue("isNumberProperty(\"numberProperty\") != true", testJsonObject.isNumberProperty("numberProperty"));
-    assertTrue("isNumberProperty(\"integerProperty\") != true", testJsonObject.isNumberProperty("integerProperty"));
     assertFalse("isNumberProperty(\"stringProperty\") != false", testJsonObject.isNumberProperty("stringProperty"));
     assertFalse("isNumberProperty(\"objectProperty\") != false", testJsonObject.isNumberProperty("objectProperty"));
     assertFalse("isNumberProperty(\"nullProperty\") != false", testJsonObject.isNumberProperty("nullProperty"));
@@ -252,7 +248,7 @@ public abstract class JsonObjectImplTestBase<J> {
     
     JsonObject testJsonObject = this.createJsonObject(object);
     
-    assertEquals(3.14, testJsonObject.getNumberProperty("numberProperty"), 0.001);
+    assertEquals(3.14, testJsonObject.getNumberProperty("numberProperty").doubleValue(), 0.001);
   }
   
   /**
@@ -270,71 +266,7 @@ public abstract class JsonObjectImplTestBase<J> {
     
     testJsonObject.setNumberProperty("numberProperty", 3.14);
     
-    assertEquals(3.14, this.getNumberProperty(object, "numberProperty"), 0.001);
-  }
-  
-  /**
-   * Test the determination of a integer value of a property.
-   * <p>
-   * This test asserts that the JSON object correctly reports that a property
-   * exists and has a integer value.
-   */
-  @Test
-  public void testIsIntegerProperty() {
-    J object = this.createUnderlyingJsonObject();
-    
-    this.setBooleanProperty(object, "booleanProperty", true);
-    this.setNumberProperty(object, "numberProperty", 3.14);
-    this.setIntegerProperty(object, "integerProperty", 42);
-    this.setStringProperty(object, "stringProperty", "Test String Property Value");
-    this.setObjectProperty(object, "objectProperty", this.createUnderlyingJsonObject());
-    this.setObjectProperty(object, "nullProperty", null);
-    
-    JsonObject testJsonObject = this.createJsonObject(object);
-    
-    assertFalse("isIntegerProperty(\"booleanProperty\") != false", testJsonObject.isIntegerProperty("booleanProperty"));
-    assertFalse("isIntegerProperty(\"numberProperty\") != false", testJsonObject.isIntegerProperty("numberProperty"));
-    assertTrue("isIntegerProperty(\"integerProperty\") != true", testJsonObject.isIntegerProperty("integerProperty"));
-    assertFalse("isIntegerProperty(\"stringProperty\") != false", testJsonObject.isIntegerProperty("stringProperty"));
-    assertFalse("isIntegerProperty(\"objectProperty\") != false", testJsonObject.isIntegerProperty("objectProperty"));
-    assertFalse("isIntegerProperty(\"nullProperty\") != false", testJsonObject.isIntegerProperty("nullProperty"));
-    assertFalse("isIntegerProperty(\"noProperty\") != false", testJsonObject.isIntegerProperty("noProperty"));
-  }
-
-  /**
-   * Test the retrieval of the numeric value of a property.
-   * <p>
-   * This test asserts that the retrieved numeric value of a property matches 
-   * the value of the corresponding property of the underlying JavaScript
-   * object.
-   */
-  @Test
-  public void testGetIntegerProperty() {
-    J object = this.createUnderlyingJsonObject();
-    
-    this.setIntegerProperty(object, "integerProperty", 42);
-    
-    JsonObject testJsonObject = this.createJsonObject(object);
-    
-    assertEquals(42, testJsonObject.getIntegerProperty("integerProperty"));
-  }
-  
-  /**
-   * Test the setting of the numeric value of a property.
-   * <p>
-   * This test asserts that the setting of the numeric value of a property
-   * changes the value of the corresponding property of the underlying
-   * JavaScript object.
-   */
-  @Test
-  public void testSetIntegerProperty() {
-    J object = this.createUnderlyingJsonObject();
-    
-    JsonObject testJsonObject = this.createJsonObject(object);
-    
-    testJsonObject.setIntegerProperty("integerProperty", 42);
-    
-    assertEquals(42, this.getIntegerProperty(object, "integerProperty"));
+    assertEquals(3.14, this.getNumberProperty(object, "numberProperty").doubleValue(), 0.001);
   }
   
   /**
@@ -349,7 +281,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     this.setBooleanProperty(object, "booleanProperty", true);
     this.setNumberProperty(object, "numberProperty", 3.14);
-    this.setIntegerProperty(object, "integerProperty", 42);
     this.setStringProperty(object, "stringProperty", "Test String Property Value");
     this.setObjectProperty(object, "objectProperty", this.createUnderlyingJsonObject());
     this.setObjectProperty(object, "nullProperty", null);
@@ -358,7 +289,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     assertFalse("isStringProperty(\"booleanProperty\") != false", testJsonObject.isStringProperty("booleanProperty"));
     assertFalse("isStringProperty(\"numberProperty\") != false", testJsonObject.isStringProperty("numberProperty"));
-    assertFalse("isStringProperty(\"integerProperty\") != false", testJsonObject.isStringProperty("integerProperty"));
     assertTrue("isStringProperty(\"stringProperty\") != true", testJsonObject.isStringProperty("stringProperty"));
     assertFalse("isStringProperty(\"objectProperty\") != false", testJsonObject.isStringProperty("objectProperty"));
     assertFalse("isStringProperty(\"nullProperty\") != false", testJsonObject.isStringProperty("nullProperty"));
@@ -413,7 +343,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     this.setBooleanProperty(object, "booleanProperty", true);
     this.setNumberProperty(object, "numberProperty", 3.14);
-    this.setIntegerProperty(object, "integerProperty", 42);
     this.setStringProperty(object, "stringProperty", "Test String Property Value");
     this.setObjectProperty(object, "objectProperty", this.createUnderlyingJsonObject());
     this.setObjectProperty(object, "nullProperty", null);
@@ -422,7 +351,6 @@ public abstract class JsonObjectImplTestBase<J> {
     
     assertFalse("isObjectProperty(\"booleanProperty\") != false", testJsonObject.isObjectProperty("booleanProperty"));
     assertFalse("isObjectProperty(\"numberProperty\") != false", testJsonObject.isObjectProperty("numberProperty"));
-    assertFalse("isObjectProperty(\"integerProperty\") != false", testJsonObject.isObjectProperty("integerProperty"));
     assertFalse("isObjectProperty(\"stringProperty\") != false", testJsonObject.isObjectProperty("stringProperty"));
     assertTrue("isObjectProperty(\"objectProperty\") != true", testJsonObject.isObjectProperty("objectProperty"));
     assertFalse("isObjectProperty(\"nullProperty\") != false", testJsonObject.isObjectProperty("nullProperty"));
@@ -594,9 +522,9 @@ public abstract class JsonObjectImplTestBase<J> {
    * @param object The underlying JSON object.
    * @param propertyName The name of the property.
    * @return The number value of the property.
-   * @see #setNumberProperty(Object, String, double)
+   * @see #setNumberProperty(Object, String, Number)
    */
-  protected abstract double getNumberProperty(J object, String propertyName);
+  protected abstract Number getNumberProperty(J object, String propertyName);
   
   /**
    * Set the property with the given name in the given underlying JSON object
@@ -607,29 +535,7 @@ public abstract class JsonObjectImplTestBase<J> {
    * @param propertyValue The number value of the property.
    * @see #getNumberProperty(Object, String)
    */
-  protected abstract void setNumberProperty(J object, String propertyName, double propertyValue);
-  
-  /**
-   * Retrieve the integer value of the property with the given name from the
-   * given underlying JSON object.
-   *
-   * @param object The underlying JSON object.
-   * @param propertyName The name of the property.
-   * @return The integer value of the property.
-   * @see #setIntegerProperty(Object, String, int)
-   */
-  protected abstract int getIntegerProperty(J object, String propertyName);
-  
-  /**
-   * Set the property with the given name in the given underlying JSON object
-   * to the given integer value.
-   *
-   * @param object The underlying JSON object.
-   * @param propertyName The name of the property.
-   * @param propertyValue The integer value of the property.
-   * @see #getIntegerProperty(Object, String)
-   */
-  protected abstract void setIntegerProperty(J object, String propertyName, int propertyValue);
+  protected abstract void setNumberProperty(J object, String propertyName, Number propertyValue);
   
   /**
    * Retrieve the string value of the property with the given name from the

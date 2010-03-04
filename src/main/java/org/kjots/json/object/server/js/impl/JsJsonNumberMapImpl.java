@@ -43,10 +43,10 @@ public class JsJsonNumberMapImpl extends JsJsonObjectImpl implements JsonNumberM
    *
    * @param key The key.
    * @return The numeric value.
-   * @see #set(String, double)
+   * @see #set(String, Number)
    */
   @Override
-  public final double get(String key) {
+  public final Number get(String key) {
     return this.getNumberProperty(key);
   }
   
@@ -58,7 +58,7 @@ public class JsJsonNumberMapImpl extends JsJsonObjectImpl implements JsonNumberM
    * @see #get(String)
    */
   @Override
-  public final void set(String key, double value) {
+  public final void set(String key, Number value) {
     this.setNumberProperty(key, value);
   }
 }

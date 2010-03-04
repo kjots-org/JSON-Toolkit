@@ -88,7 +88,7 @@ public class JsJsonStringArrayImplTest extends JsonStringArrayImplTestBase<Objec
    */
   @Override
   protected int getArrayLength(Object array) {
-    Double arrayLength = this.invokeFunction("getArrayLength", array);
+    Number arrayLength = this.invokeFunction("getArrayLength", array);
     
     return arrayLength.intValue();
   }

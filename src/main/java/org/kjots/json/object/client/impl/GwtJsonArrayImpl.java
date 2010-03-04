@@ -126,11 +126,13 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    *
    * @param index The index.
    * @return The numeric value.
-   * @see #setNumberElement(int, double)
+   * @see #setNumberElement(int, Number)
    */
   @Override
-  public final native double getNumberElement(int index) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+  public final native Number getNumberElement(int index) /*-{
+    var jsValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    
+    return jsValue != null ? @java.lang.Double::valueOf(D)(jsValue) : null;
   }-*/;
   
   /**
@@ -141,67 +143,23 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @see #getNumberElement(int)
    */
   @Override
-  public final native void setNumberElement(int index, double value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = value;
-  }-*/;
-  
-  /**
-   * Insert the given number value at the given index.
-   *
-   * @param index The index.
-   * @param value The number value.
-   */
-  @Override
-  public final native void insertNumberElement(int index, double value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
-  }-*/;
-
-  /**
-   * Determine if the element at the given index has an integer value.
-   *
-   * @param index The index.
-   * @return <code>true</code> if element has an integer value.
-   */
-  @Override
-  public final native boolean isIntegerElement(int index) /*-{
-    var value = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+  public final native void setNumberElement(int index, Number value) /*-{
+    var jsValue = value != null ? value.@java.lang.Number::doubleValue()() : null;
     
-    return typeof value == 'number' && Math.floor(value) == value;
-  }-*/;
-
-  /**
-   * Retrieve the integer value of the element at the given index.
-   *
-   * @param index The index.
-   * @return The integer value.
-   * @see #setIntegerElement(int, int)
-   */
-  @Override
-  public final native int getIntegerElement(int index) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = jsValue;
   }-*/;
   
   /**
-   * Set the element at the given index to the given integer value.
+   * Insert the given numeric value at the given index.
    *
    * @param index The index.
-   * @param value The integer value.
-   * @see #getIntegerElement(int)
+   * @param value The numeric value.
    */
   @Override
-  public final native void setIntegerElement(int index, int value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = value;
-  }-*/;
-  
-  /**
-   * Insert the given integer value at the given index.
-   *
-   * @param index The index.
-   * @param value The integer value.
-   */
-  @Override
-  public final native void insertIntegerElement(int index, int value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
+  public final native void insertNumberElement(int index, Number value) /*-{
+    var jsValue = value != null ? value.@java.lang.Number::doubleValue()() : null;
+    
+    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, jsValue);
   }-*/;
 
   /**

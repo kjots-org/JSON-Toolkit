@@ -142,11 +142,13 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTest {
      * @param array The underlying JSON array.
      * @param elementIndex The index of the element.
      * @return The numeric value of the element.
-     * @see #setNumberElement(JavaScriptObject, int, double)
+     * @see #setNumberElement(JavaScriptObject, int, Number)
      */
     @Override
-    protected final native double getNumberElement(JavaScriptObject array, int elementIndex) /*-{
-      return array[elementIndex];
+    protected final native Number getNumberElement(JavaScriptObject array, int elementIndex) /*-{
+      var jsElementValue = array[elementIndex];
+      
+      return jsElementValue != null ? @java.lang.Double::valueOf(D)(jsElementValue) : null;
     }-*/;
     
     /**
@@ -159,36 +161,10 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTest {
      * @see #getNumberElement(JavaScriptObject, int)
      */
     @Override
-    protected final native void setNumberElement(JavaScriptObject array, int elementIndex, double elementValue) /*-{
-      array[elementIndex] = elementValue;
-    }-*/;
-    
-    /**
-     * Retrieve the integer value of the element at the given index from the
-     * given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @return The integer value of the element.
-     * @see #setIntegerElement(JavaScriptObject, int, int)
-     */
-    @Override
-    protected final native int getIntegerElement(JavaScriptObject array, int elementIndex) /*-{
-      return array[elementIndex];
-    }-*/;
-    
-    /**
-     * Set the element with the given name in the given underlying JSON array to
-     * the given integer value.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @param elementValue The integer value of the element.
-     * @see #getIntegerElement(JavaScriptObject, int)
-     */
-    @Override
-    protected final native void setIntegerElement(JavaScriptObject array, int elementIndex, int elementValue) /*-{
-      array[elementIndex] = elementValue;
+    protected final native void setNumberElement(JavaScriptObject array, int elementIndex, Number elementValue) /*-{
+      var jsElementValue = elementValue != null ? elementValue.@java.lang.Number::doubleValue()() : null;
+      
+      array[elementIndex] = jsElementValue;
     }-*/;
     
     /**
@@ -336,34 +312,6 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTest {
    */
   public void testInsertNumberElement() {
     this.gwtJsonArrayImplTestDelegate.testInsertNumberElement();
-  }
-
-  /**
-   * @see JsonArrayImplTestBase#testIsIntegerElement()
-   */
-  public void testIsIntegerElement() {
-    this.gwtJsonArrayImplTestDelegate.testIsIntegerElement();
-  }
-
-  /**
-   * @see JsonArrayImplTestBase#testGetIntegerElement()
-   */
-  public void testGetIntegerElement() {
-    this.gwtJsonArrayImplTestDelegate.testGetIntegerElement();
-  }
-
-  /**
-   * @see JsonArrayImplTestBase#testSetIntegerElement()
-   */
-  public void testSetIntegerElement() {
-    this.gwtJsonArrayImplTestDelegate.testSetIntegerElement();
-  }
-
-  /**
-   * @see JsonArrayImplTestBase#testInsertIntegerElement()
-   */
-  public void testInsertIntegerElement() {
-    this.gwtJsonArrayImplTestDelegate.testInsertIntegerElement();
   }
 
   /**

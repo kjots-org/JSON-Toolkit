@@ -49,7 +49,7 @@ public abstract class JsonNumberArrayImplTestBase<J> {
     
     assertEquals("testJsonNumberArray.length", 5, testJsonNumberArray.getLength());
     for (int i = 0; i < 5; i++) {
-      assertEquals("testJsonNumberArray[" + i + "]", i, testJsonNumberArray.get(i), 0.1);
+      assertEquals("testJsonNumberArray[" + i + "]", i, testJsonNumberArray.get(i).doubleValue(), 0.1);
     }
   }
   
@@ -71,7 +71,7 @@ public abstract class JsonNumberArrayImplTestBase<J> {
     
     assertEquals("array.length", 5, this.getArrayLength(array));
     for (int i = 0; i < 5; i++) {
-      assertEquals("array[" + i + "]", i, this.getNumberElement(array, i), 0.1);
+      assertEquals("array[" + i + "]", i, this.getNumberElement(array, i).doubleValue(), 0.1);
     }
   }
   
@@ -97,7 +97,7 @@ public abstract class JsonNumberArrayImplTestBase<J> {
     
     assertEquals("array.length", 5, this.getArrayLength(array));
     for (int i = 0; i < 5; i++) {
-      assertEquals("array[" + i + "]", i, this.getNumberElement(array, i), 0.1);
+      assertEquals("array[" + i + "]", i, this.getNumberElement(array, i).doubleValue(), 0.1);
     }
   }
   
@@ -131,9 +131,9 @@ public abstract class JsonNumberArrayImplTestBase<J> {
    * @param array The underlying JSON array.
    * @param elementIndex The index of the element.
    * @return The numeric value of the element.
-   * @see #setNumberElement(Object, int, double)
+   * @see #setNumberElement(Object, int, Number)
    */
-  protected abstract double getNumberElement(J array, int elementIndex);
+  protected abstract Number getNumberElement(J array, int elementIndex);
   
   /**
    * Set the element with the given name in the given underlying JSON array to
@@ -144,5 +144,5 @@ public abstract class JsonNumberArrayImplTestBase<J> {
    * @param elementValue The numeric value of the element.
    * @see #getNumberElement(Object, int)
    */
-  protected abstract void setNumberElement(J array, int elementIndex, double elementValue);
+  protected abstract void setNumberElement(J array, int elementIndex, Number elementValue);
 }

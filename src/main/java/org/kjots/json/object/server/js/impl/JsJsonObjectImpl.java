@@ -171,11 +171,11 @@ public class JsJsonObjectImpl implements JsonObject {
    *
    * @param propertyName The name of the property.
    * @return The numeric value of the property.
-   * @see #setNumberProperty(String, double)
+   * @see #setNumberProperty(String, Number)
    */
   @Override
-  public final double getNumberProperty(String propertyName) {
-    return (Double)this.invokeFunction("getProperty", this.jsObject, propertyName);
+  public final Number getNumberProperty(String propertyName) {
+    return (Number)this.invokeFunction("getProperty", this.jsObject, propertyName);
   }
   
   /**
@@ -186,50 +186,7 @@ public class JsJsonObjectImpl implements JsonObject {
    * @see #getNumberProperty(String)
    */
   @Override
-  public final void setNumberProperty(String propertyName, double propertyValue) {
-    this.invokeFunction("setProperty", this.jsObject, propertyName, propertyValue);
-  }
-  
-  /**
-   * Determine if the JSON object has a property with the given name and an
-   * integer value.
-   *
-   * @param propertyName The name of the property.
-   * @return <code>true</code> if the JSON object has the property with an integer value.
-   */
-  @Override
-  public final boolean isIntegerProperty(String propertyName) {
-    String propertyType = this.invokeFunction("getPropertyType", this.jsObject, propertyName);
-    
-    if (propertyType.equals("number")) {
-      return this.invokeFunction("getProperty", this.jsObject, propertyName) instanceof Integer;
-    }
-    else {
-      return false;
-    }
-  }
-
-  /**
-   * Retrieve the integer value of the property with the given name.
-   *
-   * @param propertyName The name of the property.
-   * @return The integer value of the property.
-   * @see #setIntegerProperty(String, int)
-   */
-  @Override
-  public final int getIntegerProperty(String propertyName) {
-    return (Integer)this.invokeFunction("getProperty", this.jsObject, propertyName);
-  }
-  
-  /**
-   * Set the property with the given name to the given integer value.
-   * 
-   * @param propertyName The name of the property.
-   * @param propertyValue The integer value of the property.
-   * @see #getIntegerProperty(String)
-   */
-  @Override
-  public final void setIntegerProperty(String propertyName, int propertyValue) {
+  public final void setNumberProperty(String propertyName, Number propertyValue) {
     this.invokeFunction("setProperty", this.jsObject, propertyName, propertyValue);
   }
   

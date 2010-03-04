@@ -6,18 +6,9 @@ package org.kjots.json.object.client.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsArrayBoolean;
-import com.google.gwt.core.client.JsArrayInteger;
-import com.google.gwt.core.client.JsArrayNumber;
-import com.google.gwt.core.client.JsArrayString;
-
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.JsonBooleanMap;
-import org.kjots.json.object.shared.JsonIntegerArray;
-import org.kjots.json.object.shared.JsonIntegerMap;
 import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.JsonNumberMap;
 import org.kjots.json.object.shared.JsonObject;
@@ -26,6 +17,12 @@ import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.shared.JsonObjectMap;
 import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.JsonStringMap;
+
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayBoolean;
+import com.google.gwt.core.client.JsArrayNumber;
+import com.google.gwt.core.client.JsArrayString;
 
 /**
  * GWT JSON Object Factory Implementation Base.
@@ -118,12 +115,6 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
       }
     });
     
-    this.registerJsonObjectInstantiator(JsonIntegerArray.class, new JsonObjectInstantiator<JsonIntegerArray>() {
-      public final JsonIntegerArray newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonIntegerArrayImpl((JsArrayInteger)jsObject.cast());
-      }
-    });
-    
     this.registerJsonObjectInstantiator(JsonStringArray.class, new JsonObjectInstantiator<JsonStringArray>() {
       public final JsonStringArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonStringArrayImpl((JsArrayString)jsObject.cast());
@@ -145,12 +136,6 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
     this.registerJsonObjectInstantiator(JsonNumberMap.class, new JsonObjectInstantiator<JsonNumberMap>() {
       public final JsonNumberMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonNumberMapImpl(jsObject);
-      }
-    });
-    
-    this.registerJsonObjectInstantiator(JsonIntegerMap.class, new JsonObjectInstantiator<JsonIntegerMap>() {
-      public final JsonIntegerMap newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonIntegerMapImpl(jsObject);
       }
     });
     

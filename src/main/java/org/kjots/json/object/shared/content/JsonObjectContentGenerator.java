@@ -15,8 +15,6 @@
  */
 package org.kjots.json.object.shared.content;
 
-import java.math.BigDecimal;
-
 import org.kjots.json.content.shared.AbstractJsonContentGenerator;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonObject;
@@ -63,12 +61,8 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
         else if (jsonArray.isBooleanElement(i)) {
           this.contentHandler.primitive(Boolean.valueOf(jsonArray.getBooleanElement(i)));
         }
-        else if (jsonArray.isIntegerElement(i)) {
-          this.contentHandler.primitive(Integer.valueOf(jsonArray.getIntegerElement(i)));
-        }
         else if (jsonArray.isNumberElement(i)) {
-          // FIXME: Use BigDecimal.valueOf(double) when available in GWT.
-          this.contentHandler.primitive(new BigDecimal(Double.toString(jsonArray.getNumberElement(i))));
+          this.contentHandler.primitive(jsonArray.getNumberElement(i));
         }
         else if (jsonArray.isStringElement(i)) {
           this.contentHandler.primitive(jsonArray.getStringElement(i));
@@ -98,12 +92,8 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
         else if (jsonObject.isBooleanProperty(propertyName)) {
           this.contentHandler.primitive(Boolean.valueOf(jsonObject.getBooleanProperty(propertyName)));
         }
-        else if (jsonObject.isIntegerProperty(propertyName)) {
-          this.contentHandler.primitive(Integer.valueOf(jsonObject.getIntegerProperty(propertyName)));
-        }
         else if (jsonObject.isNumberProperty(propertyName)) {
-          // FIXME: Use BigDecimal.valueOf(double) when available in GWT.
-          this.contentHandler.primitive(new BigDecimal(Double.toString(jsonObject.getNumberProperty(propertyName))));
+          this.contentHandler.primitive(jsonObject.getNumberProperty(propertyName));
         }
         else if (jsonObject.isStringProperty(propertyName)) {
           this.contentHandler.primitive(jsonObject.getStringProperty(propertyName));

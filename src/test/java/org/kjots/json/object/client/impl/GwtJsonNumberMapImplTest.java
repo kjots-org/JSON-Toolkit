@@ -65,11 +65,13 @@ public class GwtJsonNumberMapImplTest extends GwtJsonObjectTest {
      * @param object The underlying JSON object.
      * @param propertyName The name of the property.
      * @return The number value of the property.
-     * @see #setNumberProperty(JavaScriptObject, String, double)
+     * @see #setNumberProperty(JavaScriptObject, String, Number)
      */
     @Override
-    protected final native double getNumberProperty(JavaScriptObject object, String propertyName) /*-{
-      return object[propertyName];
+    protected final native Number getNumberProperty(JavaScriptObject object, String propertyName) /*-{
+      var jsPropertyValue = object[propertyName];
+      
+      return jsPropertyValue != null ? @java.lang.Double::valueOf(D)(jsPropertyValue) : null;
     }-*/;
     
     /**
@@ -82,8 +84,10 @@ public class GwtJsonNumberMapImplTest extends GwtJsonObjectTest {
      * @see #getNumberProperty(JavaScriptObject, String)
      */
     @Override
-    protected final native void setNumberProperty(JavaScriptObject object, String propertyName, double propertyValue) /*-{
-      object[propertyName] = propertyValue;
+    protected final native void setNumberProperty(JavaScriptObject object, String propertyName, Number propertyValue) /*-{
+      var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Number::doubleValue()() : null;
+      
+      object[propertyName] = jsPropertyValue;
     }-*/;
   }
   

@@ -77,11 +77,13 @@ public class GwtJsonNumberArrayImplTest extends GwtJsonObjectTest {
      * @param array The underlying JSON array.
      * @param elementIndex The index of the element.
      * @return The numeric value of the element.
-     * @see #setNumberElement(JavaScriptObject, int, double)
+     * @see #setNumberElement(JavaScriptObject, int, Number)
      */
     @Override
-    protected final native double getNumberElement(JavaScriptObject array, int elementIndex) /*-{
-      return array[elementIndex];
+    protected final native Number getNumberElement(JavaScriptObject array, int elementIndex) /*-{
+      var jsElementValue = array[elementIndex];
+      
+      return jsElementValue != null ? @java.lang.Double::valueOf(D)(jsElementValue) : null;
     }-*/;
     
     /**
@@ -94,8 +96,10 @@ public class GwtJsonNumberArrayImplTest extends GwtJsonObjectTest {
      * @see #getNumberElement(JavaScriptObject, int)
      */
     @Override
-    protected final native void setNumberElement(JavaScriptObject array, int elementIndex, double elementValue) /*-{
-      array[elementIndex] = elementValue;
+    protected final native void setNumberElement(JavaScriptObject array, int elementIndex, Number elementValue) /*-{
+      var jsElementValue = elementValue != null ? elementValue.@java.lang.Number::doubleValue()() : null;
+      
+      array[elementIndex] = jsElementValue;
     }-*/;
   }
   

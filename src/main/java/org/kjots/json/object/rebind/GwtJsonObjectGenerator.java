@@ -17,6 +17,17 @@ package org.kjots.json.object.rebind;
 
 import java.io.PrintWriter;
 
+import org.kjots.json.object.client.impl.GwtJsonObjectImpl;
+import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
+import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectArray;
+import org.kjots.json.object.shared.JsonObjectMap;
+import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
+import org.kjots.json.object.shared.JsonProperty;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
+import org.kjots.json.object.shared.JsonStringPropertyAdapter;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
@@ -31,18 +42,6 @@ import com.google.gwt.core.ext.typeinfo.JType;
 import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
-
-import org.kjots.json.object.client.impl.GwtJsonObjectImpl;
-import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
-import org.kjots.json.object.shared.JsonIntegerPropertyAdapter;
-import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectArray;
-import org.kjots.json.object.shared.JsonObjectMap;
-import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
-import org.kjots.json.object.shared.JsonProperty;
-import org.kjots.json.object.shared.JsonPropertyAdapter;
-import org.kjots.json.object.shared.JsonStringPropertyAdapter;
 
 /**
  * GWT JSON Object Generator.
@@ -291,11 +290,8 @@ public class GwtJsonObjectGenerator extends Generator {
       if (returnTypeName.equals("boolean")) {
         this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "getBooleanProperty");
       }
-      else if (returnTypeName.equals("double")) {
-        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "getNumberProperty");
-      }
-      else if (returnTypeName.equals("int")) {
-        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "getIntegerProperty");
+      else if (returnTypeName.equals(Number.class.getName())) {
+        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "getNumberProperty");
       }
       else if (returnTypeName.equals(String.class.getName())) {
         this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), String.class.getName(), "getStringProperty");
@@ -355,11 +351,8 @@ public class GwtJsonObjectGenerator extends Generator {
       if (parameterTypeName.equals("boolean")) {
         this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "setBooleanProperty");
       }
-      else if (parameterTypeName.equals("double")) {
-        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "setNumberProperty"); 
-      }
-      else if (parameterTypeName.equals("int")) {
-        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "setIntegerProperty");
+      else if (parameterTypeName.equals(Number.class.getName())) {
+        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "setNumberProperty"); 
       }
       else if (parameterTypeName.equals(String.class.getName())) {
         this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), String.class.getName(), "setStringProperty");
@@ -528,10 +521,7 @@ public class GwtJsonObjectGenerator extends Generator {
       sourceWriter.println("boolean _" + propertyName + " = this.getBooleanProperty(\"" + propertyName + "\");");
     }
     else if (adapterType.isAssignableTo(this.getType(logger, context, JsonNumberPropertyAdapter.class.getName()))) {
-      sourceWriter.println("double _" + propertyName + " = this.getNumberProperty(\"" + propertyName + "\");");
-    }
-    else if (adapterType.isAssignableTo(this.getType(logger, context, JsonIntegerPropertyAdapter.class.getName()))) {
-      sourceWriter.println("int _" + propertyName + " = this.getIntegerProperty(\"" + propertyName + "\");");
+      sourceWriter.println(Number.class.getName() + " _" + propertyName + " = this.getNumberProperty(\"" + propertyName + "\");");
     }
     else if (adapterType.isAssignableTo(this.getType(logger, context, JsonStringPropertyAdapter.class.getName()))) {
       sourceWriter.println(String.class.getName() + " _" + propertyName + " = this.getStringProperty(\"" + propertyName + "\");");
@@ -579,14 +569,9 @@ public class GwtJsonObjectGenerator extends Generator {
       sourceWriter.println("this.setBooleanProperty(\"" + propertyName + "\", _" + propertyName + ");");
     }
     else if (adapterType.isAssignableTo(this.getType(logger, context, JsonNumberPropertyAdapter.class.getName()))) {
-      sourceWriter.println("double _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
+      sourceWriter.println(Number.class.getName() + " _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
       sourceWriter.println();
       sourceWriter.println("this.setNumberProperty(\"" + propertyName + "\", _" + propertyName + ");");
-    }
-    else if (adapterType.isAssignableTo(this.getType(logger, context, JsonIntegerPropertyAdapter.class.getName()))) {
-      sourceWriter.println("int _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
-      sourceWriter.println();
-      sourceWriter.println("this.setIntegerProperty(\"" + propertyName + "\", _" + propertyName + ");");
     }
     else if (adapterType.isAssignableTo(this.getType(logger, context, JsonStringPropertyAdapter.class.getName()))) {
       sourceWriter.println(String.class.getName() + " _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
