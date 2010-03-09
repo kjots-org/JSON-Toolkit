@@ -33,6 +33,7 @@ import static org.objectweb.asm.Opcodes.NEW;
 import static org.objectweb.asm.Opcodes.RETURN;
 import static org.objectweb.asm.Opcodes.V1_6;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -158,11 +159,38 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   }
   
   /**
+   * Retrieve the constructor of the JSON object implementation.
+   * <p>
+   * The default implementation of this method returns the first defined
+   * public constructor.
+   *
+   * @return The constructor of the JSON object implementation.
+   */
+  @SuppressWarnings("unchecked")
+  protected Constructor<T> getJsonObjectImplConstructor() {
+    Constructor<?>[] constructors = this.jsonObjectImplClass.getConstructors();
+    
+    return (Constructor<T>)constructors[0];
+  }
+  
+  /**
    * Retrieve the constructor arguments.
+   * <p>
+   * The default implementation of this method creates an array of class-based
+   * constructor arguments derived from the return value of {@link #getJsonObjectImplConstructor()}.
    *
    * @return The constructor arguments.
    */
-  protected abstract ConstructorArgument[] getConstructorArguments();
+  protected ConstructorArgument[] getConstructorArguments() {
+    Class<?>[] constructorParameterTypes = this.getJsonObjectImplConstructor().getParameterTypes();
+    ConstructorArgument[] constructorArguments = new ConstructorArgument[constructorParameterTypes.length];
+    
+    for (int i = 0; i < constructorParameterTypes.length; i++) {
+      constructorArguments[i] = new ConstructorArgument("arg" + i, "L" + Type.getInternalName(constructorParameterTypes[i]) + ";");
+    }
+    
+    return constructorArguments;
+  }
   
   /**
    * Define the class of the implementation of the JSON object from the given class bytes.

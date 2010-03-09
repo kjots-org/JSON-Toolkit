@@ -33,17 +33,4 @@ public class JsJsonObjectGenerator extends JsonObjectGeneratorBase<JsJsonObjectI
   public JsJsonObjectGenerator() {
     super(JsJsonObjectImpl.class);
   }
-  
-  /**
-   * Retrieve the constructor arguments.
-   *
-   * @return The constructor arguments.
-   */
-  @Override
-  protected ConstructorArgument[] getConstructorArguments() {
-    return new ConstructorArgument[] {
-      new ConstructorArgument("jsEngine", "Ljavax/script/Invocable;"),
-      new ConstructorArgument("jsObject", "Ljava/lang/Object;")
-    };
-  }
 }
