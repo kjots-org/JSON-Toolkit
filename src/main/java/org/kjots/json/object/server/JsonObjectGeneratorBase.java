@@ -59,6 +59,66 @@ import org.objectweb.asm.Type;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
+  /**
+   * Constructor Argument.
+   * <p>
+   * Created: 9th March 2010.
+   */
+  protected static class ConstructorArgument {
+    /** The name of the variable. */
+    private final String variableName;
+    
+    /** The internal name of the type. */
+    private final String typeIName;
+    
+    /**
+     * Create the constructor signature for the given arguments.
+     *
+     * @param constructorArguments The constructor arguments.
+     * @return The constructor signature.
+     */
+    public static String createConstructorSignature(ConstructorArgument[] constructorArguments) {
+      StringBuffer stringBuffer = new StringBuffer();
+      
+      stringBuffer.append("(");
+      for (ConstructorArgument constructorArgument : constructorArguments) {
+        stringBuffer.append(constructorArgument.getTypeIName());
+      }
+      stringBuffer.append(")V");
+      
+      return stringBuffer.toString();
+    }
+
+    /**
+     * Construct a new Constructor Argument.
+     *
+     * @param variableName The name of the variable.
+     * @param typeIName The internal name of the type.
+     */
+    public ConstructorArgument(String variableName, String typeIName) {
+      this.variableName = variableName;
+      this.typeIName = typeIName;
+    }
+
+    /**
+     * Retrieve the name of the variable.
+     *
+     * @return The name of the variable.
+     */
+    public String getVariableName() {
+      return this.variableName;
+    }
+
+    /**
+     * Retrieve the internal name of the type.
+     *
+     * @return The internal name of the type.
+     */
+    public String getTypeIName() {
+      return this.typeIName;
+    }
+  }
+  
   /** The class of the JSON object implementation. */
   private final Class<T> jsonObjectImplClass;
   
@@ -98,14 +158,12 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   }
   
   /**
-   * Generate the constructor.
+   * Retrieve the constructor arguments.
    *
-   * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
-   * @param superJsonObjectImplIClassName The internal class name of the super JSON object implementation.
+   * @return The constructor arguments.
    */
-  protected abstract void generateConstructor(ClassWriter classWriter, String jsonObjectImplIClassName, String superJsonObjectImplIClassName);
-
+  protected abstract ConstructorArgument[] getConstructorArguments();
+  
   /**
    * Define the class of the implementation of the JSON object from the given class bytes.
    *
@@ -199,6 +257,42 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     return classWriter.toByteArray(); 
   }
   
+  /**
+   * Generate the constructor.
+   *
+   * @param classWriter The class writer.
+   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param superJsonObjectImplIClassName The internal class name of the super JSON object implementation.
+   */
+  private void generateConstructor(ClassWriter classWriter, String jsonObjectImplIClassName, String superJsonObjectImplIClassName) {
+    ConstructorArgument[] constructorArguments = this.getConstructorArguments();
+    String constructorSignature = this.createConstructorSignature(constructorArguments);
+    
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", constructorSignature, null, null);
+    
+    Label start = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    for (int i = 0; i < constructorArguments.length; i++) {
+      methodVisitor.visitVarInsn(ALOAD, i + 1);
+    }
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, superJsonObjectImplIClassName, "<init>", constructorSignature);
+    methodVisitor.visitInsn(RETURN);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    for (int i = 0; i < constructorArguments.length; i++) {
+      methodVisitor.visitLocalVariable(constructorArguments[i].getVariableName(), constructorArguments[i].getTypeIName(), null, start, end, i + 1);
+    }
+    methodVisitor.visitMaxs(constructorArguments.length + 1, constructorArguments.length + 1);
+    
+    methodVisitor.visitEnd();
+  }
+
   /**
    * Generate a property method. 
    *
@@ -869,6 +963,24 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitEnd();
   }
   
+  /**
+   * Create the constructor signature for the given arguments.
+   *
+   * @param constructorArguments The constructor arguments.
+   * @return The constructor signature.
+   */
+  private String createConstructorSignature(ConstructorArgument[] constructorArguments) {
+    StringBuffer stringBuffer = new StringBuffer();
+    
+    stringBuffer.append("(");
+    for (ConstructorArgument constructorArgument : constructorArguments) {
+      stringBuffer.append(constructorArgument.getTypeIName());
+    }
+    stringBuffer.append(")V");
+    
+    return stringBuffer.toString();
+  }
+
   /**
    * Retrieve the implemented parameterized interface with the given raw
    * interface from the given class.

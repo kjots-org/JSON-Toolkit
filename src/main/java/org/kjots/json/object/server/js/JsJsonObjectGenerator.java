@@ -15,16 +15,8 @@
  */
 package org.kjots.json.object.server.js;
 
-import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
-import static org.objectweb.asm.Opcodes.ALOAD;
-import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
-import static org.objectweb.asm.Opcodes.RETURN;
-
 import org.kjots.json.object.server.JsonObjectGeneratorBase;
 import org.kjots.json.object.server.js.impl.JsJsonObjectImpl;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
 
 /**
  * JavaScript JSON Object Generator.
@@ -43,34 +35,15 @@ public class JsJsonObjectGenerator extends JsonObjectGeneratorBase<JsJsonObjectI
   }
   
   /**
-   * Generate the constructor.
+   * Retrieve the constructor arguments.
    *
-   * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
-   * @param superJsonObjectImplIClassName The internal class name of the super JSON object implementation.
+   * @return The constructor arguments.
    */
   @Override
-  protected void generateConstructor(ClassWriter classWriter, String jsonObjectImplIClassName, String superJsonObjectImplIClassName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", "(Ljavax/script/Invocable;Ljava/lang/Object;)V", null, null);
-    
-    Label start = new Label();
-    Label end = new Label();
-    
-    methodVisitor.visitCode();
-    
-    methodVisitor.visitLabel(start);
-    methodVisitor.visitVarInsn(ALOAD, 0);
-    methodVisitor.visitVarInsn(ALOAD, 1);
-    methodVisitor.visitVarInsn(ALOAD, 2);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, superJsonObjectImplIClassName, "<init>", "(Ljavax/script/Invocable;Ljava/lang/Object;)V");
-    methodVisitor.visitInsn(RETURN);
-    methodVisitor.visitLabel(end);
-    
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable("jsEngine", "Ljavax/script/Invocable;", null, start, end, 1);
-    methodVisitor.visitLocalVariable("jsObject", "Ljava/lang/Object;", null, start, end, 2);
-    methodVisitor.visitMaxs(3, 3);
-    
-    methodVisitor.visitEnd();
+  protected ConstructorArgument[] getConstructorArguments() {
+    return new ConstructorArgument[] {
+      new ConstructorArgument("jsEngine", "Ljavax/script/Invocable;"),
+      new ConstructorArgument("jsObject", "Ljava/lang/Object;")
+    };
   }
 }
