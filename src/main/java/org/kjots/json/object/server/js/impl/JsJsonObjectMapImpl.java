@@ -30,7 +30,7 @@ import org.kjots.json.object.shared.JsonObjectMap;
  */
 public class JsJsonObjectMapImpl<T extends JsonObject> extends JsJsonObjectImpl implements JsonObjectMap<T> {
   /** The element class. */
-  private Class<T> elementClass;
+  private final Class<T> elementClass;
   
   /**
    * Construct a new JavaScript JSON Object Map Implementation.

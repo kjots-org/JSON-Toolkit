@@ -30,7 +30,7 @@ import org.kjots.json.object.shared.JsonObjectArray;
  */
 public class JsJsonObjectArrayImpl<T extends JsonObject> extends JsJsonArrayImpl implements JsonObjectArray<T> {
   /** The element class. */
-  private Class<T> elementClass;
+  private final Class<T> elementClass;
   
   /**
    * Construct a new JavaScript JSON Object Array Implementation.
