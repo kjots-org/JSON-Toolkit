@@ -49,7 +49,7 @@ public abstract class JsonBooleanArrayImplTestBase<J> {
     
     assertEquals("testJsonBooleanArray.length", 5, testJsonBooleanArray.getLength());
     for (int i = 0; i < 5; i++) {
-      assertEquals("testJsonBooleanArray[" + i + "]", i % 2 == 0, testJsonBooleanArray.get(i));
+      assertEquals("testJsonBooleanArray[" + i + "]", i % 2 == 0, testJsonBooleanArray.get(i).booleanValue());
     }
   }
   
@@ -71,7 +71,7 @@ public abstract class JsonBooleanArrayImplTestBase<J> {
     
     assertEquals("array.length", 5, this.getArrayLength(array));
     for (int i = 0; i < 5; i++) {
-      assertEquals("array[" + i + "]", i % 2 == 0, this.getBooleanElement(array, i));
+      assertEquals("array[" + i + "]", i % 2 == 0, this.getBooleanElement(array, i).booleanValue());
     }
   }
   
@@ -97,7 +97,7 @@ public abstract class JsonBooleanArrayImplTestBase<J> {
     
     assertEquals("array.length", 5, this.getArrayLength(array));
     for (int i = 0; i < 5; i++) {
-      assertEquals("array[" + i + "]", i % 2 == 0, this.getBooleanElement(array, i));
+      assertEquals("array[" + i + "]", i % 2 == 0, this.getBooleanElement(array, i).booleanValue());
     }
   }
   
@@ -131,9 +131,9 @@ public abstract class JsonBooleanArrayImplTestBase<J> {
    * @param array The underlying JSON array.
    * @param elementIndex The index of the element.
    * @return The boolean value of the element.
-   * @see #setBooleanElement(Object, int, boolean)
+   * @see #setBooleanElement(Object, int, Boolean)
    */
-  protected abstract boolean getBooleanElement(J array, int elementIndex);
+  protected abstract Boolean getBooleanElement(J array, int elementIndex);
   
   /**
    * Set the element with the given name in the given underlying JSON array to
@@ -144,5 +144,5 @@ public abstract class JsonBooleanArrayImplTestBase<J> {
    * @param elementValue The boolean value of the element.
    * @see #getBooleanElement(Object, int)
    */
-  protected abstract void setBooleanElement(J array, int elementIndex, boolean elementValue);
+  protected abstract void setBooleanElement(J array, int elementIndex, Boolean elementValue);
 }

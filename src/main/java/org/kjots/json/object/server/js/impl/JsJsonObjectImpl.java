@@ -143,10 +143,10 @@ public class JsJsonObjectImpl implements JsonObject {
    *
    * @param propertyName The name of the property.
    * @return The boolean value of the property.
-   * @see #setBooleanProperty(String, boolean)
+   * @see #setBooleanProperty(String, Boolean)
    */
   @Override
-  public final boolean getBooleanProperty(String propertyName) {
+  public final Boolean getBooleanProperty(String propertyName) {
     return (Boolean)this.invokeFunction("getProperty", this.jsObject, propertyName);
   }
   
@@ -158,7 +158,7 @@ public class JsJsonObjectImpl implements JsonObject {
    * @see #getBooleanProperty(String)
    */
   @Override
-  public final void setBooleanProperty(String propertyName, boolean propertyValue) {
+  public final void setBooleanProperty(String propertyName, Boolean propertyValue) {
     this.invokeFunction("setProperty", this.jsObject, propertyName, propertyValue);
   }
   

@@ -114,11 +114,13 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTest {
      * @param array The underlying JSON array.
      * @param elementIndex The index of the element.
      * @return The boolean value of the element.
-     * @see #setBooleanElement(JavaScriptObject, int, boolean)
+     * @see #setBooleanElement(JavaScriptObject, int, Boolean)
      */
     @Override
-    protected final native boolean getBooleanElement(JavaScriptObject array, int elementIndex) /*-{
-      return array[elementIndex];
+    protected final native Boolean getBooleanElement(JavaScriptObject array, int elementIndex) /*-{
+      var jsElementValue = array[elementIndex];
+      
+      return jsElementValue != null ? @java.lang.Boolean::valueOf(Z)(jsElementValue) : null;
     }-*/;
     
     /**
@@ -131,8 +133,10 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTest {
      * @see #getBooleanElement(JavaScriptObject, int)
      */
     @Override
-    protected final native void setBooleanElement(JavaScriptObject array, int elementIndex, boolean elementValue) /*-{
-      array[elementIndex] = elementValue;
+    protected final native void setBooleanElement(JavaScriptObject array, int elementIndex, Boolean elementValue) /*-{
+      var jsElementValue = elementValue != null ? elementValue.@java.lang.Boolean::booleanValue()() : null;
+      
+      array[elementIndex] = jsElementValue;
     }-*/;
     
     /**

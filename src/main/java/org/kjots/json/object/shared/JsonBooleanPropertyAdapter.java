@@ -29,9 +29,9 @@ public interface JsonBooleanPropertyAdapter<T> extends JsonPropertyAdapter {
    *
    * @param t The value.
    * @return The JSON boolean property value.
-   * @see #fromJsonProperty(boolean)
+   * @see #fromJsonProperty(Boolean)
    */
-  public boolean toJsonProperty(T t);
+  public Boolean toJsonProperty(T t);
   
   /**
    * Convert from a JSON boolean property value.
@@ -40,5 +40,5 @@ public interface JsonBooleanPropertyAdapter<T> extends JsonPropertyAdapter {
    * @return The value.
    * @see #toJsonProperty(Object)
    */
-  public T fromJsonProperty(boolean propertyValue);
+  public T fromJsonProperty(Boolean propertyValue);
 }

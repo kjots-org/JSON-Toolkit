@@ -177,7 +177,7 @@ public abstract class JsonObjectImplTestBase<J> {
     
     JsonObject testJsonObject = this.createJsonObject(object);
     
-    assertEquals(true, testJsonObject.getBooleanProperty("booleanProperty"));
+    assertEquals(true, testJsonObject.getBooleanProperty("booleanProperty").booleanValue());
   }
   
   /**
@@ -195,7 +195,7 @@ public abstract class JsonObjectImplTestBase<J> {
     
     testJsonObject.setBooleanProperty("booleanProperty", true);
     
-    assertEquals(true, this.getBooleanProperty(object, "booleanProperty"));
+    assertEquals(true, this.getBooleanProperty(object, "booleanProperty").booleanValue());
   }
   
   /**
@@ -491,9 +491,9 @@ public abstract class JsonObjectImplTestBase<J> {
    * @param object The underlying JSON object.
    * @param propertyName The name of the property.
    * @return The boolean value of the property.
-   * @see #setBooleanProperty(Object, String, boolean)
+   * @see #setBooleanProperty(Object, String, Boolean)
    */
-  protected abstract boolean getBooleanProperty(J object, String propertyName);
+  protected abstract Boolean getBooleanProperty(J object, String propertyName);
   
   /**
    * Set the property with the given name in the given underlying JSON object
@@ -504,7 +504,7 @@ public abstract class JsonObjectImplTestBase<J> {
    * @param propertyValue The boolean value of the property.
    * @see #getBooleanProperty(Object, String)
    */
-  protected abstract void setBooleanProperty(J object, String propertyName, boolean propertyValue);
+  protected abstract void setBooleanProperty(J object, String propertyName, Boolean propertyValue);
   
   /**
    * Retrieve the number value of the property with the given name from the

@@ -135,10 +135,10 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    * @param array The underlying JSON array.
    * @param elementIndex The index of the element.
    * @return The boolean value of the element.
-   * @see #setBooleanElement(Object, int, boolean)
+   * @see #setBooleanElement(Object, int, Boolean)
    */
   @Override
-  protected boolean getBooleanElement(Object array, int elementIndex) {
+  protected Boolean getBooleanElement(Object array, int elementIndex) {
     return this.invokeFunction("getProperty", array, elementIndex);
   }
   
@@ -152,7 +152,7 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    * @see #getBooleanElement(Object, int)
    */
   @Override
-  protected void setBooleanElement(Object array, int elementIndex, boolean elementValue) {
+  protected void setBooleanElement(Object array, int elementIndex, Boolean elementValue) {
     this.invokeFunction("setProperty", array, elementIndex, elementValue);
   }
   

@@ -81,14 +81,14 @@ public interface JsonObject {
   /**
    * Retrieve the boolean value of the property with the given name.
    * <p>
-   * This method will return <code>false</code> if there is no property with the
+   * This method will return <code>null</code> if there is no property with the
    * given name.
    *
    * @param propertyName The name of the property.
    * @return The boolean value of the property.
-   * @see #setBooleanProperty(String, boolean)
+   * @see #setBooleanProperty(String, Boolean)
    */
-  public boolean getBooleanProperty(String propertyName);
+  public Boolean getBooleanProperty(String propertyName);
   
   /**
    * Set the property with the given name to the given boolean value.
@@ -97,7 +97,7 @@ public interface JsonObject {
    * @param propertyValue The boolean value of the property.
    * @see #getBooleanProperty(String)
    */
-  public void setBooleanProperty(String propertyName, boolean propertyValue);
+  public void setBooleanProperty(String propertyName, Boolean propertyValue);
   
   /**
    * Determine if the JSON object has a property with the given name and a
@@ -114,7 +114,7 @@ public interface JsonObject {
   /**
    * Retrieve the numeric value of the property with the given name.
    * <p>
-   * This method will return <code>0.0</code> if there is no property with the
+   * This method will return <code>null</code> if there is no property with the
    * given name.
    *
    * @param propertyName The name of the property.

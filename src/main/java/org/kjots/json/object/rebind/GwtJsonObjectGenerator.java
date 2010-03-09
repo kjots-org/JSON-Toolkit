@@ -287,8 +287,8 @@ public class GwtJsonObjectGenerator extends Generator {
       this.writeGetAdaptedPropertyMethod(sourceWriter, logger, context, method.getName(), jsonPropertyAnnotation.name(), returnTypeName, adapterClass.getName().replace('$', '.'));
     }
     else {
-      if (returnTypeName.equals("boolean")) {
-        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "getBooleanProperty");
+      if (returnTypeName.equals(Boolean.class.getName())) {
+        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Boolean.class.getName(), "getBooleanProperty");
       }
       else if (returnTypeName.equals(Number.class.getName())) {
         this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "getNumberProperty");
@@ -348,8 +348,8 @@ public class GwtJsonObjectGenerator extends Generator {
       this.writeSetAdaptedPropertyMethod(sourceWriter, logger, context, method.getName(), jsonPropertyAnnotation.name(), parameterTypeName, adapterClass.getName().replace('$', '.'));
     }
     else {
-      if (parameterTypeName.equals("boolean")) {
-        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "setBooleanProperty");
+      if (parameterTypeName.equals(Boolean.class.getName())) {
+        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Boolean.class.getName(), "setBooleanProperty");
       }
       else if (parameterTypeName.equals(Number.class.getName())) {
         this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "setNumberProperty"); 

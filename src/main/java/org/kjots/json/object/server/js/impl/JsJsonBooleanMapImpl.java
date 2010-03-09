@@ -43,10 +43,10 @@ public class JsJsonBooleanMapImpl extends JsJsonObjectImpl implements JsonBoolea
    *
    * @param key The key.
    * @return The boolean value.
-   * @see #set(String, boolean)
+   * @see #set(String, Boolean)
    */
   @Override
-  public final boolean get(String key) {
+  public final Boolean get(String key) {
     return this.getBooleanProperty(key);
   }
   
@@ -58,7 +58,7 @@ public class JsJsonBooleanMapImpl extends JsJsonObjectImpl implements JsonBoolea
    * @see #get(String)
    */
   @Override
-  public final void set(String key, boolean value) {
+  public final void set(String key, Boolean value) {
     this.setBooleanProperty(key, value);
   }
 }

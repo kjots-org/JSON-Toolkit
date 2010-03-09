@@ -80,11 +80,13 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    *
    * @param index The index.
    * @return The boolean value.
-   * @see #setBooleanElement(int, boolean)
+   * @see #setBooleanElement(int, Boolean)
    */
   @Override
-  public final native boolean getBooleanElement(int index) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+  public final native Boolean getBooleanElement(int index) /*-{
+    var jsValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    
+    return jsValue != null ? @java.lang.Boolean::valueOf(Z)(jsValue) : null;
   }-*/;
   
   /**
@@ -95,8 +97,10 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @see #getBooleanElement(int)
    */
   @Override
-  public final native void setBooleanElement(int index, boolean value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = value;
+  public final native void setBooleanElement(int index, Boolean value) /*-{
+    var jsValue = value != null ? value.@java.lang.Boolean::booleanValue()() : null;
+    
+    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = jsValue;
   }-*/;
   
   /**
@@ -106,8 +110,10 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @param value The boolean value.
    */
   @Override
-  public final native void insertBooleanElement(int index, boolean value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
+  public final native void insertBooleanElement(int index, Boolean value) /*-{
+    var jsValue = value != null ? value.@java.lang.Boolean::booleanValue()() : null;
+    
+    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, jsValue);
   }-*/;
   
   /**

@@ -29,9 +29,9 @@ public interface JsonBooleanArray extends JsonArray {
    *
    * @param index The index.
    * @return The boolean value.
-   * @see #set(int, boolean)
+   * @see #set(int, Boolean)
    */
-  public boolean get(int index);
+  public Boolean get(int index);
   
   /**
    * Set the element at the given index to the given boolean value.
@@ -40,7 +40,7 @@ public interface JsonBooleanArray extends JsonArray {
    * @param value The boolean value.
    * @see #get(int)
    */
-  public void set(int index, boolean value);
+  public void set(int index, Boolean value);
   
   /**
    * Insert the given boolean value at the given index.
@@ -48,5 +48,5 @@ public interface JsonBooleanArray extends JsonArray {
    * @param index The index.
    * @param value The boolean value.
    */
-  public void insert(int index, boolean value);
+  public void insert(int index, Boolean value);
 }

@@ -23,12 +23,10 @@ import static org.objectweb.asm.Opcodes.ARETURN;
 import static org.objectweb.asm.Opcodes.ASTORE;
 import static org.objectweb.asm.Opcodes.CHECKCAST;
 import static org.objectweb.asm.Opcodes.DUP;
-import static org.objectweb.asm.Opcodes.ILOAD;
 import static org.objectweb.asm.Opcodes.INVOKEINTERFACE;
 import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
 import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
 import static org.objectweb.asm.Opcodes.IRETURN;
-import static org.objectweb.asm.Opcodes.ISTORE;
 import static org.objectweb.asm.Opcodes.NEW;
 import static org.objectweb.asm.Opcodes.RETURN;
 import static org.objectweb.asm.Opcodes.V1_6;
@@ -450,7 +448,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
     if (!adapterClass.equals(JsonPropertyAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Z", "getBooleanProperty", ISTORE, ILOAD);
+        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Ljava/lang/Boolean;", "getBooleanProperty", ASTORE, ALOAD);
       }
       else if (JsonNumberPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Ljava/lang/Number;", "getNumberProperty", ASTORE, ALOAD);
@@ -476,8 +474,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       }
     }
     else {
-      if (returnType.equals(boolean.class)) {
-        this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Z", "getBooleanProperty", IRETURN);
+      if (returnType.equals(Boolean.class)) {
+        this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Boolean;", "getBooleanProperty", ARETURN);
       }
       else if (returnType.equals(Number.class)) {
         this.generateGetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Number;", "getNumberProperty", ARETURN);
@@ -530,7 +528,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
     if (!adapterClass.equals(JsonPropertyAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Z", "setBooleanProperty", ISTORE, ILOAD);
+        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Ljava/lang/Boolean;", "setBooleanProperty", ASTORE, ALOAD);
       }
       else if (JsonNumberPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Ljava/lang/Number;", "setNumberProperty", ASTORE, ALOAD);
@@ -556,8 +554,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       }
     }
     else {
-      if (parameterType.equals(boolean.class)) {
-        this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Z", "setBooleanProperty", ILOAD);
+      if (parameterType.equals(Boolean.class)) {
+        this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Boolean;", "setBooleanProperty", ALOAD);
       }
       else if (parameterType.equals(Number.class)) {
         this.generateSetPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Number;", "setNumberProperty", ALOAD);

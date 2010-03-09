@@ -133,10 +133,10 @@ public abstract class JsonObjectGeneratorTestBase {
      * Retrieve the test boolean property.
      *
      * @return The test boolean property.
-     * @see #setTestBooleanProperty(boolean)
+     * @see #setTestBooleanProperty(Boolean)
      */
     @JsonProperty(name = "testBooleanProperty", operation = OperationType.GET)
-    public boolean getTestBooleanProperty();
+    public Boolean getTestBooleanProperty();
     
     /**
      * Set the test boolean property.
@@ -145,7 +145,7 @@ public abstract class JsonObjectGeneratorTestBase {
      * @see #getTestBooleanProperty()
      */
     @JsonProperty(name = "testBooleanProperty", operation = OperationType.SET)
-    public void setTestBooleanProperty(boolean testBooleanProperty);
+    public void setTestBooleanProperty(Boolean testBooleanProperty);
     
     /**
      * Retrieve the test adapted boolean property.
@@ -465,11 +465,11 @@ public abstract class JsonObjectGeneratorTestBase {
      *
      * @param string The value.
      * @return The JSON boolean property value.
-     * @see #fromJsonProperty(boolean)
+     * @see #fromJsonProperty(Boolean)
      */
     @Override
-    public boolean toJsonProperty(String string) {
-      return Boolean.parseBoolean(string);
+    public Boolean toJsonProperty(String string) {
+      return Boolean.valueOf(Boolean.parseBoolean(string));
     }
     
     /**
@@ -480,8 +480,8 @@ public abstract class JsonObjectGeneratorTestBase {
      * @see #toJsonProperty(String)
      */
     @Override
-    public String fromJsonProperty(boolean propertyValue) {
-      return Boolean.toString(propertyValue);
+    public String fromJsonProperty(Boolean propertyValue) {
+      return propertyValue.toString();
     }
   }
   
@@ -502,7 +502,7 @@ public abstract class JsonObjectGeneratorTestBase {
      */
     @Override
     public Number toJsonProperty(String string) {
-      return Double.parseDouble(string);
+      return Double.valueOf(Double.parseDouble(string));
     }
     
     /**
@@ -739,7 +739,7 @@ public abstract class JsonObjectGeneratorTestBase {
     
     testJsonObject.setBooleanProperty("testBooleanProperty", true);
     
-    assertEquals(true, testJsonObject.getTestBooleanProperty());
+    assertEquals(true, testJsonObject.getTestBooleanProperty().booleanValue());
   }
   
   /**
@@ -755,7 +755,7 @@ public abstract class JsonObjectGeneratorTestBase {
     
     testJsonObject.setTestBooleanProperty(true);
     
-    assertEquals(true, testJsonObject.getBooleanProperty("testBooleanProperty"));
+    assertEquals(true, testJsonObject.getBooleanProperty("testBooleanProperty").booleanValue());
   }
   
   /**
@@ -787,7 +787,7 @@ public abstract class JsonObjectGeneratorTestBase {
     
     testJsonObject.setTestAdaptedBooleanProperty(new TestJsonBooleanPropertyAdapter().fromJsonProperty(true));
     
-    assertEquals(true, testJsonObject.getBooleanProperty("testAdaptedBooleanProperty"));
+    assertEquals(true, testJsonObject.getBooleanProperty("testAdaptedBooleanProperty").booleanValue());
   }
   
   /**

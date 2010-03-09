@@ -43,10 +43,10 @@ public class JsJsonBooleanArrayImpl extends JsJsonArrayImpl implements JsonBoole
    *
    * @param index The index.
    * @return The boolean value.
-   * @see #set(int, boolean)
+   * @see #set(int, Boolean)
    */
   @Override
-  public final boolean get(int index) {
+  public final Boolean get(int index) {
     return this.getBooleanElement(index);
   }
     
@@ -58,7 +58,7 @@ public class JsJsonBooleanArrayImpl extends JsJsonArrayImpl implements JsonBoole
    * @see #get(int)
    */
   @Override
-  public final void set(int index, boolean value) {
+  public final void set(int index, Boolean value) {
     this.setBooleanElement(index, value);
   }
   
@@ -69,7 +69,7 @@ public class JsJsonBooleanArrayImpl extends JsJsonArrayImpl implements JsonBoole
    * @param value The boolean value.
    */
   @Override
-  public final void insert(int index, boolean value) {
+  public final void insert(int index, Boolean value) {
     this.insertBooleanElement(index, value);
   }
 }

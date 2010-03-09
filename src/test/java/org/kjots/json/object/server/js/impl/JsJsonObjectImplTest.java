@@ -96,10 +96,10 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    * @param object The underlying JSON object.
    * @param propertyName The name of the property.
    * @return The boolean value of the property.
-   * @see #setBooleanProperty(Object, String, boolean)
+   * @see #setBooleanProperty(Object, String, Boolean)
    */
   @Override
-  protected boolean getBooleanProperty(Object object, String propertyName) {
+  protected Boolean getBooleanProperty(Object object, String propertyName) {
     return this.invokeFunction("getProperty", object, propertyName);
   }
   
@@ -113,7 +113,7 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    * @see #getBooleanProperty(Object, String)
    */
   @Override
-  protected void setBooleanProperty(Object object, String propertyName, boolean propertyValue) {
+  protected void setBooleanProperty(Object object, String propertyName, Boolean propertyValue) {
     this.invokeFunction("setProperty", object, propertyName, propertyValue);
   }
   

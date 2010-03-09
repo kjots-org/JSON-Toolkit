@@ -29,9 +29,9 @@ public interface JsonBooleanMap extends JsonObject {
    *
    * @param key The key.
    * @return The boolean value.
-   * @see #set(String, boolean)
+   * @see #set(String, Boolean)
    */
-  public boolean get(String key);
+  public Boolean get(String key);
   
   /**
    * Set the element with the given key to the given boolean value.
@@ -40,5 +40,5 @@ public interface JsonBooleanMap extends JsonObject {
    * @param value The boolean value.
    * @see #get(String)
    */
-  public void set(String key, boolean value);
+  public void set(String key, Boolean value);
 }

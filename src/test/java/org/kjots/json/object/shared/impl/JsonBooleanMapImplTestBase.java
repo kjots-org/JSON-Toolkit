@@ -48,7 +48,7 @@ public abstract class JsonBooleanMapImplTestBase<J> {
     JsonBooleanMap testJsonBooleanMap = this.createJsonBooleanMap(object);
     
     for (int i = 0; i < 5; i++) {
-      assertEquals("testJsonBooleanMap[\"" + Integer.toString(i) + "\"]", i % 2 == 0, testJsonBooleanMap.get(Integer.toString(i)));
+      assertEquals("testJsonBooleanMap[\"" + Integer.toString(i) + "\"]", i % 2 == 0, testJsonBooleanMap.get(Integer.toString(i)).booleanValue());
     }
   }
   
@@ -69,7 +69,7 @@ public abstract class JsonBooleanMapImplTestBase<J> {
     }
     
     for (int i = 0; i < 5; i++) {
-      assertEquals("object[\"" + Integer.toString(i) + "\"]", i % 2 == 0, this.getBooleanProperty(object, Integer.toString(i)));
+      assertEquals("object[\"" + Integer.toString(i) + "\"]", i % 2 == 0, this.getBooleanProperty(object, Integer.toString(i)).booleanValue());
     }
   }
   
@@ -95,9 +95,9 @@ public abstract class JsonBooleanMapImplTestBase<J> {
    * @param object The underlying JSON object.
    * @param propertyName The name of the property.
    * @return The boolean value of the property.
-   * @see #setBooleanProperty(Object, String, boolean)
+   * @see #setBooleanProperty(Object, String, Boolean)
    */
-  protected abstract boolean getBooleanProperty(J object, String propertyName);
+  protected abstract Boolean getBooleanProperty(J object, String propertyName);
   
   /**
    * Set the property with the given name in the given underlying JSON object
@@ -108,5 +108,5 @@ public abstract class JsonBooleanMapImplTestBase<J> {
    * @param propertyValue The boolean value of the property.
    * @see #getBooleanProperty(Object, String)
    */
-  protected abstract void setBooleanProperty(J object, String propertyName, boolean propertyValue);
+  protected abstract void setBooleanProperty(J object, String propertyName, Boolean propertyValue);
 }

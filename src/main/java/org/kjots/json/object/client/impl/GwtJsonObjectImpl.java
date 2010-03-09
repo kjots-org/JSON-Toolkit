@@ -133,11 +133,13 @@ public class GwtJsonObjectImpl implements JsonObject {
    *
    * @param propertyName The name of the property.
    * @return The boolean value of the property.
-   * @see #setBooleanProperty(String, boolean)
+   * @see #setBooleanProperty(String, Boolean)
    */
   @Override
-  public final native boolean getBooleanProperty(String propertyName) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+  public final native Boolean getBooleanProperty(String propertyName) /*-{
+    var jsPropertyValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    
+    return jsPropertyValue != null ? @java.lang.Boolean::valueOf(Z)(jsPropertyValue) : null;
   }-*/;
   
   /**
@@ -148,8 +150,10 @@ public class GwtJsonObjectImpl implements JsonObject {
    * @see #getBooleanProperty(String)
    */
   @Override
-  public final native void setBooleanProperty(String propertyName, boolean propertyValue) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = propertyValue;
+  public final native void setBooleanProperty(String propertyName, Boolean propertyValue) /*-{
+    var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Boolean::booleanValue()() : null;
+    
+    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = jsPropertyValue;
   }-*/;
   
   /**

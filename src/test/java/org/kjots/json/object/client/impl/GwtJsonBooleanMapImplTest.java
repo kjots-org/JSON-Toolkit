@@ -65,11 +65,13 @@ public class GwtJsonBooleanMapImplTest extends GwtJsonObjectTest {
      * @param object The underlying JSON object.
      * @param propertyName The name of the property.
      * @return The boolean value of the property.
-     * @see #setBooleanProperty(JavaScriptObject, String, boolean)
+     * @see #setBooleanProperty(JavaScriptObject, String, Boolean)
      */
     @Override
-    protected final native boolean getBooleanProperty(JavaScriptObject object, String propertyName) /*-{
-      return object[propertyName];
+    protected final native Boolean getBooleanProperty(JavaScriptObject object, String propertyName) /*-{
+      var jsPropertyValue = object[propertyName];
+      
+      return jsPropertyValue != null ? @java.lang.Boolean::valueOf(Z)(jsPropertyValue) : null;
     }-*/;
     
     /**
@@ -82,8 +84,10 @@ public class GwtJsonBooleanMapImplTest extends GwtJsonObjectTest {
      * @see #getBooleanProperty(JavaScriptObject, String)
      */
     @Override
-    protected final native void setBooleanProperty(JavaScriptObject object, String propertyName, boolean propertyValue) /*-{
-      object[propertyName] = propertyValue;
+    protected final native void setBooleanProperty(JavaScriptObject object, String propertyName, Boolean propertyValue) /*-{
+      var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Boolean::booleanValue()() : null;
+      
+      object[propertyName] = jsPropertyValue;
     }-*/;
   }
   

@@ -118,7 +118,7 @@ public abstract class JsonArrayImplTestBase<J> {
     
     JsonArray testJsonArray = this.createJsonArray(array);
     
-    assertEquals(true, testJsonArray.getBooleanElement(0));
+    assertEquals(true, testJsonArray.getBooleanElement(0).booleanValue());
   }
   
   /**
@@ -136,7 +136,7 @@ public abstract class JsonArrayImplTestBase<J> {
     
     testJsonArray.setBooleanElement(0, true);
     
-    assertEquals(true, this.getBooleanElement(array, 0));
+    assertEquals(true, this.getBooleanElement(array, 0).booleanValue());
   }
   
   /**
@@ -155,15 +155,15 @@ public abstract class JsonArrayImplTestBase<J> {
     testJsonArray.setBooleanElement(1, true);
     
     assertEquals(2, this.getArrayLength(array));
-    assertEquals(true, this.getBooleanElement(array, 0));
-    assertEquals(true, this.getBooleanElement(array, 1));
+    assertEquals(true, this.getBooleanElement(array, 0).booleanValue());
+    assertEquals(true, this.getBooleanElement(array, 1).booleanValue());
     
     testJsonArray.insertBooleanElement(1, false);
     
     assertEquals(3, this.getArrayLength(array));
-    assertEquals(true, this.getBooleanElement(array, 0));
-    assertEquals(false, this.getBooleanElement(array, 1));
-    assertEquals(true, this.getBooleanElement(array, 2));
+    assertEquals(true, this.getBooleanElement(array, 0).booleanValue());
+    assertEquals(false, this.getBooleanElement(array, 1).booleanValue());
+    assertEquals(true, this.getBooleanElement(array, 2).booleanValue());
   }
   
   /**
@@ -541,9 +541,9 @@ public abstract class JsonArrayImplTestBase<J> {
    * @param array The underlying JSON array.
    * @param elementIndex The index of the element.
    * @return The boolean value of the element.
-   * @see #setBooleanElement(Object, int, boolean)
+   * @see #setBooleanElement(Object, int, Boolean)
    */
-  protected abstract boolean getBooleanElement(J array, int elementIndex);
+  protected abstract Boolean getBooleanElement(J array, int elementIndex);
   
   /**
    * Set the element with the given name in the given underlying JSON array to
@@ -554,7 +554,7 @@ public abstract class JsonArrayImplTestBase<J> {
    * @param elementValue The boolean value of the element.
    * @see #getBooleanElement(Object, int)
    */
-  protected abstract void setBooleanElement(J array, int elementIndex, boolean elementValue);
+  protected abstract void setBooleanElement(J array, int elementIndex, Boolean elementValue);
   
   /**
    * Retrieve the numeric value of the element at the given index from the

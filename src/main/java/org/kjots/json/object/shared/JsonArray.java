@@ -53,14 +53,14 @@ public interface JsonArray extends JsonObject {
   /**
    * Retrieve the boolean value of the element at the given index.
    * <p>
-   * This method will return <code>false</code> if there is no element with the
-   * given index of if the element with the given index is <code>null</code>.
+   * This method will return <code>null</code> if there is no element at the
+   * given index.
    *
    * @param index The index.
    * @return The boolean value.
-   * @see #setBooleanElement(int, boolean)
+   * @see #setBooleanElement(int, Boolean)
    */
-  public boolean getBooleanElement(int index);
+  public Boolean getBooleanElement(int index);
   
   /**
    * Set the element at the given index to the given boolean value.
@@ -69,7 +69,7 @@ public interface JsonArray extends JsonObject {
    * @param value The boolean value.
    * @see #getBooleanElement(int)
    */
-  public void setBooleanElement(int index, boolean value);
+  public void setBooleanElement(int index, Boolean value);
   
   /**
    * Insert the given boolean value at the given index.
@@ -77,7 +77,7 @@ public interface JsonArray extends JsonObject {
    * @param index The index.
    * @param value The boolean value.
    */
-  public void insertBooleanElement(int index, boolean value);
+  public void insertBooleanElement(int index, Boolean value);
   
   /**
    * Determine if the element at the given index has a numeric value.
@@ -93,8 +93,8 @@ public interface JsonArray extends JsonObject {
   /**
    * Retrieve the numeric value of the element at the given index.
    * <p>
-   * This method will return <code>0.0</code> if there is no element with the
-   * given index of if the element with the given index is <code>null</code>.
+   * This method will return <code>null</code> if there is no element at the
+   * given index.
    *
    * @param index The index.
    * @return The numeric value.
@@ -133,7 +133,7 @@ public interface JsonArray extends JsonObject {
   /**
    * Retrieve the string value of the element at the given index.
    * <p>
-   * This method will return <code>null</code> if there is no element with the
+   * This method will return <code>null</code> if there is no element at the
    * given index.
    *
    * @param index The index.
@@ -173,7 +173,7 @@ public interface JsonArray extends JsonObject {
   /**
    * Retrieve the object value of the element at the given index.
    * <p>
-   * This method will return <code>null</code> if there is no element with the
+   * This method will return <code>null</code> if there is no element at the
    * given index.
    *
    * @param index The index.
@@ -187,7 +187,7 @@ public interface JsonArray extends JsonObject {
    * <p>
    * This method will return the object value as a instance of the given class.
    * <p>
-   * This method will return <code>null</code> if there is no element with the
+   * This method will return <code>null</code> if there is no element at the
    * given index.
    *
    * @param <T> The type of the object value.

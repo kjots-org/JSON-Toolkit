@@ -83,10 +83,10 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
    *
    * @param index The index.
    * @return The boolean value.
-   * @see #setBooleanElement(int, boolean)
+   * @see #setBooleanElement(int, Boolean)
    */
   @Override
-  public final boolean getBooleanElement(int index) {
+  public final Boolean getBooleanElement(int index) {
     return (Boolean)this.invokeFunction("getProperty", this.jsObject, index);
   }
   
@@ -98,7 +98,7 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
    * @see #getBooleanElement(int)
    */
   @Override
-  public final void setBooleanElement(int index, boolean value) {
+  public final void setBooleanElement(int index, Boolean value) {
     this.invokeFunction("setProperty", this.jsObject, index, value);
   }
   
@@ -109,7 +109,7 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
    * @param value The boolean value.
    */
   @Override
-  public final void insertBooleanElement(int index, boolean value) {
+  public final void insertBooleanElement(int index, Boolean value) {
     this.invokeFunction("insertElement", this.jsObject, index, value);
   }
   

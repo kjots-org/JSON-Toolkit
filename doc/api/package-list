@@ -6,6 +6,7 @@ org.kjots.json.content.shared.text
 org.kjots.json.object.client
 org.kjots.json.object.client.impl
 org.kjots.json.object.rebind
+org.kjots.json.object.server
 org.kjots.json.object.server.js
 org.kjots.json.object.server.js.impl
 org.kjots.json.object.shared
