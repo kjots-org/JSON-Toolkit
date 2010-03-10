@@ -9,5 +9,7 @@ org.kjots.json.object.rebind
 org.kjots.json.object.server
 org.kjots.json.object.server.js
 org.kjots.json.object.server.js.impl
+org.kjots.json.object.server.simple
+org.kjots.json.object.server.simple.impl
 org.kjots.json.object.shared
 org.kjots.json.object.shared.content

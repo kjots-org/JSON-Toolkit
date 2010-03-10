@@ -137,7 +137,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     }
     else {
       try {
-        jsonObjectImplClass = Class.forName(jsonObjectClass.getName() + "Impl", true, this.getClass().getClassLoader());
+        jsonObjectImplClass = Class.forName(jsonObjectClass.getName() + "$" + this.jsonObjectImplClass.getSimpleName(), true, this.getClass().getClassLoader());
       }
       catch (ClassNotFoundException cnfe) {
         jsonObjectImplClass = this.defineImplClass(this.generateImplClassBytes(jsonObjectClass));
@@ -269,7 +269,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     ClassWriter classWriter = new ClassWriter(0);
     
     String jsonObjectIClassName = Type.getInternalName(jsonObjectClass);
-    String jsonObjectImplIClassName = jsonObjectIClassName + "Impl";
+    String jsonObjectImplIClassName = jsonObjectIClassName + "$" + this.jsonObjectImplClass.getSimpleName();
     String superJsonObjectImplIClassName = Type.getInternalName(superJsonObjectImplClass);
     
     classWriter.visit(V1_6, ACC_PUBLIC + ACC_SUPER, jsonObjectImplIClassName, null, superJsonObjectImplIClassName, new String[] { jsonObjectIClassName });
