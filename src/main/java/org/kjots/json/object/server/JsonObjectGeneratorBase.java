@@ -512,6 +512,12 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       else if (returnType.equals(boolean.class)) {
         this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "boolean", "Z", "java/lang/Boolean", "getBooleanProperty", IRETURN);
       }
+      else if (returnType.equals(byte.class)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "byte", "B", "java/lang/Number", "getNumberProperty", IRETURN);
+      }
+      else if (returnType.equals(short.class)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "short", "S", "java/lang/Number", "getNumberProperty", IRETURN);
+      }
       else if (returnType.equals(int.class)) {
         this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "int", "I", "java/lang/Number", "getNumberProperty", IRETURN);
       }
@@ -585,6 +591,12 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       }
       else if (parameterType.equals(boolean.class)) {
         this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Z", "java/lang/Boolean", "java/lang/Boolean", "setBooleanProperty", ILOAD);
+      }
+      else if (parameterType.equals(byte.class)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "B", "java/lang/Byte", "java/lang/Number", "setNumberProperty", ILOAD);
+      }
+      else if (parameterType.equals(short.class)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "S", "java/lang/Short", "java/lang/Number", "setNumberProperty", ILOAD);
       }
       else if (parameterType.equals(int.class)) {
         this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "I", "java/lang/Integer", "java/lang/Number", "setNumberProperty", ILOAD);

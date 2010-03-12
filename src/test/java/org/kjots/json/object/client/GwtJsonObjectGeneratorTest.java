@@ -192,6 +192,48 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
   }
 
   /**
+   * @see JsonObjectGeneratorTestBase#testGetBytePrimitiveProperty()
+   */
+  public void testGetBytePrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetBytePrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testSetBytePrimitiveProperty()
+   */
+  public void testSetBytePrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testSetBytePrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetDefaultBytePrimitiveProperty()
+   */
+  public void testGetDefaultBytePrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetDefaultBytePrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetShortPrimitiveProperty()
+   */
+  public void testGetShortPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetShortPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testSetShortPrimitiveProperty()
+   */
+  public void testSetShortPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testSetShortPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetDefaultShortPrimitiveProperty()
+   */
+  public void testGetDefaultShortPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetDefaultShortPrimitiveProperty();
+  }
+
+  /**
    * @see JsonObjectGeneratorTestBase#testGetIntegerPrimitiveProperty()
    */
   public void testGetIntegerPrimitiveProperty() {

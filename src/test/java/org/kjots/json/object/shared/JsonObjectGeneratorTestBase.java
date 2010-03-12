@@ -292,6 +292,42 @@ public abstract class JsonObjectGeneratorTestBase {
     public void setTestBooleanPrimitiveProperty(boolean testBooleanPrimitiveProperty);
     
     /**
+     * Retrieve the test byte primitive property.
+     *
+     * @return The test byte primitive property.
+     * @see #setTestBytePrimitiveProperty(byte)
+     */
+    @JsonProperty(name = "testBytePrimitiveProperty", operation = OperationType.GET)
+    public byte getTestBytePrimitiveProperty();
+    
+    /**
+     * Set the test byte primitive property.
+     *
+     * @param testBytePrimitiveProperty The test byte primitive property.
+     * @see #getTestBytePrimitiveProperty()
+     */
+    @JsonProperty(name = "testBytePrimitiveProperty", operation = OperationType.SET)
+    public void setTestBytePrimitiveProperty(byte testBytePrimitiveProperty);
+    
+    /**
+     * Retrieve the test short primitive property.
+     *
+     * @return The test short primitive property.
+     * @see #setTestShortPrimitiveProperty(short)
+     */
+    @JsonProperty(name = "testShortPrimitiveProperty", operation = OperationType.GET)
+    public short getTestShortPrimitiveProperty();
+    
+    /**
+     * Set the test short primitive property.
+     *
+     * @param testShortPrimitiveProperty The test short primitive property.
+     * @see #getTestShortPrimitiveProperty()
+     */
+    @JsonProperty(name = "testShortPrimitiveProperty", operation = OperationType.SET)
+    public void setTestShortPrimitiveProperty(short testShortPrimitiveProperty);
+    
+    /**
      * Retrieve the test integer primitive property.
      *
      * @return The test integer primitive property.
@@ -1087,6 +1123,98 @@ public abstract class JsonObjectGeneratorTestBase {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
     assertEquals(false, testJsonObject.getTestBooleanPrimitiveProperty());
+  }
+  
+  /**
+   * Test the retrieval of the primitive byte value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive byte value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetBytePrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setNumberProperty("testBytePrimitiveProperty", 42);
+    
+    assertEquals((byte)42, testJsonObject.getTestBytePrimitiveProperty());
+  }
+  
+  /**
+   * Test the setting of the primitive byte value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive byte value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetBytePrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestBytePrimitiveProperty((byte)42);
+    
+    assertEquals((byte)42, testJsonObject.getNumberProperty("testBytePrimitiveProperty").byteValue());
+  }
+  
+  /**
+   * Test the retrieval of the default primitive byte value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive byte value of a property
+   * that does not exist in the underlying JSON object is the default byte
+   * value.
+   */
+  @Test
+  public void testGetDefaultBytePrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals((byte)0, testJsonObject.getTestBytePrimitiveProperty());
+  }
+  
+  /**
+   * Test the retrieval of the primitive short value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive short value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetShortPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setNumberProperty("testShortPrimitiveProperty", 42);
+    
+    assertEquals((short)42, testJsonObject.getTestShortPrimitiveProperty());
+  }
+  
+  /**
+   * Test the setting of the primitive short value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive short value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetShortPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestShortPrimitiveProperty((short)42);
+    
+    assertEquals((short)42, testJsonObject.getNumberProperty("testShortPrimitiveProperty").shortValue());
+  }
+  
+  /**
+   * Test the retrieval of the default primitive short value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive short value of a property
+   * that does not exist in the underlying JSON object is the default short
+   * value.
+   */
+  @Test
+  public void testGetDefaultShortPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals((short)0, testJsonObject.getTestShortPrimitiveProperty());
   }
   
   /**

@@ -312,6 +312,12 @@ public class GwtJsonObjectGenerator extends Generator {
       else if (returnTypeName.equals(boolean.class.getName())) {
         this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "java.lang.Boolean", "getBooleanProperty", "false");
       }
+      else if (returnTypeName.equals(byte.class.getName())) {
+        this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "byte", "java.lang.Number", "getNumberProperty", "0");
+      }
+      else if (returnTypeName.equals(short.class.getName())) {
+        this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "short", "java.lang.Number", "getNumberProperty", "0");
+      }
       else if (returnTypeName.equals(int.class.getName())) {
         this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "java.lang.Number", "getNumberProperty", "0");
       }
@@ -368,6 +374,12 @@ public class GwtJsonObjectGenerator extends Generator {
       }
       else if (parameterTypeName.equals(boolean.class.getName())) {
         this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "java.lang.Boolean", "setBooleanProperty");
+      }
+      else if (parameterTypeName.equals(byte.class.getName())) {
+        this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "byte", "java.lang.Byte", "setNumberProperty");
+      }
+      else if (parameterTypeName.equals(short.class.getName())) {
+        this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "short", "java.lang.Short", "setNumberProperty");
       }
       else if (parameterTypeName.equals(int.class.getName())) {
         this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "java.lang.Integer", "setNumberProperty");
