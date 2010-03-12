@@ -27,6 +27,10 @@ import static org.objectweb.asm.Opcodes.DLOAD;
 import static org.objectweb.asm.Opcodes.DOUBLE;
 import static org.objectweb.asm.Opcodes.DRETURN;
 import static org.objectweb.asm.Opcodes.DUP;
+import static org.objectweb.asm.Opcodes.FCONST_0;
+import static org.objectweb.asm.Opcodes.FLOAD;
+import static org.objectweb.asm.Opcodes.FLOAT;
+import static org.objectweb.asm.Opcodes.FRETURN;
 import static org.objectweb.asm.Opcodes.GOTO;
 import static org.objectweb.asm.Opcodes.ICONST_0;
 import static org.objectweb.asm.Opcodes.IFNULL;
@@ -528,6 +532,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       else if (returnType.equals(long.class)) {
         this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "long", "J", LONG, "java/lang/Number", "getNumberProperty", LCONST_0, LRETURN);
       }
+      else if (returnType.equals(float.class)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "float", "F", FLOAT, "java/lang/Number", "getNumberProperty", FCONST_0, FRETURN);
+      }
       else if (returnType.equals(double.class)) {
         this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "double", "D", DOUBLE, "java/lang/Number", "getNumberProperty", DCONST_0, DRETURN);
       }
@@ -610,6 +617,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       }
       else if (parameterType.equals(long.class)) {
         this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "J", "java/lang/Long", "java/lang/Number", "setNumberProperty", LLOAD);
+      }
+      else if (parameterType.equals(float.class)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "F", "java/lang/Float", "java/lang/Number", "setNumberProperty", FLOAD);
       }
       else if (parameterType.equals(double.class)) {
         this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "D", "java/lang/Double", "java/lang/Number", "setNumberProperty", DLOAD);
@@ -842,7 +852,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     Label start = new Label();
     Label end = new Label();
     
-    int maxsExtra = loadOpcode == ILOAD ? 0 : 1;
+    int maxsExtra = loadOpcode == LLOAD || loadOpcode == DLOAD ? 1 : 0;
     
     methodVisitor.visitCode();
     

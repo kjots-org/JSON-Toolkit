@@ -364,6 +364,24 @@ public abstract class JsonObjectGeneratorTestBase {
     public void setTestLongPrimitiveProperty(long testLongPrimitiveProperty);
     
     /**
+     * Retrieve the test float primitive property.
+     *
+     * @return The test float primitive property.
+     * @see #setTestFloatPrimitiveProperty(float)
+     */
+    @JsonProperty(name = "testFloatPrimitiveProperty", operation = OperationType.GET)
+    public float getTestFloatPrimitiveProperty();
+    
+    /**
+     * Set the test float primitive property.
+     *
+     * @param testFloatPrimitiveProperty The test float primitive property.
+     * @see #getTestFloatPrimitiveProperty()
+     */
+    @JsonProperty(name = "testFloatPrimitiveProperty", operation = OperationType.SET)
+    public void setTestFloatPrimitiveProperty(float testFloatPrimitiveProperty);
+    
+    /**
      * Retrieve the test double primitive property.
      *
      * @return The test double primitive property.
@@ -1325,6 +1343,52 @@ public abstract class JsonObjectGeneratorTestBase {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
     assertEquals(0, testJsonObject.getTestLongPrimitiveProperty());
+  }
+  
+  /**
+   * Test the retrieval of the primitive float value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive float value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetFloatPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setNumberProperty("testFloatPrimitiveProperty", 3.14f);
+    
+    assertEquals(3.14f, testJsonObject.getTestFloatPrimitiveProperty(), 0.001f);
+  }
+  
+  /**
+   * Test the setting of the primitive float value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive float value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetFloatPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestFloatPrimitiveProperty(3.14f);
+    
+    assertEquals(3.14f, testJsonObject.getNumberProperty("testFloatPrimitiveProperty").floatValue(), 0.001f);
+  }
+  
+  /**
+   * Test the retrieval of the default primitive float value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive float value of a property
+   * that does not exist in the underlying JSON object is the default float
+   * value.
+   */
+  @Test
+  public void testGetDefaultFloatPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(0.0f, testJsonObject.getTestFloatPrimitiveProperty(), 0.0f);
   }
   
   /**
