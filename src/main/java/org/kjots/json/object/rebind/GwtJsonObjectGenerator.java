@@ -330,6 +330,9 @@ public class GwtJsonObjectGenerator extends Generator {
       else if (returnTypeName.equals(double.class.getName())) {
         this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "java.lang.Number", "getNumberProperty", "0.0");
       }
+      else if (returnTypeName.equals(char.class.getName())) {
+        this.writeGetJavaCharacterPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name());
+      }
       else {
         this.writeGetObjectPropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), returnTypeName);
       }
@@ -398,6 +401,9 @@ public class GwtJsonObjectGenerator extends Generator {
       }
       else if (parameterTypeName.equals(double.class.getName())) {
         this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "java.lang.Double", "setNumberProperty");
+      }
+      else if (parameterTypeName.equals(char.class.getName())) {
+        this.writeSetJavaCharacterPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name());
       }
       else {
         this.writeSetObjectPropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), parameterTypeName);
@@ -526,6 +532,40 @@ public class GwtJsonObjectGenerator extends Generator {
     sourceWriter.println("public final void " + methodName + "(" + primitiveTypeName + " " + propertyName + ") {");
     sourceWriter.indent();
     sourceWriter.println("this." + jsonPrimitiveMethodName + "(\"" + propertyName + "\", " + primitiveWrapperTypeName + ".valueOf(" + propertyName + "));");
+    sourceWriter.outdent();
+    sourceWriter.println("}");
+  }
+  
+  /**
+   * Write a get Java character primitive property method for the property with the given name.
+   *
+   * @param sourceWriter The source writer.
+   * @param methodName The name of the method.
+   * @param propertyName The name of the property.
+   */
+  private void writeGetJavaCharacterPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName) {
+    sourceWriter.println("@Override");
+    sourceWriter.println("public final char " + methodName + "() {");
+    sourceWriter.indent();
+    sourceWriter.println("java.lang.String _" + propertyName + " = this.getStringProperty(\"" + propertyName + "\");");
+    sourceWriter.println();
+    sourceWriter.println("return _" + propertyName + " != null && !_" + propertyName + ".isEmpty() ? _" + propertyName + ".charAt(0) : '\\0';");
+    sourceWriter.outdent();
+    sourceWriter.println("}");
+  }
+  
+  /**
+   * Write a set Java character primitive property method for the property with the given name.
+   *
+   * @param sourceWriter The source writer.
+   * @param methodName The name of the method.
+   * @param propertyName The name of the property.
+   */
+  private void writeSetJavaCharacterPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName) {
+    sourceWriter.println("@Override");
+    sourceWriter.println("public final void " + methodName + "(char " + propertyName + ") {");
+    sourceWriter.indent();
+    sourceWriter.println("this.setStringProperty(\"" + propertyName + "\", java.lang.Character.toString(" + propertyName + "));");
     sourceWriter.outdent();
     sourceWriter.println("}");
   }

@@ -319,6 +319,27 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
   }
 
   /**
+   * @see JsonObjectGeneratorTestBase#testGetCharacterPrimitiveProperty()
+   */
+  public void testGetCharacterPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetCharacterPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testSetCharacterPrimitiveProperty()
+   */
+  public void testSetCharacterPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testSetCharacterPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetDefaultCharacterPrimitiveProperty()
+   */
+  public void testGetDefaultCharacterPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetDefaultCharacterPrimitiveProperty();
+  }
+
+  /**
    * @see JsonObjectGeneratorTestBase#testGetArrayProperty()
    */
   public void testGetArrayProperty() {

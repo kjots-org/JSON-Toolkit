@@ -33,6 +33,7 @@ import static org.objectweb.asm.Opcodes.FLOAT;
 import static org.objectweb.asm.Opcodes.FRETURN;
 import static org.objectweb.asm.Opcodes.GOTO;
 import static org.objectweb.asm.Opcodes.ICONST_0;
+import static org.objectweb.asm.Opcodes.IFNE;
 import static org.objectweb.asm.Opcodes.IFNULL;
 import static org.objectweb.asm.Opcodes.ILOAD;
 import static org.objectweb.asm.Opcodes.INTEGER;
@@ -538,6 +539,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       else if (returnType.equals(double.class)) {
         this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "double", "D", DOUBLE, "java/lang/Number", "getNumberProperty", DCONST_0, DRETURN);
       }
+      else if (returnType.equals(char.class)) {
+        this.generateGetJavaCharacterPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name());
+      }
       else {
         this.generateGetObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType));
       }
@@ -623,6 +627,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       }
       else if (parameterType.equals(double.class)) {
         this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "D", "java/lang/Double", "java/lang/Number", "setNumberProperty", DLOAD);
+      }
+      else if (parameterType.equals(char.class)) {
+        this.generateSetJavaCharacterPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name());
       }
       else {
         this.generateSetObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType));
@@ -868,6 +875,85 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
     methodVisitor.visitLocalVariable(propertyName, primitiveTypeSignature, null, start, end, 1);
     methodVisitor.visitMaxs(3 + maxsExtra, 2 + maxsExtra);
+    
+    methodVisitor.visitEnd();
+  }
+  
+  /**
+   * Generate a get Java character primitive property method.
+   *
+   * @param classWriter The class writer.
+   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param methodName The name of the method.
+   * @param propertyName The name of the property.
+   */
+  private void generateGetJavaCharacterPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()C", null, null);
+    
+    Label start = new Label();
+    Label l0 = new Label();
+    Label l1 = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    methodVisitor.visitLdcInsn(propertyName);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getStringProperty", "(Ljava/lang/String;)Ljava/lang/String;");
+    methodVisitor.visitVarInsn(ASTORE, 1);
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitJumpInsn(IFNULL, l0);
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "isEmpty", "()Z");
+    methodVisitor.visitJumpInsn(IFNE, l0);
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitInsn(ICONST_0);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String", "charAt", "(I)C");
+    methodVisitor.visitJumpInsn(GOTO, l1);
+    methodVisitor.visitLabel(l0);
+    methodVisitor.visitFrame(Opcodes.F_APPEND, 1, new Object[] { "java/lang/String" }, 0, null);
+    methodVisitor.visitInsn(ICONST_0);
+    methodVisitor.visitLabel(l1);
+    methodVisitor.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { Opcodes.INTEGER });
+    methodVisitor.visitInsn(IRETURN);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable("_" + propertyName, "Ljava/lang/String;", null, start, end, 1);
+    methodVisitor.visitMaxs(2, 2);
+    
+    methodVisitor.visitEnd();
+  }
+  
+  /**
+   * Generate a set Java character primitive property method.
+   *
+   * @param classWriter The class writer.
+   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param methodName The name of the method.
+   * @param propertyName The name of the property.
+   */
+  private void generateSetJavaCharacterPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(C)V", null, null);
+    
+    Label start = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    methodVisitor.visitLdcInsn(propertyName);
+    methodVisitor.visitVarInsn(ILOAD, 1);
+    methodVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Character", "toString", "(C)Ljava/lang/String;");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setStringProperty", "(Ljava/lang/String;Ljava/lang/String;)V");
+    methodVisitor.visitInsn(RETURN);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, "C", null, start, end, 1);
+    methodVisitor.visitMaxs(3, 2);
     
     methodVisitor.visitEnd();
   }

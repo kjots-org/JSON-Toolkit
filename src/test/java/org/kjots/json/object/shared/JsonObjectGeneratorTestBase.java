@@ -400,6 +400,24 @@ public abstract class JsonObjectGeneratorTestBase {
     public void setTestDoublePrimitiveProperty(double testDoublePrimitiveProperty);
     
     /**
+     * Retrieve the test character primitive property.
+     *
+     * @return The test character primitive property.
+     * @see #setTestCharacterPrimitiveProperty(character)
+     */
+    @JsonProperty(name = "testCharacterPrimitiveProperty", operation = OperationType.GET)
+    public char getTestCharacterPrimitiveProperty();
+    
+    /**
+     * Set the test character primitive property.
+     *
+     * @param testCharacterPrimitiveProperty The test character primitive property.
+     * @see #getTestCharacterPrimitiveProperty()
+     */
+    @JsonProperty(name = "testCharacterPrimitiveProperty", operation = OperationType.SET)
+    public void setTestCharacterPrimitiveProperty(char testCharacterPrimitiveProperty);
+    
+    /**
      * Retrieve the test array property.
      *
      * @return The test array property.
@@ -1435,6 +1453,52 @@ public abstract class JsonObjectGeneratorTestBase {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
     assertEquals(0.0, testJsonObject.getTestDoublePrimitiveProperty(), 0.0);
+  }
+  
+  /**
+   * Test the retrieval of the primitive character value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive character value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetCharacterPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setStringProperty("testCharacterPrimitiveProperty", "X");
+    
+    assertEquals('X', testJsonObject.getTestCharacterPrimitiveProperty());
+  }
+  
+  /**
+   * Test the setting of the primitive character value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive character value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetCharacterPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestCharacterPrimitiveProperty('X');
+    
+    assertEquals("X", testJsonObject.getStringProperty("testCharacterPrimitiveProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the default primitive character value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive character value of a property
+   * that does not exist in the underlying JSON object is the default character
+   * value.
+   */
+  @Test
+  public void testGetDefaultCharacterPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals('\0', testJsonObject.getTestCharacterPrimitiveProperty());
   }
   
   /**
