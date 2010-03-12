@@ -171,6 +171,70 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
   }
 
   /**
+   * @see JsonObjectGeneratorTestBase#testGetBooleanPrimitiveProperty()
+   */
+  public void testGetBooleanPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetBooleanPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testSetBooleanPrimitiveProperty()
+   */
+  public void testSetBooleanPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testSetBooleanPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetDefaultBooleanPrimitiveProperty()
+   */
+  public void testGetDefaultBooleanPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetDefaultBooleanPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetIntegerPrimitiveProperty()
+   */
+  public void testGetIntegerPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetIntegerPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testSetIntegerPrimitiveProperty()
+   */
+  public void testSetIntegerPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testSetIntegerPrimitiveProperty();
+  }
+
+  /**
+   * 
+   * @see org.kjots.json.object.shared.JsonObjectGeneratorTestBase#testGetDefaultIntegerPrimitiveProperty()
+   */
+  public void testGetDefaultIntegerPrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetDefaultIntegerPrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetDoublePrimitiveProperty()
+   */
+  public void testGetDoublePrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetDoublePrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testSetDoublePrimitiveProperty()
+   */
+  public void testSetDoublePrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testSetDoublePrimitiveProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testGetDefaultDoublePrimitiveProperty()
+   */
+  public void testGetDefaultDoublePrimitiveProperty() {
+    this.gwtJsonObjectGeneratorTestDelegate.testGetDefaultDoublePrimitiveProperty();
+  }
+
+  /**
    * @see JsonObjectGeneratorTestBase#testGetArrayProperty()
    */
   public void testGetArrayProperty() {

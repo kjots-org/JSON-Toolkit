@@ -274,6 +274,60 @@ public abstract class JsonObjectGeneratorTestBase {
     public void setTestAdaptedObjectProperty(TestJsonObjectProperty testAdaptedObjectProperty);
     
     /**
+     * Retrieve the test boolean primitive property.
+     *
+     * @return The test boolean primitive property.
+     * @see #setTestBooleanPrimitiveProperty(boolean)
+     */
+    @JsonProperty(name = "testBooleanPrimitiveProperty", operation = OperationType.GET)
+    public boolean getTestBooleanPrimitiveProperty();
+    
+    /**
+     * Set the test boolean primitive property.
+     *
+     * @param testBooleanPrimitiveProperty The test boolean primitive property.
+     * @see #getTestBooleanPrimitiveProperty()
+     */
+    @JsonProperty(name = "testBooleanPrimitiveProperty", operation = OperationType.SET)
+    public void setTestBooleanPrimitiveProperty(boolean testBooleanPrimitiveProperty);
+    
+    /**
+     * Retrieve the test integer primitive property.
+     *
+     * @return The test integer primitive property.
+     * @see #setTestIntegerPrimitiveProperty(int)
+     */
+    @JsonProperty(name = "testIntegerPrimitiveProperty", operation = OperationType.GET)
+    public int getTestIntegerPrimitiveProperty();
+    
+    /**
+     * Set the test integer primitive property.
+     *
+     * @param testIntegerPrimitiveProperty The test integer primitive property.
+     * @see #getTestIntegerPrimitiveProperty()
+     */
+    @JsonProperty(name = "testIntegerPrimitiveProperty", operation = OperationType.SET)
+    public void setTestIntegerPrimitiveProperty(int testIntegerPrimitiveProperty);
+    
+    /**
+     * Retrieve the test double primitive property.
+     *
+     * @return The test double primitive property.
+     * @see #setTestDoublePrimitiveProperty(double)
+     */
+    @JsonProperty(name = "testDoublePrimitiveProperty", operation = OperationType.GET)
+    public double getTestDoublePrimitiveProperty();
+    
+    /**
+     * Set the test double primitive property.
+     *
+     * @param testDoublePrimitiveProperty The test double primitive property.
+     * @see #getTestDoublePrimitiveProperty()
+     */
+    @JsonProperty(name = "testDoublePrimitiveProperty", operation = OperationType.SET)
+    public void setTestDoublePrimitiveProperty(double testDoublePrimitiveProperty);
+    
+    /**
      * Retrieve the test array property.
      *
      * @return The test array property.
@@ -987,6 +1041,144 @@ public abstract class JsonObjectGeneratorTestBase {
     
     assertEquals("value1", testAdaptedObjectProperty.getProperty1());
     assertEquals("value2", testAdaptedObjectProperty.getProperty2());
+  }
+  
+  /**
+   * Test the retrieval of the primitive boolean value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive boolean value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetBooleanPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setBooleanProperty("testBooleanPrimitiveProperty", true);
+    
+    assertEquals(true, testJsonObject.getTestBooleanPrimitiveProperty());
+  }
+  
+  /**
+   * Test the setting of the primitive boolean value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive boolean value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetBooleanPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestBooleanPrimitiveProperty(true);
+    
+    assertEquals(true, testJsonObject.getBooleanProperty("testBooleanPrimitiveProperty").booleanValue());
+  }
+  
+  /**
+   * Test the retrieval of the default primitive boolean value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive boolean value of a property
+   * that does not exist in the underlying JSON object is the default boolean
+   * value.
+   */
+  @Test
+  public void testGetDefaultBooleanPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(false, testJsonObject.getTestBooleanPrimitiveProperty());
+  }
+  
+  /**
+   * Test the retrieval of the primitive integer value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive integer value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetIntegerPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setNumberProperty("testIntegerPrimitiveProperty", 42);
+    
+    assertEquals(42, testJsonObject.getTestIntegerPrimitiveProperty());
+  }
+  
+  /**
+   * Test the setting of the primitive integer value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive integer value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetIntegerPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestIntegerPrimitiveProperty(42);
+    
+    assertEquals(42, testJsonObject.getNumberProperty("testIntegerPrimitiveProperty").intValue());
+  }
+  
+  /**
+   * Test the retrieval of the default primitive integer value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive integer value of a property
+   * that does not exist in the underlying JSON object is the default integer
+   * value.
+   */
+  @Test
+  public void testGetDefaultIntegerPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(0, testJsonObject.getTestIntegerPrimitiveProperty());
+  }
+  
+  /**
+   * Test the retrieval of the primitive double value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive double value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetDoublePrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setNumberProperty("testDoublePrimitiveProperty", 3.14);
+    
+    assertEquals(3.14, testJsonObject.getTestDoublePrimitiveProperty(), 0.001);
+  }
+  
+  /**
+   * Test the setting of the primitive double value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive double value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetDoublePrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestDoublePrimitiveProperty(3.14);
+    
+    assertEquals(3.14, testJsonObject.getNumberProperty("testDoublePrimitiveProperty").doubleValue(), 0.001);
+  }
+  
+  /**
+   * Test the retrieval of the default primitive double value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive double value of a property
+   * that does not exist in the underlying JSON object is the default double
+   * value.
+   */
+  @Test
+  public void testGetDefaultDoublePrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(0.0, testJsonObject.getTestDoublePrimitiveProperty(), 0.0);
   }
   
   /**

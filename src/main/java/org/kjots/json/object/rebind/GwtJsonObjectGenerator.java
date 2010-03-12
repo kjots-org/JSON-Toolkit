@@ -288,13 +288,13 @@ public class GwtJsonObjectGenerator extends Generator {
     }
     else {
       if (returnTypeName.equals(Boolean.class.getName())) {
-        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Boolean.class.getName(), "getBooleanProperty");
+        this.writeGetJsonPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Boolean.class.getName(), "getBooleanProperty");
       }
       else if (returnTypeName.equals(Number.class.getName())) {
-        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "getNumberProperty");
+        this.writeGetJsonPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "getNumberProperty");
       }
       else if (returnTypeName.equals(String.class.getName())) {
-        this.writeGetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), String.class.getName(), "getStringProperty");
+        this.writeGetJsonPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), String.class.getName(), "getStringProperty");
       }
       else if (returnTypeName.equals(JsonObjectArray.class.getName()) || returnTypeName.equals(JsonObjectMap.class.getName())) {
         String elementTypeName;
@@ -308,6 +308,15 @@ public class GwtJsonObjectGenerator extends Generator {
         }
         
         this.writeGetObjectCompositePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), returnTypeName, elementTypeName);
+      }
+      else if (returnTypeName.equals(boolean.class.getName())) {
+        this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "java.lang.Boolean", "getBooleanProperty", "false");
+      }
+      else if (returnTypeName.equals(int.class.getName())) {
+        this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "java.lang.Number", "getNumberProperty", "0");
+      }
+      else if (returnTypeName.equals(double.class.getName())) {
+        this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "java.lang.Number", "getNumberProperty", "0.0");
       }
       else {
         this.writeGetObjectPropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), returnTypeName);
@@ -349,13 +358,22 @@ public class GwtJsonObjectGenerator extends Generator {
     }
     else {
       if (parameterTypeName.equals(Boolean.class.getName())) {
-        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Boolean.class.getName(), "setBooleanProperty");
+        this.writeSetJsonPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Boolean.class.getName(), "setBooleanProperty");
       }
       else if (parameterTypeName.equals(Number.class.getName())) {
-        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "setNumberProperty"); 
+        this.writeSetJsonPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), Number.class.getName(), "setNumberProperty"); 
       }
       else if (parameterTypeName.equals(String.class.getName())) {
-        this.writeSetPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), String.class.getName(), "setStringProperty");
+        this.writeSetJsonPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), String.class.getName(), "setStringProperty");
+      }
+      else if (parameterTypeName.equals(boolean.class.getName())) {
+        this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "boolean", "java.lang.Boolean", "setBooleanProperty");
+      }
+      else if (parameterTypeName.equals(int.class.getName())) {
+        this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "java.lang.Integer", "setNumberProperty");
+      }
+      else if (parameterTypeName.equals(double.class.getName())) {
+        this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "java.lang.Double", "setNumberProperty");
       }
       else {
         this.writeSetObjectPropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), parameterTypeName);
@@ -412,15 +430,15 @@ public class GwtJsonObjectGenerator extends Generator {
   }
   
   /**
-   * Write a get primitive property method for the property with the given name.
+   * Write a get JSON primitive property method for the property with the given name.
    *
    * @param sourceWriter The source writer.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param primitiveTypeName The name of the primitive type.
-   * @param primitiveMethodName The name of the primitive method.
+   * @param primitiveTypeName The name of the JSON primitive type.
+   * @param primitiveMethodName The name of the JSON primitive method.
    */
-  private void writeGetPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName, String primitiveTypeName, String primitiveMethodName) {
+  private void writeGetJsonPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName, String primitiveTypeName, String primitiveMethodName) {
     sourceWriter.println("@Override");
     sourceWriter.println("public final " + primitiveTypeName + " " + methodName + "() {");
     sourceWriter.indent();
@@ -430,19 +448,60 @@ public class GwtJsonObjectGenerator extends Generator {
   }
   
   /**
-   * Write a set primitive property method for the property with the given name.
+   * Write a set JSON primitive property method for the property with the given name.
    *
    * @param sourceWriter The source writer.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param primitiveTypeName The name of the primitive type.
-   * @param primitiveMethodName The name of the primitive method.
+   * @param primitiveTypeName The name of the JSON primitive type.
+   * @param primitiveMethodName The name of the JSON primitive method.
    */
-  private void writeSetPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName, String primitiveTypeName, String primitiveMethodName) {
+  private void writeSetJsonPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName, String primitiveTypeName, String primitiveMethodName) {
     sourceWriter.println("@Override");
     sourceWriter.println("public final void " + methodName + "(" + primitiveTypeName + " " + propertyName + ") {");
     sourceWriter.indent();
     sourceWriter.println("this." + primitiveMethodName + "(\"" + propertyName + "\", " + propertyName + ");");
+    sourceWriter.outdent();
+    sourceWriter.println("}");
+  }
+  
+  /**
+   * Write a get Java primitive property method for the property with the given name.
+   *
+   * @param sourceWriter The source writer.
+   * @param methodName The name of the method.
+   * @param propertyName The name of the property.
+   * @param primitiveTypeName The name of the Java primitive type.
+   * @param primitiveWrapperTypeName The name of the Java primitive wrapper type.
+   * @param jsonPrimitiveMethodName The name of the JSON primitive method.
+   * @param defaultPrimitiveValue The default primitive value.
+   */
+  private void writeGetJavaPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName, String primitiveTypeName, String primitiveWrapperTypeName, String jsonPrimitiveMethodName, String defaultPrimitiveValue) {
+    sourceWriter.println("@Override");
+    sourceWriter.println("public final " + primitiveTypeName + " " + methodName + "() {");
+    sourceWriter.indent();
+    sourceWriter.println(primitiveWrapperTypeName + " _" + propertyName + " = this." + jsonPrimitiveMethodName + "(\"" + propertyName + "\");");
+    sourceWriter.println();
+    sourceWriter.println("return _" + propertyName + " != null ? _" + propertyName + "." + primitiveTypeName + "Value() : " + defaultPrimitiveValue + ";");
+    sourceWriter.outdent();
+    sourceWriter.println("}");
+  }
+  
+  /**
+   * Write a set Java primitive property method for the property with the given name.
+   *
+   * @param sourceWriter The source writer.
+   * @param methodName The name of the method.
+   * @param propertyName The name of the property.
+   * @param primitiveTypeName The name of the Java primitive type.
+   * @param primitiveWrapperTypeName The name of the Java primitive wrapper type.
+   * @param jsonPrimitiveMethodName The name of the JSON primitive method.
+   */
+  private void writeSetJavaPrimitivePropertyMethod(SourceWriter sourceWriter, String methodName, String propertyName, String primitiveTypeName, String primitiveWrapperTypeName, String jsonPrimitiveMethodName) {
+    sourceWriter.println("@Override");
+    sourceWriter.println("public final void " + methodName + "(" + primitiveTypeName + " " + propertyName + ") {");
+    sourceWriter.indent();
+    sourceWriter.println("this." + jsonPrimitiveMethodName + "(\"" + propertyName + "\", " + primitiveWrapperTypeName + ".valueOf(" + propertyName + "));");
     sourceWriter.outdent();
     sourceWriter.println("}");
   }
