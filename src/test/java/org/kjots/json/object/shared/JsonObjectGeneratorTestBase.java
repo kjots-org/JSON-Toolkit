@@ -346,6 +346,24 @@ public abstract class JsonObjectGeneratorTestBase {
     public void setTestIntegerPrimitiveProperty(int testIntegerPrimitiveProperty);
     
     /**
+     * Retrieve the test long primitive property.
+     *
+     * @return The test long primitive property.
+     * @see #setTestLongPrimitiveProperty(int)
+     */
+    @JsonProperty(name = "testLongPrimitiveProperty", operation = OperationType.GET)
+    public long getTestLongPrimitiveProperty();
+    
+    /**
+     * Set the test long primitive property.
+     *
+     * @param testLongPrimitiveProperty The test long primitive property.
+     * @see #getTestLongPrimitiveProperty()
+     */
+    @JsonProperty(name = "testLongPrimitiveProperty", operation = OperationType.SET)
+    public void setTestLongPrimitiveProperty(long testLongPrimitiveProperty);
+    
+    /**
      * Retrieve the test double primitive property.
      *
      * @return The test double primitive property.
@@ -1261,6 +1279,52 @@ public abstract class JsonObjectGeneratorTestBase {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
     assertEquals(0, testJsonObject.getTestIntegerPrimitiveProperty());
+  }
+  
+  /**
+   * Test the retrieval of the primitive long value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive long value of a property
+   * matches the value of the corresponding property of the underlying JSON
+   * object.
+   */
+  @Test
+  public void testGetLongPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setNumberProperty("testLongPrimitiveProperty", 42L);
+    
+    assertEquals(42, testJsonObject.getTestLongPrimitiveProperty());
+  }
+  
+  /**
+   * Test the setting of the primitive long value of a property.
+   * <p>
+   * This test asserts that the setting of the primitive long value of a
+   * property changes the value of the corresponding property of the underlying
+   * JSON object.
+   */
+  @Test
+  public void testSetLongPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.setTestLongPrimitiveProperty(42);
+    
+    assertEquals(42, testJsonObject.getNumberProperty("testLongPrimitiveProperty").longValue());
+  }
+  
+  /**
+   * Test the retrieval of the default primitive long value of a property.
+   * <p>
+   * This test asserts that the retrieved primitive long value of a property
+   * that does not exist in the underlying JSON object is the default long
+   * value.
+   */
+  @Test
+  public void testGetDefaultLongPrimitiveProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(0, testJsonObject.getTestLongPrimitiveProperty());
   }
   
   /**

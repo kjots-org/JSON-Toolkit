@@ -321,6 +321,9 @@ public class GwtJsonObjectGenerator extends Generator {
       else if (returnTypeName.equals(int.class.getName())) {
         this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "java.lang.Number", "getNumberProperty", "0");
       }
+      else if (returnTypeName.equals(long.class.getName())) {
+        this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "long", "java.lang.Number", "getNumberProperty", "0");
+      }
       else if (returnTypeName.equals(double.class.getName())) {
         this.writeGetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "java.lang.Number", "getNumberProperty", "0.0");
       }
@@ -383,6 +386,9 @@ public class GwtJsonObjectGenerator extends Generator {
       }
       else if (parameterTypeName.equals(int.class.getName())) {
         this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "int", "java.lang.Integer", "setNumberProperty");
+      }
+      else if (parameterTypeName.equals(long.class.getName())) {
+        this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "long", "java.lang.Long", "setNumberProperty");
       }
       else if (parameterTypeName.equals(double.class.getName())) {
         this.writeSetJavaPrimitivePropertyMethod(sourceWriter, method.getName(), jsonPropertyAnnotation.name(), "double", "java.lang.Double", "setNumberProperty");

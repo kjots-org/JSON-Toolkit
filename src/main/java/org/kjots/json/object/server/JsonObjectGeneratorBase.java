@@ -37,6 +37,10 @@ import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
 import static org.objectweb.asm.Opcodes.INVOKESTATIC;
 import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
 import static org.objectweb.asm.Opcodes.IRETURN;
+import static org.objectweb.asm.Opcodes.LCONST_0;
+import static org.objectweb.asm.Opcodes.LLOAD;
+import static org.objectweb.asm.Opcodes.LONG;
+import static org.objectweb.asm.Opcodes.LRETURN;
 import static org.objectweb.asm.Opcodes.NEW;
 import static org.objectweb.asm.Opcodes.RETURN;
 import static org.objectweb.asm.Opcodes.V1_6;
@@ -510,19 +514,22 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
         this.generateGetCompositeObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(elementType));
       }
       else if (returnType.equals(boolean.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "boolean", "Z", "java/lang/Boolean", "getBooleanProperty", IRETURN);
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "boolean", "Z", INTEGER, "java/lang/Boolean", "getBooleanProperty", ICONST_0, IRETURN);
       }
       else if (returnType.equals(byte.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "byte", "B", "java/lang/Number", "getNumberProperty", IRETURN);
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "byte", "B", INTEGER, "java/lang/Number", "getNumberProperty", ICONST_0, IRETURN);
       }
       else if (returnType.equals(short.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "short", "S", "java/lang/Number", "getNumberProperty", IRETURN);
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "short", "S", INTEGER, "java/lang/Number", "getNumberProperty", ICONST_0, IRETURN);
       }
       else if (returnType.equals(int.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "int", "I", "java/lang/Number", "getNumberProperty", IRETURN);
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "int", "I", INTEGER, "java/lang/Number", "getNumberProperty", ICONST_0, IRETURN);
+      }
+      else if (returnType.equals(long.class)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "long", "J", LONG, "java/lang/Number", "getNumberProperty", LCONST_0, LRETURN);
       }
       else if (returnType.equals(double.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "double", "D", "java/lang/Number", "getNumberProperty", DRETURN);
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "double", "D", DOUBLE, "java/lang/Number", "getNumberProperty", DCONST_0, DRETURN);
       }
       else {
         this.generateGetObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType));
@@ -600,6 +607,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       }
       else if (parameterType.equals(int.class)) {
         this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "I", "java/lang/Integer", "java/lang/Number", "setNumberProperty", ILOAD);
+      }
+      else if (parameterType.equals(long.class)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "J", "java/lang/Long", "java/lang/Number", "setNumberProperty", LLOAD);
       }
       else if (parameterType.equals(double.class)) {
         this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "D", "java/lang/Double", "java/lang/Number", "setNumberProperty", DLOAD);
@@ -772,11 +782,13 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param propertyName The name of the property.
    * @param primitiveTypeName The type name of the Java primitive.
    * @param primitiveTypeSignature The type signature of the Java primitive.
+   * @param primitiveStackValueType The stack value type of the Java primitive.
    * @param jsonPrimitiveIClassName The internal class name of the JSON primitive.
    * @param jsonPrimitiveMethodName The name of the JSON primitive method.
+   * @param defaultPrimitiveValueConstOpcode The constant opcode of the default primitive value.
    * @param returnOpcode The return opcode.
    */
-  private void generateGetJavaPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String primitiveTypeName, String primitiveTypeSignature, String jsonPrimitiveIClassName, String jsonPrimitiveMethodName, int returnOpcode) {
+  private void generateGetJavaPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String primitiveTypeName, String primitiveTypeSignature, Integer primitiveStackValueType, String jsonPrimitiveIClassName, String jsonPrimitiveMethodName, int defaultPrimitiveValueConstOpcode, int returnOpcode) {
     MethodVisitor mv = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + primitiveTypeSignature, null, null);
     
     Label start = new Label();
@@ -798,9 +810,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     mv.visitJumpInsn(GOTO, l1);
     mv.visitLabel(l0);
     mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonPrimitiveIClassName }, 0, null);
-    mv.visitInsn(returnOpcode == DRETURN ? DCONST_0 : ICONST_0);
+    mv.visitInsn(defaultPrimitiveValueConstOpcode);
     mv.visitLabel(l1);
-    mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { returnOpcode == DRETURN ? DOUBLE : INTEGER });
+    mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { primitiveStackValueType });
     mv.visitInsn(returnOpcode);
     mv.visitLabel(end);
     
@@ -830,7 +842,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     Label start = new Label();
     Label end = new Label();
     
-    int maxsExtra = loadOpcode == DLOAD ? 1 : 0;
+    int maxsExtra = loadOpcode == ILOAD ? 0 : 1;
     
     methodVisitor.visitCode();
     
