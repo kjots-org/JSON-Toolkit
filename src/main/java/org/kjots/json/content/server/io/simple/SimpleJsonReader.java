@@ -82,41 +82,31 @@ public class SimpleJsonReader extends AbstractJsonContentGenerator implements Js
     return new ContentHandler() {
       @Override
       public void startJSON() {
-        if (SimpleJsonReader.this.contentHandler != null) {
-          SimpleJsonReader.this.contentHandler.startJson();
-        }
+        SimpleJsonReader.this.contentHandler.startJson();
       }
 
       @Override
       public void endJSON() {
-        if (SimpleJsonReader.this.contentHandler != null) {
-          SimpleJsonReader.this.contentHandler.endJson();
-        }
+        SimpleJsonReader.this.contentHandler.endJson();
       }
       
       @Override
       public boolean startObject() {
-        if (SimpleJsonReader.this.contentHandler != null) {
-          SimpleJsonReader.this.contentHandler.startObject();
-        }
+        SimpleJsonReader.this.contentHandler.startObject();
         
         return true;
       }
 
       @Override
       public boolean endObject() {
-        if (SimpleJsonReader.this.contentHandler != null) {
-          SimpleJsonReader.this.contentHandler.endObject();
-        }
+        SimpleJsonReader.this.contentHandler.endObject();
         
         return true;
       }
 
       @Override
       public boolean startObjectEntry(String key) {
-        if (SimpleJsonReader.this.contentHandler != null) {
-          SimpleJsonReader.this.contentHandler.memberName(key);
-        }
+        SimpleJsonReader.this.contentHandler.memberName(key);
         
         return true;
       }
@@ -128,18 +118,14 @@ public class SimpleJsonReader extends AbstractJsonContentGenerator implements Js
 
       @Override
       public boolean startArray()  {
-        if (SimpleJsonReader.this.contentHandler != null) {
-          SimpleJsonReader.this.contentHandler.startArray();
-        }
+        SimpleJsonReader.this.contentHandler.startArray();
         
         return true;
       }
 
       @Override
       public boolean endArray() {
-        if (SimpleJsonReader.this.contentHandler != null) {
-          SimpleJsonReader.this.contentHandler.endArray();
-        }
+        SimpleJsonReader.this.contentHandler.endArray();
         
         return true;
       }
@@ -151,12 +137,12 @@ public class SimpleJsonReader extends AbstractJsonContentGenerator implements Js
           
           // Attempt to coerce the value into an integer
           try {
-            value = numericValue.intValueExact();
+            value = Integer.valueOf(numericValue.intValueExact());
           }
           catch (ArithmeticException ae1) {
             // Attempt to coerce the value into a long
             try {
-              value = numericValue.longValueExact();
+              value = Long.valueOf(numericValue.longValueExact());
             }
             catch (ArithmeticException ae2) {
               // Attempt to coerce the value into a BigInteger
