@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.client.impl;
+package org.kjots.json.object.gwt.client.impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -72,8 +72,8 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean isArray() /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject instanceof Array || 
-           this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject instanceof $wnd.Array;
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject instanceof Array || 
+           this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject instanceof $wnd.Array;
    }-*/;
   
   /**
@@ -101,7 +101,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean hasProperty(String propertyName) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] !== undefined;
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] !== undefined;
   }-*/;
   
   /**
@@ -113,7 +113,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean isNullProperty(String propertyName) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] === null;
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] === null;
   }-*/;
   
   /**
@@ -125,7 +125,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean isBooleanProperty(String propertyName) /*-{
-    return typeof this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] == 'boolean';
+    return typeof this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] == 'boolean';
   }-*/;
 
   /**
@@ -137,7 +137,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native Boolean getBooleanProperty(String propertyName) /*-{
-    var jsPropertyValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    var jsPropertyValue = this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
     
     return jsPropertyValue != null ? @java.lang.Boolean::valueOf(Z)(jsPropertyValue) : null;
   }-*/;
@@ -153,7 +153,7 @@ public class GwtJsonObjectImpl implements JsonObject {
   public final native void setBooleanProperty(String propertyName, Boolean propertyValue) /*-{
     var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Boolean::booleanValue()() : null;
     
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = jsPropertyValue;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = jsPropertyValue;
   }-*/;
   
   /**
@@ -165,7 +165,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean isNumberProperty(String propertyName) /*-{
-    return typeof this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] == 'number';
+    return typeof this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] == 'number';
   }-*/;
 
   /**
@@ -177,7 +177,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native Number getNumberProperty(String propertyName) /*-{
-    var jsPropertyValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    var jsPropertyValue = this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
     
     return jsPropertyValue != null ? @java.lang.Double::valueOf(D)(jsPropertyValue) : null;
   }-*/;
@@ -193,7 +193,7 @@ public class GwtJsonObjectImpl implements JsonObject {
   public final native void setNumberProperty(String propertyName, Number propertyValue) /*-{
     var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Number::doubleValue()() : null;
     
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = jsPropertyValue;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = jsPropertyValue;
   }-*/;
   
   /**
@@ -205,7 +205,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean isStringProperty(String propertyName) /*-{
-    return typeof this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] == 'string';
+    return typeof this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] == 'string';
   }-*/;
   
   /**
@@ -216,7 +216,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native String getStringProperty(String propertyName) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
   }-*/;
   
   /**
@@ -228,7 +228,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native void setStringProperty(String propertyName, String propertyValue) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = propertyValue;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = propertyValue;
   }-*/;
   
   /**
@@ -240,7 +240,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean isObjectProperty(String propertyName) /*-{
-    var propertyValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    var propertyValue = this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
     
     return propertyValue != null && typeof propertyValue == 'object';
   }-*/;
@@ -299,9 +299,9 @@ public class GwtJsonObjectImpl implements JsonObject {
    */
   @Override
   public final native boolean deleteProperty(String propertyName) /*-{
-    var result = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] !== undefined;
+    var result = this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] !== undefined;
     
-    delete this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    delete this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
     
     return result;
   }-*/;
@@ -364,7 +364,7 @@ public class GwtJsonObjectImpl implements JsonObject {
   private native JsArrayString getJsPropertyNames() /*-{
     var propertyNames = [];
     
-    for (var propertyName in this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject) {
+    for (var propertyName in this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject) {
       propertyNames.push(propertyName);
     }
     
@@ -379,7 +379,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    * @see #setJsObjectProperty(String, JavaScriptObject)
    */
   private native JavaScriptObject getJsObjectProperty(String propertyName) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName];
   }-*/;
   
   /**
@@ -390,6 +390,6 @@ public class GwtJsonObjectImpl implements JsonObject {
    * @see #getJsObjectProperty(String)
    */
   private native void setJsObjectProperty(String propertyName, JavaScriptObject propertyValue) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = propertyValue;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[propertyName] = propertyValue;
   }-*/;
 }

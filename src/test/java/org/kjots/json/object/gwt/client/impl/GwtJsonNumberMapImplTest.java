@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.client.impl;
+package org.kjots.json.object.gwt.client.impl;
 
-import com.google.gwt.core.client.JavaScriptObject;
-
-import org.kjots.json.object.client.GwtJsonObjectTest;
-import org.kjots.json.object.client.impl.GwtJsonNumberMapImpl;
+import org.kjots.json.object.gwt.client.GwtJsonObjectTest;
 import org.kjots.json.object.shared.JsonNumberMap;
 import org.kjots.json.object.shared.impl.JsonNumberMapImplTestBase;
+
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * GWT JSON Number Map Implementation Test.

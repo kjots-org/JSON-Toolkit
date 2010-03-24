@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.server.js;
+package org.kjots.json.object.js;
 
 import org.junit.Before;
+import org.kjots.json.object.shared.JsonObjectGeneratorTestBase;
 
 import com.google.inject.Guice;
-
-import org.kjots.json.object.server.js.JsJsonObjectModule;
-import org.kjots.json.object.shared.JsonObjectGeneratorTestBase;
 
 /**
  * JavaScript JSON Object Generator Test.

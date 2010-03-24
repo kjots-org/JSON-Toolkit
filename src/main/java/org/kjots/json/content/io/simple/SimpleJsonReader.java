@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.content.server.io.simple;
+package org.kjots.json.content.io.simple;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.math.BigDecimal;
 
+import org.kjots.json.content.io.JsonReader;
+import org.kjots.json.content.io.JsonReaderException;
 import org.kjots.json.content.rebase.org.json.simple.parser.ContentHandler;
 import org.kjots.json.content.rebase.org.json.simple.parser.JSONParser;
 import org.kjots.json.content.rebase.org.json.simple.parser.ParseException;
-import org.kjots.json.content.server.io.JsonReader;
-import org.kjots.json.content.server.io.JsonReaderException;
 import org.kjots.json.content.shared.AbstractJsonContentGenerator;
 
 /**

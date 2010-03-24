@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.client.impl;
+package org.kjots.json.object.gwt.client.impl;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -50,7 +50,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native int getLength() /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.length;
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.length;
   }-*/;
   
   /**
@@ -61,7 +61,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native boolean isNullElement(int index) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] === null;
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] === null;
   }-*/;
   
   /**
@@ -72,7 +72,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native boolean isBooleanElement(int index) /*-{
-    return typeof this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] == 'boolean';
+    return typeof this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] == 'boolean';
   }-*/;
 
   /**
@@ -84,7 +84,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native Boolean getBooleanElement(int index) /*-{
-    var jsValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    var jsValue = this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index];
     
     return jsValue != null ? @java.lang.Boolean::valueOf(Z)(jsValue) : null;
   }-*/;
@@ -100,7 +100,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   public final native void setBooleanElement(int index, Boolean value) /*-{
     var jsValue = value != null ? value.@java.lang.Boolean::booleanValue()() : null;
     
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = jsValue;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] = jsValue;
   }-*/;
   
   /**
@@ -113,7 +113,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   public final native void insertBooleanElement(int index, Boolean value) /*-{
     var jsValue = value != null ? value.@java.lang.Boolean::booleanValue()() : null;
     
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, jsValue);
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, jsValue);
   }-*/;
   
   /**
@@ -124,7 +124,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native boolean isNumberElement(int index) /*-{
-    return typeof this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] == 'number';
+    return typeof this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] == 'number';
   }-*/;
 
   /**
@@ -136,7 +136,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native Number getNumberElement(int index) /*-{
-    var jsValue = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    var jsValue = this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index];
     
     return jsValue != null ? @java.lang.Double::valueOf(D)(jsValue) : null;
   }-*/;
@@ -152,7 +152,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   public final native void setNumberElement(int index, Number value) /*-{
     var jsValue = value != null ? value.@java.lang.Number::doubleValue()() : null;
     
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = jsValue;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] = jsValue;
   }-*/;
   
   /**
@@ -165,7 +165,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   public final native void insertNumberElement(int index, Number value) /*-{
     var jsValue = value != null ? value.@java.lang.Number::doubleValue()() : null;
     
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, jsValue);
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, jsValue);
   }-*/;
 
   /**
@@ -176,7 +176,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native boolean isStringElement(int index) /*-{
-    return typeof this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] == 'string';
+    return typeof this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] == 'string';
   }-*/;
 
   /**
@@ -188,7 +188,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native String getStringElement(int index) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index];
   }-*/;
   
   /**
@@ -200,7 +200,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native void setStringElement(int index, String value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = value;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] = value;
   }-*/;
   
   /**
@@ -211,7 +211,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native void insertStringElement(int index, String value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
   }-*/;
 
   /**
@@ -222,7 +222,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native boolean isObjectElement(int index) /*-{
-    var value = this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    var value = this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index];
     
     return value != null && typeof value == 'object';
   }-*/;
@@ -295,7 +295,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   @Override
   public final native void removeElements(int index, int count) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, count);
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.splice(index, count);
   }-*/;
   
   /**
@@ -306,7 +306,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @see #setObjectElement(int, JavaScriptObject)
    */
   private native JavaScriptObject getJsObjectElement(int index) /*-{
-    return this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index];
+    return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index];
   }-*/;
   
   /**
@@ -317,7 +317,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @see #getObjectElement(int)
    */
   private native void setJsObjectElement(int index, JavaScriptObject value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject[index] = value;
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject[index] = value;
   }-*/;
   
   /**
@@ -327,6 +327,6 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @param value The string value.
    */
   private native void insertJsObjectElement(int index, JavaScriptObject value) /*-{
-    this.@org.kjots.json.object.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
   }-*/;
 }

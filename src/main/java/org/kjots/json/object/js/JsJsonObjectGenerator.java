@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.server.js;
+package org.kjots.json.object.js;
 
-import org.kjots.json.object.server.JsonObjectGeneratorBase;
-import org.kjots.json.object.server.js.impl.JsJsonObjectImpl;
+import org.kjots.json.object.JsonObjectGeneratorBase;
+import org.kjots.json.object.js.impl.JsJsonObjectImpl;
 
 /**
  * JavaScript JSON Object Generator.

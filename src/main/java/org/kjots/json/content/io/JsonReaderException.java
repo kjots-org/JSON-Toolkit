@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.content.server.io;
+package org.kjots.json.content.io;
 
 import java.io.Serializable;
 

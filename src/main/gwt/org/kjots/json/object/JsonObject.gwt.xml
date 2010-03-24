@@ -28,12 +28,12 @@
   
   <inherits name="com.google.gwt.inject.Inject"/>
   
-  <generate-with class="org.kjots.json.object.rebind.GwtJsonObjectFactoryGenerator">
+  <generate-with class="org.kjots.json.object.gwt.rebind.GwtJsonObjectFactoryGenerator">
     <when-type-assignable class="org.kjots.json.object.shared.JsonObjectFactory"/>
   </generate-with>
   
   <source path="shared"/>
-  <source path="client"/>
+  <source path="gwt/client"/>
   
-  <entry-point class="org.kjots.json.object.client.JsonObjectGinModule"/>
+  <entry-point class="org.kjots.json.object.gwt.client.JsonObjectGinModule"/>
 </module>

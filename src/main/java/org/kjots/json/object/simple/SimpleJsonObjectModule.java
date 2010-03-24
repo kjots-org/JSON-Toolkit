@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.server.simple;
+package org.kjots.json.object.simple;
 
-import org.kjots.json.object.server.simple.impl.SimpleJsonObjectFactoryImpl;
 import org.kjots.json.object.shared.JsonObjectFactory;
+import org.kjots.json.object.simple.impl.SimpleJsonObjectFactoryImpl;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;

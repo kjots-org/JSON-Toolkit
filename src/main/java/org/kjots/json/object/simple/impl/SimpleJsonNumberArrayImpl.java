@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.server.simple.impl;
+package org.kjots.json.object.simple.impl;
 
-import org.kjots.json.object.server.simple.SimpleJsonValue;
 import org.kjots.json.object.shared.JsonNumberArray;
+import org.kjots.json.object.simple.SimpleJsonValue;
 
 /**
  * Simple JSON Number Array Implementation.

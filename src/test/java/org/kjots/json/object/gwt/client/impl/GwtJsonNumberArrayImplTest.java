@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.client.impl;
+package org.kjots.json.object.gwt.client.impl;
+
+import org.kjots.json.object.gwt.client.GwtJsonObjectTest;
+import org.kjots.json.object.shared.JsonNumberArray;
+import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
-
-import org.kjots.json.object.client.GwtJsonObjectTest;
-import org.kjots.json.object.client.impl.GwtJsonNumberArrayImpl;
-import org.kjots.json.object.shared.JsonNumberArray;
-import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
 
 /**
  * GWT JSON Number Array Implementation Test.

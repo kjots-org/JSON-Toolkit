@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.server.simple.impl;
+package org.kjots.json.object.simple.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.kjots.json.object.server.simple.SimpleJsonObjectGenerator;
-import org.kjots.json.object.server.simple.SimpleJsonValue;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.JsonBooleanMap;
@@ -30,6 +28,8 @@ import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.shared.JsonObjectMap;
 import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.JsonStringMap;
+import org.kjots.json.object.simple.SimpleJsonObjectGenerator;
+import org.kjots.json.object.simple.SimpleJsonValue;
 
 import com.google.inject.Inject;
 

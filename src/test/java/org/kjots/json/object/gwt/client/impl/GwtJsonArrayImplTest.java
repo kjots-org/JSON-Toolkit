@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.client.impl;
+package org.kjots.json.object.gwt.client.impl;
 
 import org.junit.Test;
-
-import com.google.gwt.core.client.JavaScriptObject;
-
-import org.kjots.json.object.client.GwtJsonObjectTest;
-import org.kjots.json.object.client.impl.GwtJsonArrayImpl;
-import org.kjots.json.object.client.impl.GwtJsonObjectImpl;
+import org.kjots.json.object.gwt.client.GwtJsonObjectTest;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.impl.JsonArrayImplTestBase;
+
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * GWT JSON Array Implementation Test.

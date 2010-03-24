@@ -1,14 +1,14 @@
 /* 
  * Copyright © 2010 Karl J. Ots.  All Rights Reserved.
  */
-package org.kjots.json.object.server.js.impl;
+package org.kjots.json.object.js.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
 import javax.script.Invocable;
 
-import org.kjots.json.object.server.js.JsJsonObjectGenerator;
-import org.kjots.json.object.server.js.JsJsonObjectModule;
+import org.kjots.json.object.js.JsJsonObjectGenerator;
+import org.kjots.json.object.js.JsJsonObjectModule;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.JsonBooleanMap;

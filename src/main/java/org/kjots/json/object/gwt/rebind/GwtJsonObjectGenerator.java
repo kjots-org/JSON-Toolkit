@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.rebind;
+package org.kjots.json.object.gwt.rebind;
 
 import java.io.PrintWriter;
 
-import org.kjots.json.object.client.impl.GwtJsonObjectImpl;
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
 import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
 import org.kjots.json.object.shared.JsonObject;

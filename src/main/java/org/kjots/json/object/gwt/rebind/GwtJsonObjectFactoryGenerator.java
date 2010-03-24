@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.rebind;
+package org.kjots.json.object.gwt.rebind;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectFactoryImplBase;
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectFactory;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.ext.Generator;
@@ -29,10 +33,6 @@ import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.core.ext.typeinfo.TypeOracle;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
-
-import org.kjots.json.object.client.impl.GwtJsonObjectFactoryImplBase;
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectFactory;
 
 /**
  * GWT JSON Object Factory Generator.

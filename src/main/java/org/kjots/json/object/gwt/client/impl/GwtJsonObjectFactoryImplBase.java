@@ -1,7 +1,7 @@
 /* 
  * Copyright © 2010 Karl J. Ots.  All Rights Reserved.
  */
-package org.kjots.json.object.client.impl;
+package org.kjots.json.object.gwt.client.impl;
 
 import java.util.HashMap;
 import java.util.Map;

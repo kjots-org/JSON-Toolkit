@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.server.simple;
+package org.kjots.json.object.simple;
 
 import org.junit.Before;
 import org.kjots.json.object.shared.JsonObjectGeneratorTestBase;

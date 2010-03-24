@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.server.js.impl;
+package org.kjots.json.object.js.impl;
 
 import javax.script.Invocable;
 import javax.script.ScriptException;
 
 import org.junit.After;
 import org.junit.Before;
+import org.kjots.json.object.js.JsJsonObjectModule;
+import org.kjots.json.object.shared.JsonStringArray;
+import org.kjots.json.object.shared.impl.JsonStringArrayImplTestBase;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
-
-import org.kjots.json.object.server.js.JsJsonObjectModule;
-import org.kjots.json.object.server.js.impl.JsJsonStringArrayImpl;
-import org.kjots.json.object.shared.JsonStringArray;
-import org.kjots.json.object.shared.impl.JsonStringArrayImplTestBase;
 
 /**
  * JavaScript JSON String Array Implementation Test.
