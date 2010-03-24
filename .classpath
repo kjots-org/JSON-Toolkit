@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/main/gwt"/>
-	<classpathentry include="**/*.java" kind="src" output="build/main/classes" path="src/main/java"/>
-	<classpathentry kind="src" path="src/test/gwt"/>
-	<classpathentry include="**/*.java" kind="src" output="build/test/classes" path="src/test/java"/>
+	<classpathentry kind="src" output="build/main/gwt" path="src/main/gwt"/>
+	<classpathentry kind="src" output="build/main/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="build/test/gwt" path="src/test/gwt"/>
+	<classpathentry kind="src" output="build/test/classes" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
