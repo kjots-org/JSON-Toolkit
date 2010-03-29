@@ -18,10 +18,7 @@ package org.kjots.json.object.gwt.client;
 import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
 import org.kjots.json.object.shared.JsonObjectFactory;
 
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.gwt.inject.client.GinModules;
 import com.google.inject.Singleton;
 
 /**
@@ -32,22 +29,7 @@ import com.google.inject.Singleton;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.1
  */
-public class JsonObjectGinModule extends AbstractGinModule implements EntryPoint {
-  /**
-   * JSON Object Gin Module Ginjector.
-   */
-  @GinModules(JsonObjectGinModule.class)
-  public static interface Ginjector extends com.google.gwt.inject.client.Ginjector {
-  }
-  
-  /**
-   * Module entry point.
-   */
-  @Override
-  public void onModuleLoad() {
-    GWT.create(Ginjector.class);
-  }
-
+public class JsonObjectGinModule extends AbstractGinModule {
   /**
    * Configure the module.
    */
