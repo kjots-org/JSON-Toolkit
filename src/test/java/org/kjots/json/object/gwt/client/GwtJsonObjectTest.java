@@ -22,6 +22,7 @@ import org.kjots.json.object.shared.JsonObjectMap;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.junit.client.GWTTestCase;
 
 /**
@@ -33,6 +34,15 @@ import com.google.gwt.junit.client.GWTTestCase;
  * @since 0.1
  */
 public abstract class GwtJsonObjectTest extends GWTTestCase {
+  /**
+   * GWT JSON Object Test Ginjector.
+   * <p>
+   * Created: 29th March 2010.
+   */
+  @GinModules(JsonObjectGinModule.class)
+  public static interface Ginjector extends com.google.gwt.inject.client.Ginjector {
+  }
+  
   /**
    * Retrieve the name of the GWT module.
    *
@@ -48,7 +58,7 @@ public abstract class GwtJsonObjectTest extends GWTTestCase {
    */
   @Override
   protected void gwtSetUp() {
-    GWT.create(JsonObjectGinModule.Ginjector.class);
+    GWT.create(Ginjector.class);
   }
   
   /**
