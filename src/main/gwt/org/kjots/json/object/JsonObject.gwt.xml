@@ -34,6 +34,4 @@
   
   <source path="shared"/>
   <source path="gwt/client"/>
-  
-  <entry-point class="org.kjots.json.object.gwt.client.JsonObjectGinModule"/>
 </module>
