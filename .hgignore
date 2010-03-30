@@ -1,0 +1,11 @@
+
+syntax: regexp
+^build$
+syntax: regexp
+^eclipse-bin$
+syntax: regexp
+^tomcat$
+syntax: regexp
+^www-test$
+syntax: regexp
+^dist$
