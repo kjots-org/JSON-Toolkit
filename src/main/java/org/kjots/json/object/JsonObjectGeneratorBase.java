@@ -272,18 +272,18 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     }
     
     Class<?>[] implementedInterfaces = jsonObjectClass.getInterfaces();
-    if (implementedInterfaces.length != 1) {
-      throw new IllegalArgumentException(jsonObjectClass.getName() + " must extend exactly one interface");
+    if (implementedInterfaces.length == 0) {
+      throw new IllegalArgumentException(jsonObjectClass.getName() + " must extend at least one interface");
     }
     
     Class<? extends T> superJsonObjectImplClass;
     
-    Class<?> implementedInterface = implementedInterfaces[0];
-    if (implementedInterface.equals(JsonObject.class)) {
+    Class<?> mainImplementedInterface = implementedInterfaces[0];
+    if (mainImplementedInterface.equals(JsonObject.class)) {
       superJsonObjectImplClass = this.jsonObjectImplClass;
     }
     else {
-      superJsonObjectImplClass = this.getJsonObjectImplClass((Class<? extends JsonObject>)implementedInterface);
+      superJsonObjectImplClass = this.getJsonObjectImplClass((Class<? extends JsonObject>)mainImplementedInterface);
     }
     
     ClassWriter classWriter = new ClassWriter(0);

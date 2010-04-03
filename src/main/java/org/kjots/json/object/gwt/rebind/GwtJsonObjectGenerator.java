@@ -80,20 +80,20 @@ public class GwtJsonObjectGenerator extends Generator {
     }
     
     JClassType[] implementedInterfaces = typeClassType.getImplementedInterfaces();
-    if (implementedInterfaces == null || implementedInterfaces.length != 1) {
-      logger.log(TreeLogger.ERROR, typeClassType.getQualifiedSourceName() + " must extend exactly one interface", null);
+    if (implementedInterfaces == null || implementedInterfaces.length == 0) {
+      logger.log(TreeLogger.ERROR, typeClassType.getQualifiedSourceName() + " must extend at least one interface", null);
       
       throw new UnableToCompleteException();
     }
     
     String superClassImplClassName;
     
-    JClassType implementedInterface = implementedInterfaces[0];
-    if (implementedInterface.getQualifiedBinaryName().equals(JsonObject.class.getName())) {
+    JClassType mainImplementedInterface = implementedInterfaces[0];
+    if (mainImplementedInterface.getQualifiedBinaryName().equals(JsonObject.class.getName())) {
       superClassImplClassName = GwtJsonObjectImpl.class.getName();
     }
     else {
-      superClassImplClassName = new GwtJsonObjectGenerator().generate(logger, context, implementedInterface.getQualifiedSourceName());
+      superClassImplClassName = new GwtJsonObjectGenerator().generate(logger, context, mainImplementedInterface.getQualifiedSourceName());
     }
     
     String implPackage = typePackage.getName();

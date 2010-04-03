@@ -43,7 +43,7 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
   public void testCreateJsonObject() {
     this.gwtJsonObjectGeneratorTestDelegate.testCreateJsonObject();
   }
-
+  
   /**
    * @see JsonObjectGeneratorTestBase#testHasProperty()
    */
@@ -484,5 +484,12 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
    */
   public void testDeleteProperty() {
     this.gwtJsonObjectGeneratorTestDelegate.testDeleteProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorTestBase#testMultipleInterfaceJsonObject()
+   */
+  public void testMultipleInterfaceJsonObject() {
+    this.gwtJsonObjectGeneratorTestDelegate.testMultipleInterfaceJsonObject();
   }
 }

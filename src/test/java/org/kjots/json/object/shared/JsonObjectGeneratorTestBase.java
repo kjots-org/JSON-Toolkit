@@ -55,7 +55,7 @@ public abstract class JsonObjectGeneratorTestBase {
   /**
    * Test Base JSON Object.
    */
-  public static interface TestBaseJsonObject extends JsonObject {
+  public interface TestBaseJsonObject extends JsonObject {
   }
   
   /**
@@ -63,7 +63,7 @@ public abstract class JsonObjectGeneratorTestBase {
    * <p>
    * Created: 7th December 2009.
    */
-  public static interface TestPropertyJsonObject extends JsonObject {
+  public interface TestPropertyJsonObject extends JsonObject {
     /**
      * Retrieve the first property.
      *
@@ -104,7 +104,7 @@ public abstract class JsonObjectGeneratorTestBase {
   /**
    * Test JSON Object.
    */
-  public static interface TestJsonObject extends TestBaseJsonObject {
+  public interface TestJsonObject extends TestBaseJsonObject {
     /**
      * Determine if the test property exists.
      *
@@ -594,6 +594,22 @@ public abstract class JsonObjectGeneratorTestBase {
      */
     @JsonProperty(name = "testPropertyObjectMapProperty", operation = OperationType.GET)
     public JsonObjectMap<TestPropertyJsonObject> getTestPropertyObjectMapProperty();
+  }
+  
+  /**
+   * Test Empty Interface.
+   * <p>
+   * Created: 3rd April 2010.
+   */
+  public interface TestEmptyInterface {
+  }
+  
+  /**
+   * Test Multiple Interface JSON Object.
+   * <p>
+   * Created: 3rd April 2010.
+   */
+  public interface TestMultipleInterfaceJsonObject extends TestJsonObject, TestEmptyInterface {
   }
   
   /**
@@ -1865,6 +1881,23 @@ public abstract class JsonObjectGeneratorTestBase {
     assertFalse("testJsonObject.hasTestProperty() != false", testJsonObject.hasTestProperty());
   }
   
+  /**
+   * Test the multiple-interface JSON object.
+   * <p>
+   * This test asserts that a JSON object that extends multiple interfaces is
+   * created successfully.
+   */
+  @Test
+  public void testMultipleInterfaceJsonObject() {
+    TestMultipleInterfaceJsonObject testMultipleInterfaceJsonObject = JsonObjectFactory.get().createJsonObject(TestMultipleInterfaceJsonObject.class);
+    
+    assertNotNull(testMultipleInterfaceJsonObject);
+    
+    testMultipleInterfaceJsonObject.setTestBooleanPrimitiveProperty(true);
+    
+    assertTrue(testMultipleInterfaceJsonObject.getTestBooleanPrimitiveProperty());
+  }
+
   /**
    * Create a JSON object array with the given element class.
    *
