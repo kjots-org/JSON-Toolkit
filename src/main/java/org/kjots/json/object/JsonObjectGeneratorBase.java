@@ -55,7 +55,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
+import org.kjots.json.object.shared.JsonFunction;
 import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectArray;
@@ -64,11 +71,6 @@ import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
 import org.kjots.json.object.shared.JsonProperty;
 import org.kjots.json.object.shared.JsonPropertyAdapter;
 import org.kjots.json.object.shared.JsonStringPropertyAdapter;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
 
 /**
  * JSON Object Generator Base.
@@ -137,6 +139,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       return this.typeIName;
     }
   }
+  
+  /** The JSON object internal class name. */
+  private static final String JSON_OBJECT_ICLASS_NAME = Type.getInternalName(JsonObject.class);
   
   /** The class of the JSON object implementation. */
   private final Class<T> jsonObjectImplClass;
@@ -297,7 +302,15 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     this.generateConstructor(classWriter, jsonObjectImplIClassName, superJsonObjectImplIClassName);
     
     for (Method method : jsonObjectClass.getDeclaredMethods()) {
-      this.generatePropertyMethod(classWriter, jsonObjectImplIClassName, method);
+      if (method.getAnnotation(JsonFunction.class) != null) {
+        this.generateFunctionMethod(classWriter, jsonObjectImplIClassName, method, method.getAnnotation(JsonFunction.class));
+      }
+      else if (method.getAnnotation(JsonProperty.class) != null) {
+        this.generatePropertyMethod(classWriter, jsonObjectImplIClassName, method, method.getAnnotation(JsonProperty.class));
+      }
+      else {
+        throw new IllegalArgumentException(method.getName() + "() is not annotated with suitable annotation");
+      }
     }
     
     return classWriter.toByteArray(); 
@@ -338,6 +351,38 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     methodVisitor.visitEnd();
   }
+  
+  /**
+   * Generate a function method.
+   *
+   * @param classWriter The class writer.
+   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param method The method.
+   */
+  private void generateFunctionMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonFunction jsonFunctionAnnotation) {
+    Class<?> functionClass = jsonFunctionAnnotation.klass();
+    String functionMethodName = jsonFunctionAnnotation.method();
+    
+    String functionClassIClassName = Type.getInternalName(functionClass);
+    
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), "()V", null, null);
+    
+    Label start = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    methodVisitor.visitMethodInsn(INVOKESTATIC, functionClassIClassName, functionMethodName, "(L" + JSON_OBJECT_ICLASS_NAME + ";)V");
+    methodVisitor.visitInsn(RETURN);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitMaxs(1, 1);
+    
+    methodVisitor.visitEnd();
+  }
 
   /**
    * Generate a property method. 
@@ -345,13 +390,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param classWriter The class writer.
    * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
    * @param method The method.
+   * @param jsonPropertyAnnotation The JSON property annotation.
    */
-  private void generatePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method) {
-    JsonProperty jsonPropertyAnnotation = method.getAnnotation(JsonProperty.class);
-    if (jsonPropertyAnnotation == null) {
-      throw new IllegalArgumentException(method.getName() + "() is not annotated with @" + JsonProperty.class.getName());
-    }
-    
+  private void generatePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonProperty jsonPropertyAnnotation) {
     switch (jsonPropertyAnnotation.operation()) {
     case HAS:
       this.generateHasPropertyMethod(classWriter, jsonObjectImplIClassName, method, jsonPropertyAnnotation);
@@ -979,7 +1020,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitLdcInsn(Type.getType("L" + propertyIClassName + ";"));
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)Lorg/kjots/json/object/shared/JsonObject;");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)L" + JSON_OBJECT_ICLASS_NAME + ";");
     methodVisitor.visitTypeInsn(CHECKCAST, propertyIClassName);
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
@@ -1011,7 +1052,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitVarInsn(ALOAD, 1);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setObjectProperty", "(Ljava/lang/String;Lorg/kjots/json/object/shared/JsonObject;)V");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setObjectProperty", "(Ljava/lang/String;L" + JSON_OBJECT_ICLASS_NAME + ";)V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
@@ -1044,7 +1085,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitLdcInsn(Type.getType("L" + propertyIClassName + ";"));
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)Lorg/kjots/json/object/shared/JsonObject;");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)L" + JSON_OBJECT_ICLASS_NAME + ";");
     methodVisitor.visitTypeInsn(CHECKCAST, propertyIClassName);
     methodVisitor.visitLdcInsn(Type.getType("L" + elementIClassName + ";"));
     methodVisitor.visitMethodInsn(INVOKEINTERFACE, propertyIClassName, "castElement", "(Ljava/lang/Class;)L" + propertyIClassName + ";");
@@ -1165,7 +1206,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitLdcInsn(Type.getType("L" + jsonObjectIClassName + ";"));
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)Lorg/kjots/json/object/shared/JsonObject;");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)L" + JSON_OBJECT_ICLASS_NAME + ";");
     methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectIClassName);
     methodVisitor.visitVarInsn(ASTORE, 1);
     methodVisitor.visitTypeInsn(NEW, adapterIClassName);
@@ -1213,7 +1254,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitVarInsn(ALOAD, 2);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setObjectProperty", "(Ljava/lang/String;Lorg/kjots/json/object/shared/JsonObject;)V");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setObjectProperty", "(Ljava/lang/String;L" + JSON_OBJECT_ICLASS_NAME + ";)V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     

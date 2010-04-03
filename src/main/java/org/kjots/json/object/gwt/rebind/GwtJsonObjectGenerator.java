@@ -17,17 +17,6 @@ package org.kjots.json.object.gwt.rebind;
 
 import java.io.PrintWriter;
 
-import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
-import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
-import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectArray;
-import org.kjots.json.object.shared.JsonObjectMap;
-import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
-import org.kjots.json.object.shared.JsonProperty;
-import org.kjots.json.object.shared.JsonPropertyAdapter;
-import org.kjots.json.object.shared.JsonStringPropertyAdapter;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
@@ -42,6 +31,18 @@ import com.google.gwt.core.ext.typeinfo.JType;
 import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
+
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
+import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
+import org.kjots.json.object.shared.JsonFunction;
+import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectArray;
+import org.kjots.json.object.shared.JsonObjectMap;
+import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
+import org.kjots.json.object.shared.JsonProperty;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
+import org.kjots.json.object.shared.JsonStringPropertyAdapter;
 
 /**
  * GWT JSON Object Generator.
@@ -117,7 +118,15 @@ public class GwtJsonObjectGenerator extends Generator {
       for (JMethod method : typeClassType.getMethods()) {
         sourceWriter.println();
         
-        this.writePropertyMethod(sourceWriter, logger, context, method);
+        if (method.getAnnotation(JsonFunction.class) != null) {
+          this.writeFunctionMethod(sourceWriter, logger, context, method, method.getAnnotation(JsonFunction.class));
+        }
+        else if (method.getAnnotation(JsonProperty.class) != null) {
+          this.writePropertyMethod(sourceWriter, logger, context, method, method.getAnnotation(JsonProperty.class));
+        }
+        else {
+          logger.log(TreeLogger.ERROR, method.getName() + "() is not annotated with suitable annotation", null);
+        }
       }
       
       sourceWriter.commit(logger);
@@ -127,23 +136,42 @@ public class GwtJsonObjectGenerator extends Generator {
   }
   
   /**
+   * Write a function method.
+   *
+   * @param sourceWriter The source writer.
+   * @param logger The logger.
+   * @param context The context.
+   * @param method The method.
+   * @param jsonFunctionAnnotation The JSON function annotation.
+   * @throws UnableToCompleteException
+   */
+  private void writeFunctionMethod(SourceWriter sourceWriter, TreeLogger logger, GeneratorContext context, JMethod method, JsonFunction jsonFunctionAnnotation)
+    throws UnableToCompleteException {
+    Class<?> functionClass = jsonFunctionAnnotation.klass();
+    String functionMethodName = jsonFunctionAnnotation.method();
+    
+    JClassType functionClassType = this.getType(logger, context, functionClass.getName().replace('$', '.'));
+    
+    sourceWriter.println("@Override");
+    sourceWriter.println("public final void " + method.getName() + "() {");
+    sourceWriter.indent();
+    sourceWriter.println(functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(this);");
+    sourceWriter.outdent();
+    sourceWriter.println("}");
+  }
+  
+  /**
    * Write a property method.
    *
    * @param sourceWriter The source writer.
    * @param logger The logger.
    * @param context The context.
    * @param method The method.
+   * @param jsonPropertyAnnotation The JSON property annotation.
    * @throws UnableToCompleteException
    */
-  private void writePropertyMethod(SourceWriter sourceWriter, TreeLogger logger, GeneratorContext context, JMethod method)
+  private void writePropertyMethod(SourceWriter sourceWriter, TreeLogger logger, GeneratorContext context, JMethod method, JsonProperty jsonPropertyAnnotation)
     throws UnableToCompleteException {
-    JsonProperty jsonPropertyAnnotation = method.getAnnotation(JsonProperty.class);
-    if (jsonPropertyAnnotation == null) {
-      logger.log(TreeLogger.ERROR, method.getName() + "() is not annotated with @" + JsonProperty.class.getName(), null);
-      
-      throw new UnableToCompleteException();
-    }
-    
     switch (jsonPropertyAnnotation.operation()) {
     case HAS:
       this.writeHasPropertyMethod(sourceWriter, logger, method, jsonPropertyAnnotation);
