@@ -25,7 +25,7 @@ import org.kjots.json.object.shared.JsonObjectGeneratorTestBase;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 0.1
  */
-public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTest {
+public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTestBase {
   /**
    * GWT JSON Object Generator Test Delegate.
    * <p>

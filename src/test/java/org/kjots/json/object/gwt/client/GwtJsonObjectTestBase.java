@@ -26,14 +26,14 @@ import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.junit.client.GWTTestCase;
 
 /**
- * GWT JSON Object Test.
+ * GWT JSON Object Test Base.
  * <p>
  * Created: 11th December 2009.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 0.1
  */
-public abstract class GwtJsonObjectTest extends GWTTestCase {
+public abstract class GwtJsonObjectTestBase extends GWTTestCase {
   /**
    * GWT JSON Object Test Ginjector.
    * <p>

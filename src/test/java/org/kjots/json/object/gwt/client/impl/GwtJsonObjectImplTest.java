@@ -15,7 +15,7 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.gwt.client.GwtJsonObjectTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectTestBase;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.impl.JsonObjectImplTestBase;
 
@@ -29,7 +29,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 0.1
  */
-public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTest {
+public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTestBase {
   /**
    * GWT JSON Object Implementation Test Delegate.
    * <p>

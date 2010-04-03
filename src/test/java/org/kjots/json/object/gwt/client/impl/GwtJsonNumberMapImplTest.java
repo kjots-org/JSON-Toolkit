@@ -15,7 +15,7 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.gwt.client.GwtJsonObjectTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectTestBase;
 import org.kjots.json.object.shared.JsonNumberMap;
 import org.kjots.json.object.shared.impl.JsonNumberMapImplTestBase;
 
@@ -29,7 +29,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 0.1
  */
-public class GwtJsonNumberMapImplTest extends GwtJsonObjectTest {
+public class GwtJsonNumberMapImplTest extends GwtJsonObjectTestBase {
   /**
    * GWT JSON Number Map Implementation Test Delegate.
    * <p>

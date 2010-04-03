@@ -15,7 +15,7 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.gwt.client.GwtJsonObjectTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectTestBase;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.impl.JsonBooleanArrayImplTestBase;
 
@@ -30,7 +30,7 @@ import com.google.gwt.core.client.JsArrayBoolean;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 0.1
  */
-public class GwtJsonBooleanArrayImplTest extends GwtJsonObjectTest {
+public class GwtJsonBooleanArrayImplTest extends GwtJsonObjectTestBase {
   /**
    * GWT JSON Boolean Array Implementation Test Delegate.
    * <p>
