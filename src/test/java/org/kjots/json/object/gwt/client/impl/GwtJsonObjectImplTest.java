@@ -30,52 +30,23 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @since json-object-0.1
  */
 public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Object Implementation Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonObjectImplTestDelegate extends JsonObjectImplTestBase<JavaScriptObject> {
-    /**
-     * Create a JSON object with the given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @return The JSON object.
-     */
+  /** The JSON object implementation test delegate. */
+  private final JsonObjectImplTestBase<JavaScriptObject> jsonObjectImplTestDelegate = new JsonObjectImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonObject createJsonObject(JavaScriptObject object) {
       return new GwtJsonObjectImpl(object);
     }
 
-    /**
-     * Create an empty underlying JSON object.
-     *
-     * @return The empty underlying JSON object.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonObject() {
       return JavaScriptObject.createObject();
     }
     
-    /**
-     * Create an empty underlying JSON array.
-     *
-     * @return The empty underlying JSON array.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonArray() {
       return JavaScriptObject.createArray();
     }
     
-    /**
-     * Retrieve the boolean value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The boolean value of the property.
-     * @see #setBooleanProperty(JavaScriptObject, String, Boolean)
-     */
     @Override
     protected final native Boolean getBooleanProperty(JavaScriptObject object, String propertyName) /*-{
       var jsPropertyValue = object[propertyName];
@@ -83,15 +54,6 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
       return jsPropertyValue != null ? @java.lang.Boolean::valueOf(Z)(jsPropertyValue) : null;
     }-*/;
     
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given boolean value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The boolean value of the property.
-     * @see #getBooleanProperty(JavaScriptObject, String)
-     */
     @Override
     protected final native void setBooleanProperty(JavaScriptObject object, String propertyName, Boolean propertyValue) /*-{
       var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Boolean::booleanValue()() : null;
@@ -99,15 +61,6 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
       object[propertyName] = jsPropertyValue;
     }-*/;
     
-    /**
-     * Retrieve the number value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The number value of the property.
-     * @see #setNumberProperty(JavaScriptObject, String, Number)
-     */
     @Override
     protected final native Number getNumberProperty(JavaScriptObject object, String propertyName) /*-{
       var jsPropertyValue = object[propertyName];
@@ -115,15 +68,6 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
       return jsPropertyValue != null ? @java.lang.Double::valueOf(D)(jsPropertyValue) : null;
     }-*/;
     
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given number value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The number value of the property.
-     * @see #getNumberProperty(JavaScriptObject, String)
-     */
     @Override
     protected final native void setNumberProperty(JavaScriptObject object, String propertyName, Number propertyValue) /*-{
       var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Number::doubleValue()() : null;
@@ -131,210 +75,171 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
       object[propertyName] = jsPropertyValue;
     }-*/;
     
-    /**
-     * Retrieve the string value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The string value of the property.
-     * @see #setStringProperty(JavaScriptObject, String, String)
-     */
     @Override
     protected final native String getStringProperty(JavaScriptObject object, String propertyName) /*-{
       return object[propertyName];
     }-*/;
     
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given string value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The string value of the property.
-     * @see #getStringProperty(JavaScriptObject, String)
-     */
     @Override
     protected final native void setStringProperty(JavaScriptObject object, String propertyName, String propertyValue) /*-{
       object[propertyName] = propertyValue;
     }-*/;
     
-    /**
-     * Retrieve the object value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The object value of the property.
-     * @see #setObjectProperty(JavaScriptObject, String, JavaScriptObject)
-     */
     @Override
     protected final native JavaScriptObject getObjectProperty(JavaScriptObject object, String propertyName) /*-{
       return object[propertyName];
     }-*/;
     
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given object value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The object value of the property.
-     * @see #getObjectProperty(JavaScriptObject, String)
-     */
     @Override
     protected final native void setObjectProperty(JavaScriptObject object, String propertyName, JavaScriptObject propertyValue) /*-{
       object[propertyName] = propertyValue;
     }-*/;
-  }
+  };
   
-  /** The GWT JSON object implementation test delegate. */
-  private final GwtJsonObjectImplTestDelegate gwtJsonObjectImplTestDelegate = new GwtJsonObjectImplTestDelegate();
-
   /**
    * @see JsonObjectImplTestBase#testCast()
    */
   public void testCast() {
-    this.gwtJsonObjectImplTestDelegate.testCast();
+    this.jsonObjectImplTestDelegate.testCast();
   }
 
   /**
    * @see JsonObjectImplTestBase#testIsArray()
    */
   public void testIsArray() {
-    this.gwtJsonObjectImplTestDelegate.testIsArray();
+    this.jsonObjectImplTestDelegate.testIsArray();
   }
 
   /**
    * @see JsonObjectImplTestBase#testGetPropertyNames()
    */
   public void testGetPropertyNames() {
-    this.gwtJsonObjectImplTestDelegate.testGetPropertyNames();
+    this.jsonObjectImplTestDelegate.testGetPropertyNames();
   }
 
   /**
    * @see JsonObjectImplTestBase#testHasProperty()
    */
   public void testHasProperty() {
-    this.gwtJsonObjectImplTestDelegate.testHasProperty();
+    this.jsonObjectImplTestDelegate.testHasProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testIsNullProperty()
    */
   public void testIsNullProperty() {
-    this.gwtJsonObjectImplTestDelegate.testIsNullProperty();
+    this.jsonObjectImplTestDelegate.testIsNullProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testIsBooleanProperty()
    */
   public void testIsBooleanProperty() {
-    this.gwtJsonObjectImplTestDelegate.testIsBooleanProperty();
+    this.jsonObjectImplTestDelegate.testIsBooleanProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testGetBooleanProperty()
    */
   public void testGetBooleanProperty() {
-    this.gwtJsonObjectImplTestDelegate.testGetBooleanProperty();
+    this.jsonObjectImplTestDelegate.testGetBooleanProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testSetBooleanProperty()
    */
   public void testSetBooleanProperty() {
-    this.gwtJsonObjectImplTestDelegate.testSetBooleanProperty();
+    this.jsonObjectImplTestDelegate.testSetBooleanProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testIsNumberProperty()
    */
   public void testIsNumberProperty() {
-    this.gwtJsonObjectImplTestDelegate.testIsNumberProperty();
+    this.jsonObjectImplTestDelegate.testIsNumberProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testGetNumberProperty()
    */
   public void testGetNumberProperty() {
-    this.gwtJsonObjectImplTestDelegate.testGetNumberProperty();
+    this.jsonObjectImplTestDelegate.testGetNumberProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testSetNumberProperty()
    */
   public void testSetNumberProperty() {
-    this.gwtJsonObjectImplTestDelegate.testSetNumberProperty();
+    this.jsonObjectImplTestDelegate.testSetNumberProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testIsStringProperty()
    */
   public void testIsStringProperty() {
-    this.gwtJsonObjectImplTestDelegate.testIsStringProperty();
+    this.jsonObjectImplTestDelegate.testIsStringProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testGetStringProperty()
    */
   public void testGetStringProperty() {
-    this.gwtJsonObjectImplTestDelegate.testGetStringProperty();
+    this.jsonObjectImplTestDelegate.testGetStringProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testSetStringProperty()
    */
   public void testSetStringProperty() {
-    this.gwtJsonObjectImplTestDelegate.testSetStringProperty();
+    this.jsonObjectImplTestDelegate.testSetStringProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testIsObjectProperty()
    */
   public void testIsObjectProperty() {
-    this.gwtJsonObjectImplTestDelegate.testIsObjectProperty();
+    this.jsonObjectImplTestDelegate.testIsObjectProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testGetObjectProperty()
    */
   public void testGetObjectProperty() {
-    this.gwtJsonObjectImplTestDelegate.testGetObjectProperty();
+    this.jsonObjectImplTestDelegate.testGetObjectProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testGetObjectPropertyWithClass()
    */
   public void testGetObjectPropertyWithClass() {
-    this.gwtJsonObjectImplTestDelegate.testGetObjectPropertyWithClass();
+    this.jsonObjectImplTestDelegate.testGetObjectPropertyWithClass();
   }
 
   /**
    * @see JsonObjectImplTestBase#testSetObjectProperty()
    */
   public void testSetObjectProperty() {
-    this.gwtJsonObjectImplTestDelegate.testSetObjectProperty();
+    this.jsonObjectImplTestDelegate.testSetObjectProperty();
   }
 
   /**
    * @see JsonObjectImplTestBase#testDeleteProperty()
    */
   public void testDeleteProperty() {
-    this.gwtJsonObjectImplTestDelegate.testDeleteProperty();
+    this.jsonObjectImplTestDelegate.testDeleteProperty();
   }
   
   /**
    * @see JsonObjectImplTestBase#testEquals()
    */
   public void testEquals() {
-    this.gwtJsonObjectImplTestDelegate.testEquals();
+    this.jsonObjectImplTestDelegate.testEquals();
   }
 
   /**
    * @see JsonObjectImplTestBase#testHashCode()
    */
   public void testHashCode() {
-    this.gwtJsonObjectImplTestDelegate.testHashCode();
+    this.jsonObjectImplTestDelegate.testHashCode();
   }
 }

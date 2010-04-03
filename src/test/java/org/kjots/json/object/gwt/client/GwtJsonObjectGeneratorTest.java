@@ -26,42 +26,35 @@ import org.kjots.json.object.shared.JsonObjectGeneratorTestBase;
  * @since json-object-0.1
  */
 public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Object Generator Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonObjectGeneratorTestDelegate extends JsonObjectGeneratorTestBase {
-  }
-  
-  /** The GWT JSON object generator test delegate. */
-  private final GwtJsonObjectGeneratorTestDelegate gwtJsonObjectGeneratorTestDelegate = new GwtJsonObjectGeneratorTestDelegate();
+  /** The JSON object generator test delegate. */
+  private final JsonObjectGeneratorTestBase jsonObjectGeneratorTestDelegate = new JsonObjectGeneratorTestBase() {
+  };
 
   /**
    * @see JsonObjectGeneratorTestBase#testCreateJsonObject()
    */
   public void testCreateJsonObject() {
-    this.gwtJsonObjectGeneratorTestDelegate.testCreateJsonObject();
+    this.jsonObjectGeneratorTestDelegate.testCreateJsonObject();
   }
   
   /**
    * @see JsonObjectGeneratorTestBase#testHasProperty()
    */
   public void testHasProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testHasProperty();
+    this.jsonObjectGeneratorTestDelegate.testHasProperty();
   }
 
   /**
    * @see JsonObjectGeneratorTestBase#testIsPropertyNull()
    */
   public void testIsPropertyNull() {
-    this.gwtJsonObjectGeneratorTestDelegate.testIsPropertyNull();
+    this.jsonObjectGeneratorTestDelegate.testIsPropertyNull();
   }
 
   /**
    * @see JsonObjectGeneratorTestBase#testDeleteProperty()
    */
   public void testDeleteProperty() {
-    this.gwtJsonObjectGeneratorTestDelegate.testDeleteProperty();
+    this.jsonObjectGeneratorTestDelegate.testDeleteProperty();
   }
 }

@@ -30,42 +30,18 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @since json-object-0.1
  */
 public class GwtJsonBooleanMapImplTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Boolean Map Implementation Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonBooleanMapImplTestDelegate extends JsonBooleanMapImplTestBase<JavaScriptObject> {
-    /**
-     * Create a JSON boolean map with the given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @return The JSON boolean map.
-     */
+  /** The JSON boolean map implementation test delegate. */
+  private final JsonBooleanMapImplTestBase<JavaScriptObject> jsonBooleanMapImplTestDelegate = new JsonBooleanMapImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonBooleanMap createJsonBooleanMap(JavaScriptObject object) {
       return new GwtJsonBooleanMapImpl(object);
     }
 
-    /**
-     * Create an empty underlying JSON object.
-     *
-     * @return The empty underlying JSON object.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonObject() {
       return JavaScriptObject.createObject();
     }
     
-    /**
-     * Retrieve the boolean value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The boolean value of the property.
-     * @see #setBooleanProperty(JavaScriptObject, String, Boolean)
-     */
     @Override
     protected final native Boolean getBooleanProperty(JavaScriptObject object, String propertyName) /*-{
       var jsPropertyValue = object[propertyName];
@@ -73,37 +49,25 @@ public class GwtJsonBooleanMapImplTest extends GwtJsonObjectTestBase {
       return jsPropertyValue != null ? @java.lang.Boolean::valueOf(Z)(jsPropertyValue) : null;
     }-*/;
     
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given boolean value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The boolean value of the property.
-     * @see #getBooleanProperty(JavaScriptObject, String)
-     */
     @Override
     protected final native void setBooleanProperty(JavaScriptObject object, String propertyName, Boolean propertyValue) /*-{
       var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Boolean::booleanValue()() : null;
       
       object[propertyName] = jsPropertyValue;
     }-*/;
-  }
+  };
   
-  /** The GWT JSON boolean map implementation test delegate. */
-  private final GwtJsonBooleanMapImplTestDelegate gwtJsonBooleanMapImplTestDelegate = new GwtJsonBooleanMapImplTestDelegate();
-
   /**
    * @see JsonBooleanMapImplTestBase#testGet()
    */
   public void testGet() {
-    this.gwtJsonBooleanMapImplTestDelegate.testGet();
+    this.jsonBooleanMapImplTestDelegate.testGet();
   }
 
   /**
    * @see JsonBooleanMapImplTestBase#testSet()
    */
   public void testSet() {
-    this.gwtJsonBooleanMapImplTestDelegate.testSet();
+    this.jsonBooleanMapImplTestDelegate.testSet();
   }
 }

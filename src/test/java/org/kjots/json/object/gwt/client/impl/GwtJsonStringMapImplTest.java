@@ -30,76 +30,40 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @since json-object-0.1
  */
 public class GwtJsonStringMapImplTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON String Map Implementation Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonStringMapImplTestDelegate extends JsonStringMapImplTestBase<JavaScriptObject> {
-    /**
-     * Create a JSON string map with the given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @return The JSON string map.
-     */
+  /** The JSON string map implementation test delegate. */
+  private final JsonStringMapImplTestBase<JavaScriptObject> jsonStringMapImplTestDelegate = new JsonStringMapImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonStringMap createJsonStringMap(JavaScriptObject object) {
       return new GwtJsonStringMapImpl(object);
     }
 
-    /**
-     * Create an empty underlying JSON object.
-     *
-     * @return The empty underlying JSON object.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonObject() {
       return JavaScriptObject.createObject();
     }
     
-    /**
-     * Retrieve the string value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The string value of the property.
-     * @see #setStringProperty(JavaScriptObject, String, String)
-     */
     @Override
     protected final native String getStringProperty(JavaScriptObject object, String propertyName) /*-{
       return object[propertyName];
     }-*/;
     
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given string value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The string value of the property.
-     * @see #getStringProperty(JavaScriptObject, String)
-     */
     @Override
     protected final native void setStringProperty(JavaScriptObject object, String propertyName, String propertyValue) /*-{
       object[propertyName] = propertyValue;
     }-*/;
-  }
-  
-  /** The GWT JSON string map implementation test delegate. */
-  private final GwtJsonStringMapImplTestDelegate gwtJsonStringMapImplTestDelegate = new GwtJsonStringMapImplTestDelegate();
+  };
 
   /**
    * @see JsonStringMapImplTestBase#testGet()
    */
   public void testGet() {
-    this.gwtJsonStringMapImplTestDelegate.testGet();
+    this.jsonStringMapImplTestDelegate.testGet();
   }
 
   /**
    * @see JsonStringMapImplTestBase#testSet()
    */
   public void testSet() {
-    this.gwtJsonStringMapImplTestDelegate.testSet();
+    this.jsonStringMapImplTestDelegate.testSet();
   }
 }

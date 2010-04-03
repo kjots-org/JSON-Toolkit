@@ -13,68 +13,63 @@ import org.kjots.json.object.shared.JsonObjectGeneratorNumberTestBase;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public class GwtJsonObjectGeneratorNumberTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Object Generator Test Number Delegate.
-   */
-  public static class GwtJsonObjectGeneratorNumberTestDelegate extends JsonObjectGeneratorNumberTestBase {
-  }
-  
-  /** The GWT JSON object generator number test delegate. */
-  private final GwtJsonObjectGeneratorNumberTestDelegate gwtJsonObjectGeneratorNumberTestDelegate = new GwtJsonObjectGeneratorNumberTestDelegate();
+  /** The JSON object generator number test delegate. */
+  private final JsonObjectGeneratorNumberTestBase jsonObjectGeneratorNumberTestDelegate = new JsonObjectGeneratorNumberTestBase() {
+  };
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testGetNumberProperty()
    */
   public void testGetNumberProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testGetNumberProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testGetNumberProperty();
   }
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testSetNumberProperty()
    */
   public void testSetNumberProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testSetNumberProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testSetNumberProperty();
   }
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testGetAdaptedNumberProperty()
    */
   public void testGetAdaptedNumberProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testGetAdaptedNumberProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testGetAdaptedNumberProperty();
   }
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testSetAdaptedNumberProperty()
    */
   public void testSetAdaptedNumberProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testSetAdaptedNumberProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testSetAdaptedNumberProperty();
   }
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testGetNumberArrayProperty()
    */
   public void testGetNumberArrayProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testGetNumberArrayProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testGetNumberArrayProperty();
   }
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testSetNumberArrayProperty()
    */
   public void testSetNumberArrayProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testSetNumberArrayProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testSetNumberArrayProperty();
   }
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testGetNumberMapProperty()
    */
   public void testGetNumberMapProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testGetNumberMapProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testGetNumberMapProperty();
   }
 
   /**
    * @see JsonObjectGeneratorNumberTestBase#testSetNumberMapProperty()
    */
   public void testSetNumberMapProperty() {
-    this.gwtJsonObjectGeneratorNumberTestDelegate.testSetNumberMapProperty();
+    this.jsonObjectGeneratorNumberTestDelegate.testSetNumberMapProperty();
   }
 }

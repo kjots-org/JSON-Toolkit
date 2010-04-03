@@ -32,87 +32,38 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @since json-object-0.1
  */
 public class GwtJsonArrayImplTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Array Implementation Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonArrayImplTestDelegate extends JsonArrayImplTestBase<JavaScriptObject> {
-    /**
-     * Create a JSON object with the given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @return The JSON object.
-     */
+  /** The JSON array implementation test delegate. */
+  private final JsonArrayImplTestBase<JavaScriptObject> jsonArrayImplTestDelegate = new JsonArrayImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonObject createJsonObject(JavaScriptObject object) {
       return new GwtJsonObjectImpl(object);
     }
 
-    /**
-     * Create a JSON array with the given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @return The JSON array.
-     */
     @Override
     protected JsonArray createJsonArray(JavaScriptObject array) {
       return new GwtJsonArrayImpl(array);
     }
 
-    /**
-     * Create an empty underlying JSON object.
-     *
-     * @return The empty underlying JSON object.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonObject() {
       return JavaScriptObject.createObject();
     }
     
-    /**
-     * Create an empty underlying JSON array.
-     *
-     * @return The empty underlying JSON array.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonArray() {
       return JavaScriptObject.createArray();
     }
     
-    /**
-     * Retrieve the length of the given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @return The length of the underlying JSON array.
-     * @see #setArrayLength(Object, int)
-     */
     @Override
     protected final native int getArrayLength(JavaScriptObject array) /*-{
       return array.length;
     }-*/;
     
-    /**
-     * Set the length of the given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param length The length of the underlying JSON array.
-     * @see #getArrayLength(Object)
-     */
     @Override
     protected final native void setArrayLength(JavaScriptObject array, int length) /*-{
       array.length = length;
     }-*/;
     
-    /**
-     * Retrieve the boolean value of the element at the given index from the
-     * given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @return The boolean value of the element.
-     * @see #setBooleanElement(JavaScriptObject, int, Boolean)
-     */
     @Override
     protected final native Boolean getBooleanElement(JavaScriptObject array, int elementIndex) /*-{
       var jsElementValue = array[elementIndex];
@@ -120,15 +71,6 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTestBase {
       return jsElementValue != null ? @java.lang.Boolean::valueOf(Z)(jsElementValue) : null;
     }-*/;
     
-    /**
-     * Set the element with the given name in the given underlying JSON array to
-     * the given boolean value.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @param elementValue The boolean value of the element.
-     * @see #getBooleanElement(JavaScriptObject, int)
-     */
     @Override
     protected final native void setBooleanElement(JavaScriptObject array, int elementIndex, Boolean elementValue) /*-{
       var jsElementValue = elementValue != null ? elementValue.@java.lang.Boolean::booleanValue()() : null;
@@ -136,15 +78,6 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTestBase {
       array[elementIndex] = jsElementValue;
     }-*/;
     
-    /**
-     * Retrieve the numeric value of the element at the given index from the
-     * given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @return The numeric value of the element.
-     * @see #setNumberElement(JavaScriptObject, int, Number)
-     */
     @Override
     protected final native Number getNumberElement(JavaScriptObject array, int elementIndex) /*-{
       var jsElementValue = array[elementIndex];
@@ -152,15 +85,6 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTestBase {
       return jsElementValue != null ? @java.lang.Double::valueOf(D)(jsElementValue) : null;
     }-*/;
     
-    /**
-     * Set the element with the given name in the given underlying JSON array to
-     * the given numeric value.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @param elementValue The numeric value of the element.
-     * @see #getNumberElement(JavaScriptObject, int)
-     */
     @Override
     protected final native void setNumberElement(JavaScriptObject array, int elementIndex, Number elementValue) /*-{
       var jsElementValue = elementValue != null ? elementValue.@java.lang.Number::doubleValue()() : null;
@@ -168,65 +92,26 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTestBase {
       array[elementIndex] = jsElementValue;
     }-*/;
     
-    /**
-     * Retrieve the string value of the element at the given index from the
-     * given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @return The string value of the element.
-     * @see #setStringElement(JavaScriptObject, int, String)
-     */
     @Override
     protected final native String getStringElement(JavaScriptObject array, int elementIndex) /*-{
       return array[elementIndex];
     }-*/;
     
-    /**
-     * Set the element with the given name in the given underlying JSON array to
-     * the given string value.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @param elementValue The string value of the element.
-     * @see #getStringElement(JavaScriptObject, int)
-     */
     @Override
     protected final native void setStringElement(JavaScriptObject array, int elementIndex, String elementValue) /*-{
       array[elementIndex] = elementValue;
     }-*/;
     
-    /**
-     * Retrieve the object value of the element at the given index from the
-     * given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @return The object value of the element.
-     * @see #setObjectElement(JavaScriptObject, int, JavaScriptObject)
-     */
     @Override
     protected final native JavaScriptObject getObjectElement(JavaScriptObject array, int elementIndex) /*-{
       return array[elementIndex];
     }-*/;
     
-    /**
-     * Set the element with the given name in the given underlying JSON array to
-     * the given object value.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @param elementValue The object value of the element.
-     * @see #getObjectElement(JavaScriptObject, int)
-     */
     @Override
     protected final native void setObjectElement(JavaScriptObject array, int elementIndex, JavaScriptObject elementValue) /*-{
       array[elementIndex] = elementValue;
     }-*/;
-  }
-  
-  /** The GWT JSON array implementation test delegate. */
-  private final GwtJsonArrayImplTestDelegate gwtJsonArrayImplTestDelegate = new GwtJsonArrayImplTestDelegate();
+  };
   
   /**
    * Test the construction of a JSON array with a non-array-object argument.
@@ -249,139 +134,139 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTestBase {
    * @see JsonArrayImplTestBase#testGetLength()
    */
   public void testGetLength() {
-    this.gwtJsonArrayImplTestDelegate.testGetLength();
+    this.jsonArrayImplTestDelegate.testGetLength();
   }
 
   /**
    * @see JsonArrayImplTestBase#testIsNullElement()
    */
   public void testIsNullElement() {
-    this.gwtJsonArrayImplTestDelegate.testIsNullElement();
+    this.jsonArrayImplTestDelegate.testIsNullElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testIsBooleanElement()
    */
   public void testIsBooleanElement() {
-    this.gwtJsonArrayImplTestDelegate.testIsBooleanElement();
+    this.jsonArrayImplTestDelegate.testIsBooleanElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testGetBooleanElement()
    */
   public void testGetBooleanElement() {
-    this.gwtJsonArrayImplTestDelegate.testGetBooleanElement();
+    this.jsonArrayImplTestDelegate.testGetBooleanElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testSetBooleanElement()
    */
   public void testSetBooleanElement() {
-    this.gwtJsonArrayImplTestDelegate.testSetBooleanElement();
+    this.jsonArrayImplTestDelegate.testSetBooleanElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testInsertBooleanElement()
    */
   public void testInsertBooleanElement() {
-    this.gwtJsonArrayImplTestDelegate.testInsertBooleanElement();
+    this.jsonArrayImplTestDelegate.testInsertBooleanElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testIsNumberElement()
    */
   public void testIsNumberElement() {
-    this.gwtJsonArrayImplTestDelegate.testIsNumberElement();
+    this.jsonArrayImplTestDelegate.testIsNumberElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testGetNumberElement()
    */
   public void testGetNumberElement() {
-    this.gwtJsonArrayImplTestDelegate.testGetNumberElement();
+    this.jsonArrayImplTestDelegate.testGetNumberElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testSetNumberElement()
    */
   public void testSetNumberElement() {
-    this.gwtJsonArrayImplTestDelegate.testSetNumberElement();
+    this.jsonArrayImplTestDelegate.testSetNumberElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testInsertNumberElement()
    */
   public void testInsertNumberElement() {
-    this.gwtJsonArrayImplTestDelegate.testInsertNumberElement();
+    this.jsonArrayImplTestDelegate.testInsertNumberElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testIsStringElement()
    */
   public void testIsStringElement() {
-    this.gwtJsonArrayImplTestDelegate.testIsStringElement();
+    this.jsonArrayImplTestDelegate.testIsStringElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testGetStringElement()
    */
   public void testGetStringElement() {
-    this.gwtJsonArrayImplTestDelegate.testGetStringElement();
+    this.jsonArrayImplTestDelegate.testGetStringElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testSetStringElement()
    */
   public void testSetStringElement() {
-    this.gwtJsonArrayImplTestDelegate.testSetStringElement();
+    this.jsonArrayImplTestDelegate.testSetStringElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testInsertStringElement()
    */
   public void testInsertStringElement() {
-    this.gwtJsonArrayImplTestDelegate.testInsertStringElement();
+    this.jsonArrayImplTestDelegate.testInsertStringElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testIsObjectElement()
    */
   public void testIsObjectElement() {
-    this.gwtJsonArrayImplTestDelegate.testIsObjectElement();
+    this.jsonArrayImplTestDelegate.testIsObjectElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testGetObjectElement()
    */
   public void testGetObjectElement() {
-    this.gwtJsonArrayImplTestDelegate.testGetObjectElement();
+    this.jsonArrayImplTestDelegate.testGetObjectElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testGetObjectElementWithClass()
    */
   public void testGetObjectElementWithClass() {
-    this.gwtJsonArrayImplTestDelegate.testGetObjectElementWithClass();
+    this.jsonArrayImplTestDelegate.testGetObjectElementWithClass();
   }
 
   /**
    * @see JsonArrayImplTestBase#testSetObjectElement()
    */
   public void testSetObjectElement() {
-    this.gwtJsonArrayImplTestDelegate.testSetObjectElement();
+    this.jsonArrayImplTestDelegate.testSetObjectElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testInsertObjectElement()
    */
   public void testInsertObjectElement() {
-    this.gwtJsonArrayImplTestDelegate.testInsertObjectElement();
+    this.jsonArrayImplTestDelegate.testInsertObjectElement();
   }
 
   /**
    * @see JsonArrayImplTestBase#testRemoveElements()
    */
   public void testRemoveElements() {
-    this.gwtJsonArrayImplTestDelegate.testRemoveElements();
+    this.jsonArrayImplTestDelegate.testRemoveElements();
   }
 }

@@ -30,42 +30,18 @@ import com.google.gwt.core.client.JavaScriptObject;
  * @since json-object-0.1
  */
 public class GwtJsonNumberMapImplTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Number Map Implementation Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonNumberMapImplTestDelegate extends JsonNumberMapImplTestBase<JavaScriptObject> {
-    /**
-     * Create a JSON number map with the given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @return The JSON number map.
-     */
+  /** The JSON number map implementation test delegate. */
+  private final JsonNumberMapImplTestBase<JavaScriptObject> jsonNumberMapImplTestDelegate = new JsonNumberMapImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonNumberMap createJsonNumberMap(JavaScriptObject object) {
       return new GwtJsonNumberMapImpl(object);
     }
 
-    /**
-     * Create an empty underlying JSON object.
-     *
-     * @return The empty underlying JSON object.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonObject() {
       return JavaScriptObject.createObject();
     }
     
-    /**
-     * Retrieve the number value of the property with the given name from the
-     * given underlying JSON object.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @return The number value of the property.
-     * @see #setNumberProperty(JavaScriptObject, String, Number)
-     */
     @Override
     protected final native Number getNumberProperty(JavaScriptObject object, String propertyName) /*-{
       var jsPropertyValue = object[propertyName];
@@ -73,37 +49,25 @@ public class GwtJsonNumberMapImplTest extends GwtJsonObjectTestBase {
       return jsPropertyValue != null ? @java.lang.Double::valueOf(D)(jsPropertyValue) : null;
     }-*/;
     
-    /**
-     * Set the property with the given name in the given underlying JSON object
-     * to the given number value.
-     *
-     * @param object The underlying JSON object.
-     * @param propertyName The name of the property.
-     * @param propertyValue The number value of the property.
-     * @see #getNumberProperty(JavaScriptObject, String)
-     */
     @Override
     protected final native void setNumberProperty(JavaScriptObject object, String propertyName, Number propertyValue) /*-{
       var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Number::doubleValue()() : null;
       
       object[propertyName] = jsPropertyValue;
     }-*/;
-  }
+  };
   
-  /** The GWT JSON number map implementation test delegate. */
-  private final GwtJsonNumberMapImplTestDelegate gwtJsonNumberMapImplTestDelegate = new GwtJsonNumberMapImplTestDelegate();
-
   /**
    * @see JsonNumberMapImplTestBase#testGet()
    */
   public void testGet() {
-    this.gwtJsonNumberMapImplTestDelegate.testGet();
+    this.jsonNumberMapImplTestDelegate.testGet();
   }
 
   /**
    * @see JsonNumberMapImplTestBase#testSet()
    */
   public void testSet() {
-    this.gwtJsonNumberMapImplTestDelegate.testSet();
+    this.jsonNumberMapImplTestDelegate.testSet();
   }
 }

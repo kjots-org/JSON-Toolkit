@@ -13,68 +13,63 @@ import org.kjots.json.object.shared.JsonObjectGeneratorBooleanTestBase;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public class GwtJsonObjectGeneratorBooleanTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Object Generator Test Boolean Delegate.
-   */
-  public static class GwtJsonObjectGeneratorBooleanTestDelegate extends JsonObjectGeneratorBooleanTestBase {
-  }
-  
-  /** The GWT JSON object generator boolean test delegate. */
-  private final GwtJsonObjectGeneratorBooleanTestDelegate gwtJsonObjectGeneratorBooleanTestDelegate = new GwtJsonObjectGeneratorBooleanTestDelegate();
+  /** The JSON object generator boolean test delegate. */
+  private final JsonObjectGeneratorBooleanTestBase jsonObjectGeneratorBooleanTestDelegate = new JsonObjectGeneratorBooleanTestBase() {
+  };
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testGetBooleanProperty()
    */
   public void testGetBooleanProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testGetBooleanProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testGetBooleanProperty();
   }
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testSetBooleanProperty()
    */
   public void testSetBooleanProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testSetBooleanProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testSetBooleanProperty();
   }
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testGetAdaptedBooleanProperty()
    */
   public void testGetAdaptedBooleanProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testGetAdaptedBooleanProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testGetAdaptedBooleanProperty();
   }
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testSetAdaptedBooleanProperty()
    */
   public void testSetAdaptedBooleanProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testSetAdaptedBooleanProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testSetAdaptedBooleanProperty();
   }
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testGetBooleanArrayProperty()
    */
   public void testGetBooleanArrayProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testGetBooleanArrayProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testGetBooleanArrayProperty();
   }
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testSetBooleanArrayProperty()
    */
   public void testSetBooleanArrayProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testSetBooleanArrayProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testSetBooleanArrayProperty();
   }
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testGetBooleanMapProperty()
    */
   public void testGetBooleanMapProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testGetBooleanMapProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testGetBooleanMapProperty();
   }
 
   /**
    * @see JsonObjectGeneratorBooleanTestBase#testSetBooleanMapProperty()
    */
   public void testSetBooleanMapProperty() {
-    this.gwtJsonObjectGeneratorBooleanTestDelegate.testSetBooleanMapProperty();
+    this.jsonObjectGeneratorBooleanTestDelegate.testSetBooleanMapProperty();
   }
 }

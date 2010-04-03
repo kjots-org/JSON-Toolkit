@@ -31,53 +31,23 @@ import com.google.gwt.core.client.JsArrayBoolean;
  * @since json-object-0.1
  */
 public class GwtJsonBooleanArrayImplTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Boolean Array Implementation Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonBooleanArrayImplTestDelegate extends JsonBooleanArrayImplTestBase<JavaScriptObject> {
-    /**
-     * Create a JSON boolean array with the given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @return The JSON boolean array.
-     */
+  /** The JSON boolean array implementation test delegate. */
+  private final JsonBooleanArrayImplTestBase<JavaScriptObject> jsonBooleanArrayImplTestDelegate = new JsonBooleanArrayImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonBooleanArray createJsonBooleanArray(JavaScriptObject array) {
       return new GwtJsonBooleanArrayImpl((JsArrayBoolean)array.cast());
     }
 
-    /**
-     * Create an empty underlying JSON array.
-     *
-     * @return The empty underlying JSON array.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonArray() {
       return JavaScriptObject.createArray();
     }
     
-    /**
-     * Retrieve the length of the given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @return The length of the underlying JSON array.
-     */
     @Override
     protected final native int getArrayLength(JavaScriptObject array) /*-{
       return array.length;
     }-*/;
     
-    /**
-     * Retrieve the boolean value of the element at the given index from the
-     * given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @return The boolean value of the element.
-     * @see #setBooleanElement(JavaScriptObject, int, Boolean)
-     */
     @Override
     protected final native Boolean getBooleanElement(JavaScriptObject array, int elementIndex) /*-{
       var jsElementValue = array[elementIndex];
@@ -85,44 +55,32 @@ public class GwtJsonBooleanArrayImplTest extends GwtJsonObjectTestBase {
       return jsElementValue != null ? @java.lang.Boolean::valueOf(Z)(jsElementValue) : null;
     }-*/;
     
-    /**
-     * Set the element with the given name in the given underlying JSON array to
-     * the given boolean value.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @param elementValue The boolean value of the element.
-     * @see #getBooleanElement(JavaScriptObject, int)
-     */
     @Override
     protected final native void setBooleanElement(JavaScriptObject array, int elementIndex, Boolean elementValue) /*-{
       var jsElementValue = elementValue != null ? elementValue.@java.lang.Boolean::booleanValue()() : null;
       
       array[elementIndex] = jsElementValue;
     }-*/;
-  }
+  };
   
-  /** The GWT JSON boolean array implementation test delegate. */
-  private final GwtJsonBooleanArrayImplTestDelegate gwtJsonBooleanArrayImplTestDelegate = new GwtJsonBooleanArrayImplTestDelegate();
-
   /**
    * @see JsonBooleanArrayImplTestBase#testGet()
    */
   public void testGet() {
-    this.gwtJsonBooleanArrayImplTestDelegate.testGet();
+    this.jsonBooleanArrayImplTestDelegate.testGet();
   }
 
   /**
    * @see JsonBooleanArrayImplTestBase#testSet()
    */
   public void testSet() {
-    this.gwtJsonBooleanArrayImplTestDelegate.testSet();
+    this.jsonBooleanArrayImplTestDelegate.testSet();
   }
 
   /**
    * @see JsonBooleanArrayImplTestBase#testInsert()
    */
   public void testInsert() {
-    this.gwtJsonBooleanArrayImplTestDelegate.testInsert();
+    this.jsonBooleanArrayImplTestDelegate.testInsert();
   }
 }

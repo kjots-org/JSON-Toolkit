@@ -13,68 +13,63 @@ import org.kjots.json.object.shared.JsonObjectGeneratorStringTestBase;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public class GwtJsonObjectGeneratorStringTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Object Generator Test String Delegate.
-   */
-  public static class GwtJsonObjectGeneratorStringTestDelegate extends JsonObjectGeneratorStringTestBase {
-  }
-  
-  /** The GWT JSON object generator string test delegate. */
-  private final GwtJsonObjectGeneratorStringTestDelegate gwtJsonObjectGeneratorStringTestDelegate = new GwtJsonObjectGeneratorStringTestDelegate();
+  /** The JSON object generator string test delegate. */
+  private final JsonObjectGeneratorStringTestBase jsonObjectGeneratorStringTestDelegate = new JsonObjectGeneratorStringTestBase() {
+  };
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testGetStringProperty()
    */
   public void testGetStringProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testGetStringProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testGetStringProperty();
   }
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testSetStringProperty()
    */
   public void testSetStringProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testSetStringProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testSetStringProperty();
   }
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testGetAdaptedStringProperty()
    */
   public void testGetAdaptedStringProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testGetAdaptedStringProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testGetAdaptedStringProperty();
   }
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testSetAdaptedStringProperty()
    */
   public void testSetAdaptedStringProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testSetAdaptedStringProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testSetAdaptedStringProperty();
   }
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testGetStringArrayProperty()
    */
   public void testGetStringArrayProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testGetStringArrayProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testGetStringArrayProperty();
   }
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testSetStringArrayProperty()
    */
   public void testSetStringArrayProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testSetStringArrayProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testSetStringArrayProperty();
   }
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testGetStringMapProperty()
    */
   public void testGetStringMapProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testGetStringMapProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testGetStringMapProperty();
   }
 
   /**
    * @see JsonObjectGeneratorStringTestBase#testSetStringMapProperty()
    */
   public void testSetStringMapProperty() {
-    this.gwtJsonObjectGeneratorStringTestDelegate.testSetStringMapProperty();
+    this.jsonObjectGeneratorStringTestDelegate.testSetStringMapProperty();
   }
 }

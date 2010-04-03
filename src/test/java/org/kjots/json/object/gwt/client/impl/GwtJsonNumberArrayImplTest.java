@@ -31,53 +31,23 @@ import com.google.gwt.core.client.JsArrayNumber;
  * @since json-object-0.1
  */
 public class GwtJsonNumberArrayImplTest extends GwtJsonObjectTestBase {
-  /**
-   * GWT JSON Number Array Implementation Test Delegate.
-   * <p>
-   * Created: 11th December 2009.
-   */
-  public static class GwtJsonNumberArrayImplTestDelegate extends JsonNumberArrayImplTestBase<JavaScriptObject> {
-    /**
-     * Create a JSON number array with the given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @return The JSON number array.
-     */
+  /** The JSON number array implementation test delegate. */
+  private final JsonNumberArrayImplTestBase<JavaScriptObject> jsonNumberArrayImplTestDelegate = new JsonNumberArrayImplTestBase<JavaScriptObject>() {;
     @Override
     protected JsonNumberArray createJsonNumberArray(JavaScriptObject array) {
       return new GwtJsonNumberArrayImpl((JsArrayNumber)array.cast());
     }
 
-    /**
-     * Create an empty underlying JSON array.
-     *
-     * @return The empty underlying JSON array.
-     */
     @Override
     protected JavaScriptObject createUnderlyingJsonArray() {
       return JavaScriptObject.createArray();
     }
     
-    /**
-     * Retrieve the length of the given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @return The length of the underlying JSON array.
-     */
     @Override
     protected final native int getArrayLength(JavaScriptObject array) /*-{
       return array.length;
     }-*/;
     
-    /**
-     * Retrieve the numeric value of the element at the given index from the
-     * given underlying JSON array.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @return The numeric value of the element.
-     * @see #setNumberElement(JavaScriptObject, int, Number)
-     */
     @Override
     protected final native Number getNumberElement(JavaScriptObject array, int elementIndex) /*-{
       var jsElementValue = array[elementIndex];
@@ -85,44 +55,32 @@ public class GwtJsonNumberArrayImplTest extends GwtJsonObjectTestBase {
       return jsElementValue != null ? @java.lang.Double::valueOf(D)(jsElementValue) : null;
     }-*/;
     
-    /**
-     * Set the element with the given name in the given underlying JSON array to
-     * the given numeric value.
-     *
-     * @param array The underlying JSON array.
-     * @param elementIndex The index of the element.
-     * @param elementValue The numeric value of the element.
-     * @see #getNumberElement(JavaScriptObject, int)
-     */
     @Override
     protected final native void setNumberElement(JavaScriptObject array, int elementIndex, Number elementValue) /*-{
       var jsElementValue = elementValue != null ? elementValue.@java.lang.Number::doubleValue()() : null;
       
       array[elementIndex] = jsElementValue;
     }-*/;
-  }
+  };
   
-  /** The GWT JSON number array implementation test delegate. */
-  private final GwtJsonNumberArrayImplTestDelegate gwtJsonNumberArrayImplTestDelegate = new GwtJsonNumberArrayImplTestDelegate();
-
   /**
    * @see JsonNumberArrayImplTestBase#testGet()
    */
   public void testGet() {
-    this.gwtJsonNumberArrayImplTestDelegate.testGet();
+    this.jsonNumberArrayImplTestDelegate.testGet();
   }
 
   /**
    * @see JsonNumberArrayImplTestBase#testSet()
    */
   public void testSet() {
-    this.gwtJsonNumberArrayImplTestDelegate.testSet();
+    this.jsonNumberArrayImplTestDelegate.testSet();
   }
 
   /**
    * @see JsonNumberArrayImplTestBase#testInsert()
    */
   public void testInsert() {
-    this.gwtJsonNumberArrayImplTestDelegate.testInsert();
+    this.jsonNumberArrayImplTestDelegate.testInsert();
   }
 }
