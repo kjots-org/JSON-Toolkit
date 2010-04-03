@@ -31,7 +31,7 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTestBase {
    * <p>
    * Created: 11th December 2009.
    */
-  public class GwtJsonObjectGeneratorTestDelegate extends JsonObjectGeneratorTestBase {
+  public static class GwtJsonObjectGeneratorTestDelegate extends JsonObjectGeneratorTestBase {
   }
   
   /** The GWT JSON object generator test delegate. */

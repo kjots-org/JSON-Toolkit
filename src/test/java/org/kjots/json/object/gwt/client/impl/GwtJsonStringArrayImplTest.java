@@ -36,7 +36,7 @@ public class GwtJsonStringArrayImplTest extends GwtJsonObjectTestBase {
    * <p>
    * Created: 11th December 2009.
    */
-  public class GwtJsonStringArrayImplTestDelegate extends JsonStringArrayImplTestBase<JavaScriptObject> {
+  public static class GwtJsonStringArrayImplTestDelegate extends JsonStringArrayImplTestBase<JavaScriptObject> {
     /**
      * Create a JSON string array with the given underlying JSON array.
      *

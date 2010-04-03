@@ -35,7 +35,7 @@ public class GwtJsonNumberMapImplTest extends GwtJsonObjectTestBase {
    * <p>
    * Created: 11th December 2009.
    */
-  public class GwtJsonNumberMapImplTestDelegate extends JsonNumberMapImplTestBase<JavaScriptObject> {
+  public static class GwtJsonNumberMapImplTestDelegate extends JsonNumberMapImplTestBase<JavaScriptObject> {
     /**
      * Create a JSON number map with the given underlying JSON object.
      *

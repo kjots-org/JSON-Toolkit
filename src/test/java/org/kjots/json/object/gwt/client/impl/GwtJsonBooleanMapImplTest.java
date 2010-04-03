@@ -35,7 +35,7 @@ public class GwtJsonBooleanMapImplTest extends GwtJsonObjectTestBase {
    * <p>
    * Created: 11th December 2009.
    */
-  public class GwtJsonBooleanMapImplTestDelegate extends JsonBooleanMapImplTestBase<JavaScriptObject> {
+  public static class GwtJsonBooleanMapImplTestDelegate extends JsonBooleanMapImplTestBase<JavaScriptObject> {
     /**
      * Create a JSON boolean map with the given underlying JSON object.
      *

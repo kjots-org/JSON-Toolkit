@@ -16,7 +16,7 @@ public class GwtJsonObjectGeneratorBooleanTest extends GwtJsonObjectTestBase {
   /**
    * GWT JSON Object Generator Test Boolean Delegate.
    */
-  public class GwtJsonObjectGeneratorBooleanTestDelegate extends JsonObjectGeneratorBooleanTestBase {
+  public static class GwtJsonObjectGeneratorBooleanTestDelegate extends JsonObjectGeneratorBooleanTestBase {
   }
   
   /** The GWT JSON object generator boolean test delegate. */

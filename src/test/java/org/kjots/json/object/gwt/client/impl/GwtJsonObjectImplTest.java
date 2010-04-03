@@ -35,7 +35,7 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
    * <p>
    * Created: 11th December 2009.
    */
-  public class GwtJsonObjectImplTestDelegate extends JsonObjectImplTestBase<JavaScriptObject> {
+  public static class GwtJsonObjectImplTestDelegate extends JsonObjectImplTestBase<JavaScriptObject> {
     /**
      * Create a JSON object with the given underlying JSON object.
      *

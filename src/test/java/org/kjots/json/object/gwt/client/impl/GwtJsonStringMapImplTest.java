@@ -35,7 +35,7 @@ public class GwtJsonStringMapImplTest extends GwtJsonObjectTestBase {
    * <p>
    * Created: 11th December 2009.
    */
-  public class GwtJsonStringMapImplTestDelegate extends JsonStringMapImplTestBase<JavaScriptObject> {
+  public static class GwtJsonStringMapImplTestDelegate extends JsonStringMapImplTestBase<JavaScriptObject> {
     /**
      * Create a JSON string map with the given underlying JSON object.
      *

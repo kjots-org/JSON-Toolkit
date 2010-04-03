@@ -16,7 +16,7 @@ public class GwtJsonObjectGeneratorNumberTest extends GwtJsonObjectTestBase {
   /**
    * GWT JSON Object Generator Test Number Delegate.
    */
-  public class GwtJsonObjectGeneratorNumberTestDelegate extends JsonObjectGeneratorNumberTestBase {
+  public static class GwtJsonObjectGeneratorNumberTestDelegate extends JsonObjectGeneratorNumberTestBase {
   }
   
   /** The GWT JSON object generator number test delegate. */
