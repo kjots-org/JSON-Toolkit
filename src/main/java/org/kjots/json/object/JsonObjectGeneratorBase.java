@@ -363,9 +363,64 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     Class<?> functionClass = jsonFunctionAnnotation.klass();
     String functionMethodName = jsonFunctionAnnotation.method();
     
+    Class<?> returnType = method.getReturnType();
     String functionClassIClassName = Type.getInternalName(functionClass);
     
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), "()V", null, null);
+    String returnTypeSignature;
+    int returnOpcode;
+    int maxStack;
+    if (returnType.equals(void.class)) {
+      returnTypeSignature = "V";
+      returnOpcode = RETURN;
+      maxStack = 1;
+    }
+    else if (returnType.equals(boolean.class)) {
+      returnTypeSignature = "Z";
+      returnOpcode = IRETURN;
+      maxStack = 1;
+    }
+    else if (returnType.equals(byte.class)) {
+      returnTypeSignature = "B";
+      returnOpcode = IRETURN;
+      maxStack = 1;
+    }
+    else if (returnType.equals(short.class)) {
+      returnTypeSignature = "S";
+      returnOpcode = IRETURN;
+      maxStack = 1;
+    }
+    else if (returnType.equals(int.class)) {
+      returnTypeSignature = "I";
+      returnOpcode = IRETURN;
+      maxStack = 1;
+    }
+    else if (returnType.equals(long.class)) {
+      returnTypeSignature = "J";
+      returnOpcode = LRETURN;
+      maxStack = 2;
+    }
+    else if (returnType.equals(float.class)) {
+      returnTypeSignature = "F";
+      returnOpcode = FRETURN;
+      maxStack = 1;
+    }
+    else if (returnType.equals(double.class)) {
+      returnTypeSignature = "D";
+      returnOpcode = DRETURN;
+      maxStack = 2;
+    }
+    else if (returnType.equals(char.class)) {
+      returnTypeSignature = "C";
+      returnOpcode = IRETURN;
+      maxStack = 1;
+    }
+    else {
+      returnTypeSignature = "L" + Type.getInternalName(returnType) + ";";
+      returnOpcode = ARETURN;
+      maxStack = 1;
+    }
+    
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), "()" + returnTypeSignature, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -374,12 +429,12 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
-    methodVisitor.visitMethodInsn(INVOKESTATIC, functionClassIClassName, functionMethodName, "(L" + JSON_OBJECT_ICLASS_NAME + ";)V");
-    methodVisitor.visitInsn(RETURN);
+    methodVisitor.visitMethodInsn(INVOKESTATIC, functionClassIClassName, functionMethodName, "(L" + JSON_OBJECT_ICLASS_NAME + ";)" + returnTypeSignature);
+    methodVisitor.visitInsn(returnOpcode);
     methodVisitor.visitLabel(end);
     
     methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitMaxs(1, 1);
+    methodVisitor.visitMaxs(maxStack, maxStack);
     
     methodVisitor.visitEnd();
   }

@@ -150,12 +150,13 @@ public class GwtJsonObjectGenerator extends Generator {
     Class<?> functionClass = jsonFunctionAnnotation.klass();
     String functionMethodName = jsonFunctionAnnotation.method();
     
+    String returnTypeName = method.getReturnType().getQualifiedSourceName();
     JClassType functionClassType = this.getType(logger, context, functionClass.getName().replace('$', '.'));
     
     sourceWriter.println("@Override");
-    sourceWriter.println("public final void " + method.getName() + "() {");
+    sourceWriter.println("public final " + returnTypeName + " " + method.getName() + "() {");
     sourceWriter.indent();
-    sourceWriter.println(functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(this);");
+    sourceWriter.println((!returnTypeName.equals("void") ? "return " : "") + functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(this);");
     sourceWriter.outdent();
     sourceWriter.println("}");
   }
