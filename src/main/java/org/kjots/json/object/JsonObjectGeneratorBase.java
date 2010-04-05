@@ -360,67 +360,25 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param method The method.
    */
   private void generateFunctionMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonFunction jsonFunctionAnnotation) {
+    String methodName = method.getName();
+    Class<?> returnType = method.getReturnType();
+    Class<?>[] methodParameterTypes = method.getParameterTypes();
+    
     Class<?> functionClass = jsonFunctionAnnotation.klass();
+    String functionClassIClassName = Type.getInternalName(functionClass);
     String functionMethodName = jsonFunctionAnnotation.method();
     
-    Class<?> returnType = method.getReturnType();
-    String functionClassIClassName = Type.getInternalName(functionClass);
+    String returnTypeSignature = Type.getDescriptor(returnType);
+    int returnOpcode = this.getReturnOpcode(returnType);
     
-    String returnTypeSignature;
-    int returnOpcode;
-    int maxStack;
-    if (returnType.equals(void.class)) {
-      returnTypeSignature = "V";
-      returnOpcode = RETURN;
-      maxStack = 1;
-    }
-    else if (returnType.equals(boolean.class)) {
-      returnTypeSignature = "Z";
-      returnOpcode = IRETURN;
-      maxStack = 1;
-    }
-    else if (returnType.equals(byte.class)) {
-      returnTypeSignature = "B";
-      returnOpcode = IRETURN;
-      maxStack = 1;
-    }
-    else if (returnType.equals(short.class)) {
-      returnTypeSignature = "S";
-      returnOpcode = IRETURN;
-      maxStack = 1;
-    }
-    else if (returnType.equals(int.class)) {
-      returnTypeSignature = "I";
-      returnOpcode = IRETURN;
-      maxStack = 1;
-    }
-    else if (returnType.equals(long.class)) {
-      returnTypeSignature = "J";
-      returnOpcode = LRETURN;
-      maxStack = 2;
-    }
-    else if (returnType.equals(float.class)) {
-      returnTypeSignature = "F";
-      returnOpcode = FRETURN;
-      maxStack = 1;
-    }
-    else if (returnType.equals(double.class)) {
-      returnTypeSignature = "D";
-      returnOpcode = DRETURN;
-      maxStack = 2;
-    }
-    else if (returnType.equals(char.class)) {
-      returnTypeSignature = "C";
-      returnOpcode = IRETURN;
-      maxStack = 1;
-    }
-    else {
-      returnTypeSignature = "L" + Type.getInternalName(returnType) + ";";
-      returnOpcode = ARETURN;
-      maxStack = 1;
+    String parametersTypeSignature = "";
+    for (Class<?> methodParameterType : methodParameterTypes) {
+      parametersTypeSignature += Type.getDescriptor(methodParameterType);
     }
     
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), "()" + returnTypeSignature, null, null);
+    int maxLocals = 1;
+    
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + parametersTypeSignature + ")" + returnTypeSignature, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -429,16 +387,32 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
-    methodVisitor.visitMethodInsn(INVOKESTATIC, functionClassIClassName, functionMethodName, "(L" + JSON_OBJECT_ICLASS_NAME + ";)" + returnTypeSignature);
+    for (int i = 0, index = 1; i < methodParameterTypes.length; i++) {
+      Class<?> methodParameterType = methodParameterTypes[i];
+      int loadOpcode = this.getLoadOpcode(methodParameterType);
+      
+      methodVisitor.visitVarInsn(loadOpcode, index);
+      
+      index += loadOpcode == LLOAD || loadOpcode == DLOAD ? 2 : 1;
+    }
+    methodVisitor.visitMethodInsn(INVOKESTATIC, functionClassIClassName, functionMethodName, "(L" + JSON_OBJECT_ICLASS_NAME + ";" + parametersTypeSignature + ")" + returnTypeSignature);
     methodVisitor.visitInsn(returnOpcode);
     methodVisitor.visitLabel(end);
     
     methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitMaxs(maxStack, maxStack);
+    for (int i = 0; i < methodParameterTypes.length; i++) {
+      Class<?> methodParameterType = methodParameterTypes[i];
+      String methodParameterTypeSignature = Type.getDescriptor(methodParameterType);
+      
+      methodVisitor.visitLocalVariable("arg" + i, methodParameterTypeSignature, null, start, end, maxLocals);
+      
+      maxLocals += methodParameterTypeSignature.equals("J") || methodParameterTypeSignature.equals("D") ? 2 : 1;
+    }
+    methodVisitor.visitMaxs(Math.max(maxLocals, returnOpcode == LRETURN || returnOpcode == DRETURN ? 2 : 1), maxLocals);
     
     methodVisitor.visitEnd();
   }
-
+  
   /**
    * Generate a property method. 
    *
@@ -1382,5 +1356,64 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     }
     
     return null;
+  }
+
+  /**
+   * Retrieve the load opcode for the given type.
+   *
+   * @param type The type.
+   * @return The load opcode.
+   */
+  private int getLoadOpcode(Class<?> type) {
+    if (type.equals(boolean.class) || 
+        type.equals(byte.class) || 
+        type.equals(short.class) ||
+        type.equals(int.class) || 
+        type.equals(char.class)) {
+      return ILOAD;
+    }
+    else if (type.equals(long.class)) {
+      return LLOAD;
+    }
+    else if (type.equals(float.class)) {
+      return FLOAD;
+    }
+    else if (type.equals(double.class)) {
+      return DLOAD;
+    }
+    else {
+      return ALOAD;
+    }
+  }
+
+  /**
+   * Retrieve the opcode for the given return type.
+   *
+   * @param returnType The return type.
+   * @return The return opcode.
+   */
+  private int getReturnOpcode(Class<?> returnType) {
+    if (returnType.equals(void.class)) {
+      return RETURN;
+    }
+    else if (returnType.equals(boolean.class) || 
+             returnType.equals(byte.class) || 
+             returnType.equals(short.class) ||
+             returnType.equals(int.class) || 
+             returnType.equals(char.class)) {
+      return IRETURN;
+    }
+    else if (returnType.equals(long.class)) {
+      return LRETURN;
+    }
+    else if (returnType.equals(float.class)) {
+      return FRETURN;
+    }
+    else if (returnType.equals(double.class)) {
+      return DRETURN;
+    }
+    else {
+      return ARETURN;
+    }
   }
 }

@@ -159,4 +159,132 @@ public abstract class JvmJsonObjectGeneratorFunctionTestBase extends JsonObjectG
   protected void verifyInvokeObjectReturnValueJsonFunction(TestJsonObject testJsonObject) {
     verify(functions()).testObjectReturnValueJsonFunction(testJsonObject);
   }
+  
+  /**
+   * Verify the invocation of the boolean-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The boolean parameter.
+   */
+  @Override
+  protected void verifyInvokeBooleanParameterJsonFunction(TestJsonObject testJsonObject, boolean param) {
+    verify(functions()).testBooleanParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the byte-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The byte parameter.
+   */
+  @Override
+  protected void verifyInvokeByteParameterJsonFunction(TestJsonObject testJsonObject, byte param) {
+    verify(functions()).testByteParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the short-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The short parameter.
+   */
+  @Override
+  protected void verifyInvokeShortParameterJsonFunction(TestJsonObject testJsonObject, short param) {
+    verify(functions()).testShortParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the integer-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The integer parameter.
+   */
+  @Override
+  protected void verifyInvokeIntegerParameterJsonFunction(TestJsonObject testJsonObject, int param) {
+    verify(functions()).testIntegerParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the long-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The long parameter.
+   */
+  @Override
+  protected void verifyInvokeLongParameterJsonFunction(TestJsonObject testJsonObject, long param) {
+    verify(functions()).testLongParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the float-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The float parameter.
+   */
+  @Override
+  protected void verifyInvokeFloatParameterJsonFunction(TestJsonObject testJsonObject, float param) {
+    verify(functions()).testFloatParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the double-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The double parameter.
+   */
+  @Override
+  protected void verifyInvokeDoubleParameterJsonFunction(TestJsonObject testJsonObject, double param) {
+    verify(functions()).testDoubleParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the character-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The character parameter.
+   */
+  @Override
+  protected void verifyInvokeCharacterParameterJsonFunction(TestJsonObject testJsonObject, char param) {
+    verify(functions()).testCharacterParameterJsonFunction(testJsonObject, param);
+  }
+
+  /**
+   * Verify the invocation of the object-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The object parameter.
+   */
+  @Override
+  protected void verifyInvokeObjectParameterJsonFunction(TestJsonObject testJsonObject, Object param) {
+    verify(functions()).testObjectParameterJsonFunction(testJsonObject, param);
+  }
+  
+  /**
+   * Verify the invocation of the multiple-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param booleanParam The boolean parameter.
+   * @param byteParam The byte parameter.
+   * @param shortParam The short parameter.
+   * @param integerParam The integer parameter.
+   * @param longParam The long parameter.
+   * @param floatParam The float parameter.
+   * @param doubleParam The double parameter.
+   * @param characterParam The character parameter.
+   * @param objectParam The object parameter.
+   */
+  @Override
+  protected void verifyInvokeMultiParameterJsonFunction(TestJsonObject testJsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam) {
+    verify(functions()).testMultiParameterJsonFunction(testJsonObject, booleanParam, byteParam, shortParam, integerParam, longParam, floatParam, doubleParam, characterParam, objectParam);
+  }
 }

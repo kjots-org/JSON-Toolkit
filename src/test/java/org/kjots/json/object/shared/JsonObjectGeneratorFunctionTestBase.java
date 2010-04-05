@@ -97,6 +97,94 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      * @return The object return value.
      */
     public Object testObjectReturnValueJsonFunction(JsonObject jsonObject);
+    
+    /**
+     * The boolean parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The boolean parameter.
+     */
+    public void testBooleanParameterJsonFunction(JsonObject jsonObject, boolean param);
+    
+    /**
+     * The byte parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The byte parameter.
+     */
+    public void testByteParameterJsonFunction(JsonObject jsonObject, byte param);
+    
+    /**
+     * The short parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The short parameter.
+     */
+    public void testShortParameterJsonFunction(JsonObject jsonObject, short param);
+    
+    /**
+     * The integer parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The integer parameter.
+     */
+    public void testIntegerParameterJsonFunction(JsonObject jsonObject, int param);
+    
+    /**
+     * The long parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The long parameter.
+     */
+    public void testLongParameterJsonFunction(JsonObject jsonObject, long param);
+    
+    /**
+     * The float parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The float parameter.
+     */
+    public void testFloatParameterJsonFunction(JsonObject jsonObject, float param);
+    
+    /**
+     * The double parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The double parameter.
+     */
+    public void testDoubleParameterJsonFunction(JsonObject jsonObject, double param);
+    
+    /**
+     * The character parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The character parameter.
+     */
+    public void testCharacterParameterJsonFunction(JsonObject jsonObject, char param);
+    
+    /**
+     * The object parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The object parameter.
+     */
+    public void testObjectParameterJsonFunction(JsonObject jsonObject, Object param);
+    
+    /**
+     * The multiple parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param booleanParam The boolean parameter.
+     * @param byteParam The byte parameter.
+     * @param shortParam The short parameter.
+     * @param integerParam The integer parameter.
+     * @param longParam The long parameter.
+     * @param floatParam The float parameter.
+     * @param doubleParam The double parameter.
+     * @param characterParam The character parameter.
+     * @param objectParam The object parameter.
+     */
+    public void testMultiParameterJsonFunction(JsonObject jsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam);
   }
   
   /**
@@ -180,6 +268,95 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      */
     @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testObjectReturnValueJsonFunction")
     public Object testObjectReturnValueJsonFunction();
+
+    /**
+     * The boolean parameter JSON function.
+     *
+     * @param param The boolean parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testBooleanParameterJsonFunction")
+    public void testBooleanParameterJsonFunction(boolean param);
+
+    /**
+     * The byte parameter JSON function.
+     *
+     * @param param The byte parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testByteParameterJsonFunction")
+    public void testByteParameterJsonFunction(byte param);
+
+    /**
+     * The short parameter JSON function.
+     *
+     * @param param The short parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testShortParameterJsonFunction")
+    public void testShortParameterJsonFunction(short param);
+
+    /**
+     * The integer parameter JSON function.
+     *
+     * @param param The integer parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testIntegerParameterJsonFunction")
+    public void testIntegerParameterJsonFunction(int param);
+
+    /**
+     * The long parameter JSON function.
+     *
+     * @param param The long parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testLongParameterJsonFunction")
+    public void testLongParameterJsonFunction(long param);
+
+    /**
+     * The float parameter JSON function.
+     *
+     * @param param The float parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testFloatParameterJsonFunction")
+    public void testFloatParameterJsonFunction(float param);
+
+    /**
+     * The double parameter JSON function.
+     *
+     * @param param The double parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testDoubleParameterJsonFunction")
+    public void testDoubleParameterJsonFunction(double param);
+
+    /**
+     * The character parameter JSON function.
+     *
+     * @param param The character parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testCharacterParameterJsonFunction")
+    public void testCharacterParameterJsonFunction(char param);
+
+    /**
+     * The object parameter JSON function.
+     *
+     * @param param The object parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testObjectParameterJsonFunction")
+    public void testObjectParameterJsonFunction(Object param);
+    
+    
+    /**
+     * The multiple parameter JSON function.
+     *
+     * @param booleanParam The boolean parameter.
+     * @param byteParam The byte parameter.
+     * @param shortParam The short parameter.
+     * @param integerParam The integer parameter.
+     * @param longParam The long parameter.
+     * @param floatParam The float parameter.
+     * @param doubleParam The double parameter.
+     * @param characterParam The character parameter.
+     * @param objectParam The object parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testMultiParameterJsonFunction")
+    public void testMultiParameterJsonFunction(boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam);
   }
 
   /** The boolean return value. */
@@ -207,7 +384,7 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
   public static final char CHARACTER_RETURN_VALUE = 'X';
 
   /** The object return value. */
-  public static final Object OBJECT_RETURN_VALUE = "Object Return Value";
+  public static final Object OBJECT_RETURN_VALUE = "Test Object Return Value";
   
   /** The test JSON object functions. */
   private static Functions functions;
@@ -309,6 +486,114 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    */
   public static Object testObjectReturnValueJsonFunction(JsonObject jsonObject) {
     return functions.testObjectReturnValueJsonFunction(jsonObject);
+  }
+  
+  /**
+   * The boolean parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The boolean parameter.
+   */
+  public static void testBooleanParameterJsonFunction(JsonObject jsonObject, boolean param) {
+    functions.testBooleanParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The byte parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The byte parameter.
+   */
+  public static void testByteParameterJsonFunction(JsonObject jsonObject, byte param) {
+    functions.testByteParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The short parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The short parameter.
+   */
+  public static void testShortParameterJsonFunction(JsonObject jsonObject, short param) {
+    functions.testShortParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The integer parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The integer parameter.
+   */
+  public static void testIntegerParameterJsonFunction(JsonObject jsonObject, int param) {
+    functions.testIntegerParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The long parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The long parameter.
+   */
+  public static void testLongParameterJsonFunction(JsonObject jsonObject, long param) {
+    functions.testLongParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The float parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The float parameter.
+   */
+  public static void testFloatParameterJsonFunction(JsonObject jsonObject, float param) {
+    functions.testFloatParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The double parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The double parameter.
+   */
+  public static void testDoubleParameterJsonFunction(JsonObject jsonObject, double param) {
+    functions.testDoubleParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The character parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The character parameter.
+   */
+  public static void testCharacterParameterJsonFunction(JsonObject jsonObject, char param) {
+    functions.testCharacterParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The object parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param param The object parameter.
+   */
+  public static void testObjectParameterJsonFunction(JsonObject jsonObject, Object param) {
+    functions.testObjectParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The multiple parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param booleanParam The boolean parameter.
+   * @param byteParam The byte parameter.
+   * @param shortParam The short parameter.
+   * @param integerParam The integer parameter.
+   * @param longParam The long parameter.
+   * @param floatParam The float parameter.
+   * @param doubleParam The double parameter.
+   * @param characterParam The character parameter.
+   * @param objectParam The object parameter.
+   */
+  public static void testMultiParameterJsonFunction(JsonObject jsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam) {
+    functions.testMultiParameterJsonFunction(jsonObject, booleanParam, byteParam, shortParam, integerParam, longParam, floatParam, doubleParam, characterParam, objectParam);
   }
   
   /**
@@ -476,6 +761,156 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
     
     this.verifyInvokeObjectReturnValueJsonFunction(testJsonObject);
   }
+  
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a boolean argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeBooleanParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testBooleanParameterJsonFunction(true);
+    
+    this.verifyInvokeBooleanParameterJsonFunction(testJsonObject, true);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a byte argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeByteParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testByteParameterJsonFunction((byte)42);
+    
+    this.verifyInvokeByteParameterJsonFunction(testJsonObject, (byte)42);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a short argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeShortParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testShortParameterJsonFunction((short)42);
+    
+    this.verifyInvokeShortParameterJsonFunction(testJsonObject, (short)42);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a integer argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeIntegerParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testIntegerParameterJsonFunction(42);
+    
+    this.verifyInvokeIntegerParameterJsonFunction(testJsonObject, 42);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a long argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeLongParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testLongParameterJsonFunction(42L);
+    
+    this.verifyInvokeLongParameterJsonFunction(testJsonObject, 42L);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a float argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeFloatParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testFloatParameterJsonFunction(3.14f);
+    
+    this.verifyInvokeFloatParameterJsonFunction(testJsonObject, 3.14f);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a double argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeDoubleParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testDoubleParameterJsonFunction(3.14);
+    
+    this.verifyInvokeDoubleParameterJsonFunction(testJsonObject, 3.14);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a character argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeCharacterParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testCharacterParameterJsonFunction('X');
+    
+    this.verifyInvokeCharacterParameterJsonFunction(testJsonObject, 'X');
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with a object argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeObjectParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testObjectParameterJsonFunction("Test Object Parameter");
+    
+    this.verifyInvokeObjectParameterJsonFunction(testJsonObject, "Test Object Parameter");
+  }
+  
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with multiple argument and
+   * no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeMultiParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testMultiParameterJsonFunction(true, (byte)42, (short)42, 42, 42L, 3.14f, 3.14, 'X', "Test Object Parameter");
+    
+    this.verifyInvokeMultiParameterJsonFunction(testJsonObject, true, (byte)42, (short)42, 42, 42L, 3.14f, 3.14, 'X', "Test Object Parameter");
+  }
 
   /**
    * Retrieve the test JSON object functions.
@@ -565,4 +1000,102 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    * @param testJsonObject The test JSON object.
    */
   protected abstract void verifyInvokeObjectReturnValueJsonFunction(TestJsonObject testJsonObject);
+
+  /**
+   * Verify the invocation of the boolean-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The boolean parameter.
+   */
+  protected abstract void verifyInvokeBooleanParameterJsonFunction(TestJsonObject testJsonObject, boolean param);
+
+  /**
+   * Verify the invocation of the byte-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The byte parameter.
+   */
+  protected abstract void verifyInvokeByteParameterJsonFunction(TestJsonObject testJsonObject, byte param);
+
+  /**
+   * Verify the invocation of the short-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The short parameter.
+   */
+  protected abstract void verifyInvokeShortParameterJsonFunction(TestJsonObject testJsonObject, short param);
+
+  /**
+   * Verify the invocation of the integer-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The integer parameter.
+   */
+  protected abstract void verifyInvokeIntegerParameterJsonFunction(TestJsonObject testJsonObject, int param);
+
+  /**
+   * Verify the invocation of the long-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The long parameter.
+   */
+  protected abstract void verifyInvokeLongParameterJsonFunction(TestJsonObject testJsonObject, long param);
+
+  /**
+   * Verify the invocation of the float-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The float parameter.
+   */
+  protected abstract void verifyInvokeFloatParameterJsonFunction(TestJsonObject testJsonObject, float param);
+
+  /**
+   * Verify the invocation of the double-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The double parameter.
+   */
+  protected abstract void verifyInvokeDoubleParameterJsonFunction(TestJsonObject testJsonObject, double param);
+
+  /**
+   * Verify the invocation of the character-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The character parameter.
+   */
+  protected abstract void verifyInvokeCharacterParameterJsonFunction(TestJsonObject testJsonObject, char param);
+
+  /**
+   * Verify the invocation of the object-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The object parameter.
+   */
+  protected abstract void verifyInvokeObjectParameterJsonFunction(TestJsonObject testJsonObject, Object param);
+  
+  /**
+   * Verify the invocation of the multiple-argument no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param booleanParam The boolean parameter.
+   * @param byteParam The byte parameter.
+   * @param shortParam The short parameter.
+   * @param integerParam The integer parameter.
+   * @param longParam The long parameter.
+   * @param floatParam The float parameter.
+   * @param doubleParam The double parameter.
+   * @param characterParam The character parameter.
+   * @param objectParam The object parameter.
+   */
+  protected abstract void verifyInvokeMultiParameterJsonFunction(TestJsonObject testJsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam);
 }

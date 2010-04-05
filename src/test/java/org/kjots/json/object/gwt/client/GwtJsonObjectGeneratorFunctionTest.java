@@ -24,6 +24,9 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
     /** The JSON object. */
     private JsonObject jsonObject;
     
+    /** The arguments. */
+    private Object[] arguments;
+    
     /**
      * Test JSON Function.
      * 
@@ -160,6 +163,154 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
       
       return JsonObjectGeneratorFunctionTestBase.OBJECT_RETURN_VALUE;
     }
+    
+    /**
+     * The boolean parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The boolean parameter.
+     */
+    @Override
+    public void testBooleanParameterJsonFunction(JsonObject jsonObject, boolean param) {
+      this.methodName = "testBooleanParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Boolean.valueOf(param) };
+    }
+    
+    /**
+     * The byte parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The byte parameter.
+     */
+    @Override
+    public void testByteParameterJsonFunction(JsonObject jsonObject, byte param) {
+      this.methodName = "testByteParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Byte.valueOf(param) };
+    }
+    
+    /**
+     * The short parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The short parameter.
+     */
+    @Override
+    public void testShortParameterJsonFunction(JsonObject jsonObject, short param) {
+      this.methodName = "testShortParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Short.valueOf(param) };
+    }
+    
+    /**
+     * The integer parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The integer parameter.
+     */
+    @Override
+    public void testIntegerParameterJsonFunction(JsonObject jsonObject, int param) {
+      this.methodName = "testIntegerParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Integer.valueOf(param) };
+    }
+    
+    /**
+     * The long parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The long parameter.
+     */
+    @Override
+    public void testLongParameterJsonFunction(JsonObject jsonObject, long param) {
+      this.methodName = "testLongParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Long.valueOf(param) };
+    }
+    
+    /**
+     * The float parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The float parameter.
+     */
+    @Override
+    public void testFloatParameterJsonFunction(JsonObject jsonObject, float param) {
+      this.methodName = "testFloatParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Float.valueOf(param) };
+    }
+    
+    /**
+     * The double parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The double parameter.
+     */
+    @Override
+    public void testDoubleParameterJsonFunction(JsonObject jsonObject, double param) {
+      this.methodName = "testDoubleParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Double.valueOf(param) };
+    }
+    
+    /**
+     * The character parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The character parameter.
+     */
+    @Override
+    public void testCharacterParameterJsonFunction(JsonObject jsonObject, char param) {
+      this.methodName = "testCharacterParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { Character.valueOf(param) };
+    }
+    
+    /**
+     * The object parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param param The object parameter.
+     */
+    @Override
+    public void testObjectParameterJsonFunction(JsonObject jsonObject, Object param) {
+      this.methodName = "testObjectParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { param };
+    }
+    
+    /**
+     * The multiple parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param booleanParam The boolean parameter.
+     * @param byteParam The byte parameter.
+     * @param shortParam The short parameter.
+     * @param integerParam The integer parameter.
+     * @param longParam The long parameter.
+     * @param floatParam The float parameter.
+     * @param doubleParam The double parameter.
+     * @param characterParam The character parameter.
+     * @param objectParam The object parameter.
+     */
+    @Override
+    public void testMultiParameterJsonFunction(JsonObject jsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam) {
+      this.methodName = "testMultiParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] {
+        Boolean.valueOf(booleanParam),
+        Byte.valueOf(byteParam),
+        Short.valueOf(shortParam),
+        Integer.valueOf(integerParam),
+        Long.valueOf(longParam),
+        Float.valueOf(floatParam),
+        Double.valueOf(doubleParam),
+        Character.valueOf(characterParam),
+        objectParam
+      };
+    }
   }
   
   /** The JSON object generator function test delegate. */
@@ -227,6 +378,84 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
     protected void verifyInvokeObjectReturnValueJsonFunction(TestJsonObject testJsonObject) {
       assertEquals("testObjectReturnValueJsonFunction", functions().methodName);
       assertEquals(testJsonObject, functions().jsonObject);
+    }
+
+    @Override
+    protected void verifyInvokeBooleanParameterJsonFunction(TestJsonObject testJsonObject, boolean param) {
+      assertEquals("testBooleanParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Boolean.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeByteParameterJsonFunction(TestJsonObject testJsonObject, byte param) {
+      assertEquals("testByteParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Byte.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeShortParameterJsonFunction(TestJsonObject testJsonObject, short param) {
+      assertEquals("testShortParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Short.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeIntegerParameterJsonFunction(TestJsonObject testJsonObject, int param) {
+      assertEquals("testIntegerParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Integer.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeLongParameterJsonFunction(TestJsonObject testJsonObject, long param) {
+      assertEquals("testLongParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Long.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeFloatParameterJsonFunction(TestJsonObject testJsonObject, float param) {
+      assertEquals("testFloatParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Float.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeDoubleParameterJsonFunction(TestJsonObject testJsonObject, double param) {
+      assertEquals("testDoubleParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Double.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeCharacterParameterJsonFunction(TestJsonObject testJsonObject, char param) {
+      assertEquals("testCharacterParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Character.valueOf(param), functions().arguments[0]);
+    }
+
+    @Override
+    protected void verifyInvokeObjectParameterJsonFunction(TestJsonObject testJsonObject, Object param) {
+      assertEquals("testObjectParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(param, functions().arguments[0]);
+    }
+    
+    @Override
+    protected void verifyInvokeMultiParameterJsonFunction(TestJsonObject testJsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam) {
+      assertEquals("testMultiParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(Boolean.valueOf(booleanParam), functions().arguments[0]);
+      assertEquals(Byte.valueOf(byteParam), functions().arguments[1]);
+      assertEquals(Short.valueOf(shortParam), functions().arguments[2]);
+      assertEquals(Integer.valueOf(integerParam), functions().arguments[3]);
+      assertEquals(Long.valueOf(longParam), functions().arguments[4]);
+      assertEquals(Float.valueOf(floatParam), functions().arguments[5]);
+      assertEquals(Double.valueOf(doubleParam), functions().arguments[6]);
+      assertEquals(Character.valueOf(characterParam), functions().arguments[7]);
+      assertEquals(objectParam, functions().arguments[8]);
     }
   };
   
@@ -298,6 +527,76 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
    */
   public void testInvokeShortReturnValueJsonFunction() {
     this.jsonObjectGeneratorFunctionTestDelegate.testInvokeShortReturnValueJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeBooleanParameterJsonFunction()
+   */
+  public void testInvokeBooleanParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeBooleanParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeByteParameterJsonFunction()
+   */
+  public void testInvokeByteParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeByteParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeShortParameterJsonFunction()
+   */
+  public void testInvokeShortParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeShortParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeIntegerParameterJsonFunction()
+   */
+  public void testInvokeIntegerParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeIntegerParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeLongParameterJsonFunction()
+   */
+  public void testInvokeLongParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeLongParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeFloatParameterJsonFunction()
+   */
+  public void testInvokeFloatParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeFloatParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeDoubleParameterJsonFunction()
+   */
+  public void testInvokeDoubleParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeDoubleParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeCharacterParameterJsonFunction()
+   */
+  public void testInvokeCharacterParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeCharacterParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeObjectParameterJsonFunction()
+   */
+  public void testInvokeObjectParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeObjectParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeMultiParameterJsonFunction()
+   */
+  public void testInvokeMultiParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeMultiParameterJsonFunction();
   }
 
   /**

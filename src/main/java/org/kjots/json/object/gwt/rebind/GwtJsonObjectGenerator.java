@@ -153,12 +153,27 @@ public class GwtJsonObjectGenerator extends Generator {
     String returnTypeName = method.getReturnType().getQualifiedSourceName();
     JClassType functionClassType = this.getType(logger, context, functionClass.getName().replace('$', '.'));
     
+    StringBuilder methodParametersBuilder = new StringBuilder();
+    StringBuilder functionArgumentsBuilder = new StringBuilder("this");
+    
+    JParameter[] methodParameters = method.getParameters();
+    for (int i = 0; i < methodParameters.length; i++) {
+      if (i != 0) {
+        methodParametersBuilder.append(", ");
+      }
+      
+      methodParametersBuilder.append(methodParameters[i].getType().getQualifiedSourceName());
+      methodParametersBuilder.append(" arg").append(i);
+      
+      functionArgumentsBuilder.append(", arg").append(i);
+    }
+    
     sourceWriter.println("@Override");
-    sourceWriter.println("public final " + returnTypeName + " " + method.getName() + "() {");
+    sourceWriter.println("public final " + returnTypeName + " " + method.getName() + "(" + methodParametersBuilder.toString() + ") {");
     sourceWriter.indent();
-    sourceWriter.println((!returnTypeName.equals("void") ? "return " : "") + functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(this);");
+    sourceWriter.println((!returnTypeName.equals("void") ? "return " : "") + functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(" + functionArgumentsBuilder.toString() + ");");
     sourceWriter.outdent();
-    sourceWriter.println("}");
+    sourceWriter.println("}XX");
   }
   
   /**
