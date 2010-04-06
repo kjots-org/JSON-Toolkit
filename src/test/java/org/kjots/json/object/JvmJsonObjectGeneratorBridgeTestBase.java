@@ -6,9 +6,10 @@ package org.kjots.json.object;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import java.io.Serializable;
+
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kjots.json.object.shared.JsonFunction;
 import org.kjots.json.object.shared.JsonObject;
@@ -36,9 +37,9 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   }
   
   /**
-   * Test Generic Interface.
+   * Test Object Generic Interface.
    */
-  public interface TestGenericInterface<T> {
+  public interface TestObjectGenericInterface<T> {
     /**
      * The test generic JSON function.
      *
@@ -48,9 +49,39 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   }
   
   /**
+   * Test Serializable Generic Interface.
+   */
+  public interface TestSerializableGenericInterface<S extends Serializable> {
+    /**
+     * The test generic JSON function.
+     *
+     * @param genericParam The generic parameter.
+     */
+    public void testGenericJsonFunction(S genericParam);
+  }
+  
+  /**
+   * Test Comparable Generic Interface.
+   */
+  public interface TestComparableGenericInterface<C extends Comparable<?>> {
+    /**
+     * The test generic JSON function.
+     *
+     * @param genericParam The generic parameter.
+     */
+    public void testGenericJsonFunction(C genericParam);
+  }
+  
+  /**
+   * Test Serializable/Comparable Generic Interface.
+   */
+  public interface TestSerializableComparableGenericInterface<S extends Serializable, C extends Comparable<?>> extends TestSerializableGenericInterface<S>, TestComparableGenericInterface<C> {
+  }
+  
+  /**
    * Test JSON Object.
    */
-  public interface TestJsonObject extends JsonObject, TestGenericInterface<String> {
+  public interface TestJsonObject extends JsonObject, TestObjectGenericInterface<String>, TestSerializableComparableGenericInterface<String, String> {
     /**
      * The test generic JSON function.
      *
@@ -93,16 +124,47 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   /**
    * Test the invocation of a generic JSON function.
    * <p>
-   * This test asserts that the test generic JSON function is invoked
-   * correctly.
+   * This test asserts that the test generic JSON function is invoked with an
+   * {@link Object} argument correctly.
    */
   @Test
-  @Ignore // FIXME: Enable this test.
   @SuppressWarnings("unchecked")
-  public void testInvokeGenericJsonFunction() {
+  public void testInvokeGenericJsonFunctionWithObjectArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
-    ((TestGenericInterface)testJsonObject).testGenericJsonFunction("Test Generic Parameter");
+    ((TestObjectGenericInterface)testJsonObject).testGenericJsonFunction("Test Generic Parameter");
+    
+    verify(functions).testGenericJsonFunction(testJsonObject, "Test Generic Parameter");
+  }
+  
+  /**
+   * Test the invocation of a generic JSON function.
+   * <p>
+   * This test asserts that the test generic JSON function is invoked with a
+   * {@link Serializable} argument correctly.
+   */
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testInvokeGenericJsonFunctionWithSerializableArgument() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    ((TestSerializableGenericInterface)testJsonObject).testGenericJsonFunction("Test Generic Parameter");
+    
+    verify(functions).testGenericJsonFunction(testJsonObject, "Test Generic Parameter");
+  }
+  
+  /**
+   * Test the invocation of a generic JSON function.
+   * <p>
+   * This test asserts that the test generic JSON function is invoked with a
+   * {@link Comparable} argument correctly.
+   */
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testInvokeGenericJsonFunctionWithComparableArgument() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    ((TestComparableGenericInterface)testJsonObject).testGenericJsonFunction("Test Generic Parameter");
     
     verify(functions).testGenericJsonFunction(testJsonObject, "Test Generic Parameter");
   }
