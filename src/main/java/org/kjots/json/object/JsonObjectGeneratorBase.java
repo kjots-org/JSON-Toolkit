@@ -23,14 +23,10 @@ import static org.objectweb.asm.Opcodes.ARETURN;
 import static org.objectweb.asm.Opcodes.ASTORE;
 import static org.objectweb.asm.Opcodes.CHECKCAST;
 import static org.objectweb.asm.Opcodes.DCONST_0;
-import static org.objectweb.asm.Opcodes.DLOAD;
 import static org.objectweb.asm.Opcodes.DOUBLE;
-import static org.objectweb.asm.Opcodes.DRETURN;
 import static org.objectweb.asm.Opcodes.DUP;
 import static org.objectweb.asm.Opcodes.FCONST_0;
-import static org.objectweb.asm.Opcodes.FLOAD;
 import static org.objectweb.asm.Opcodes.FLOAT;
-import static org.objectweb.asm.Opcodes.FRETURN;
 import static org.objectweb.asm.Opcodes.GOTO;
 import static org.objectweb.asm.Opcodes.ICONST_0;
 import static org.objectweb.asm.Opcodes.IFNE;
@@ -43,16 +39,13 @@ import static org.objectweb.asm.Opcodes.INVOKESTATIC;
 import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
 import static org.objectweb.asm.Opcodes.IRETURN;
 import static org.objectweb.asm.Opcodes.LCONST_0;
-import static org.objectweb.asm.Opcodes.LLOAD;
 import static org.objectweb.asm.Opcodes.LONG;
-import static org.objectweb.asm.Opcodes.LRETURN;
 import static org.objectweb.asm.Opcodes.NEW;
 import static org.objectweb.asm.Opcodes.RETURN;
 import static org.objectweb.asm.Opcodes.V1_6;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 
 import org.objectweb.asm.ClassWriter;
@@ -60,6 +53,7 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.commons.Method;
 
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
 import org.kjots.json.object.shared.JsonFunction;
@@ -140,8 +134,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     }
   }
   
-  /** The JSON object internal class name. */
-  private static final String JSON_OBJECT_ICLASS_NAME = Type.getInternalName(JsonObject.class);
+  /** The JSON object type. */
+  private static final Type JSON_OBJECT_TYPE = Type.getType(JsonObject.class);
   
   /** The class of the JSON object implementation. */
   private final Class<T> jsonObjectImplClass;
@@ -224,7 +218,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   @SuppressWarnings("unchecked")
   private Class<? extends T> defineImplClass(byte[] implClassBytes) {
     // Retrieve the ClassLoader.defineClass() method.
-    Method defineClassMethod;
+    java.lang.reflect.Method defineClassMethod;
     try {
       defineClassMethod = ClassLoader.class.getDeclaredMethod("defineClass", String.class, byte[].class, int.class, int.class);
     }
@@ -294,19 +288,19 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     ClassWriter classWriter = new ClassWriter(0);
     
     String jsonObjectIClassName = Type.getInternalName(jsonObjectClass);
-    String jsonObjectImplIClassName = jsonObjectIClassName + "$" + this.jsonObjectImplClass.getSimpleName();
-    String superJsonObjectImplIClassName = Type.getInternalName(superJsonObjectImplClass);
+    Type jsonObjectImplType = Type.getObjectType(jsonObjectIClassName + "$" + this.jsonObjectImplClass.getSimpleName());
+    Type superJsonObjectImplType = Type.getType(superJsonObjectImplClass);
     
-    classWriter.visit(V1_6, ACC_PUBLIC + ACC_SUPER, jsonObjectImplIClassName, null, superJsonObjectImplIClassName, new String[] { jsonObjectIClassName });
+    classWriter.visit(V1_6, ACC_PUBLIC + ACC_SUPER, jsonObjectImplType.getInternalName(), null, superJsonObjectImplType.getInternalName(), new String[] { jsonObjectIClassName });
     
-    this.generateConstructor(classWriter, jsonObjectImplIClassName, superJsonObjectImplIClassName);
+    this.generateConstructor(classWriter, jsonObjectImplType, superJsonObjectImplType);
     
-    for (Method method : jsonObjectClass.getDeclaredMethods()) {
+    for (java.lang.reflect.Method method : jsonObjectClass.getDeclaredMethods()) {
       if (method.getAnnotation(JsonFunction.class) != null) {
-        this.generateFunctionMethod(classWriter, jsonObjectImplIClassName, method, method.getAnnotation(JsonFunction.class));
+        this.generateFunctionMethod(classWriter, jsonObjectImplType, Method.getMethod(method), method.getAnnotation(JsonFunction.class));
       }
       else if (method.getAnnotation(JsonProperty.class) != null) {
-        this.generatePropertyMethod(classWriter, jsonObjectImplIClassName, method, method.getAnnotation(JsonProperty.class));
+        this.generatePropertyMethod(classWriter, jsonObjectImplType, method, Method.getMethod(method), method.getAnnotation(JsonProperty.class));
       }
       else {
         throw new IllegalArgumentException(method.getName() + "() is not annotated with suitable annotation");
@@ -320,10 +314,10 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate the constructor.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
-   * @param superJsonObjectImplIClassName The internal class name of the super JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
+   * @param superJsonObjectImplType The type of the super JSON object implementation.
    */
-  private void generateConstructor(ClassWriter classWriter, String jsonObjectImplIClassName, String superJsonObjectImplIClassName) {
+  private void generateConstructor(ClassWriter classWriter, Type jsonObjectImplType, Type superJsonObjectImplType) {
     ConstructorArgument[] constructorArguments = this.getConstructorArguments();
     String constructorSignature = this.createConstructorSignature(constructorArguments);
     
@@ -339,11 +333,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     for (int i = 0; i < constructorArguments.length; i++) {
       methodVisitor.visitVarInsn(ALOAD, i + 1);
     }
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, superJsonObjectImplIClassName, "<init>", constructorSignature);
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, superJsonObjectImplType.getInternalName(), "<init>", constructorSignature);
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
     for (int i = 0; i < constructorArguments.length; i++) {
       methodVisitor.visitLocalVariable(constructorArguments[i].getVariableName(), constructorArguments[i].getTypeIName(), null, start, end, i + 1);
     }
@@ -356,29 +350,16 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a function method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param method The method.
    */
-  private void generateFunctionMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonFunction jsonFunctionAnnotation) {
-    String methodName = method.getName();
-    Class<?> returnType = method.getReturnType();
-    Class<?>[] methodParameterTypes = method.getParameterTypes();
-    
-    Class<?> functionClass = jsonFunctionAnnotation.klass();
-    String functionClassIClassName = Type.getInternalName(functionClass);
-    String functionMethodName = jsonFunctionAnnotation.method();
-    
-    String returnTypeSignature = Type.getDescriptor(returnType);
-    int returnOpcode = this.getReturnOpcode(returnType);
-    
-    String parametersTypeSignature = "";
-    for (Class<?> methodParameterType : methodParameterTypes) {
-      parametersTypeSignature += Type.getDescriptor(methodParameterType);
-    }
+  private void generateFunctionMethod(ClassWriter classWriter, Type jsonObjectImplType, Method method, JsonFunction jsonFunctionAnnotation) {
+    Type returnType = method.getReturnType();
+    Type[] argumentTypes = method.getArgumentTypes();
     
     int maxLocals = 1;
     
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + parametersTypeSignature + ")" + returnTypeSignature, null, null);
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -387,28 +368,26 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
-    for (int i = 0, index = 1; i < methodParameterTypes.length; i++) {
-      Class<?> methodParameterType = methodParameterTypes[i];
-      int loadOpcode = this.getLoadOpcode(methodParameterType);
+    for (int i = 0, index = 1; i < argumentTypes.length; i++) {
+      Type argumentType = argumentTypes[i];
       
-      methodVisitor.visitVarInsn(loadOpcode, index);
+      methodVisitor.visitVarInsn(argumentType.getOpcode(ILOAD), index);
       
-      index += loadOpcode == LLOAD || loadOpcode == DLOAD ? 2 : 1;
+      index += argumentType.getSize();
     }
-    methodVisitor.visitMethodInsn(INVOKESTATIC, functionClassIClassName, functionMethodName, "(L" + JSON_OBJECT_ICLASS_NAME + ";" + parametersTypeSignature + ")" + returnTypeSignature);
-    methodVisitor.visitInsn(returnOpcode);
+    methodVisitor.visitMethodInsn(INVOKESTATIC, Type.getType(jsonFunctionAnnotation.klass()).getInternalName(), jsonFunctionAnnotation.method(), "(" + JSON_OBJECT_TYPE.getDescriptor() + method.getDescriptor().substring(1));
+    methodVisitor.visitInsn(returnType.getOpcode(IRETURN));
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    for (int i = 0; i < methodParameterTypes.length; i++) {
-      Class<?> methodParameterType = methodParameterTypes[i];
-      String methodParameterTypeSignature = Type.getDescriptor(methodParameterType);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    for (int i = 0; i < argumentTypes.length; i++) {
+      Type argumentType = argumentTypes[i];
       
-      methodVisitor.visitLocalVariable("arg" + i, methodParameterTypeSignature, null, start, end, maxLocals);
+      methodVisitor.visitLocalVariable("arg" + i, argumentType.getDescriptor(), null, start, end, maxLocals);
       
-      maxLocals += methodParameterTypeSignature.equals("J") || methodParameterTypeSignature.equals("D") ? 2 : 1;
+      maxLocals += argumentType.getSize();
     }
-    methodVisitor.visitMaxs(Math.max(maxLocals, returnOpcode == LRETURN || returnOpcode == DRETURN ? 2 : 1), maxLocals);
+    methodVisitor.visitMaxs(Math.max(maxLocals, returnType.getSize()), maxLocals);
     
     methodVisitor.visitEnd();
   }
@@ -417,39 +396,40 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a property method. 
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
+   * @param javaMethod The java method.
    * @param method The method.
    * @param jsonPropertyAnnotation The JSON property annotation.
    */
-  private void generatePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonProperty jsonPropertyAnnotation) {
+  private void generatePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, java.lang.reflect.Method javaMethod, Method method, JsonProperty jsonPropertyAnnotation) {
     switch (jsonPropertyAnnotation.operation()) {
     case HAS:
-      this.generateHasPropertyMethod(classWriter, jsonObjectImplIClassName, method, jsonPropertyAnnotation);
+      this.generateHasPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation);
       
       return;
       
     case IS_NULL:
-      this.generateIsNullPropertyMethod(classWriter, jsonObjectImplIClassName, method, jsonPropertyAnnotation);
+      this.generateIsNullPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation);
       
       return;
       
     case DELETE:
-      this.generateDeletePropertyMethod(classWriter, jsonObjectImplIClassName, method, jsonPropertyAnnotation);
+      this.generateDeletePropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation);
       
       return;
       
     case GET:
-      this.generateGetPropertyMethod(classWriter, jsonObjectImplIClassName, method, jsonPropertyAnnotation);
+      this.generateGetPropertyMethod(classWriter, jsonObjectImplType, javaMethod, method, jsonPropertyAnnotation);
       
       return;
       
     case SET:
-      this.generateSetPropertyMethod(classWriter, jsonObjectImplIClassName, method, jsonPropertyAnnotation);
+      this.generateSetPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation);
       
       return;
       
     default:
-      throw new IllegalArgumentException(method.getName() + "() is annotated with unsupported operation type " + jsonPropertyAnnotation.operation());
+      throw new IllegalArgumentException(javaMethod.getName() + "() is annotated with unsupported operation type " + jsonPropertyAnnotation.operation());
     }
   }
 
@@ -457,94 +437,139 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a has property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param method The method.
    * @param jsonPropertyAnnotation The JSON property annotation.
    */
-  private void generateHasPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonProperty jsonPropertyAnnotation) {
-    Class<?>[] parameterTypes = method.getParameterTypes();
-    if (parameterTypes.length != 0) {
-      throw new IllegalArgumentException(method.getName() + "() must have no parameters");
-    }
-    
-    Class<?> returnType = method.getReturnType();
-    if (!returnType.equals(boolean.class)) {
+  private void generateHasPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, Method method, JsonProperty jsonPropertyAnnotation) {
+    if (!method.getReturnType().equals(Type.BOOLEAN_TYPE)) { 
       throw new IllegalArgumentException(method.getName() + "() must have a boolean return type");
     }
     
-    this.generateHasPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name());
+    if (method.getArgumentTypes().length != 0) {
+      throw new IllegalArgumentException(method.getName() + "() must have no parameters");
+    }
+    
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), "()Z", null, null);
+    
+    Label start = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    methodVisitor.visitLdcInsn(jsonPropertyAnnotation.name());
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "hasProperty", "(Ljava/lang/String;)Z");
+    methodVisitor.visitInsn(IRETURN);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitMaxs(2, 1);
+    
+    methodVisitor.visitEnd();
   }
   
   /**
    * Generate an is null property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param method The method.
    * @param jsonPropertyAnnotation The JSON property annotation.
    */
-  private void generateIsNullPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonProperty jsonPropertyAnnotation) {
-    Class<?>[] parameterTypes = method.getParameterTypes();
-    if (parameterTypes.length != 0) {
-      throw new IllegalArgumentException(method.getName() + "() must have no parameters");
-    }
-    
-    Class<?> returnType = method.getReturnType();
-    if (!returnType.equals(boolean.class)) {
+  private void generateIsNullPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, Method method, JsonProperty jsonPropertyAnnotation) {
+    if (!method.getReturnType().equals(Type.BOOLEAN_TYPE)) { 
       throw new IllegalArgumentException(method.getName() + "() must have a boolean return type");
     }
     
-    this.generateIsNullPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name());
+    if (method.getArgumentTypes().length != 0) {
+      throw new IllegalArgumentException(method.getName() + "() must have no parameters");
+    }
+    
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), "()Z", null, null);
+    
+    Label start = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    methodVisitor.visitLdcInsn(jsonPropertyAnnotation.name());
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "isNullProperty", "(Ljava/lang/String;)Z");
+    methodVisitor.visitInsn(IRETURN);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitMaxs(2, 1);
+    
+    methodVisitor.visitEnd();
   }
   
   /**
    * Generate a delete property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param method The method.
    * @param jsonPropertyAnnotation The JSON property annotation.
    */
-  private void generateDeletePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonProperty jsonPropertyAnnotation) {
-    Class<?>[] parameterTypes = method.getParameterTypes();
-    if (parameterTypes.length != 0) {
-      throw new IllegalArgumentException(method.getName() + "() must have no parameters");
-    }
-    
-    Class<?> returnType = method.getReturnType();
-    if (!returnType.equals(boolean.class)) {
+  private void generateDeletePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, Method method, JsonProperty jsonPropertyAnnotation) {
+    if (!method.getReturnType().equals(Type.BOOLEAN_TYPE)) { 
       throw new IllegalArgumentException(method.getName() + "() must have a boolean return type");
     }
     
-    this.generateDeletePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name());
+    if (method.getArgumentTypes().length != 0) {
+      throw new IllegalArgumentException(method.getName() + "() must have no parameters");
+    }
+    
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), "()Z", null, null);
+    
+    Label start = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    methodVisitor.visitLdcInsn(jsonPropertyAnnotation.name());
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "deleteProperty", "(Ljava/lang/String;)Z");
+    methodVisitor.visitInsn(IRETURN);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitMaxs(2, 1);
+    
+    methodVisitor.visitEnd();
   }
   
   /**
    * Generate a get property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
+   * @param javaMethod The java method.
    * @param method The method.
    * @param jsonPropertyAnnotation The JSON property annotation.
    */
-  private void generateGetPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonProperty jsonPropertyAnnotation) {
-    Class<?>[] parameterTypes = method.getParameterTypes();
-    if (parameterTypes.length != 0) {
+  private void generateGetPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, java.lang.reflect.Method javaMethod, Method method, JsonProperty jsonPropertyAnnotation) {
+    if (method.getArgumentTypes().length != 0) {
       throw new IllegalArgumentException(method.getName() + "() must have no parameters");
     }
     
-    Class<?> returnType = method.getReturnType();
+    Type returnType = method.getReturnType();
 
     Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
     if (!adapterClass.equals(JsonPropertyAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Ljava/lang/Boolean;", "getBooleanProperty", ASTORE, ALOAD);
+        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.getType(adapterClass), returnType);
       }
       else if (JsonNumberPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Ljava/lang/Number;", "getNumberProperty", ASTORE, ALOAD);
+        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.getType(adapterClass), returnType);
       }
       else if (JsonStringPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), "Ljava/lang/String;", "getStringProperty", ASTORE, ALOAD);
+        this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(String.class), Type.getType(adapterClass), returnType);
       }
       else if (JsonObjectPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         Class<?> jsonObjectClass = JsonObject.class;
@@ -557,26 +582,26 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
           }
         }
         
-        this.generateGetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(adapterClass), Type.getInternalName(jsonObjectClass));
+        this.generateGetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(jsonObjectClass), Type.getType(adapterClass), returnType);
       }
       else {
         throw new IllegalArgumentException("Unsupported adapter type " + adapterClass.getName());
       }
     }
     else {
-      if (returnType.equals(Boolean.class)) {
-        this.generateGetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Boolean;", "getBooleanProperty", ARETURN);
+      if (returnType.getClassName().equals(Boolean.class.getName())) {
+        this.generateGetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Boolean.class));
       }
-      else if (returnType.equals(Number.class)) {
-        this.generateGetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Number;", "getNumberProperty", ARETURN);
+      else if (returnType.getClassName().equals(Number.class.getName())) {
+        this.generateGetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class));
       }
-      else if (returnType.equals(String.class)) {
-        this.generateGetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/String;", "getStringProperty", ARETURN);
+      else if (returnType.getClassName().equals(String.class.getName())) {
+        this.generateGetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(String.class));
       }
-      else if (returnType.equals(JsonObjectArray.class) || returnType.equals(JsonObjectMap.class)) {
+      else if (returnType.getClassName().equals(JsonObjectArray.class.getName()) || returnType.getClassName().equals(JsonObjectMap.class.getName())) {
         Class<?> elementType = JsonObject.class;
         
-        java.lang.reflect.Type genericReturnType = method.getGenericReturnType();
+        java.lang.reflect.Type genericReturnType = javaMethod.getGenericReturnType();
         if (genericReturnType instanceof ParameterizedType) {
           ParameterizedType parameterizedReturnType = (ParameterizedType)genericReturnType;
           
@@ -586,34 +611,34 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
           }
         }
         
-        this.generateGetCompositeObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType), Type.getInternalName(elementType));
+        this.generateGetCompositeJsonObjectPropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), returnType, Type.getType(elementType));
       }
-      else if (returnType.equals(boolean.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "boolean", "Z", INTEGER, "java/lang/Boolean", "getBooleanProperty", ICONST_0, IRETURN);
+      else if (returnType.equals(Type.BOOLEAN_TYPE)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.BOOLEAN_TYPE);
       }
-      else if (returnType.equals(byte.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "byte", "B", INTEGER, "java/lang/Number", "getNumberProperty", ICONST_0, IRETURN);
+      else if (returnType.equals(Type.BYTE_TYPE)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.BYTE_TYPE);
       }
-      else if (returnType.equals(short.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "short", "S", INTEGER, "java/lang/Number", "getNumberProperty", ICONST_0, IRETURN);
+      else if (returnType.equals(Type.SHORT_TYPE)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.SHORT_TYPE);
       }
-      else if (returnType.equals(int.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "int", "I", INTEGER, "java/lang/Number", "getNumberProperty", ICONST_0, IRETURN);
+      else if (returnType.equals(Type.INT_TYPE)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.INT_TYPE);
       }
-      else if (returnType.equals(long.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "long", "J", LONG, "java/lang/Number", "getNumberProperty", LCONST_0, LRETURN);
+      else if (returnType.equals(Type.LONG_TYPE)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.LONG_TYPE);
       }
-      else if (returnType.equals(float.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "float", "F", FLOAT, "java/lang/Number", "getNumberProperty", FCONST_0, FRETURN);
+      else if (returnType.equals(Type.FLOAT_TYPE)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.FLOAT_TYPE);
       }
-      else if (returnType.equals(double.class)) {
-        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "double", "D", DOUBLE, "java/lang/Number", "getNumberProperty", DCONST_0, DRETURN);
+      else if (returnType.equals(Type.DOUBLE_TYPE)) {
+        this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.DOUBLE_TYPE);
       }
-      else if (returnType.equals(char.class)) {
-        this.generateGetJavaCharacterPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name());
+      else if (returnType.equals(Type.CHAR_TYPE)) {
+        this.generateGetJavaCharacterPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name());
       }
       else {
-        this.generateGetObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(returnType));
+        this.generateGetJsonObjectPropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), returnType);
       }
     }
   }
@@ -622,33 +647,32 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a set property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param method The method.
    * @param jsonPropertyAnnotation The JSON property annotation.
    */
-  private void generateSetPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, Method method, JsonProperty jsonPropertyAnnotation) {
-    Class<?> returnType = method.getReturnType();
-    if (!returnType.equals(void.class)) {
+  private void generateSetPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, Method method, JsonProperty jsonPropertyAnnotation) {
+    if (!method.getReturnType().equals(Type.VOID_TYPE)) {
       throw new IllegalArgumentException(method.getName() + "() must have a void return type");
     }
     
-    Class<?>[] parameterTypes = method.getParameterTypes();
-    if (parameterTypes.length != 1) {
+    Type[] argumentTypes = method.getArgumentTypes();
+    if (argumentTypes.length != 1) {
       throw new IllegalArgumentException(method.getName() + "() must have exactly one parameter");
     }
     
-    Class<?> parameterType = parameterTypes[0];
+    Type argumentType = argumentTypes[0];
     
     Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
     if (!adapterClass.equals(JsonPropertyAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Ljava/lang/Boolean;", "setBooleanProperty", ASTORE, ALOAD);
+        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.getType(adapterClass), argumentType);
       }
       else if (JsonNumberPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Ljava/lang/Number;", "setNumberProperty", ASTORE, ALOAD);
+        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.getType(adapterClass), argumentType);
       }
       else if (JsonStringPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), "Ljava/lang/String;", "setStringProperty", ASTORE, ALOAD);
+        this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(String.class), Type.getType(adapterClass), argumentType);
       }
       else if (JsonObjectPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         Class<?> jsonObjectClass = JsonObject.class;
@@ -661,152 +685,63 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
           }
         }
         
-        this.generateSetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType), Type.getInternalName(adapterClass), Type.getInternalName(jsonObjectClass));
+        this.generateSetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(jsonObjectClass), Type.getType(adapterClass), argumentType);
       }
       else {
         throw new IllegalArgumentException("Unsupported adapter type " + adapterClass.getName());
       }
     }
     else {
-      if (parameterType.equals(Boolean.class)) {
-        this.generateSetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Boolean;", "setBooleanProperty", ALOAD);
+      if (argumentType.getClassName().equals(Boolean.class.getName())) {
+        this.generateSetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Boolean.class));
       }
-      else if (parameterType.equals(Number.class)) {
-        this.generateSetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/Number;", "setNumberProperty", ALOAD);
+      else if (argumentType.getClassName().equals(Number.class.getName())) {
+        this.generateSetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class));
       }
-      else if (parameterType.equals(String.class)) {
-        this.generateSetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Ljava/lang/String;", "setStringProperty", ALOAD);
+      else if (argumentType.getClassName().equals(String.class.getName())) {
+        this.generateSetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(String.class));
       }
-      else if (parameterType.equals(boolean.class)) {
-        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "Z", "java/lang/Boolean", "java/lang/Boolean", "setBooleanProperty", ILOAD);
+      else if (argumentType.equals(Type.BOOLEAN_TYPE)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.BOOLEAN_TYPE, Type.getType(Boolean.class));
       }
-      else if (parameterType.equals(byte.class)) {
-        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "B", "java/lang/Byte", "java/lang/Number", "setNumberProperty", ILOAD);
+      else if (argumentType.equals(Type.BYTE_TYPE)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.BYTE_TYPE, Type.getType(Byte.class));
       }
-      else if (parameterType.equals(short.class)) {
-        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "S", "java/lang/Short", "java/lang/Number", "setNumberProperty", ILOAD);
+      else if (argumentType.equals(Type.SHORT_TYPE)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.SHORT_TYPE, Type.getType(Short.class));
       }
-      else if (parameterType.equals(int.class)) {
-        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "I", "java/lang/Integer", "java/lang/Number", "setNumberProperty", ILOAD);
+      else if (argumentType.equals(Type.INT_TYPE)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.INT_TYPE, Type.getType(Integer.class));
       }
-      else if (parameterType.equals(long.class)) {
-        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "J", "java/lang/Long", "java/lang/Number", "setNumberProperty", LLOAD);
+      else if (argumentType.equals(Type.LONG_TYPE)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.LONG_TYPE, Type.getType(Long.class));
       }
-      else if (parameterType.equals(float.class)) {
-        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "F", "java/lang/Float", "java/lang/Number", "setNumberProperty", FLOAD);
+      else if (argumentType.equals(Type.FLOAT_TYPE)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.FLOAT_TYPE, Type.getType(Float.class));
       }
-      else if (parameterType.equals(double.class)) {
-        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), "D", "java/lang/Double", "java/lang/Number", "setNumberProperty", DLOAD);
+      else if (argumentType.equals(Type.DOUBLE_TYPE)) {
+        this.generateSetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), Type.getType(Number.class), Type.DOUBLE_TYPE, Type.getType(Double.class));
       }
-      else if (parameterType.equals(char.class)) {
-        this.generateSetJavaCharacterPrimitivePropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name());
+      else if (argumentType.equals(Type.CHAR_TYPE)) {
+        this.generateSetJavaCharacterPrimitivePropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name());
       }
       else {
-        this.generateSetObjectPropertyMethod(classWriter, jsonObjectImplIClassName, method.getName(), jsonPropertyAnnotation.name(), Type.getInternalName(parameterType));
+        this.generateSetJsonObjectPropertyMethod(classWriter, jsonObjectImplType, method.getName(), jsonPropertyAnnotation.name(), argumentType);
       }
     }
-  }
-  
-  /**
-   * Generate a has property method.
-   *
-   * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
-   * @param methodName The name of the method.
-   * @param propertyName The name of the property.
-   */
-  private void generateHasPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()Z", null, null);
-    
-    Label start = new Label();
-    Label end = new Label();
-    
-    methodVisitor.visitCode();
-    
-    methodVisitor.visitLabel(start);
-    methodVisitor.visitVarInsn(ALOAD, 0);
-    methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "hasProperty", "(Ljava/lang/String;)Z");
-    methodVisitor.visitInsn(IRETURN);
-    methodVisitor.visitLabel(end);
-    
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitMaxs(2, 1);
-    
-    methodVisitor.visitEnd();
-  }
-  
-  /**
-   * Generate an is null property method.
-   *
-   * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
-   * @param methodName The name of the method.
-   * @param propertyName The name of the property.
-   */
-  private void generateIsNullPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()Z", null, null);
-    
-    Label start = new Label();
-    Label end = new Label();
-    
-    methodVisitor.visitCode();
-    
-    methodVisitor.visitLabel(start);
-    methodVisitor.visitVarInsn(ALOAD, 0);
-    methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "isNullProperty", "(Ljava/lang/String;)Z");
-    methodVisitor.visitInsn(IRETURN);
-    methodVisitor.visitLabel(end);
-    
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitMaxs(2, 1);
-    
-    methodVisitor.visitEnd();
-  }
-  
-  /**
-   * Generate a delete property method.
-   *
-   * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
-   * @param methodName The name of the method.
-   * @param propertyName The name of the property.
-   */
-  private void generateDeletePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()Z", null, null);
-    
-    Label start = new Label();
-    Label end = new Label();
-    
-    methodVisitor.visitCode();
-    
-    methodVisitor.visitLabel(start);
-    methodVisitor.visitVarInsn(ALOAD, 0);
-    methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "deleteProperty", "(Ljava/lang/String;)Z");
-    methodVisitor.visitInsn(IRETURN);
-    methodVisitor.visitLabel(end);
-    
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitMaxs(2, 1);
-    
-    methodVisitor.visitEnd();
   }
   
   /**
    * Generate a get JSON primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param primitiveTypeSignature The type signature of the JSON primitive.
-   * @param primitiveMethodName The name of the JSON primitive method.
-   * @param returnOpcode The return opcode.
+   * @param jsonPrimitiveType The type of the JSON primitive.
    */
-  private void generateGetJsonPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String primitiveTypeSignature, String primitiveMethodName, int returnOpcode) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + primitiveTypeSignature, null, null);
+  private void generateGetJsonPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonPrimitiveType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + jsonPrimitiveType.getDescriptor(), null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -816,11 +751,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, primitiveMethodName, "(Ljava/lang/String;)" + primitiveTypeSignature);
-    methodVisitor.visitInsn(returnOpcode);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "get" + this.getJsonPrimitiveName(jsonPrimitiveType) + "Property", "(Ljava/lang/String;)" + jsonPrimitiveType.getDescriptor());
+    methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
     methodVisitor.visitMaxs(2, 1);
     
     methodVisitor.visitEnd();
@@ -830,15 +765,13 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a set JSON primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param primitiveTypeSignature The type signature of the JSON primitive.
-   * @param primitiveMethodName The name of the JSON primitive method.
-   * @param loadOpcode The load opcode.
+   * @param jsonPrimitiveType The type of the JSON primitive.
    */
-  private void generateSetJsonPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String primitiveTypeSignature, String primitiveMethodName, int loadOpcode) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + primitiveTypeSignature + ")V", null, null);
+  private void generateSetJsonPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonPrimitiveType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + jsonPrimitiveType.getDescriptor() + ")V", null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -848,13 +781,13 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitVarInsn(loadOpcode, 1);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, primitiveMethodName, "(Ljava/lang/String;" + primitiveTypeSignature + ")V");
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "set" + this.getJsonPrimitiveName(jsonPrimitiveType) + "Property", "(Ljava/lang/String;" + jsonPrimitiveType.getDescriptor() + ")V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, primitiveTypeSignature, null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 1);
     methodVisitor.visitMaxs(3 , 2);
     
     methodVisitor.visitEnd();
@@ -864,19 +797,14 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a get Java primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param primitiveTypeName The type name of the Java primitive.
-   * @param primitiveTypeSignature The type signature of the Java primitive.
-   * @param primitiveStackValueType The stack value type of the Java primitive.
-   * @param jsonPrimitiveIClassName The internal class name of the JSON primitive.
-   * @param jsonPrimitiveMethodName The name of the JSON primitive method.
-   * @param defaultPrimitiveValueConstOpcode The constant opcode of the default primitive value.
-   * @param returnOpcode The return opcode.
+   * @param jsonPrimitiveType The type of the JSON primitive.
+   * @param javaPrimitiveType The type of the Java primitive.
    */
-  private void generateGetJavaPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String primitiveTypeName, String primitiveTypeSignature, Integer primitiveStackValueType, String jsonPrimitiveIClassName, String jsonPrimitiveMethodName, int defaultPrimitiveValueConstOpcode, int returnOpcode) {
-    MethodVisitor mv = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + primitiveTypeSignature, null, null);
+  private void generateGetJavaPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonPrimitiveType, Type javaPrimitiveType) {
+    MethodVisitor mv = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + javaPrimitiveType.getDescriptor(), null, null);
     
     Label start = new Label();
     Label l0 = new Label();
@@ -888,23 +816,23 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     mv.visitLabel(start);
     mv.visitVarInsn(ALOAD, 0);
     mv.visitLdcInsn(propertyName);
-    mv.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, jsonPrimitiveMethodName, "(Ljava/lang/String;)L" + jsonPrimitiveIClassName + ";");
+    mv.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "get" + this.getJsonPrimitiveName(jsonPrimitiveType) + "Property", "(Ljava/lang/String;)" + jsonPrimitiveType.getDescriptor());
     mv.visitVarInsn(ASTORE, 1);
     mv.visitVarInsn(ALOAD, 1);
     mv.visitJumpInsn(IFNULL, l0);
     mv.visitVarInsn(ALOAD, 1);
-    mv.visitMethodInsn(INVOKEVIRTUAL, jsonPrimitiveIClassName, primitiveTypeName + "Value", "()" + primitiveTypeSignature);
+    mv.visitMethodInsn(INVOKEVIRTUAL, jsonPrimitiveType.getInternalName(), javaPrimitiveType.getClassName() + "Value", "()" + javaPrimitiveType.getDescriptor());
     mv.visitJumpInsn(GOTO, l1);
     mv.visitLabel(l0);
-    mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonPrimitiveIClassName }, 0, null);
-    mv.visitInsn(defaultPrimitiveValueConstOpcode);
+    mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonPrimitiveType.getInternalName() }, 0, null);
+    mv.visitInsn(this.getDefaultConstOpcode(javaPrimitiveType));
     mv.visitLabel(l1);
-    mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { primitiveStackValueType });
-    mv.visitInsn(returnOpcode);
+    mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { this.getStackElement(javaPrimitiveType) });
+    mv.visitInsn(javaPrimitiveType.getOpcode(IRETURN));
     mv.visitLabel(end);
     
-    mv.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    mv.visitLocalVariable("_" + propertyName, "L" + jsonPrimitiveIClassName + ";", null, start, end, 1);
+    mv.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    mv.visitLocalVariable("_" + propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 1);
     mv.visitMaxs(2, 2);
     
     mv.visitEnd();
@@ -914,37 +842,33 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a set Java primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param primitiveTypeSignature The type signature of the Java primitive.
-   * @param primitiveWrapperIClassName The internal class name of the Java primitive wrapper.
-   * @param jsonPrimitiveIClassName The internal class name of the JSON primitive.
-   * @param jsonPrimitiveMethodName The name of the JSON primitive method.
-   * @param loadOpcode The load opcode.
+   * @param jsonPrimitiveType The type of the JSON primitive.
+   * @param javaPrimitiveType The type of the Java primitive.
+   * @param javaPrimitiveWrapperType The type of the Java primitive wrapper.
    */
-  private void generateSetJavaPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String primitiveTypeSignature, String primitiveWrapperIClassName, String jsonPrimitiveIClassName, String jsonPrimitiveMethodName, int loadOpcode) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + primitiveTypeSignature + ")V", null, null);
+  private void generateSetJavaPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonPrimitiveType, Type javaPrimitiveType, Type javaPrimitiveWrapperType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + javaPrimitiveType.getDescriptor() + ")V", null, null);
     
     Label start = new Label();
     Label end = new Label();
-    
-    int maxsExtra = loadOpcode == LLOAD || loadOpcode == DLOAD ? 1 : 0;
     
     methodVisitor.visitCode();
     
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitVarInsn(loadOpcode, 1);
-    methodVisitor.visitMethodInsn(INVOKESTATIC, primitiveWrapperIClassName, "valueOf", "(" + primitiveTypeSignature + ")L" + primitiveWrapperIClassName + ";");
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, jsonPrimitiveMethodName, "(Ljava/lang/String;L" + jsonPrimitiveIClassName + ";)V");
+    methodVisitor.visitVarInsn(javaPrimitiveType.getOpcode(ILOAD), 1);
+    methodVisitor.visitMethodInsn(INVOKESTATIC, javaPrimitiveWrapperType.getInternalName(), "valueOf", "(" + javaPrimitiveType.getDescriptor() + ")" + javaPrimitiveWrapperType.getDescriptor());
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "set" + this.getJsonPrimitiveName(jsonPrimitiveType) + "Property", "(Ljava/lang/String;" + jsonPrimitiveType.getDescriptor() + ")V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, primitiveTypeSignature, null, start, end, 1);
-    methodVisitor.visitMaxs(3 + maxsExtra, 2 + maxsExtra);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, javaPrimitiveType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitMaxs(javaPrimitiveType.getSize() + 2, javaPrimitiveType.getSize() + 1);
     
     methodVisitor.visitEnd();
   }
@@ -953,11 +877,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a get Java character primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
    */
-  private void generateGetJavaCharacterPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName) {
+  private void generateGetJavaCharacterPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName) {
     MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()C", null, null);
     
     Label start = new Label();
@@ -970,7 +894,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getStringProperty", "(Ljava/lang/String;)Ljava/lang/String;");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "getStringProperty", "(Ljava/lang/String;)Ljava/lang/String;");
     methodVisitor.visitVarInsn(ASTORE, 1);
     methodVisitor.visitVarInsn(ALOAD, 1);
     methodVisitor.visitJumpInsn(IFNULL, l0);
@@ -989,7 +913,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(IRETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
     methodVisitor.visitLocalVariable("_" + propertyName, "Ljava/lang/String;", null, start, end, 1);
     methodVisitor.visitMaxs(2, 2);
     
@@ -1000,11 +924,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a set Java character primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
    */
-  private void generateSetJavaCharacterPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName) {
+  private void generateSetJavaCharacterPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName) {
     MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(C)V", null, null);
     
     Label start = new Label();
@@ -1017,11 +941,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitVarInsn(ILOAD, 1);
     methodVisitor.visitMethodInsn(INVOKESTATIC, "java/lang/Character", "toString", "(C)Ljava/lang/String;");
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setStringProperty", "(Ljava/lang/String;Ljava/lang/String;)V");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "setStringProperty", "(Ljava/lang/String;Ljava/lang/String;)V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
     methodVisitor.visitLocalVariable(propertyName, "C", null, start, end, 1);
     methodVisitor.visitMaxs(3, 2);
     
@@ -1029,16 +953,16 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   }
   
   /**
-   * Generate a get object property method.
+   * Generate a get JSON object property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param propertyIClassName The internal class name of the property.
+   * @param jsonObjectType The type of the JSON object.
    */
-  private void generateGetObjectPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String propertyIClassName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()L" + propertyIClassName + ";", null, null);
+  private void generateGetJsonObjectPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonObjectType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + jsonObjectType.getDescriptor(), null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1048,29 +972,29 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitLdcInsn(Type.getType("L" + propertyIClassName + ";"));
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)L" + JSON_OBJECT_ICLASS_NAME + ";");
-    methodVisitor.visitTypeInsn(CHECKCAST, propertyIClassName);
+    methodVisitor.visitLdcInsn(jsonObjectType);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)" + JSON_OBJECT_TYPE.getDescriptor());
+    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType.getInternalName());
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
     methodVisitor.visitMaxs(3, 1);
     
     methodVisitor.visitEnd();
   }
   
   /**
-   * Generate a set object property method.
+   * Generate a set JSON object property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param propertyIClassName The internal class name of the property.
+   * @param jsonObjectType The type of the JSON object.
    */
-  private void generateSetObjectPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String propertyIClassName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(L" + propertyIClassName + ";)V", null, null);
+  private void generateSetJsonObjectPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonObjectType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + jsonObjectType.getDescriptor() + ")V", null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1081,29 +1005,29 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitVarInsn(ALOAD, 1);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setObjectProperty", "(Ljava/lang/String;L" + JSON_OBJECT_ICLASS_NAME + ";)V");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "setObjectProperty", "(Ljava/lang/String;" + JSON_OBJECT_TYPE.getDescriptor() + ")V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, "L" + propertyIClassName + ";", null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, jsonObjectType.getDescriptor(), null, start, end, 1);
     methodVisitor.visitMaxs(3, 2);
     
     methodVisitor.visitEnd();
   }
   
   /**
-   * Generate a get composite object property method.
+   * Generate a get composite JSON object property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param propertyIClassName The internal class name of the property.
-   * @param elementIClassName The internal class name of the element.
+   * @param jsonObjectType The type of the JSON object.
+   * @param elementType The type of the element.
    */
-  private void generateGetCompositeObjectPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String propertyIClassName, String elementIClassName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()L" + propertyIClassName + ";", null, null);
+  private void generateGetCompositeJsonObjectPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonObjectType, Type elementType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + jsonObjectType.getDescriptor(), null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1113,15 +1037,15 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitLdcInsn(Type.getType("L" + propertyIClassName + ";"));
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)L" + JSON_OBJECT_ICLASS_NAME + ";");
-    methodVisitor.visitTypeInsn(CHECKCAST, propertyIClassName);
-    methodVisitor.visitLdcInsn(Type.getType("L" + elementIClassName + ";"));
-    methodVisitor.visitMethodInsn(INVOKEINTERFACE, propertyIClassName, "castElement", "(Ljava/lang/Class;)L" + propertyIClassName + ";");
+    methodVisitor.visitLdcInsn(jsonObjectType);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)" + JSON_OBJECT_TYPE.getDescriptor());
+    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType.getInternalName());
+    methodVisitor.visitLdcInsn(elementType);
+    methodVisitor.visitMethodInsn(INVOKEINTERFACE, jsonObjectType.getInternalName(), "castElement", "(Ljava/lang/Class;)" + jsonObjectType.getDescriptor());
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
     methodVisitor.visitMaxs(3, 1);
     
     methodVisitor.visitEnd();
@@ -1131,18 +1055,15 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a get adapted primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param propertyIClassName The internal class name of the property.
-   * @param adapterIClassName The internal class name of the adapter.
-   * @param primitiveTypeSignature The type signature of the primitive.
-   * @param primitiveMethodName The name of the primitive method.
-   * @param storeOpcode The store opcode.
-   * @param loadOpcode The load opcode.
+   * @param jsonPrimitiveType The type of the JSON primitive.
+   * @param adapterType The type of the adapter.
+   * @param propertyType The type of the property.
    */
-  private void generateGetAdaptedPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String propertyIClassName, String adapterIClassName, String primitiveTypeSignature, String primitiveMethodName, int storeOpcode, int loadOpcode) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()L" + propertyIClassName + ";", null, null);
+  private void generateGetAdaptedPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonPrimitiveType, Type adapterType, Type propertyType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + propertyType.getDescriptor(), null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1152,18 +1073,18 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, primitiveMethodName, "(Ljava/lang/String;)" + primitiveTypeSignature);
-    methodVisitor.visitVarInsn(storeOpcode, 1);
-    methodVisitor.visitTypeInsn(NEW, adapterIClassName);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "get" + this.getJsonPrimitiveName(jsonPrimitiveType) + "Property", "(Ljava/lang/String;)" + jsonPrimitiveType.getDescriptor());
+    methodVisitor.visitVarInsn(ASTORE, 1);
+    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterIClassName, "<init>", "()V");
-    methodVisitor.visitVarInsn(loadOpcode, 1);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterIClassName, "fromJsonProperty", "(" + primitiveTypeSignature + ")L" + propertyIClassName + ";");
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType.getInternalName(), "<init>", "()V");
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType.getInternalName(), "fromJsonProperty", "(" + jsonPrimitiveType.getDescriptor() + ")" + propertyType.getDescriptor());
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable("_" + propertyName, primitiveTypeSignature, null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 1);
     methodVisitor.visitMaxs(2, 2);
     
     methodVisitor.visitEnd();
@@ -1173,40 +1094,37 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a set adapted primitive property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param propertyIClassName The internal class name of the property.
-   * @param adapterIClassName The internal class name of the adapter.
-   * @param primitiveTypeSignature The type signature of the primitive.
-   * @param primitiveMethodName The name of the primitive method.
-   * @param storeOpcode The store opcode.
-   * @param loadOpcode The load opcode.
+   * @param jsonPrimitiveType The type of the JSON primitive.
+   * @param adapterType The type of the adapter.
+   * @param propertyType The type of the property.
    */
-  private void generateSetAdaptedPrimitivePropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String propertyIClassName, String adapterIClassName, String primitiveTypeSignature, String primitiveMethodName, int storeOpcode, int loadOpcode) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(L" + propertyIClassName + ";)V", null, null);
+  private void generateSetAdaptedPrimitivePropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonPrimitiveType, Type adapterType, Type propertyType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + propertyType.getDescriptor() + ")V", null, null);
     
     Label start = new Label();
     Label end = new Label();
     
     methodVisitor.visitCode();
     methodVisitor.visitLabel(start);
-    methodVisitor.visitTypeInsn(NEW, adapterIClassName);
+    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterIClassName, "<init>", "()V");
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType.getInternalName(), "<init>", "()V");
     methodVisitor.visitVarInsn(ALOAD, 1);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterIClassName, "toJsonProperty", "(L" + propertyIClassName + ";)" + primitiveTypeSignature);
-    methodVisitor.visitVarInsn(storeOpcode, 2);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType.getInternalName(), "toJsonProperty", "(" + propertyType.getDescriptor() + ")" + jsonPrimitiveType.getDescriptor());
+    methodVisitor.visitVarInsn(ASTORE, 2);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitVarInsn(loadOpcode, 2);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, primitiveMethodName, "(Ljava/lang/String;" + primitiveTypeSignature + ")V");
+    methodVisitor.visitVarInsn(ALOAD, 2);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "set" + this.getJsonPrimitiveName(jsonPrimitiveType) + "Property", "(Ljava/lang/String;" + jsonPrimitiveType.getDescriptor() + ")V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, "L" + propertyIClassName + ";", null, start, end, 1);
-    methodVisitor.visitLocalVariable("_" + propertyName, primitiveTypeSignature, null, start, end, 2);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, propertyType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 2);
     methodVisitor.visitMaxs(3, 3);
     
     methodVisitor.visitEnd();
@@ -1216,15 +1134,15 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a get adapted object property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param propertyIClassName The internal class name of the property.
-   * @param adapterIClassName The internal class name of the adapter.
-   * @param jsonObjectIClassName The internal class name of the JSON object.
+   * @param jsonObjectType The type of the JSON object.
+   * @param adapterType The type of the adapter.
+   * @param propertyType The type of the property.
    */
-  private void generateGetAdaptedObjectPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String propertyIClassName, String adapterIClassName, String jsonObjectIClassName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()L" + propertyIClassName + ";", null, null);
+  private void generateGetAdaptedObjectPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonObjectType, Type adapterType, Type propertyType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "()" + propertyType.getDescriptor(), null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1234,20 +1152,20 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
-    methodVisitor.visitLdcInsn(Type.getType("L" + jsonObjectIClassName + ";"));
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)L" + JSON_OBJECT_ICLASS_NAME + ";");
-    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectIClassName);
+    methodVisitor.visitLdcInsn(jsonObjectType);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "getObjectProperty", "(Ljava/lang/String;Ljava/lang/Class;)" + JSON_OBJECT_TYPE.getDescriptor());
+    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType.getInternalName());
     methodVisitor.visitVarInsn(ASTORE, 1);
-    methodVisitor.visitTypeInsn(NEW, adapterIClassName);
+    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterIClassName, "<init>", "()V");
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType.getInternalName(), "<init>", "()V");
     methodVisitor.visitVarInsn(ALOAD, 1);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterIClassName, "fromJsonProperty", "(L" + jsonObjectIClassName + ";)L" + propertyIClassName + ";");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType.getInternalName(), "fromJsonProperty", "(" + jsonObjectType.getDescriptor() + ")" + propertyType.getDescriptor());
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable("_" + propertyName, "L" + jsonObjectIClassName + ";", null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonObjectType.getDescriptor(), null, start, end, 1);
     methodVisitor.visitMaxs(3, 2);
     
     methodVisitor.visitEnd();
@@ -1257,15 +1175,15 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Generate a set adapted object property method.
    *
    * @param classWriter The class writer.
-   * @param jsonObjectImplIClassName The internal class name of the JSON object implementation.
+   * @param jsonObjectImplType The type of the JSON object implementation.
    * @param methodName The name of the method.
    * @param propertyName The name of the property.
-   * @param propertyIClassName The internal class name of the property.
-   * @param adapterIClassName The internal class name of the adapter.
-   * @param jsonObjectIClassName The internal class name of the JSON object.
+   * @param jsonObjectType The type of the JSON object.
+   * @param adapterType The type of the adapter.
+   * @param propertyType The type of the property.
    */
-  private void generateSetAdaptedObjectPropertyMethod(ClassWriter classWriter, String jsonObjectImplIClassName, String methodName, String propertyName, String propertyIClassName, String adapterIClassName, String jsonObjectIClassName) {
-    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(L" + propertyIClassName + ";)V", null, null);
+  private void generateSetAdaptedObjectPropertyMethod(ClassWriter classWriter, Type jsonObjectImplType, String methodName, String propertyName, Type jsonObjectType, Type adapterType, Type propertyType) {
+    MethodVisitor methodVisitor = classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, methodName, "(" + propertyType.getDescriptor() + ")V", null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1274,22 +1192,22 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     methodVisitor.visitLabel(start);
     methodVisitor.visitLineNumber(138, start);
-    methodVisitor.visitTypeInsn(NEW, adapterIClassName);
+    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterIClassName, "<init>", "()V");
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType.getInternalName(), "<init>", "()V");
     methodVisitor.visitVarInsn(ALOAD, 1);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterIClassName, "toJsonProperty", "(L" + propertyIClassName + ";)L" + jsonObjectIClassName + ";");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType.getInternalName(), "toJsonProperty", "(" + propertyType.getDescriptor() + ")" + jsonObjectType.getDescriptor());
     methodVisitor.visitVarInsn(ASTORE, 2);
     methodVisitor.visitVarInsn(ALOAD, 0);
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitVarInsn(ALOAD, 2);
-    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplIClassName, "setObjectProperty", "(Ljava/lang/String;L" + JSON_OBJECT_ICLASS_NAME + ";)V");
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType.getInternalName(), "setObjectProperty", "(Ljava/lang/String;" + JSON_OBJECT_TYPE.getDescriptor() + ")V");
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", "L" + jsonObjectImplIClassName + ";", null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, "L" + propertyIClassName + ";", null, start, end, 1);
-    methodVisitor.visitLocalVariable("_" + propertyName, "L" + jsonObjectIClassName + ";", null, start, end, 2);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, propertyType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonObjectType.getDescriptor(), null, start, end, 2);
     methodVisitor.visitMaxs(3, 3);
     
     methodVisitor.visitEnd();
@@ -1359,61 +1277,73 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   }
 
   /**
-   * Retrieve the load opcode for the given type.
+   * Retrieve the name of the JSON primitive with the given type.
    *
-   * @param type The type.
-   * @return The load opcode.
+   * @param jsonPrimitiveType The type of the JSON primitive.
+   * @return The name of the JSON primitive.
    */
-  private int getLoadOpcode(Class<?> type) {
-    if (type.equals(boolean.class) || 
-        type.equals(byte.class) || 
-        type.equals(short.class) ||
-        type.equals(int.class) || 
-        type.equals(char.class)) {
-      return ILOAD;
-    }
-    else if (type.equals(long.class)) {
-      return LLOAD;
-    }
-    else if (type.equals(float.class)) {
-      return FLOAD;
-    }
-    else if (type.equals(double.class)) {
-      return DLOAD;
-    }
-    else {
-      return ALOAD;
+  private String getJsonPrimitiveName(Type jsonPrimitiveType) {
+    String jsonPrimitiveClassName = jsonPrimitiveType.getClassName();
+    
+    return jsonPrimitiveClassName.substring(jsonPrimitiveClassName.lastIndexOf('.') + 1);
+  }
+  
+  /**
+   * Retrieve the stack element for the Java primitive with the given type.
+   *
+   * @param javaPrimitiveType The type of the Java primitive.
+   * @return The stack element.
+   */
+  private Integer getStackElement(Type javaPrimitiveType) {
+    switch (javaPrimitiveType.getSort()) {
+    case Type.BOOLEAN:
+    case Type.BYTE:
+    case Type.SHORT:
+    case Type.INT:
+    case Type.CHAR:
+      return INTEGER;
+    
+    case Type.LONG:
+      return LONG;
+    
+    case Type.FLOAT:
+      return FLOAT;
+    
+    case Type.DOUBLE:
+      return DOUBLE;
+    
+    default:
+      throw new IllegalArgumentException(javaPrimitiveType.toString());
     }
   }
-
+  
   /**
-   * Retrieve the opcode for the given return type.
+   * Retrieve the default constant opcode for the Java primitive with the given
+   * type.
    *
-   * @param returnType The return type.
-   * @return The return opcode.
+   * @param javaPrimitiveType The type of the Java primitive.
+   * @return The default constant opcode.
    */
-  private int getReturnOpcode(Class<?> returnType) {
-    if (returnType.equals(void.class)) {
-      return RETURN;
-    }
-    else if (returnType.equals(boolean.class) || 
-             returnType.equals(byte.class) || 
-             returnType.equals(short.class) ||
-             returnType.equals(int.class) || 
-             returnType.equals(char.class)) {
-      return IRETURN;
-    }
-    else if (returnType.equals(long.class)) {
-      return LRETURN;
-    }
-    else if (returnType.equals(float.class)) {
-      return FRETURN;
-    }
-    else if (returnType.equals(double.class)) {
-      return DRETURN;
-    }
-    else {
-      return ARETURN;
+  private int getDefaultConstOpcode(Type javaPrimitiveType) {
+    switch (javaPrimitiveType.getSort()) {
+    case Type.BOOLEAN:
+    case Type.BYTE:
+    case Type.SHORT:
+    case Type.INT:
+    case Type.CHAR:
+      return ICONST_0;
+    
+    case Type.LONG:
+      return LCONST_0;
+    
+    case Type.FLOAT:
+      return FCONST_0;
+    
+    case Type.DOUBLE:
+      return DCONST_0;
+    
+    default:
+      throw new IllegalArgumentException(javaPrimitiveType.toString());
     }
   }
 }
