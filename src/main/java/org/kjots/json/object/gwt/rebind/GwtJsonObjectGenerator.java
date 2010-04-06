@@ -173,7 +173,7 @@ public class GwtJsonObjectGenerator extends Generator {
     sourceWriter.indent();
     sourceWriter.println((!returnTypeName.equals("void") ? "return " : "") + functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(" + functionArgumentsBuilder.toString() + ");");
     sourceWriter.outdent();
-    sourceWriter.println("}XX");
+    sourceWriter.println("}");
   }
   
   /**
