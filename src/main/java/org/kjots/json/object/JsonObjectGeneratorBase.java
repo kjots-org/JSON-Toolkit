@@ -525,17 +525,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
         this.generateGetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(String.class), Type.getType(adapterClass), returnType);
       }
       else if (JsonObjectPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        Class<?> jsonObjectClass = JsonObject.class;
-        
-        ParameterizedType adapterInterface = this.getImplementedParameterizedInterface(adapterClass, JsonObjectPropertyAdapter.class);
-        if (adapterInterface != null) {
-          java.lang.reflect.Type[] typeArguments = adapterInterface.getActualTypeArguments();
-          if (typeArguments.length != 0) {
-            jsonObjectClass = (Class<?>)typeArguments[1];
-          }
-        }
-        
-        this.generateGetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(jsonObjectClass), Type.getType(adapterClass), returnType);
+        this.generateGetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), this.getJsonObjectType(adapterClass), Type.getType(adapterClass), returnType);
       }
       else {
         throw new IllegalArgumentException("Unsupported adapter type " + adapterClass.getName());
@@ -552,19 +542,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
         this.generateGetJsonPrimitivePropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(String.class));
       }
       else if (returnType.getClassName().equals(JsonObjectArray.class.getName()) || returnType.getClassName().equals(JsonObjectMap.class.getName())) {
-        Class<?> elementType = JsonObject.class;
-        
-        java.lang.reflect.Type genericReturnType = javaMethod.getGenericReturnType();
-        if (genericReturnType instanceof ParameterizedType) {
-          ParameterizedType parameterizedReturnType = (ParameterizedType)genericReturnType;
-          
-          java.lang.reflect.Type[] typeArguments = parameterizedReturnType.getActualTypeArguments();
-          if (typeArguments.length != 0) {
-            elementType = (Class<?>)typeArguments[0];
-          }
-        }
-        
-        this.generateGetCompositeJsonObjectPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), returnType, Type.getType(elementType));
+        this.generateGetCompositeJsonObjectPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), returnType, this.getCompositeJsonObjectElementType(javaMethod, method));
       }
       else if (returnType.equals(Type.BOOLEAN_TYPE)) {
         this.generateGetJavaPrimitivePropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.BOOLEAN_TYPE);
@@ -628,17 +606,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
         this.generateSetAdaptedPrimitivePropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(String.class), Type.getType(adapterClass), argumentType);
       }
       else if (JsonObjectPropertyAdapter.class.isAssignableFrom(adapterClass)) {
-        Class<?> jsonObjectClass = JsonObject.class;
-        
-        ParameterizedType adapterInterface = this.getImplementedParameterizedInterface(adapterClass, JsonObjectPropertyAdapter.class);
-        if (adapterInterface != null) {
-          java.lang.reflect.Type[] typeArguments = adapterInterface.getActualTypeArguments();
-          if (typeArguments.length != 0) {
-            jsonObjectClass = (Class<?>)typeArguments[1];
-          }
-        }
-        
-        this.generateSetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(jsonObjectClass), Type.getType(adapterClass), argumentType);
+        this.generateSetAdaptedObjectPropertyMethod(classWriter, jsonObjectImplType, method, jsonPropertyAnnotation.name(), this.getJsonObjectType(adapterClass), Type.getType(adapterClass), argumentType);
       }
       else {
         throw new IllegalArgumentException("Unsupported adapter type " + adapterClass.getName());
@@ -1208,6 +1176,24 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   }
   
   /**
+   * Retrieve the type of the JSON object for the adapter with the given class.
+   *
+   * @param adapterClass The class of the adapter.
+   * @return The type of the JSON object.
+   */
+  private Type getJsonObjectType(Class<? extends JsonPropertyAdapter> adapterClass) {
+    ParameterizedType adapterInterface = this.getImplementedParameterizedInterface(adapterClass, JsonObjectPropertyAdapter.class);
+    if (adapterInterface != null) {
+      java.lang.reflect.Type[] typeArguments = adapterInterface.getActualTypeArguments();
+      if (typeArguments.length != 0) {
+        return Type.getType((Class<?>)typeArguments[1]);
+      }
+    }
+    
+    return getJsonObjectType();
+  }
+
+  /**
    * Retrieve the implemented parameterized interface with the given raw
    * interface from the given class.
    *
@@ -1250,6 +1236,28 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     }
     
     return null;
+  }
+
+  /**
+   * Retrieve the type of the element of the composite JSON object returned by
+   * the given method.
+   *
+   * @param javaMethod The java method.
+   * @param method The method.
+   * @return The type of the element.
+   */
+  private Type getCompositeJsonObjectElementType(java.lang.reflect.Method javaMethod, Method method) {
+    java.lang.reflect.Type genericReturnType = javaMethod.getGenericReturnType();
+    if (genericReturnType instanceof ParameterizedType) {
+      ParameterizedType parameterizedReturnType = (ParameterizedType)genericReturnType;
+      
+      java.lang.reflect.Type[] typeArguments = parameterizedReturnType.getActualTypeArguments();
+      if (typeArguments.length != 0) {
+        return Type.getType((Class<?>)typeArguments[0]);
+      }
+    }
+    
+    return getJsonObjectType();
   }
   
   /**
