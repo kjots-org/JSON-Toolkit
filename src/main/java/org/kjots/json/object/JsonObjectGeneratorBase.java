@@ -1115,7 +1115,6 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitCode();
     
     methodVisitor.visitLabel(start);
-    methodVisitor.visitLineNumber(138, start);
     methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
     methodVisitor.visitInsn(DUP);
     methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
