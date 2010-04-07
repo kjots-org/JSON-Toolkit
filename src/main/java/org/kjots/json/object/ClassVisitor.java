@@ -18,6 +18,8 @@ package org.kjots.json.object;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.FieldVisitor;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.commons.Method;
 
 /**
  * Class Visitor.
@@ -38,6 +40,53 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   public ClassVisitor(org.objectweb.asm.ClassVisitor asmClassVisitor) {
     this.asmClassVisitor = asmClassVisitor;
   }
+  
+  /**
+   * Visit the class.
+   * <p>
+   * This is a convenience method that is equivalent to the following:
+   * <pre>
+   *   visit(version, access, type.getInternalName(), signature, superType.getInternalName(), interfaces)
+   * </pre>
+   * Where <code>interfaces</code> is an array of {@link String}, with each
+   * element containing the internal name of the types in <code>interfaceTypes</code>
+   * at the corresponding index.
+   *
+   * @param version The version number.
+   * @param access The access flags.
+   * @param type The type.
+   * @param signature The signature.
+   * @param superType The super type.
+   * @param interfaceTypes The interface types.
+   * @see org.objectweb.asm.ClassVisitor#visit(int, int, String, String, String, String[])
+   */
+  public void visit(int version, int access, Type type, String signature, Type superType, Type[] interfaceTypes) {
+    String[] interfaces = new String[interfaceTypes.length];
+    for (int i = 0; i < interfaceTypes.length; i++) {
+      interfaces[i] = interfaceTypes[i].getInternalName();
+    }
+    
+    this.asmClassVisitor.visit(version, access, type.getInternalName(), signature, superType.getInternalName(), interfaces);
+  }
+  
+  /**
+   * Visit a method.
+   * <p>
+   * This is a convenience method that is equivalent to the following:
+   * <pre>
+   *   visitMethod(access, method.getName(), method.getDescriptor(), signature, exceptions))
+   * </pre>
+   *
+   * @param access The access flags.
+   * @param method The method.
+   * @param signature The signature.
+   * @param exceptions The exception.
+   * @return The method visitor.
+   * @see org.objectweb.asm.ClassVisitor#visitMethod(int, String, String, String, String[])
+   */
+  public MethodVisitor visitMethod(int access, Method method, String signature, String[] exceptions) {
+    return new MethodVisitor(this.asmClassVisitor.visitMethod(access, method.getName(), method.getDescriptor(), signature, exceptions));
+  }
 
   /**
    * @see org.objectweb.asm.ClassVisitor#visit(int, int, String, String, String, String[])
@@ -45,7 +94,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
     this.asmClassVisitor.visit(version, access, name, signature, superName, interfaces);
   }
-
+  
   /**
    * @see org.objectweb.asm.ClassVisitor#visitAnnotation(String, boolean)
    */

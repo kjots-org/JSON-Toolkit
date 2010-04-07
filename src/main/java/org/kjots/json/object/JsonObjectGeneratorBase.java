@@ -237,7 +237,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   private void generateClass(ClassVisitor classVisitor, Class<? extends JsonObject> jsonObjectClass, Type jsonObjectType, Type superJsonObjectImplType) {
     Type jsonObjectImplType = Type.getObjectType(jsonObjectType.getInternalName() + "$" + this.jsonObjectImplClass.getSimpleName());
     
-    classVisitor.visit(V1_6, ACC_PUBLIC + ACC_SUPER, jsonObjectImplType.getInternalName(), null, superJsonObjectImplType.getInternalName(), new String[] { jsonObjectType.getInternalName() });
+    classVisitor.visit(V1_6, ACC_PUBLIC + ACC_SUPER, jsonObjectImplType, null, superJsonObjectImplType, new Type[] { jsonObjectType });
     
     this.generateConstructor(classVisitor, jsonObjectImplType, superJsonObjectImplType);
     
@@ -267,7 +267,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     int maxLocals = 1;
     
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC, constructor.getName(), constructor.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC, constructor, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -287,11 +287,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     for (int i = 0; i < argumentTypes.length; i++) {
       Type argumentType = argumentTypes[i];
       
-      methodVisitor.visitLocalVariable("arg" + i, argumentType.getDescriptor(), null, start, end, maxLocals);
+      methodVisitor.visitLocalVariable("arg" + i, argumentType, null, start, end, maxLocals);
       
       maxLocals += argumentType.getSize();
     }
@@ -313,7 +313,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     int maxLocals = 1;
     
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -333,11 +333,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(returnType.getOpcode(IRETURN));
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     for (int i = 0; i < argumentTypes.length; i++) {
       Type argumentType = argumentTypes[i];
       
-      methodVisitor.visitLocalVariable("arg" + i, argumentType.getDescriptor(), null, start, end, maxLocals);
+      methodVisitor.visitLocalVariable("arg" + i, argumentType, null, start, end, maxLocals);
       
       maxLocals += argumentType.getSize();
     }
@@ -404,7 +404,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       throw new IllegalArgumentException(method.getName() + "() must have no parameters");
     }
     
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -418,7 +418,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(IRETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     methodVisitor.visitMaxs(2, 1);
     
     methodVisitor.visitEnd();
@@ -441,7 +441,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       throw new IllegalArgumentException(method.getName() + "() must have no parameters");
     }
     
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -455,7 +455,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(IRETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     methodVisitor.visitMaxs(2, 1);
     
     methodVisitor.visitEnd();
@@ -478,7 +478,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       throw new IllegalArgumentException(method.getName() + "() must have no parameters");
     }
     
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -492,7 +492,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(IRETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     methodVisitor.visitMaxs(2, 1);
     
     methodVisitor.visitEnd();
@@ -663,7 +663,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param jsonPrimitiveType The type of the JSON primitive.
    */
   private void generateGetJsonPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonPrimitiveType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -677,7 +677,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     methodVisitor.visitMaxs(2, 1);
     
     methodVisitor.visitEnd();
@@ -693,7 +693,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param jsonPrimitiveType The type of the JSON primitive.
    */
   private void generateSetJsonPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonPrimitiveType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -708,8 +708,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, jsonPrimitiveType, null, start, end, 1);
     methodVisitor.visitMaxs(3 , 2);
     
     methodVisitor.visitEnd();
@@ -726,38 +726,38 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param javaPrimitiveType The type of the Java primitive.
    */
   private void generateGetJavaPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonPrimitiveType, Type javaPrimitiveType) {
-    MethodVisitor mv = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label l0 = new Label();
     Label l1 = new Label();
     Label end = new Label();
     
-    mv.visitCode();
+    methodVisitor.visitCode();
     
-    mv.visitLabel(start);
-    mv.visitVarInsn(ALOAD, 0);
-    mv.visitLdcInsn(propertyName);
-    mv.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, this.getGetJsonPrimitivePropertyMethod(jsonPrimitiveType));
-    mv.visitVarInsn(ASTORE, 1);
-    mv.visitVarInsn(ALOAD, 1);
-    mv.visitJumpInsn(IFNULL, l0);
-    mv.visitVarInsn(ALOAD, 1);
-    mv.visitMethodInsn(INVOKEVIRTUAL, jsonPrimitiveType, this.getToJavaPrimitiveMethod(javaPrimitiveType));
-    mv.visitJumpInsn(GOTO, l1);
-    mv.visitLabel(l0);
-    mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonPrimitiveType.getInternalName() }, 0, null);
-    mv.visitInsn(this.getDefaultConstOpcode(javaPrimitiveType));
-    mv.visitLabel(l1);
-    mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { this.getStackElement(javaPrimitiveType) });
-    mv.visitInsn(javaPrimitiveType.getOpcode(IRETURN));
-    mv.visitLabel(end);
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    methodVisitor.visitLdcInsn(propertyName);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, this.getGetJsonPrimitivePropertyMethod(jsonPrimitiveType));
+    methodVisitor.visitVarInsn(ASTORE, 1);
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitJumpInsn(IFNULL, l0);
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonPrimitiveType, this.getToJavaPrimitiveMethod(javaPrimitiveType));
+    methodVisitor.visitJumpInsn(GOTO, l1);
+    methodVisitor.visitLabel(l0);
+    methodVisitor.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonPrimitiveType.getInternalName() }, 0, null);
+    methodVisitor.visitInsn(this.getDefaultConstOpcode(javaPrimitiveType));
+    methodVisitor.visitLabel(l1);
+    methodVisitor.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { this.getStackElement(javaPrimitiveType) });
+    methodVisitor.visitInsn(javaPrimitiveType.getOpcode(IRETURN));
+    methodVisitor.visitLabel(end);
     
-    mv.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    mv.visitLocalVariable("_" + propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 1);
-    mv.visitMaxs(2, 2);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonPrimitiveType, null, start, end, 1);
+    methodVisitor.visitMaxs(2, 2);
     
-    mv.visitEnd();
+    methodVisitor.visitEnd();
   }
   
   /**
@@ -771,7 +771,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param javaPrimitiveType The type of the Java primitive.
    */
   private void generateSetJavaPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonPrimitiveType, Type javaPrimitiveType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -787,8 +787,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, javaPrimitiveType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, javaPrimitiveType, null, start, end, 1);
     methodVisitor.visitMaxs(javaPrimitiveType.getSize() + 2, javaPrimitiveType.getSize() + 1);
     
     methodVisitor.visitEnd();
@@ -805,7 +805,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   private void generateGetJavaCharacterPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName) {
     Type jsonStringPrimitiveType = Type.getType(String.class);
     
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label l0 = new Label();
@@ -836,8 +836,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(IRETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable("_" + propertyName, jsonStringPrimitiveType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonStringPrimitiveType, null, start, end, 1);
     methodVisitor.visitMaxs(2, 2);
     
     methodVisitor.visitEnd();
@@ -853,7 +853,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    */
   private void generateSetJavaCharacterPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName) {
     Type jsonStringPrimitiveType = Type.getType(String.class);
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -869,8 +869,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, Type.CHAR_TYPE.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, Type.CHAR_TYPE, null, start, end, 1);
     methodVisitor.visitMaxs(3, 2);
     
     methodVisitor.visitEnd();
@@ -886,7 +886,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param jsonObjectType The type of the JSON object.
    */
   private void generateGetJsonObjectPropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonObjectType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -898,11 +898,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitLdcInsn(jsonObjectType);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, this.getGetJsonObjectPropertyMethod());
-    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType.getInternalName());
+    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType);
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     methodVisitor.visitMaxs(3, 1);
     
     methodVisitor.visitEnd();
@@ -918,7 +918,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param jsonObjectType The type of the JSON object.
    */
   private void generateSetJsonObjectPropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonObjectType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -933,8 +933,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, jsonObjectType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, jsonObjectType, null, start, end, 1);
     methodVisitor.visitMaxs(3, 2);
     
     methodVisitor.visitEnd();
@@ -951,7 +951,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param elementType The type of the element.
    */
   private void generateGetCompositeJsonObjectPropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonObjectType, Type elementType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -963,13 +963,13 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitLdcInsn(jsonObjectType);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, this.getGetJsonObjectPropertyMethod());
-    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType.getInternalName());
+    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType);
     methodVisitor.visitLdcInsn(elementType);
     methodVisitor.visitMethodInsn(INVOKEINTERFACE, jsonObjectType, this.getCastCompositeJsonObjectElementMethod(jsonObjectType));
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
     methodVisitor.visitMaxs(3, 1);
     
     methodVisitor.visitEnd();
@@ -987,7 +987,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param propertyType The type of the property.
    */
   private void generateGetAdaptedPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonPrimitiveType, Type adapterType, Type propertyType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -999,7 +999,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, this.getGetJsonPrimitivePropertyMethod(jsonPrimitiveType));
     methodVisitor.visitVarInsn(ASTORE, 1);
-    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
+    methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
     methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
@@ -1007,8 +1007,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable("_" + propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonPrimitiveType, null, start, end, 1);
     methodVisitor.visitMaxs(2, 2);
     
     methodVisitor.visitEnd();
@@ -1026,14 +1026,14 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param propertyType The type of the property.
    */
   private void generateSetAdaptedPrimitivePropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonPrimitiveType, Type adapterType, Type propertyType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
     
     methodVisitor.visitCode();
     methodVisitor.visitLabel(start);
-    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
+    methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
     methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
@@ -1046,9 +1046,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, propertyType.getDescriptor(), null, start, end, 1);
-    methodVisitor.visitLocalVariable("_" + propertyName, jsonPrimitiveType.getDescriptor(), null, start, end, 2);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, propertyType, null, start, end, 1);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonPrimitiveType, null, start, end, 2);
     methodVisitor.visitMaxs(3, 3);
     
     methodVisitor.visitEnd();
@@ -1066,7 +1066,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param propertyType The type of the property.
    */
   private void generateGetAdaptedObjectPropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonObjectType, Type adapterType, Type propertyType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1078,9 +1078,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLdcInsn(propertyName);
     methodVisitor.visitLdcInsn(jsonObjectType);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, this.getGetJsonObjectPropertyMethod());
-    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType.getInternalName());
+    methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType);
     methodVisitor.visitVarInsn(ASTORE, 1);
-    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
+    methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
     methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
@@ -1088,8 +1088,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable("_" + propertyName, jsonObjectType.getDescriptor(), null, start, end, 1);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonObjectType, null, start, end, 1);
     methodVisitor.visitMaxs(3, 2);
     
     methodVisitor.visitEnd();
@@ -1107,7 +1107,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param propertyType The type of the property.
    */
   private void generateSetAdaptedObjectPropertyMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, String propertyName, Type jsonObjectType, Type adapterType, Type propertyType) {
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method.getName(), method.getDescriptor(), null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
     Label end = new Label();
@@ -1115,7 +1115,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitCode();
     
     methodVisitor.visitLabel(start);
-    methodVisitor.visitTypeInsn(NEW, adapterType.getInternalName());
+    methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
     methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
@@ -1128,9 +1128,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitInsn(RETURN);
     methodVisitor.visitLabel(end);
     
-    methodVisitor.visitLocalVariable("this", jsonObjectImplType.getDescriptor(), null, start, end, 0);
-    methodVisitor.visitLocalVariable(propertyName, propertyType.getDescriptor(), null, start, end, 1);
-    methodVisitor.visitLocalVariable("_" + propertyName, jsonObjectType.getDescriptor(), null, start, end, 2);
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitLocalVariable(propertyName, propertyType, null, start, end, 1);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonObjectType, null, start, end, 2);
     methodVisitor.visitMaxs(3, 3);
     
     methodVisitor.visitEnd();

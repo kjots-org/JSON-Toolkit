@@ -40,7 +40,27 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   public MethodVisitor(org.objectweb.asm.MethodVisitor asmMethodVisitor) {
     this.asmMethodVisitor = asmMethodVisitor;
   }
-
+  
+  /**
+   * Visit a local variable.
+   * <p>
+   * This is a convenience method that is equivalent to the following:
+   * <pre>
+   *   visitLocalVariable(name, type.getDescriptor(), signature, start, end, index)
+   * </pre>
+   *
+   * @param name The name.
+   * @param type The type.
+   * @param signature The signature.
+   * @param start The start label.
+   * @param end The end label.
+   * @param index The index.
+   * @see org.objectweb.asm.MethodVisitor#visitLocalVariable(String, String, String, Label, Label, int)
+   */
+  public void visitLocalVariable(String name, Type type, String signature, Label start, Label end, int index) {
+    this.asmMethodVisitor.visitLocalVariable(name, type.getDescriptor(), signature, start, end, index);
+  }
+  
   /**
    * Visit a method instruction.
    * <p>
@@ -52,12 +72,28 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
    * @param opcode The opcode.
    * @param type The type.
    * @param method The method.
-   * @see #visitMethodInsn(int, String, String, String)
+   * @see org.objectweb.asm.MethodVisitor#visitMethodInsn(int, String, String, String)
    */
   public void visitMethodInsn(int opcode, Type type, Method method) {
     this.asmMethodVisitor.visitMethodInsn(opcode, type.getInternalName(), method.getName(), method.getDescriptor());
   }
 
+  /**
+   * Visit a type instruction.
+   * <p>
+   * This is a convenience method that is equivalent to the following:
+   * <pre>
+   *   visitTypeInsn(opcode, type.getInternalName())
+   * </pre>
+   *
+   * @param opcode The opcode.
+   * @param type The type.
+   * @see org.objectweb.asm.MethodVisitor#visitTypeInsn(int, String)
+   */
+  public void visitTypeInsn(int opcode, Type type) {
+    this.asmMethodVisitor.visitTypeInsn(opcode, type.getInternalName());
+  }
+  
   /**
    * @see org.objectweb.asm.MethodVisitor#visitAnnotation(String, boolean)
    */
@@ -106,7 +142,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   public void visitFrame(int type, int nLocal, Object[] local, int nStack, Object[] stack) {
     this.asmMethodVisitor.visitFrame(type, nLocal, local, nStack, stack);
   }
-
+  
   /**
    * @see org.objectweb.asm.MethodVisitor#visitIincInsn(int, int)
    */
