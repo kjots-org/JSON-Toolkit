@@ -42,6 +42,27 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   }
   
   /**
+   * Visit a frame.
+   * <p>
+   * This method will covert the given <code>local</code> and <code>stack</code>
+   * objects in the following manner:
+   * <ul>
+   * <li>{@link Type} - to internal class name via {@link Type#getInternalName()}</li>.
+   * <li>All other object types will be used unmodified.</li>
+   * </ul>
+   *
+   * @param type The type.
+   * @param nLocal The number of local objects.
+   * @param local The local objects.
+   * @param nStack The number of stack objects.
+   * @param stack The stack objects.
+   * @see org.objectweb.asm.MethodVisitor#visitFrame(int, int, Object[], int, Object[])
+   */
+  public void visitFrame(int type, int nLocal, Object[] local, int nStack, Object[] stack) {
+    this.asmMethodVisitor.visitFrame(type, nLocal, this.convertFameObjects(local), nStack, this.convertFameObjects(stack));
+  }
+  
+  /**
    * Visit a local variable.
    * <p>
    * This is a convenience method that is equivalent to the following:
@@ -134,13 +155,6 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
    */
   public void visitFieldInsn(int opcode, String owner, String name, String desc) {
     this.asmMethodVisitor.visitFieldInsn(opcode, owner, name, desc);
-  }
-
-  /**
-   * @see org.objectweb.asm.MethodVisitor#visitFrame(int, int, Object[], int, Object[])
-   */
-  public void visitFrame(int type, int nLocal, Object[] local, int nStack, Object[] stack) {
-    this.asmMethodVisitor.visitFrame(type, nLocal, local, nStack, stack);
   }
   
   /**
@@ -260,5 +274,36 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
    */
   public void visitVarInsn(int opcode, int var) {
     this.asmMethodVisitor.visitVarInsn(opcode, var);
+  }
+  
+  /**
+   * Convert the values of the given array of objects into values suitable for 
+   * {@link org.objectweb.asm.MethodVisitor#visitFrame(int, int, Object[], int, Object[])}
+   *
+   * @param objects The object.
+   * @return The converted objects.
+   */
+  private Object[] convertFameObjects(Object[] objects) {
+    if (objects != null) {
+      Object[] newObjects = new Object[objects.length];
+      
+      for (int i = 0; i < objects.length; i++) {
+        Object object = objects[i];
+        
+        if (object instanceof Type) {
+          Type type = (Type)object;
+          
+          newObjects[i] = type.getInternalName();
+        }
+        else {
+          newObjects[i] = object;
+        }
+      }
+      
+      return newObjects;
+    }
+    else {
+      return null;
+    }
   }
 }

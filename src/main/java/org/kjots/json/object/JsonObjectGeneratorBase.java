@@ -746,7 +746,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonPrimitiveType, this.getToJavaPrimitiveMethod(javaPrimitiveType));
     methodVisitor.visitJumpInsn(GOTO, l1);
     methodVisitor.visitLabel(l0);
-    methodVisitor.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonPrimitiveType.getInternalName() }, 0, null);
+    methodVisitor.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonPrimitiveType }, 0, null);
     methodVisitor.visitInsn(this.getDefaultConstOpcode(javaPrimitiveType));
     methodVisitor.visitLabel(l1);
     methodVisitor.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { this.getStackElement(javaPrimitiveType) });
@@ -829,7 +829,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonStringPrimitiveType, new Method("charAt", Type.CHAR_TYPE, new Type[] { Type.INT_TYPE }));
     methodVisitor.visitJumpInsn(GOTO, l1);
     methodVisitor.visitLabel(l0);
-    methodVisitor.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonStringPrimitiveType.getInternalName() }, 0, null);
+    methodVisitor.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonStringPrimitiveType }, 0, null);
     methodVisitor.visitInsn(ICONST_0);
     methodVisitor.visitLabel(l1);
     methodVisitor.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { Opcodes.INTEGER });
