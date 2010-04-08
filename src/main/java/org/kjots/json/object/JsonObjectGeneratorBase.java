@@ -237,7 +237,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   private void generateClass(ClassVisitor classVisitor, Class<? extends JsonObject> jsonObjectClass, Type jsonObjectType, Type superJsonObjectImplType) {
     Type jsonObjectImplType = Type.getObjectType(jsonObjectType.getInternalName() + "$" + this.jsonObjectImplClass.getSimpleName());
     
-    classVisitor.visit(V1_6, ACC_PUBLIC + ACC_SUPER, jsonObjectImplType, null, superJsonObjectImplType, new Type[] { jsonObjectType });
+    classVisitor.visit(V1_6, ACC_PUBLIC + ACC_SUPER, jsonObjectImplType, null, superJsonObjectImplType, jsonObjectType);
     
     this.generateConstructor(classVisitor, jsonObjectImplType, superJsonObjectImplType);
     

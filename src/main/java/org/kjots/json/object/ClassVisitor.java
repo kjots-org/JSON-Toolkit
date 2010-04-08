@@ -60,7 +60,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
    * @param interfaceTypes The interface types.
    * @see org.objectweb.asm.ClassVisitor#visit(int, int, String, String, String, String[])
    */
-  public void visit(int version, int access, Type type, String signature, Type superType, Type[] interfaceTypes) {
+  public void visit(int version, int access, Type type, String signature, Type superType, Type... interfaceTypes) {
     String[] interfaces = new String[interfaceTypes.length];
     for (int i = 0; i < interfaceTypes.length; i++) {
       interfaces[i] = interfaceTypes[i].getInternalName();
