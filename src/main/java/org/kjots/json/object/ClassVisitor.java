@@ -15,6 +15,10 @@
  */
 package org.kjots.json.object;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.FieldVisitor;
@@ -29,9 +33,12 @@ import org.objectweb.asm.commons.Method;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
+  /** The implemented methods. */
+  private final Set<Method> implementedMethods = new HashSet<Method>();
+  
   /** The ASM class visitor. */
   private final org.objectweb.asm.ClassVisitor asmClassVisitor;
-
+  
   /**
    * Construct a new Class Visitor.
    *
@@ -39,6 +46,15 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
    */
   public ClassVisitor(org.objectweb.asm.ClassVisitor asmClassVisitor) {
     this.asmClassVisitor = asmClassVisitor;
+  }
+  
+  /**
+   * Retrieve the implemented methods.
+   *
+   * @return The implemented methods.
+   */
+  public Set<Method> getImplementedMethods() {
+    return Collections.unmodifiableSet(this.implementedMethods);
   }
   
   /**
@@ -76,6 +92,8 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
    * <pre>
    *   visitMethod(access, method.getName(), method.getDescriptor(), signature, exceptions))
    * </pre>
+   * <p>
+   * This method will add the given method to set of implemented methods.
    *
    * @param access The access flags.
    * @param method The method.
@@ -85,7 +103,11 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
    * @see org.objectweb.asm.ClassVisitor#visitMethod(int, String, String, String, String[])
    */
   public MethodVisitor visitMethod(int access, Method method, String signature, String[] exceptions) {
-    return new MethodVisitor(this.asmClassVisitor.visitMethod(access, method.getName(), method.getDescriptor(), signature, exceptions));
+    MethodVisitor methodVisitor = new MethodVisitor(this.asmClassVisitor.visitMethod(access, method.getName(), method.getDescriptor(), signature, exceptions));
+    
+    this.implementedMethods.add(method);
+    
+    return methodVisitor;
   }
 
   /**

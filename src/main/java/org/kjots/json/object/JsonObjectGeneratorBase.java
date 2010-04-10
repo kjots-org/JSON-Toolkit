@@ -15,9 +15,11 @@
  */
 package org.kjots.json.object;
 
+import static org.objectweb.asm.Opcodes.ACC_BRIDGE;
 import static org.objectweb.asm.Opcodes.ACC_FINAL;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_SUPER;
+import static org.objectweb.asm.Opcodes.ACC_SYNTHETIC;
 import static org.objectweb.asm.Opcodes.ALOAD;
 import static org.objectweb.asm.Opcodes.ARETURN;
 import static org.objectweb.asm.Opcodes.ASTORE;
@@ -47,6 +49,14 @@ import static org.objectweb.asm.Opcodes.V1_6;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.commons.Method;
 
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
 import org.kjots.json.object.shared.JsonFunction;
@@ -58,11 +68,6 @@ import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
 import org.kjots.json.object.shared.JsonProperty;
 import org.kjots.json.object.shared.JsonPropertyAdapter;
 import org.kjots.json.object.shared.JsonStringPropertyAdapter;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.Method;
 
 /**
  * JSON Object Generator Base.
@@ -252,6 +257,18 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
         throw new IllegalArgumentException(method.getName() + "() is not annotated with suitable annotation");
       }
     }
+    
+    Set<GenericMethod> genericMethods = this.getGenericMethods(jsonObjectClass);
+    Set<Method> implementedMethods = new HashSet<Method>(classVisitor.getImplementedMethods());
+    
+    for (GenericMethod genericMethod : genericMethods) {
+      Method implementedMethod = genericMethod.getCompatibleMethod(implementedMethods);
+      if (implementedMethod != null && !implementedMethod.equals(genericMethod)) {
+        this.generateBridgeMethod(classVisitor, jsonObjectImplType, genericMethod, implementedMethod);
+      }
+    }
+    
+    classVisitor.visitEnd();
   }
   
   /**
@@ -1136,6 +1153,62 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitEnd();
   }
   
+  /**
+   * Generate a bridge method.
+   *
+   * @param classVisitor The class visitor.
+   * @param jsonObjectImplType The type of the JSON object implementation.
+   * @param method The method.
+   * @param targetMethod The target method.
+   */
+  private void generateBridgeMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, Method targetMethod) {
+    Type returnType = method.getReturnType();
+    Type[] argumentTypes = method.getArgumentTypes();
+    Type[] targetArgumentTypes = targetMethod.getArgumentTypes();
+    
+    int maxLocals = 1;
+    
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_BRIDGE + ACC_SYNTHETIC, method, null, null);
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitVarInsn(ALOAD, 0);
+    for (int i = 0; i < argumentTypes.length; i++) {
+      Type argumentType = argumentTypes[i];
+      Type targetArgumentType = targetArgumentTypes[i];
+      
+      methodVisitor.visitVarInsn(argumentType.getOpcode(ILOAD), maxLocals);
+      if (!argumentType.equals(targetArgumentType)) {
+        methodVisitor.visitTypeInsn(CHECKCAST, targetArgumentType);
+      }
+      
+      maxLocals += argumentType.getSize();
+    }
+    methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, targetMethod);
+    methodVisitor.visitInsn(returnType.getOpcode(IRETURN));
+    methodVisitor.visitMaxs(Math.max(maxLocals, returnType.getSize()), maxLocals);
+    
+    methodVisitor.visitEnd();
+  }
+
+  /**
+   * Retrieve the generic methods of the given JSON object.
+   *
+   * @param jsonObjectClass The class of the JSON object.
+   * @return The generic methods.
+   */
+  private Set<GenericMethod> getGenericMethods(Class<? extends JsonObject> jsonObjectClass) {
+    Set<GenericMethod> genericMethods = new HashSet<GenericMethod>();
+    
+    for (java.lang.reflect.Method javaMethod : jsonObjectClass.getMethods()) {
+      if (GenericMethod.isGenericMethod(javaMethod)) {
+        genericMethods.add(GenericMethod.getGenericMethod(javaMethod));
+      }
+    }
+    
+    return genericMethods;
+  }
+
   /**
    * Retrieve the type of the JSON object for the adapter with the given class.
    *

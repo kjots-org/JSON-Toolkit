@@ -22,8 +22,8 @@ import java.io.Serializable;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
 import org.kjots.json.object.shared.JsonFunction;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectFactory;
@@ -141,7 +141,6 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * {@link Object} argument correctly.
    */
   @Test
-  @Ignore // FIXME: Enable this test.
   @SuppressWarnings("unchecked")
   public void testInvokeGenericJsonFunctionWithObjectArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
@@ -158,7 +157,6 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * {@link Serializable} argument correctly.
    */
   @Test
-  @Ignore // FIXME: Enable this test.
   @SuppressWarnings("unchecked")
   public void testInvokeGenericJsonFunctionWithSerializableArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
@@ -175,7 +173,6 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * {@link Comparable} argument correctly.
    */
   @Test
-  @Ignore // FIXME: Enable this test.
   @SuppressWarnings("unchecked")
   public void testInvokeGenericJsonFunctionWithComparableArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
