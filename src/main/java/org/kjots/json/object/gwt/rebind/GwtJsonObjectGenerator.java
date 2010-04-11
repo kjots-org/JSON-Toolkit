@@ -28,6 +28,7 @@ import com.google.gwt.core.ext.typeinfo.JPackage;
 import com.google.gwt.core.ext.typeinfo.JParameter;
 import com.google.gwt.core.ext.typeinfo.JParameterizedType;
 import com.google.gwt.core.ext.typeinfo.JType;
+import com.google.gwt.core.ext.typeinfo.JTypeParameter;
 import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
@@ -150,7 +151,25 @@ public class GwtJsonObjectGenerator extends Generator {
     Class<?> functionClass = jsonFunctionAnnotation.klass();
     String functionMethodName = jsonFunctionAnnotation.method();
     
-    String returnTypeName = method.getReturnType().getQualifiedSourceName();
+    StringBuilder typeParametersBuilder = new StringBuilder();
+    
+    JTypeParameter[] typeParameters = method.getTypeParameters();
+    if (typeParameters.length != 0) {
+      typeParametersBuilder.append("<");
+      
+      for (int i = 0; i < typeParameters.length; i++) {
+        if (i != 0) {
+          typeParametersBuilder.append(", ");
+        }
+
+        typeParametersBuilder.append(typeParameters[i].getQualifiedSourceName());
+      }
+      
+      typeParametersBuilder.append("> ");
+    }
+    
+    String returnTypeName = this.getTypeName(method.getReturnType());
+    
     JClassType functionClassType = this.getType(logger, context, functionClass.getName().replace('$', '.'));
     
     StringBuilder methodParametersBuilder = new StringBuilder();
@@ -162,14 +181,14 @@ public class GwtJsonObjectGenerator extends Generator {
         methodParametersBuilder.append(", ");
       }
       
-      methodParametersBuilder.append(methodParameters[i].getType().getQualifiedSourceName());
+      methodParametersBuilder.append(this.getTypeName(methodParameters[i].getType()));
       methodParametersBuilder.append(" arg").append(i);
       
       functionArgumentsBuilder.append(", arg").append(i);
     }
     
     sourceWriter.println("@Override");
-    sourceWriter.println("public final " + returnTypeName + " " + method.getName() + "(" + methodParametersBuilder.toString() + ") {");
+    sourceWriter.println("public final " + typeParametersBuilder.toString() + returnTypeName + " " + method.getName() + "(" + methodParametersBuilder.toString() + ") {");
     sourceWriter.indent();
     sourceWriter.println((!returnTypeName.equals("void") ? "return " : "") + functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(" + functionArgumentsBuilder.toString() + ");");
     sourceWriter.outdent();
@@ -812,6 +831,23 @@ public class GwtJsonObjectGenerator extends Generator {
       logger.log(TreeLogger.ERROR, "Cannot find type " + typeName, nfe);
       
       throw new UnableToCompleteException();
+    }
+  }
+
+  /**
+   * Retrieve the name of the given type.
+   *
+   * @param type The type.
+   * @return The name of the type.
+   */
+  private String getTypeName(JType type) {
+    if (type instanceof JTypeParameter) {
+      JTypeParameter typeParameter = (JTypeParameter)type;
+  
+      return typeParameter.getName();
+    }
+    else {
+      return type.getQualifiedSourceName();
     }
   }
 }

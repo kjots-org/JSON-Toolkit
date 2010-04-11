@@ -50,6 +50,7 @@ public abstract class JvmJsonObjectGeneratorFunctionTestBase extends JsonObjectG
     when(functions.testDoubleReturnValueJsonFunction((JsonObject)any())).thenReturn(DOUBLE_RETURN_VALUE);
     when(functions.testCharacterReturnValueJsonFunction((JsonObject)any())).thenReturn(CHARACTER_RETURN_VALUE);
     when(functions.testObjectReturnValueJsonFunction((JsonObject)any())).thenReturn(OBJECT_RETURN_VALUE);
+    when(functions.testTypeParameterGenericReturnValueJsonFunction((JsonObject)any())).thenReturn(TYPE_PARAMETER_GENERIC_RETURN_VALUE);
     
     this.setupFunctions(functions);
   }
@@ -173,6 +174,17 @@ public abstract class JvmJsonObjectGeneratorFunctionTestBase extends JsonObjectG
   }
   
   /**
+   * Verify the invocation of the no-argument type-parameter-generic-return-value
+   * test JSON function.
+   *
+   * @param testJsonObject The test JSON object.
+   */
+  @Override
+  protected void verifyInvokeTypeParameterGenericReturnValueJsonFunction(TestJsonObject testJsonObject) {
+    verify(functions()).testTypeParameterGenericReturnValueJsonFunction(testJsonObject);
+  }
+  
+  /**
    * Verify the invocation of the boolean-argument no-return-value test JSON
    * function.
    *
@@ -278,6 +290,18 @@ public abstract class JvmJsonObjectGeneratorFunctionTestBase extends JsonObjectG
   @Override
   protected void verifyInvokeObjectParameterJsonFunction(TestJsonObject testJsonObject, Object param) {
     verify(functions()).testObjectParameterJsonFunction(testJsonObject, param);
+  }
+  
+  /**
+   * Verify the invocation of the type-parameter-generic-argument
+   * no-return-value test JSON function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The type parameter generic test parameter.
+   */
+  @Override
+  protected void verifyInvokeTypeParameterGenericParameterJsonFunction(TestJsonObject testJsonObject, Object param) {
+    verify(functions()).testTypeParameterGenericParameterJsonFunction(testJsonObject, param);
   }
   
   /**

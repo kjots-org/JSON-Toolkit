@@ -177,6 +177,20 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
     }
     
     /**
+     * The type parameter generic return value JSON function.
+     *
+     * @param <T> The type parameter.
+     * @return The type parameter generic return value.
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T testTypeParameterGenericReturnValueJsonFunction(JsonObject jsonObject) {
+      this.methodName = "testTypeParameterGenericReturnValueJsonFunction";
+      this.jsonObject = jsonObject;
+      
+      return (T)JsonObjectGeneratorFunctionTestBase.TYPE_PARAMETER_GENERIC_RETURN_VALUE;
+    }
+    
+    /**
      * The boolean parameter JSON function.
      *
      * @param jsonObject The JSON object.
@@ -294,6 +308,18 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
     }
     
     /**
+     * The type parameter generic parameter JSON function.
+     *
+     * @param <T> The type parameter.
+     * @param param The type parameter generic parameter.
+     */
+    public <T> void testTypeParameterGenericParameterJsonFunction(JsonObject jsonObject, T param) {
+      this.methodName = "testTypeParameterGenericParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { param };
+    }
+
+    /**
      * The multiple parameter JSON function.
      *
      * @param jsonObject The JSON object.
@@ -406,6 +432,12 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
     }
 
     @Override
+    protected void verifyInvokeTypeParameterGenericReturnValueJsonFunction(TestJsonObject testJsonObject) {
+      assertEquals("testTypeParameterGenericReturnValueJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+    }
+
+    @Override
     protected void verifyInvokeBooleanParameterJsonFunction(TestJsonObject testJsonObject, boolean param) {
       assertEquals("testBooleanParameterJsonFunction", functions().methodName);
       assertEquals(testJsonObject, functions().jsonObject);
@@ -468,6 +500,13 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
       assertEquals(param, functions().arguments[0]);
     }
     
+    @Override
+    protected void verifyInvokeTypeParameterGenericParameterJsonFunction(TestJsonObject testJsonObject, Object param) {
+      assertEquals("testTypeParameterGenericParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(param, functions().arguments[0]);
+    }
+
     @Override
     protected void verifyInvokeMultiParameterJsonFunction(TestJsonObject testJsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam) {
       assertEquals("testMultiParameterJsonFunction", functions().methodName);
@@ -558,6 +597,13 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
   }
 
   /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeTypeParameterGenericReturnValueJsonFunction()
+   */
+  public void testInvokeTypeParameterGenericReturnValueJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeTypeParameterGenericReturnValueJsonFunction();
+  }
+
+  /**
    * @see JsonObjectGeneratorFunctionTestBase#testInvokeShortReturnValueJsonFunction()
    */
   public void testInvokeShortReturnValueJsonFunction() {
@@ -625,6 +671,13 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
    */
   public void testInvokeObjectParameterJsonFunction() {
     this.jsonObjectGeneratorFunctionTestDelegate.testInvokeObjectParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeTypeParameterGenericParameterJsonFunction()
+   */
+  public void testInvokeTypeParameterGenericParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeTypeParameterGenericParameterJsonFunction();
   }
 
   /**
