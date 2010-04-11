@@ -22,6 +22,7 @@ import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
 import com.google.gwt.core.ext.TreeLogger;
 import com.google.gwt.core.ext.UnableToCompleteException;
+import com.google.gwt.core.ext.typeinfo.JArrayType;
 import com.google.gwt.core.ext.typeinfo.JClassType;
 import com.google.gwt.core.ext.typeinfo.JMethod;
 import com.google.gwt.core.ext.typeinfo.JPackage;
@@ -846,8 +847,44 @@ public class GwtJsonObjectGenerator extends Generator {
   
       return typeParameter.getName();
     }
+    else if (type instanceof JArrayType) {
+      return this.getArrayTypeName((JArrayType)type);
+    }
     else {
       return type.getQualifiedSourceName();
+    }
+  }
+  
+  /**
+   * Retrieve the name of the given array type.
+   *
+   * @param arrayType The array type.
+   * @return The name of the array type.
+   */
+  private String getArrayTypeName(JArrayType arrayType) {
+    JType elementType = arrayType.getComponentType();
+    int dimensions = 1;
+    
+    while (elementType instanceof JArrayType) {
+      JArrayType elementArrayType = (JArrayType)elementType;
+      
+      elementType = elementArrayType.getComponentType();
+      dimensions++;
+    }
+    
+    if (elementType instanceof JTypeParameter) {
+      JTypeParameter elementTypeParameter = (JTypeParameter)elementType;
+      StringBuilder arrayTypeNameBuilder = new StringBuilder();
+      
+      arrayTypeNameBuilder.append(elementTypeParameter.getName());
+      for (int i = 0; i < dimensions; i++) {
+        arrayTypeNameBuilder.append("[]");
+      }
+      
+      return arrayTypeNameBuilder.toString();
+    }
+    else {
+      return arrayType.getQualifiedSourceName();
     }
   }
 }

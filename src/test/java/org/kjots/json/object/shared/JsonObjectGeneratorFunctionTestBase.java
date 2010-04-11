@@ -117,6 +117,14 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      * @return The type parameter generic return value.
      */
     public <T> T testTypeParameterGenericReturnValueJsonFunction(JsonObject jsonObject);
+    
+    /**
+     * The type parameter generic array return value JSON function.
+     *
+     * @param <T> The type parameter.
+     * @return The type parameter generic array return value.
+     */
+    public <T> T[] testTypeParameterGenericArrayReturnValueJsonFunction(JsonObject jsonObject);
 
     /**
      * The boolean parameter JSON function.
@@ -197,6 +205,14 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      * @param param The type parameter generic parameter.
      */
     public <T> void testTypeParameterGenericParameterJsonFunction(JsonObject jsonObject, T param);
+    
+    /**
+     * The type parameter generic array parameter JSON function.
+     *
+     * @param <T> The type parameter.
+     * @param param The type parameter generic array parameter.
+     */
+    public <T> void testTypeParameterGenericArrayParameterJsonFunction(JsonObject jsonObject, T[] param);
     
     /**
      * The multiple parameter JSON function.
@@ -315,6 +331,15 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
     public <T> T testTypeParameterGenericReturnValueJsonFunction();
 
     /**
+     * The type parameter generic array return value JSON function.
+     *
+     * @param <T> The type parameter.
+     * @return The type parameter generic array return value.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testTypeParameterGenericArrayReturnValueJsonFunction")
+    public <T> T[] testTypeParameterGenericArrayReturnValueJsonFunction();
+
+    /**
      * The boolean parameter JSON function.
      *
      * @param param The boolean parameter.
@@ -386,7 +411,6 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
     @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testObjectParameterJsonFunction")
     public void testObjectParameterJsonFunction(Object param);
     
-    
     /**
      * The type parameter generic parameter JSON function.
      *
@@ -395,6 +419,15 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      */
     @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testTypeParameterGenericParameterJsonFunction")
     public <T> void testTypeParameterGenericParameterJsonFunction(T param);
+
+    /**
+     * The type parameter generic array parameter JSON function.
+     *
+     * @param <T> The type parameter.
+     * @param param The type parameter generic array parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testTypeParameterGenericArrayParameterJsonFunction")
+    public <T> void testTypeParameterGenericArrayParameterJsonFunction(T[] param);
 
     /**
      * The multiple parameter JSON function.
@@ -450,6 +483,9 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
   
   /** The type parameter generic return value. */
   public static final Object TYPE_PARAMETER_GENERIC_RETURN_VALUE = "Test Type Parameter Generic Return Value";
+  
+  /** The type parameter generic array return value. */
+  public static final Object[] TYPE_PARAMETER_GENERIC_ARRAY_RETURN_VALUE = new String[] {};
   
   /** The test JSON object functions. */
   private static Functions functions;
@@ -564,6 +600,16 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
   }
 
   /**
+   * The type parameter generic array return value JSON function.
+   *
+   * @param <T> The type parameter.
+   * @return The type parameter generic array return value.
+   */
+  public static <T> T[] testTypeParameterGenericArrayReturnValueJsonFunction(JsonObject jsonObject) {
+    return functions.testTypeParameterGenericArrayReturnValueJsonFunction(jsonObject);
+  }
+
+  /**
    * The boolean parameter JSON function.
    *
    * @param jsonObject The JSON object.
@@ -661,6 +707,16 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    */
   public static <T> void testTypeParameterGenericParameterJsonFunction(JsonObject jsonObject, T param) {
     functions.testTypeParameterGenericParameterJsonFunction(jsonObject, param);
+  }
+
+  /**
+   * The type parameter generic array parameter JSON function.
+   *
+   * @param <T> The type parameter.
+   * @param param The type parameter generic array parameter.
+   */
+  public static <T> void testTypeParameterGenericArrayParameterJsonFunction(JsonObject jsonObject, T[] param) {
+    functions.testTypeParameterGenericArrayParameterJsonFunction(jsonObject, param);
   }
 
   /**
@@ -861,7 +917,7 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    * Test the invocation of a JSON function.
    * <p>
    * This test asserts that the test JSON function with no arguments and a
-   * type parameter generic return value return value is invoked correctly.
+   * type parameter generic return value is invoked correctly.
    */
   @Test
   public void testInvokeTypeParameterGenericReturnValueJsonFunction() {
@@ -870,6 +926,21 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
     assertEquals(TYPE_PARAMETER_GENERIC_RETURN_VALUE, testJsonObject.testTypeParameterGenericReturnValueJsonFunction());
     
     this.verifyInvokeTypeParameterGenericReturnValueJsonFunction(testJsonObject);
+  }
+
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with no arguments and a
+   * type parameter generic array return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeTypeParameterGenericArrayReturnValueJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(TYPE_PARAMETER_GENERIC_ARRAY_RETURN_VALUE, testJsonObject.testTypeParameterGenericArrayReturnValueJsonFunction());
+    
+    this.verifyInvokeTypeParameterGenericArrayReturnValueJsonFunction(testJsonObject);
   }
 
   /**
@@ -1025,6 +1096,22 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
   /**
    * Test the invocation of a JSON function.
    * <p>
+   * This test asserts that the test JSON function with a type parameter
+   * generic array argument and no return value is invoked correctly.
+   */
+  @Test
+  public void testInvokeTypeParameterGenericArrayParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    String[] genericArrayParam = new String[] {};
+    
+    testJsonObject.testTypeParameterGenericArrayParameterJsonFunction(genericArrayParam);
+    
+    this.verifyInvokeTypeParameterGenericArrayParameterJsonFunction(testJsonObject, genericArrayParam);
+  }
+  
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
    * This test asserts that the test JSON function with multiple argument and
    * no return value is invoked correctly.
    */
@@ -1141,12 +1228,20 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
   protected abstract void verifyInvokeObjectReturnValueJsonFunction(TestJsonObject testJsonObject);
 
   /**
-   * Verify the invocation of the no-argument type-parameter-generic-return-value
-   * test JSON function.
+   * Verify the invocation of the no-argument type-parameter-generic-return-
+   * value test JSON function.
    *
    * @param testJsonObject The test JSON object.
    */
   protected abstract void verifyInvokeTypeParameterGenericReturnValueJsonFunction(TestJsonObject testJsonObject);
+
+  /**
+   * Verify the invocation of the no-argument type-parameter-generic-array-
+   * return-value test JSON function.
+   *
+   * @param testJsonObject The test JSON object.
+   */
+  protected abstract void verifyInvokeTypeParameterGenericArrayReturnValueJsonFunction(TestJsonObject testJsonObject);
   
   /**
    * Verify the invocation of the boolean-argument no-return-value test JSON
@@ -1234,10 +1329,19 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    * no-return-value test JSON function.
    *
    * @param testJsonObject The test JSON object.
-   * @param param The type parameter generic test parameter.
+   * @param param The type parameter generic parameter.
    */
   protected abstract void verifyInvokeTypeParameterGenericParameterJsonFunction(TestJsonObject testJsonObject, Object param);
-
+  
+  /**
+   * Verify the invocation of the type-parameter-generic-array-argument
+   * no-return-value test JSON function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param param The type parameter generic array parameter.
+   */
+  protected abstract void verifyInvokeTypeParameterGenericArrayParameterJsonFunction(TestJsonObject testJsonObject, Object[] param);
+  
   /**
    * Verify the invocation of the multiple-argument no-return-value test JSON
    * function.

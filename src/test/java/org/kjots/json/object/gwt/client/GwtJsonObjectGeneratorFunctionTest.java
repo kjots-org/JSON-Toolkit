@@ -182,12 +182,28 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
      * @param <T> The type parameter.
      * @return The type parameter generic return value.
      */
+    @Override
     @SuppressWarnings("unchecked")
     public <T> T testTypeParameterGenericReturnValueJsonFunction(JsonObject jsonObject) {
       this.methodName = "testTypeParameterGenericReturnValueJsonFunction";
       this.jsonObject = jsonObject;
       
       return (T)JsonObjectGeneratorFunctionTestBase.TYPE_PARAMETER_GENERIC_RETURN_VALUE;
+    }
+    
+    /**
+     * The type parameter generic array return value JSON function.
+     *
+     * @param <T> The type parameter.
+     * @return The type parameter generic array return value.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T[] testTypeParameterGenericArrayReturnValueJsonFunction(JsonObject jsonObject) {
+      this.methodName = "testTypeParameterGenericArrayReturnValueJsonFunction";
+      this.jsonObject = jsonObject;
+      
+      return (T[])JsonObjectGeneratorFunctionTestBase.TYPE_PARAMETER_GENERIC_ARRAY_RETURN_VALUE;
     }
     
     /**
@@ -313,12 +329,26 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
      * @param <T> The type parameter.
      * @param param The type parameter generic parameter.
      */
+    @Override
     public <T> void testTypeParameterGenericParameterJsonFunction(JsonObject jsonObject, T param) {
       this.methodName = "testTypeParameterGenericParameterJsonFunction";
       this.jsonObject = jsonObject;
       this.arguments = new Object[] { param };
     }
 
+    /**
+     * The type parameter generic array parameter JSON function.
+     *
+     * @param <T> The type parameter.
+     * @param param The type parameter generic array parameter.
+     */
+    @Override
+    public <T> void testTypeParameterGenericArrayParameterJsonFunction(JsonObject jsonObject, T[] param) {
+      this.methodName = "testTypeParameterGenericArrayParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = new Object[] { param };
+    }
+    
     /**
      * The multiple parameter JSON function.
      *
@@ -438,6 +468,12 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
     }
 
     @Override
+    protected void verifyInvokeTypeParameterGenericArrayReturnValueJsonFunction(TestJsonObject testJsonObject) {
+      assertEquals("testTypeParameterGenericArrayReturnValueJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+    }
+
+    @Override
     protected void verifyInvokeBooleanParameterJsonFunction(TestJsonObject testJsonObject, boolean param) {
       assertEquals("testBooleanParameterJsonFunction", functions().methodName);
       assertEquals(testJsonObject, functions().jsonObject);
@@ -506,7 +542,14 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
       assertEquals(testJsonObject, functions().jsonObject);
       assertEquals(param, functions().arguments[0]);
     }
-
+    
+    @Override
+    protected void verifyInvokeTypeParameterGenericArrayParameterJsonFunction(TestJsonObject testJsonObject, Object[] param) {
+      assertEquals("testTypeParameterGenericArrayParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(param, functions().arguments[0]);
+    }
+    
     @Override
     protected void verifyInvokeMultiParameterJsonFunction(TestJsonObject testJsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam) {
       assertEquals("testMultiParameterJsonFunction", functions().methodName);
@@ -604,6 +647,13 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
   }
 
   /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeTypeParameterGenericArrayReturnValueJsonFunction()
+   */
+  public void testInvokeTypeParameterGenericArrayReturnValueJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeTypeParameterGenericArrayReturnValueJsonFunction();
+  }
+
+  /**
    * @see JsonObjectGeneratorFunctionTestBase#testInvokeShortReturnValueJsonFunction()
    */
   public void testInvokeShortReturnValueJsonFunction() {
@@ -678,6 +728,13 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
    */
   public void testInvokeTypeParameterGenericParameterJsonFunction() {
     this.jsonObjectGeneratorFunctionTestDelegate.testInvokeTypeParameterGenericParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeTypeParameterGenericArrayParameterJsonFunction()
+   */
+  public void testInvokeTypeParameterGenericArrayParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeTypeParameterGenericArrayParameterJsonFunction();
   }
 
   /**
