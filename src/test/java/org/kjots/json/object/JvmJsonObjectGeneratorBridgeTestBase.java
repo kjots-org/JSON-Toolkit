@@ -45,6 +45,14 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    */
   public interface Functions {
     /**
+     * The test return value JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @return The return value.
+     */
+    public String testReturnValueJsonFunction(JsonObject jsonObject);
+    
+    /**
      * The test generic return value JSON function.
      *
      * @param jsonObject The JSON object.
@@ -81,6 +89,13 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * Test Object Generic Interface.
    */
   public interface TestObjectGenericInterface<T> {
+    /**
+     * The test return value JSON function.
+     *
+     * @return The return value.
+     */
+    public Object testReturnValueJsonFunction();
+    
     /**
      * The test generic return value JSON function.
      *
@@ -145,6 +160,15 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    */
   public interface TestJsonObject extends JsonObject, TestObjectGenericInterface<String>, TestSerializableComparableGenericInterface<String, String> {
     /**
+     * The test return value JSON function.
+     *
+     * @return The return value.
+     */
+    @Override
+    @JsonFunction(klass = JvmJsonObjectGeneratorBridgeTestBase.class, method = "testReturnValueJsonFunction")
+    public String testReturnValueJsonFunction();
+    
+    /**
      * The test generic return value JSON function.
      *
      * @return The generic return value.
@@ -182,6 +206,9 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
     public void testGenericArrayParameterJsonFunction(String[] genericArrayParam);
   }
   
+  /** The return value. */
+  private static final String RETURN_VALUE = "Test Return Value";
+  
   /** The generic return value. */
   private static final String GENERIC_RETURN_VALUE = "Test Generic Return Value";
   
@@ -190,6 +217,16 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   
   /** The test JSON object functions. */
   private static Functions functions;
+  
+  /**
+   * The test return value JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @return The return value.
+   */
+  public static String testReturnValueJsonFunction(JsonObject jsonObject) {
+    return functions.testReturnValueJsonFunction(jsonObject);
+  }
   
   /**
    * The test generic return value JSON function.
@@ -238,6 +275,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   public void setup() {
     functions = mock(Functions.class);
     
+    when(functions.testReturnValueJsonFunction((JsonObject)any())).thenReturn(RETURN_VALUE);
     when(functions.testGenericReturnValueJsonFunction((JsonObject)any())).thenReturn(GENERIC_RETURN_VALUE);
     when(functions.testGenericArrayReturnValueJsonFunction((JsonObject)any())).thenReturn(GENERIC_ARRAY_RETURN_VALUE);
   }
@@ -248,6 +286,20 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   @After
   public void cleanup() {
     functions = null;
+  }
+  
+  /**
+   * Test the invocation of a return value JSON function.
+   * <p>
+   * This test asserts that the return value JSON function is invoked
+   * correctly.
+   */
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testInvokeReturnValueJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(RETURN_VALUE, ((TestObjectGenericInterface)testJsonObject).testReturnValueJsonFunction());
   }
   
   /**

@@ -259,13 +259,29 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       }
     }
     
-    Set<GenericMethod> genericMethods = this.getGenericMethods(jsonObjectClass);
     Set<Method> implementedMethods = new HashSet<Method>(classVisitor.getImplementedMethods());
     
-    for (GenericMethod genericMethod : genericMethods) {
-      Method implementedMethod = genericMethod.getCompatibleMethod(implementedMethods);
-      if (implementedMethod != null && !implementedMethod.equals(genericMethod)) {
-        this.generateBridgeMethod(classVisitor, jsonObjectImplType, genericMethod, implementedMethod);
+    for (GenericMethod declaredMethod : this.getExtraInterfaceMethods(jsonObjectClass)) {
+      Method implementedMethod = null;
+      
+      if (declaredMethod.getGenericReturnType() || !declaredMethod.getGenericTypeIndices().isEmpty()) {
+        implementedMethod = declaredMethod.getCompatibleMethod(implementedMethods);
+      }
+      else if (!declaredMethod.getGenericReturnType() && !implementedMethods.contains(declaredMethod)) {
+        int returnTypeSort = declaredMethod.getReturnType().getSort();
+        if (returnTypeSort == Type.ARRAY) {
+          returnTypeSort = declaredMethod.getReturnType().getElementType().getSort();
+        }
+        
+        if (returnTypeSort == Type.OBJECT) {
+          GenericMethod newDeclaredMethod = new GenericMethod(declaredMethod.getName(), declaredMethod.getDescriptor(), true, declaredMethod.getGenericTypeIndices());
+          
+          implementedMethod = newDeclaredMethod.getCompatibleMethod(implementedMethods);
+        }
+      }
+      
+      if (implementedMethod != null && !implementedMethod.equals(declaredMethod)) {
+        this.generateBridgeMethod(classVisitor, jsonObjectImplType, declaredMethod, implementedMethod);
       }
     }
     
@@ -1195,21 +1211,40 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   }
 
   /**
-   * Retrieve the generic methods of the given JSON object.
+   * Retrieve the methods of the extra interfaces of the JSON object with the
+   * given class.
    *
    * @param jsonObjectClass The class of the JSON object.
-   * @return The generic methods.
+   * @return The methods.
    */
-  private Set<GenericMethod> getGenericMethods(Class<? extends JsonObject> jsonObjectClass) {
-    Set<GenericMethod> genericMethods = new HashSet<GenericMethod>();
+  private Set<GenericMethod> getExtraInterfaceMethods(Class<? extends JsonObject> jsonObjectClass) {
+    Set<GenericMethod> methods = new HashSet<GenericMethod>();
     
-    for (java.lang.reflect.Method javaMethod : jsonObjectClass.getMethods()) {
-      if (GenericMethod.isGenericMethod(javaMethod)) {
-        genericMethods.add(GenericMethod.getGenericMethod(javaMethod));
-      }
+    Class<?>[] implementedInterfaces = jsonObjectClass.getInterfaces();
+    for (int i = 1; i < implementedInterfaces.length; i++) {
+      this.getInterfaceMethods(implementedInterfaces[i], methods, new HashSet<Class<?>>());
     }
     
-    return genericMethods;
+    return methods;
+  }
+  
+  /**
+   * Retrieve the methods of the given interface.
+   *
+   * @param interfase The interface.
+   * @param methods The methods.
+   * @param encounteredInterfaces The encountered interfaces.
+   */
+  private void getInterfaceMethods(Class<?> interfase, Set<GenericMethod> methods, Set<Class<?>> encounteredInterfaces) {
+    encounteredInterfaces.add(interfase);
+    
+    for (java.lang.reflect.Method javaMethod : interfase.getDeclaredMethods()) {
+      methods.add(GenericMethod.getGenericMethod(javaMethod));
+    }
+    
+    for (Class<?> extendedInterface : interfase.getInterfaces()) {
+      getInterfaceMethods(extendedInterface, methods, encounteredInterfaces);
+    }
   }
 
   /**
