@@ -15,6 +15,7 @@
  */
 package org.kjots.json.object;
 
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.TypeVariable;
 import java.util.Collection;
 import java.util.Set;
@@ -44,12 +45,12 @@ public class GenericMethod extends Method {
    * @return <code>true</code> if the method is a generic method.
    */
   public static boolean isGenericMethod(java.lang.reflect.Method javaMethod) {
-    if (javaMethod.getGenericReturnType() instanceof TypeVariable<?>) {
+    if (isGenericType(javaMethod.getGenericReturnType())) {
       return true;
     }
     
     for (java.lang.reflect.Type parameterType : javaMethod.getGenericParameterTypes()) {
-      if (parameterType instanceof TypeVariable<?>) {
+      if (isGenericType(parameterType)) {
         return true;
       }
     }
@@ -69,12 +70,23 @@ public class GenericMethod extends Method {
     
     java.lang.reflect.Type[] parameterTypes = javaMethod.getGenericParameterTypes();
     for (int i = 0; i < parameterTypes.length; i++) {
-      if (parameterTypes[i] instanceof TypeVariable<?>) {
+      if (isGenericType(parameterTypes[i])) {
         genericTypeIndices.add(i);
       }
     }
     
-    return new GenericMethod(method, javaMethod.getGenericReturnType() instanceof TypeVariable<?>, genericTypeIndices);
+    return new GenericMethod(method, isGenericType(javaMethod.getGenericReturnType()), genericTypeIndices);
+  }
+  
+  /**
+   * Determine if the given Java type is a generic type.
+   *
+   * @param javaType The Java type.
+   * @return <code>true</code> if the Java type is a generic type.
+   */
+  private static boolean isGenericType(java.lang.reflect.Type javaType) {
+    return javaType instanceof TypeVariable<?> || 
+           javaType instanceof GenericArrayType;
   }
 
   /**

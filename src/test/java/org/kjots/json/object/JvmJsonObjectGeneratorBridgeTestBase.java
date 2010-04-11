@@ -16,6 +16,7 @@
 package org.kjots.json.object;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -58,6 +59,22 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
      * @param genericParam The generic parameter.
      */
     public void testGenericParameterJsonFunction(JsonObject jsonObject, String genericParam);
+    
+    /**
+     * The test generic array return value JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @return The generic array return value.
+     */
+    public String[] testGenericArrayReturnValueJsonFunction(JsonObject jsonObject);
+    
+    /**
+     * The test generic array parameter JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param genericArrayParam The generic array parameter.
+     */
+    public void testGenericArrayParameterJsonFunction(JsonObject jsonObject, String[] genericArrayParam);
   }
   
   /**
@@ -77,6 +94,20 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
      * @param genericParam The generic parameter.
      */
     public void testGenericParameterJsonFunction(T genericParam);
+    
+    /**
+     * The test generic array return value JSON function.
+     *
+     * @return The generic array return value.
+     */
+    public T[] testGenericArrayReturnValueJsonFunction();
+    
+    /**
+     * The test generic array parameter JSON function.
+     *
+     * @param genericArrayParam The generic array parameter.
+     */
+    public void testGenericArrayParameterJsonFunction(T[] genericArrayParam);
   }
   
   /**
@@ -130,10 +161,32 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
     @Override
     @JsonFunction(klass = JvmJsonObjectGeneratorBridgeTestBase.class, method = "testGenericParameterJsonFunction")
     public void testGenericParameterJsonFunction(String genericParam);
+    
+    
+    /**
+     * The test generic array return value JSON function.
+     *
+     * @return The generic array return value.
+     */
+    @Override
+    @JsonFunction(klass = JvmJsonObjectGeneratorBridgeTestBase.class, method = "testGenericArrayReturnValueJsonFunction")
+    public String[] testGenericArrayReturnValueJsonFunction();
+    
+    /**
+     * The test generic array parameter JSON function.
+     *
+     * @param genericArrayParam The generic array parameter.
+     */
+    @Override
+    @JsonFunction(klass = JvmJsonObjectGeneratorBridgeTestBase.class, method = "testGenericArrayParameterJsonFunction")
+    public void testGenericArrayParameterJsonFunction(String[] genericArrayParam);
   }
   
   /** The generic return value. */
   private static final String GENERIC_RETURN_VALUE = "Test Generic Return Value";
+  
+  /** The generic array return value. */
+  private static final String[] GENERIC_ARRAY_RETURN_VALUE = new String[] {};
   
   /** The test JSON object functions. */
   private static Functions functions;
@@ -159,6 +212,26 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   }
   
   /**
+   * The test generic array return value JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @return The generic array return value.
+   */
+  public static String[] testGenericArrayReturnValueJsonFunction(JsonObject jsonObject) {
+    return functions.testGenericArrayReturnValueJsonFunction(jsonObject);
+  }
+  
+  /**
+   * The test generic array parameter JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param genericArrayParam The generic array parameter.
+   */
+  public static void testGenericArrayParameterJsonFunction(JsonObject jsonObject, String[] genericArrayParam) {
+    functions.testGenericArrayParameterJsonFunction(jsonObject, genericArrayParam);
+  }
+  
+  /**
    * Setup the test.
    */
   @Before
@@ -166,6 +239,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
     functions = mock(Functions.class);
     
     when(functions.testGenericReturnValueJsonFunction((JsonObject)any())).thenReturn(GENERIC_RETURN_VALUE);
+    when(functions.testGenericArrayReturnValueJsonFunction((JsonObject)any())).thenReturn(GENERIC_ARRAY_RETURN_VALUE);
   }
   
   /**
@@ -236,5 +310,37 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
     ((TestComparableGenericInterface)testJsonObject).testGenericParameterJsonFunction("Test Generic Parameter");
     
     verify(functions).testGenericParameterJsonFunction(testJsonObject, "Test Generic Parameter");
+  }
+  
+  /**
+   * Test the invocation of a generic array return value JSON function.
+   * <p>
+   * This test asserts that the generic array return value JSON function is
+   * invoked correctly.
+   */
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testInvokeGenericArrayReturnValueJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertSame(GENERIC_ARRAY_RETURN_VALUE, ((TestObjectGenericInterface)testJsonObject).testGenericArrayReturnValueJsonFunction());
+  }
+  
+  /**
+   * Test the invocation of a generic array parameter JSON function.
+   * <p>
+   * This test asserts that the test generic array parameter JSON function is
+   * invoked with an {@link Object}[] argument correctly.
+   */
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testInvokeGenericArrayParameterJsonFunctionWithObjectArgument() {
+    String[] genericArrayParam = new String[] {};
+    
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    ((TestObjectGenericInterface)testJsonObject).testGenericArrayParameterJsonFunction(genericArrayParam);
+    
+    verify(functions).testGenericArrayParameterJsonFunction(testJsonObject, genericArrayParam);
   }
 }
