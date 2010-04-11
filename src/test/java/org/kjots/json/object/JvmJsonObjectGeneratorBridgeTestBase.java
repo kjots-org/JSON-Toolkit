@@ -15,8 +15,11 @@
  */
 package org.kjots.json.object;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.Serializable;
 
@@ -41,12 +44,20 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    */
   public interface Functions {
     /**
-     * The test generic JSON function.
+     * The test generic return value JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @return The generic return value.
+     */
+    public String testGenericReturnValueJsonFunction(JsonObject jsonObject);
+    
+    /**
+     * The test generic parameter JSON function.
      *
      * @param jsonObject The JSON object.
      * @param genericParam The generic parameter.
      */
-    public void testGenericJsonFunction(JsonObject jsonObject, String genericParam);
+    public void testGenericParameterJsonFunction(JsonObject jsonObject, String genericParam);
   }
   
   /**
@@ -54,11 +65,18 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    */
   public interface TestObjectGenericInterface<T> {
     /**
-     * The test generic JSON function.
+     * The test generic return value JSON function.
+     *
+     * @return The generic return value.
+     */
+    public T testGenericReturnValueJsonFunction();
+    
+    /**
+     * The test generic parameter JSON function.
      *
      * @param genericParam The generic parameter.
      */
-    public void testGenericJsonFunction(T genericParam);
+    public void testGenericParameterJsonFunction(T genericParam);
   }
   
   /**
@@ -66,11 +84,11 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    */
   public interface TestSerializableGenericInterface<S extends Serializable> {
     /**
-     * The test generic JSON function.
+     * The test generic parameter JSON function.
      *
      * @param genericParam The generic parameter.
      */
-    public void testGenericJsonFunction(S genericParam);
+    public void testGenericParameterJsonFunction(S genericParam);
   }
   
   /**
@@ -78,11 +96,11 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    */
   public interface TestComparableGenericInterface<C extends Comparable<?>> {
     /**
-     * The test generic JSON function.
+     * The test generic parameter JSON function.
      *
      * @param genericParam The generic parameter.
      */
-    public void testGenericJsonFunction(C genericParam);
+    public void testGenericParameterJsonFunction(C genericParam);
   }
   
   /**
@@ -96,26 +114,48 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    */
   public interface TestJsonObject extends JsonObject, TestObjectGenericInterface<String>, TestSerializableComparableGenericInterface<String, String> {
     /**
-     * The test generic JSON function.
+     * The test generic return value JSON function.
+     *
+     * @return The generic return value.
+     */
+    @Override
+    @JsonFunction(klass = JvmJsonObjectGeneratorBridgeTestBase.class, method = "testGenericReturnValueJsonFunction")
+    public String testGenericReturnValueJsonFunction();
+    
+    /**
+     * The test generic parameter JSON function.
      *
      * @param genericParam The generic parameter.
      */
     @Override
-    @JsonFunction(klass = JvmJsonObjectGeneratorBridgeTestBase.class, method = "testGenericJsonFunction")
-    public void testGenericJsonFunction(String genericParam);
+    @JsonFunction(klass = JvmJsonObjectGeneratorBridgeTestBase.class, method = "testGenericParameterJsonFunction")
+    public void testGenericParameterJsonFunction(String genericParam);
   }
+  
+  /** The generic return value. */
+  private static final String GENERIC_RETURN_VALUE = "Test Generic Return Value";
   
   /** The test JSON object functions. */
   private static Functions functions;
   
   /**
-   * The test generic JSON function.
+   * The test generic return value JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @return The generic return value.
+   */
+  public static String testGenericReturnValueJsonFunction(JsonObject jsonObject) {
+    return functions.testGenericReturnValueJsonFunction(jsonObject);
+  }
+  
+  /**
+   * The test generic parameter JSON function.
    *
    * @param jsonObject The JSON object.
    * @param genericParam The generic parameter.
    */
-  public static void testGenericJsonFunction(JsonObject jsonObject, String genericParam) {
-    functions.testGenericJsonFunction(jsonObject, genericParam);
+  public static void testGenericParameterJsonFunction(JsonObject jsonObject, String genericParam) {
+    functions.testGenericParameterJsonFunction(jsonObject, genericParam);
   }
   
   /**
@@ -124,6 +164,8 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   @Before
   public void setup() {
     functions = mock(Functions.class);
+    
+    when(functions.testGenericReturnValueJsonFunction((JsonObject)any())).thenReturn(GENERIC_RETURN_VALUE);
   }
   
   /**
@@ -135,50 +177,64 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
   }
   
   /**
-   * Test the invocation of a generic JSON function.
+   * Test the invocation of a generic return value JSON function.
    * <p>
-   * This test asserts that the test generic JSON function is invoked with an
-   * {@link Object} argument correctly.
+   * This test asserts that the generic return value JSON function is invoked
+   * correctly.
    */
   @Test
   @SuppressWarnings("unchecked")
-  public void testInvokeGenericJsonFunctionWithObjectArgument() {
+  public void testInvokeGenericReturnValueJsonFunction() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
-    ((TestObjectGenericInterface)testJsonObject).testGenericJsonFunction("Test Generic Parameter");
-    
-    verify(functions).testGenericJsonFunction(testJsonObject, "Test Generic Parameter");
+    assertEquals(GENERIC_RETURN_VALUE, ((TestObjectGenericInterface)testJsonObject).testGenericReturnValueJsonFunction());
   }
   
   /**
-   * Test the invocation of a generic JSON function.
+   * Test the invocation of a generic parameter JSON function.
    * <p>
-   * This test asserts that the test generic JSON function is invoked with a
-   * {@link Serializable} argument correctly.
+   * This test asserts that the test generic parameter JSON function is invoked
+   * with an {@link Object} argument correctly.
    */
   @Test
   @SuppressWarnings("unchecked")
-  public void testInvokeGenericJsonFunctionWithSerializableArgument() {
+  public void testInvokeGenericParameterJsonFunctionWithObjectArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
-    ((TestSerializableGenericInterface)testJsonObject).testGenericJsonFunction("Test Generic Parameter");
+    ((TestObjectGenericInterface)testJsonObject).testGenericParameterJsonFunction("Test Generic Parameter");
     
-    verify(functions).testGenericJsonFunction(testJsonObject, "Test Generic Parameter");
+    verify(functions).testGenericParameterJsonFunction(testJsonObject, "Test Generic Parameter");
   }
   
   /**
-   * Test the invocation of a generic JSON function.
+   * Test the invocation of a generic parameter JSON function.
    * <p>
-   * This test asserts that the test generic JSON function is invoked with a
-   * {@link Comparable} argument correctly.
+   * This test asserts that the test generic parameter JSON function is invoked
+   * with an {@link Serializable} argument correctly.
    */
   @Test
   @SuppressWarnings("unchecked")
-  public void testInvokeGenericJsonFunctionWithComparableArgument() {
+  public void testInvokeGenericParameterJsonFunctionWithSerializableArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
-    ((TestComparableGenericInterface)testJsonObject).testGenericJsonFunction("Test Generic Parameter");
+    ((TestSerializableGenericInterface)testJsonObject).testGenericParameterJsonFunction("Test Generic Parameter");
     
-    verify(functions).testGenericJsonFunction(testJsonObject, "Test Generic Parameter");
+    verify(functions).testGenericParameterJsonFunction(testJsonObject, "Test Generic Parameter");
+  }
+  
+  /**
+   * Test the invocation of a generic parameter JSON function.
+   * <p>
+   * This test asserts that the test generic parameter JSON function is invoked
+   * with an {@link Comparable} argument correctly.
+   */
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testInvokeGenericParameterJsonFunctionWithComparableArgument() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    ((TestComparableGenericInterface)testJsonObject).testGenericParameterJsonFunction("Test Generic Parameter");
+    
+    verify(functions).testGenericParameterJsonFunction(testJsonObject, "Test Generic Parameter");
   }
 }
