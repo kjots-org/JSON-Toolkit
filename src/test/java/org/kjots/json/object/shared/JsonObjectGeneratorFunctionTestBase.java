@@ -237,6 +237,13 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      * @param varargsParam The variable arguments parameter.
      */
     public void testVarargsParameterJsonFunction(JsonObject jsonObject, Object... varargsParam);
+    
+    /**
+     * The test JSON function on a test JSON object.
+     * 
+     * @param testJsonObject The test JSON object.
+     */
+    public void testJsonFunctionOnTestJsonObject(TestJsonObject testJsonObject);
   }
   
   /**
@@ -244,13 +251,13 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    */
   public interface TestJsonObject extends JsonObject {
     /**
-     * The test JSON Function.
+     * The test JSON function.
      */
     @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testJsonFunction")
     public void testJsonFunction();
     
     /**
-     * The boolean return value JSON Function.
+     * The boolean return value JSON function.
      * 
      * @return The boolean return value.
      */
@@ -452,8 +459,14 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      */
     @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testVarargsParameterJsonFunction")
     public void testVarargsParameterJsonFunction(Object... varargsParam);
+    
+    /**
+     * The test JSON function on a test JSON object.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testJsonFunctionOnTestJsonObject")
+    public void testJsonFunctionOnTestJsonObject();
   }
-
+  
   /** The boolean return value. */
   public static final boolean BOOLEAN_RETURN_VALUE = true;
 
@@ -745,6 +758,15 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    */
   public static void testVarargsParameterJsonFunction(JsonObject jsonObject, Object... varargsParam) {
     functions.testVarargsParameterJsonFunction(jsonObject, varargsParam);
+  }
+  
+  /**
+   * The test JSON function on a test JSON object.
+   * 
+   * @param testJsonObject The test JSON object.
+   */
+  public static void testJsonFunctionOnTestJsonObject(TestJsonObject testJsonObject) {
+    functions.testJsonFunctionOnTestJsonObject(testJsonObject);
   }
   
   /**
@@ -1137,6 +1159,21 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    
     this.verifyInvokeVarargsParameterJsonFunction(testJsonObject, "one", "two", "three");
   }
+  
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function is invoked correctly on a
+   * test JSON object.
+   */
+  @Test
+  public void testInvokeJsonFunctionOnTestJsonObject() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testJsonFunctionOnTestJsonObject();
+    
+    this.verifyInvokeJsonFunctionOnTestJsonObject(testJsonObject);
+  }
 
   /**
    * Retrieve the test JSON object functions.
@@ -1367,4 +1404,11 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    * @param varargsParam The variable arguments parameter.
    */
   protected abstract void verifyInvokeVarargsParameterJsonFunction(TestJsonObject testJsonObject, Object... varargsParam);
+  
+  /**
+   * Verify the invocation of the test JSON function on a test JSON object.
+   *
+   * @param testJsonObject The test JSON object.
+   */
+  protected abstract void verifyInvokeJsonFunctionOnTestJsonObject(TestJsonObject testJsonObject);
 }

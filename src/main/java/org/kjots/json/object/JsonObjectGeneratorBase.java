@@ -49,6 +49,7 @@ import static org.objectweb.asm.Opcodes.V1_6;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.Set;
@@ -249,7 +250,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     for (java.lang.reflect.Method method : jsonObjectClass.getDeclaredMethods()) {
       if (method.getAnnotation(JsonFunction.class) != null) {
-        this.generateFunctionMethod(classVisitor, jsonObjectImplType, Method.getMethod(method), method.getAnnotation(JsonFunction.class), method.isVarArgs());
+        this.generateFunctionMethod(classVisitor, jsonObjectImplType, jsonObjectClass, Method.getMethod(method), method.getAnnotation(JsonFunction.class), method.isVarArgs());
       }
       else if (method.getAnnotation(JsonProperty.class) != null) {
         this.generatePropertyMethod(classVisitor, jsonObjectImplType, method, Method.getMethod(method), method.getAnnotation(JsonProperty.class));
@@ -339,11 +340,12 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    *
    * @param classVisitor The class visitor.
    * @param jsonObjectImplType The type of the JSON object implementation.
+   * @param jsonObjectClass The class of the JSON object.
    * @param method The method.
    * @param jsonFunctionAnnotation The JSON function annotation.
    * @param varargs The variable arguments flag.
    */
-  private void generateFunctionMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, JsonFunction jsonFunctionAnnotation, boolean varargs) {
+  private void generateFunctionMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Class<? extends JsonObject> jsonObjectClass, Method method, JsonFunction jsonFunctionAnnotation, boolean varargs) {
     Type returnType = method.getReturnType();
     Type[] argumentTypes = method.getArgumentTypes();
     
@@ -365,7 +367,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       
       index += argumentType.getSize();
     }
-    methodVisitor.visitMethodInsn(INVOKESTATIC, Type.getType(jsonFunctionAnnotation.klass()), this.getJsonFunctionMethod(jsonFunctionAnnotation.method(), method));
+    methodVisitor.visitMethodInsn(INVOKESTATIC, Type.getType(jsonFunctionAnnotation.klass()), this.getJsonFunctionMethod(jsonObjectClass, method, jsonFunctionAnnotation));
     methodVisitor.visitInsn(returnType.getOpcode(IRETURN));
     methodVisitor.visitLabel(end);
     
@@ -1336,18 +1338,38 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * Retrieve the JSON function method with the given name for the given JSON
    * object method.
    *
-   * @param name The name of the JSON function method.
+   * @param jsonObjectClass The class of the JSON object.
    * @param jsonObjectMethod The JSON object method.
+   * @param jsonFunctionAnnotation The JSON function annotation.
    * @return The JSON function method.
    */
-  private Method getJsonFunctionMethod(String name, Method jsonObjectMethod) {
-    Type[] argumentTypes = jsonObjectMethod.getArgumentTypes();
-    Type[] jsonFunctionArgumentTypes = new Type[argumentTypes.length + 1];
+  private Method getJsonFunctionMethod(Class<?> jsonObjectClass, Method jsonObjectMethod, JsonFunction jsonFunctionAnnotation) {
+    Set<Method> methods = new HashSet<Method>();
+    for (java.lang.reflect.Method javaMethod : jsonFunctionAnnotation.klass().getDeclaredMethods()) {
+      if (Modifier.isStatic(javaMethod.getModifiers()) && javaMethod.getName().equals(jsonFunctionAnnotation.method())) {
+        methods.add(Method.getMethod(javaMethod));
+      }
+    }
     
-    jsonFunctionArgumentTypes[0] = getJsonObjectType();
-    System.arraycopy(argumentTypes, 0, jsonFunctionArgumentTypes, 1, argumentTypes.length);
+    if (!methods.isEmpty()) {
+      Type[] argumentTypes = jsonObjectMethod.getArgumentTypes();
+      
+      while (jsonObjectClass != null) {
+        Type[] jsonFunctionArgumentTypes = new Type[argumentTypes.length + 1];
+        
+        jsonFunctionArgumentTypes[0] = Type.getType(jsonObjectClass);
+        System.arraycopy(argumentTypes, 0, jsonFunctionArgumentTypes, 1, argumentTypes.length);
+        
+        Method method = new Method(jsonFunctionAnnotation.method(), jsonObjectMethod.getReturnType(), jsonFunctionArgumentTypes);
+        if (methods.contains(method)) {
+          return method;
+        }
+        
+        jsonObjectClass = !jsonObjectClass.equals(JsonObject.class) ? jsonObjectClass.getInterfaces()[0] : null;
+      }
+    }
     
-    return new Method(name, jsonObjectMethod.getReturnType(), jsonFunctionArgumentTypes);
+    throw new IllegalArgumentException(jsonFunctionAnnotation.klass().getName() + " does not contain a suitable method named " + jsonFunctionAnnotation.method());
   }
   
   /**

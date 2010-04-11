@@ -17,6 +17,7 @@ package org.kjots.json.object.gwt.client;
 
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectGeneratorFunctionTestBase;
+import org.kjots.json.object.shared.JsonObjectGeneratorFunctionTestBase.TestJsonObject;
 
 /**
  * GWT JSON Object Generator Function Test.
@@ -392,6 +393,17 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
       this.jsonObject = jsonObject;
       this.arguments = varargsParam;
     }
+    
+    /**
+     * The test JSON function on a test JSON object.
+     * 
+     * @param testJsonObject The test JSON object.
+     */
+    @Override
+    public void testJsonFunctionOnTestJsonObject(TestJsonObject testJsonObject) {
+      this.methodName = "testJsonFunctionOnTestJsonObject";
+      this.jsonObject = testJsonObject;
+    }
   }
   
   /** The JSON object generator function test delegate. */
@@ -574,6 +586,12 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
         assertEquals(varargsParam[i], functions().arguments[i]);
       }
     }
+
+    @Override
+    protected void verifyInvokeJsonFunctionOnTestJsonObject(TestJsonObject testJsonObject) {
+      assertEquals("testJsonFunctionOnTestJsonObject", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+    }
   };
   
   /**
@@ -749,6 +767,13 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
    */
   public void testInvokeVarargsParameterJsonFunction() {
     this.jsonObjectGeneratorFunctionTestDelegate.testInvokeVarargsParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeJsonFunctionOnTestJsonObject()
+   */
+  public void testInvokeJsonFunctionOnTestJsonObject() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeJsonFunctionOnTestJsonObject();
   }
 
   /**

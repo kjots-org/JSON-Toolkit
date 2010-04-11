@@ -359,4 +359,14 @@ public abstract class JvmJsonObjectGeneratorFunctionTestBase extends JsonObjectG
   protected void verifyInvokeVarargsParameterJsonFunction(TestJsonObject testJsonObject, Object... varargsParam) {
     verify(functions()).testVarargsParameterJsonFunction(testJsonObject, varargsParam);
   }
+  
+  /**
+   * Verify the invocation of the test JSON function on a test JSON object.
+   *
+   * @param testJsonObject The test JSON object.
+   */
+  @Override
+  protected void verifyInvokeJsonFunctionOnTestJsonObject(TestJsonObject testJsonObject) {
+    verify(functions()).testJsonFunctionOnTestJsonObject(testJsonObject);
+  }
 }
