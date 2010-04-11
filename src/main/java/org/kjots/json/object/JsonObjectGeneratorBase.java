@@ -20,6 +20,7 @@ import static org.objectweb.asm.Opcodes.ACC_FINAL;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_SUPER;
 import static org.objectweb.asm.Opcodes.ACC_SYNTHETIC;
+import static org.objectweb.asm.Opcodes.ACC_VARARGS;
 import static org.objectweb.asm.Opcodes.ALOAD;
 import static org.objectweb.asm.Opcodes.ARETURN;
 import static org.objectweb.asm.Opcodes.ASTORE;
@@ -248,7 +249,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     for (java.lang.reflect.Method method : jsonObjectClass.getDeclaredMethods()) {
       if (method.getAnnotation(JsonFunction.class) != null) {
-        this.generateFunctionMethod(classVisitor, jsonObjectImplType, Method.getMethod(method), method.getAnnotation(JsonFunction.class));
+        this.generateFunctionMethod(classVisitor, jsonObjectImplType, Method.getMethod(method), method.getAnnotation(JsonFunction.class), method.isVarArgs());
       }
       else if (method.getAnnotation(JsonProperty.class) != null) {
         this.generatePropertyMethod(classVisitor, jsonObjectImplType, method, Method.getMethod(method), method.getAnnotation(JsonProperty.class));
@@ -323,14 +324,16 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param classVisitor The class visitor.
    * @param jsonObjectImplType The type of the JSON object implementation.
    * @param method The method.
+   * @param jsonFunctionAnnotation The JSON function annotation.
+   * @param varargs The variable arguments flag.
    */
-  private void generateFunctionMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, JsonFunction jsonFunctionAnnotation) {
+  private void generateFunctionMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Method method, JsonFunction jsonFunctionAnnotation, boolean varargs) {
     Type returnType = method.getReturnType();
     Type[] argumentTypes = method.getArgumentTypes();
     
     int maxLocals = 1;
     
-    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL + (varargs ? ACC_VARARGS : 0), method, null, null);
     
     Label start = new Label();
     Label end = new Label();

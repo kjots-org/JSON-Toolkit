@@ -299,4 +299,16 @@ public abstract class JvmJsonObjectGeneratorFunctionTestBase extends JsonObjectG
   protected void verifyInvokeMultiParameterJsonFunction(TestJsonObject testJsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam) {
     verify(functions()).testMultiParameterJsonFunction(testJsonObject, booleanParam, byteParam, shortParam, integerParam, longParam, floatParam, doubleParam, characterParam, objectParam);
   }
+  
+  /**
+   * Verify the invocation of the variable-arguments no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param varargsParam The variable arguments parameter.
+   */
+  @Override
+  protected void verifyInvokeVarargsParameterJsonFunction(TestJsonObject testJsonObject, Object... varargsParam) {
+    verify(functions()).testVarargsParameterJsonFunction(testJsonObject, varargsParam);
+  }
 }

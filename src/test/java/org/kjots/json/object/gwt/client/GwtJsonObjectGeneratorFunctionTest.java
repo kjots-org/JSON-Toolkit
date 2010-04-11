@@ -323,6 +323,19 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
         objectParam
       };
     }
+    
+    /**
+     * The variable arguments JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param varargsParam The variable arguments parameter.
+     */
+    @Override
+    public void testVarargsParameterJsonFunction(JsonObject jsonObject, Object... varargsParam) {
+      this.methodName = "testVarargsParameterJsonFunction";
+      this.jsonObject = jsonObject;
+      this.arguments = varargsParam;
+    }
   }
   
   /** The JSON object generator function test delegate. */
@@ -469,6 +482,16 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
       assertEquals(Character.valueOf(characterParam), functions().arguments[7]);
       assertEquals(objectParam, functions().arguments[8]);
     }
+    
+    @Override
+    protected void verifyInvokeVarargsParameterJsonFunction(TestJsonObject testJsonObject, Object... varargsParam) {
+      assertEquals("testVarargsParameterJsonFunction", functions().methodName);
+      assertEquals(testJsonObject, functions().jsonObject);
+      assertEquals(varargsParam.length, functions().arguments.length);
+      for (int i = 0; i < varargsParam.length; i++) {
+        assertEquals(varargsParam[i], functions().arguments[i]);
+      }
+    }
   };
   
   /**
@@ -609,6 +632,13 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
    */
   public void testInvokeMultiParameterJsonFunction() {
     this.jsonObjectGeneratorFunctionTestDelegate.testInvokeMultiParameterJsonFunction();
+  }
+
+  /**
+   * @see JsonObjectGeneratorFunctionTestBase#testInvokeVarargsParameterJsonFunction()
+   */
+  public void testInvokeVarargsParameterJsonFunction() {
+    this.jsonObjectGeneratorFunctionTestDelegate.testInvokeVarargsParameterJsonFunction();
   }
 
   /**

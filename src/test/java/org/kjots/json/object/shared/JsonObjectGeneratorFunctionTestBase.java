@@ -197,6 +197,14 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      * @param objectParam The object parameter.
      */
     public void testMultiParameterJsonFunction(JsonObject jsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam);
+    
+    /**
+     * The variable arguments JSON function.
+     *
+     * @param jsonObject The JSON object.
+     * @param varargsParam The variable arguments parameter.
+     */
+    public void testVarargsParameterJsonFunction(JsonObject jsonObject, Object... varargsParam);
   }
   
   /**
@@ -369,6 +377,14 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
      */
     @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testMultiParameterJsonFunction")
     public void testMultiParameterJsonFunction(boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam);
+    
+    /**
+     * The variable arguments JSON function.
+     *
+     * @param varargsParam The variable arguments parameter.
+     */
+    @JsonFunction(klass = JsonObjectGeneratorFunctionTestBase.class, method = "testVarargsParameterJsonFunction")
+    public void testVarargsParameterJsonFunction(Object... varargsParam);
   }
 
   /** The boolean return value. */
@@ -589,7 +605,17 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
   public static void testObjectParameterJsonFunction(JsonObject jsonObject, Object param) {
     functions.testObjectParameterJsonFunction(jsonObject, param);
   }
-
+  
+  /**
+   * The variable arguments JSON function.
+   *
+   * @param jsonObject The JSON object.
+   * @param varargsParam The variable arguments parameter.
+   */
+  public static void testVarargsParameterJsonFunction(JsonObject jsonObject, Object... varargsParam) {
+    functions.testVarargsParameterJsonFunction(jsonObject, varargsParam);
+  }
+  
   /**
    * The multiple parameter JSON function.
    *
@@ -923,6 +949,20 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
     
     this.verifyInvokeMultiParameterJsonFunction(testJsonObject, true, (byte)42, (short)42, 42, 42L, 3.14f, 3.14, 'X', "Test Object Parameter");
   }
+  
+  /**
+   * Test the invocation of a JSON function.
+   * <p>
+   * This test asserts that the test JSON function with variable arguments and
+   * no return value is invoked correctly.
+   */
+  public void testInvokeVarargsParameterJsonFunction() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    testJsonObject.testVarargsParameterJsonFunction("one", "two", "three");
+   
+    this.verifyInvokeVarargsParameterJsonFunction(testJsonObject, "one", "two", "three");
+  }
 
   /**
    * Retrieve the test JSON object functions.
@@ -1110,4 +1150,13 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    * @param objectParam The object parameter.
    */
   protected abstract void verifyInvokeMultiParameterJsonFunction(TestJsonObject testJsonObject, boolean booleanParam, byte byteParam, short shortParam, int integerParam, long longParam, float floatParam, double doubleParam, char characterParam, Object objectParam);
+  
+  /**
+   * Verify the invocation of the variable-arguments no-return-value test JSON
+   * function.
+   *
+   * @param testJsonObject The test JSON object.
+   * @param varargsParam The variable arguments parameter.
+   */
+  protected abstract void verifyInvokeVarargsParameterJsonFunction(TestJsonObject testJsonObject, Object... varargsParam);
 }
