@@ -16,9 +16,9 @@
 package org.kjots.json.object.shared;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 
 import org.junit.Test;
-
 import org.kjots.json.object.shared.JsonProperty.OperationType;
 
 /**
@@ -426,6 +426,19 @@ public abstract class JsonObjectGeneratorObjectTestBase {
   }
   
   /**
+   * Test the retrieval of the object array value of a property.
+   * <p>
+   * This test asserts that the retrieved object array value of a non-existent
+   * property is <code>null</code>.
+   */
+  @Test
+  public void testGetNullObjectArrayProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertNull(testJsonObject.getTestObjectArrayProperty());
+  }
+
+  /**
    * Test the setting of the object array value of a property.
    * <p>
    * This test asserts that the setting of the object array value of a property
@@ -480,6 +493,19 @@ public abstract class JsonObjectGeneratorObjectTestBase {
   }
   
   /**
+   * Test the retrieval of the object map value of a property.
+   * <p>
+   * This test asserts that the retrieved object map value of a non-existent
+   * property is <code>null</code>
+   */
+  @Test
+  public void testGetNullObjectMapProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertNull(testJsonObject.getTestObjectMapProperty());
+  }
+  
+  /**
    * Test the setting of the object map value of a property.
    * <p>
    * This test asserts that the setting of the object map value of a property
@@ -515,7 +541,7 @@ public abstract class JsonObjectGeneratorObjectTestBase {
     assertEquals(testPropertyObjectMapProperty, testJsonObject.getTestPropertyObjectMapProperty());
     assertEquals(testPropertyObjectMapProperty.get("key").getClass(), testJsonObject.getTestPropertyObjectMapProperty().get("key").getClass());
   }
-
+  
   /**
    * Create a JSON object array with the given element class.
    *

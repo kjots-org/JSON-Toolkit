@@ -21,6 +21,7 @@ import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_SUPER;
 import static org.objectweb.asm.Opcodes.ACC_SYNTHETIC;
 import static org.objectweb.asm.Opcodes.ACC_VARARGS;
+import static org.objectweb.asm.Opcodes.ACONST_NULL;
 import static org.objectweb.asm.Opcodes.ALOAD;
 import static org.objectweb.asm.Opcodes.ARETURN;
 import static org.objectweb.asm.Opcodes.ASTORE;
@@ -992,6 +993,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL, method, null, null);
     
     Label start = new Label();
+    Label l0 = new Label();
+    Label l1 = new Label();
     Label end = new Label();
     
     methodVisitor.visitCode();
@@ -1002,13 +1005,24 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLdcInsn(jsonObjectType);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, jsonObjectImplType, this.getGetJsonObjectPropertyMethod());
     methodVisitor.visitTypeInsn(CHECKCAST, jsonObjectType);
+    methodVisitor.visitVarInsn(ASTORE, 1);
+    methodVisitor.visitVarInsn(ALOAD, 1);
+    methodVisitor.visitJumpInsn(IFNULL, l0);
+    methodVisitor.visitVarInsn(ALOAD, 1);
     methodVisitor.visitLdcInsn(elementType);
     methodVisitor.visitMethodInsn(INVOKEINTERFACE, jsonObjectType, this.getCastCompositeJsonObjectElementMethod(jsonObjectType));
+    methodVisitor.visitJumpInsn(GOTO, l1);
+    methodVisitor.visitLabel(l0);
+    methodVisitor.visitFrame(Opcodes.F_APPEND, 1, new Object[] { jsonObjectType }, 0, null);
+    methodVisitor.visitInsn(ACONST_NULL);
+    methodVisitor.visitLabel(l1);
+    methodVisitor.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { jsonObjectType });
     methodVisitor.visitInsn(ARETURN);
     methodVisitor.visitLabel(end);
     
     methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
-    methodVisitor.visitMaxs(3, 1);
+    methodVisitor.visitLocalVariable("_" + propertyName, jsonObjectType, null, start, end, 1);
+    methodVisitor.visitMaxs(3, 2);
     
     methodVisitor.visitEnd();
   }

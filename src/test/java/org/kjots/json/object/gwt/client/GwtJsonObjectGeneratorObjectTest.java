@@ -79,6 +79,13 @@ public class GwtJsonObjectGeneratorObjectTest extends GwtJsonObjectTestBase {
   }
 
   /**
+   * @see JsonObjectGeneratorObjectTestBase#testGetNullObjectArrayProperty()
+   */
+  public void testGetNullObjectArrayProperty() {
+    this.jsonObjectGeneratorObjectTestDelegate.testGetNullObjectArrayProperty();
+  }
+
+  /**
    * @see JsonObjectGeneratorObjectTestBase#testSetObjectArrayProperty()
    */
   public void testSetObjectArrayProperty() {
@@ -97,6 +104,13 @@ public class GwtJsonObjectGeneratorObjectTest extends GwtJsonObjectTestBase {
    */
   public void testGetObjectMapProperty() {
     this.jsonObjectGeneratorObjectTestDelegate.testGetObjectMapProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorObjectTestBase#testGetNullObjectMapProperty()
+   */
+  public void testGetNullObjectMapProperty() {
+    this.jsonObjectGeneratorObjectTestDelegate.testGetNullObjectMapProperty();
   }
 
   /**

@@ -680,7 +680,9 @@ public class GwtJsonObjectGenerator extends Generator {
     sourceWriter.println("@Override");
     sourceWriter.println("public final " + propertyTypeName + " " + methodName + "() {");
     sourceWriter.indent();
-    sourceWriter.println("return this.getObjectProperty(\"" + propertyName + "\", " + propertyTypeName + ".class).castElement(" + elementTypeName + ".class);");
+    sourceWriter.println(propertyTypeName + " _" + propertyName + " = this.getObjectProperty(\"" + propertyName + "\", " + propertyTypeName + ".class);");
+    sourceWriter.println();
+    sourceWriter.println("return _" + propertyName + " != null ? _" + propertyName + ".castElement(" + elementTypeName + ".class) : null;");
     sourceWriter.outdent();
     sourceWriter.println("}");
   }
