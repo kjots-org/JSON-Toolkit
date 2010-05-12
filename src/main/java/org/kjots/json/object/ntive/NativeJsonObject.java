@@ -208,8 +208,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isBooleanProperty(String propertyName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof Boolean;
   }
 
   /**
@@ -221,8 +220,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public Boolean getBooleanProperty(String propertyName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return (Boolean)this.getNativeJsonPropertyInfo(propertyName).getValue();
   }
   
   /**
@@ -234,8 +232,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public void setBooleanProperty(String propertyName, Boolean propertyValue) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    this.getNativeJsonPropertyInfo(propertyName).setValue(propertyValue);
   }
   
   /**
