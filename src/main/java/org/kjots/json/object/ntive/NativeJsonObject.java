@@ -244,8 +244,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isNumberProperty(String propertyName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof Number;
   }
 
   /**
@@ -257,8 +256,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public Number getNumberProperty(String propertyName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return (Number)this.getNativeJsonPropertyInfo(propertyName).getValue();
   }
   
   /**
@@ -270,8 +268,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public void setNumberProperty(String propertyName, Number propertyValue) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    this.getNativeJsonPropertyInfo(propertyName).setValue(propertyValue);
   }
   
   /**

@@ -55,7 +55,7 @@ public class NativeJsonObjectBooleanTest {
     
     assertFalse("testNativeJsonObject.isBooleanProperty(\"testBooleanProperty\") != false", testNativeJsonObject.isBooleanProperty("testBooleanProperty"));
     
-    testNativeJsonObject.testBooleanProperty = true;
+    testNativeJsonObject.testBooleanProperty = Boolean.TRUE;
     
     assertTrue("testNativeJsonObject.isBooleanProperty(\"testBooleanProperty\") != true", testNativeJsonObject.isBooleanProperty("testBooleanProperty"));
   }
@@ -70,7 +70,7 @@ public class NativeJsonObjectBooleanTest {
   public void testGetBooleanProperty() {
     TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    testNativeJsonObject.testBooleanProperty = true;
+    testNativeJsonObject.testBooleanProperty = Boolean.TRUE;
     testNativeJsonObject.setHasProperty("testBooleanProperty");
     
     assertEquals(true, testNativeJsonObject.getBooleanProperty("testBooleanProperty").booleanValue());
@@ -86,7 +86,7 @@ public class NativeJsonObjectBooleanTest {
   public void testSetBooleanProperty() {
     TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    testNativeJsonObject.setBooleanProperty("testBooleanProperty", true);
+    testNativeJsonObject.setBooleanProperty("testBooleanProperty", Boolean.TRUE);
     
     assertEquals(true, testNativeJsonObject.testBooleanProperty.booleanValue());
     assertTrue("testNativeJsonObject.hasProperty(\"testBooleanProperty\") != true", testNativeJsonObject.hasProperty("testBooleanProperty"));
