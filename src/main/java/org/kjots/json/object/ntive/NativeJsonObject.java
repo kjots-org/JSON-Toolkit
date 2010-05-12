@@ -207,7 +207,9 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isBooleanProperty(String propertyName) {
-    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof Boolean;
+    NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
+    
+    return nativeJsonPropertyInfo.getHasValue() && nativeJsonPropertyInfo.getValue() instanceof Boolean;
   }
 
   /**
@@ -243,7 +245,9 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isNumberProperty(String propertyName) {
-    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof Number;
+    NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
+    
+    return nativeJsonPropertyInfo.getHasValue() && nativeJsonPropertyInfo.getValue() instanceof Number;
   }
 
   /**
