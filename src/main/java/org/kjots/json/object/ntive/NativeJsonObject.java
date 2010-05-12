@@ -286,8 +286,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isStringProperty(String propertyName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof String;
   }
   
   /**

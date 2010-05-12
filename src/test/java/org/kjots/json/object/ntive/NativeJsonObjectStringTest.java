@@ -15,7 +15,9 @@
  */
 package org.kjots.json.object.ntive;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -37,6 +39,28 @@ public class NativeJsonObjectStringTest {
   }
   
   /**
+   * Test the determination of a string value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly reports that a
+   * property exists and has a string value.
+   */
+  @Test
+  public void testIsStringProperty() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    assertFalse("testNativeJsonObject.isStringProperty(\"testStringProperty\") != false", testNativeJsonObject.isStringProperty("testStringProperty"));
+    
+    testNativeJsonObject.testStringProperty = null;
+    testNativeJsonObject.setHasProperty("testStringProperty");
+    
+    assertFalse("testNativeJsonObject.isStringProperty(\"testStringProperty\") != false", testNativeJsonObject.isStringProperty("testStringProperty"));
+    
+    testNativeJsonObject.testStringProperty = "Test String Property Value";
+    
+    assertTrue("testNativeJsonObject.isStringProperty(\"testStringProperty\") != true", testNativeJsonObject.isStringProperty("testStringProperty"));
+  }
+  
+  /**
    * Test the retrieval of the string value of a property.
    * <p>
    * This test asserts that the native JSON object correctly retrieves the
@@ -47,6 +71,7 @@ public class NativeJsonObjectStringTest {
     TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
     testNativeJsonObject.testStringProperty = "Test String Property Value";
+    testNativeJsonObject.setHasProperty("testStringProperty");
     
     assertEquals("Test String Property Value", testNativeJsonObject.getStringProperty("testStringProperty"));
   }
@@ -64,5 +89,6 @@ public class NativeJsonObjectStringTest {
     testNativeJsonObject.setStringProperty("testStringProperty", "Test String Property Value");
     
     assertEquals("Test String Property Value", testNativeJsonObject.testStringProperty);
+    assertTrue("testNativeJsonObject.hasProperty(\"testStringProperty\") != true", testNativeJsonObject.hasProperty("testStringProperty"));
   }
 }
