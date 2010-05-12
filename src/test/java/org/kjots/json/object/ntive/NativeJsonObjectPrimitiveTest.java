@@ -48,6 +48,10 @@ public class NativeJsonObjectPrimitiveTest {
     /** The test double primitive property.*/
     @NativeJsonProperty
     private double testDoublePrimitiveProperty;
+    
+    /** The test character primitive property.*/
+    @NativeJsonProperty
+    private char testCharacterPrimitiveProperty;
   }
   
   /**
@@ -482,5 +486,67 @@ public class NativeJsonObjectPrimitiveTest {
     TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
     assertEquals(0, testNativeJsonObject.getNumberProperty("testDoublePrimitiveProperty").doubleValue(), 0.0);
+  }
+  
+  /**
+   * Test the determination of a character value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly reports that a
+   * property exists and has a character primitive value.
+   */
+  @Test
+  public void testIsCharacterPrimitiveProperty() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    assertFalse("testNativeJsonObject.isStringProperty(\"testCharacterPrimitiveProperty\") != false", testNativeJsonObject.isStringProperty("testCharacterPrimitiveProperty"));
+    
+    testNativeJsonObject.setHasProperty("testCharacterPrimitiveProperty");
+    
+    assertTrue("testNativeJsonObject.isStringProperty(\"testCharacterPrimitiveProperty\") != true", testNativeJsonObject.isStringProperty("testCharacterPrimitiveProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the primitive character value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly retrieves the
+   * value of a character primitive property.
+   */
+  @Test
+  public void testGetCharacterPrimitiveProperty() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    testNativeJsonObject.testCharacterPrimitiveProperty = 'X';
+    testNativeJsonObject.setHasProperty("testCharacterPrimitiveProperty");
+    
+    assertEquals('X', testNativeJsonObject.getStringProperty("testCharacterPrimitiveProperty").charAt(0));
+  }
+  
+  /**
+   * Test the setting of the primitive character value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly sets the value of
+   * a character primitive property.
+   */
+  @Test
+  public void testSetCharacterPrimitiveProperty() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    testNativeJsonObject.setStringProperty("testCharacterPrimitiveProperty", "X");
+    
+    assertEquals('X', testNativeJsonObject.testCharacterPrimitiveProperty);
+    assertTrue("testNativeJsonObject.hasProperty(\"testCharacterPrimitiveProperty\") != true", testNativeJsonObject.hasProperty("testCharacterPrimitiveProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the default primitive character value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly retrieves the
+   * default value of a character primitive property.
+   */
+  @Test
+  public void testGetDefaultCharacterPrimitiveProperty() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    assertEquals('\0', testNativeJsonObject.getStringProperty("testCharacterPrimitiveProperty").charAt(0));
   }
 }

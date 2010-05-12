@@ -51,6 +51,15 @@ public abstract class NativeJsonObject implements JsonObject {
     }
     
     /**
+     * Retrieve the field.
+     *
+     * @return The field.
+     */
+    public Field getField() {
+      return this.field;
+    }
+
+    /**
      * Retrieve the has value flag.
      *
      * @return The has value flag.
@@ -283,7 +292,15 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isStringProperty(String propertyName) {
-    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof String;
+    NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
+    
+    Class<?> fieldType = nativeJsonPropertyInfo.getField().getType();
+    if (fieldType.equals(char.class) || fieldType.equals(Character.class)) {
+      return nativeJsonPropertyInfo.getHasValue() && nativeJsonPropertyInfo.getValue() instanceof Character;
+    }
+    else {
+      return nativeJsonPropertyInfo.getValue() instanceof String;
+    }
   }
   
   /**
@@ -295,7 +312,17 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public String getStringProperty(String propertyName) {
-    return (String)this.getNativeJsonPropertyInfo(propertyName).getValue();
+    NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
+    
+    Class<?> fieldType = nativeJsonPropertyInfo.getField().getType();
+    if (fieldType.equals(char.class) || fieldType.equals(Character.class)) {
+      Character propertyValue = (Character)nativeJsonPropertyInfo.getValue();
+      
+      return propertyValue != null ? propertyValue.toString() : null;
+    }
+    else {
+      return (String)nativeJsonPropertyInfo.getValue();
+    }
   }
   
   /**
@@ -307,7 +334,15 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public void setStringProperty(String propertyName, String propertyValue) {
-    this.getNativeJsonPropertyInfo(propertyName).setValue(propertyValue);
+    NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
+    
+    Class<?> fieldType = nativeJsonPropertyInfo.getField().getType();
+    if (fieldType.equals(char.class) || fieldType.equals(Character.class)) {
+      nativeJsonPropertyInfo.setValue(Character.valueOf(propertyValue.charAt(0)));
+    }
+    else {
+      nativeJsonPropertyInfo.setValue(propertyValue);
+    }
   }
   
   /**
