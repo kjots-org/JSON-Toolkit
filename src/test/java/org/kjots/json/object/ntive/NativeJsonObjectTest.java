@@ -17,7 +17,12 @@ package org.kjots.json.object.ntive;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 
 import org.junit.Test;
 import org.kjots.json.object.shared.JsonObject;
@@ -41,10 +46,27 @@ public class NativeJsonObjectTest {
   }
   
   /**
+   * Test the retrieval of the names of the properties.
+   * <p>
+   * This test asserts that the native JSON object correctly returns the names
+   * of the existing properties.
+   */
+  @Test
+  public void testGetPropertyNames() {
+    JsonObject testJsonObject = new TestNativeJsonObject();
+    
+    assertEquals(Collections.emptySet(), testJsonObject.getPropertyNames());
+    
+    testJsonObject.setStringProperty("testProperty", "Test String Property Value");
+    
+    assertEquals(new HashSet<String>(Arrays.asList("testProperty")), testJsonObject.getPropertyNames());
+  }
+  
+  /**
    * Test the determination of the existence of a property.
    * <p>
-   * This test asserts that the JSON object correctly reports the existence or
-   * non-existence of a property.
+   * This test asserts that the native JSON object correctly reports the
+   * existence or non-existence of a property.
    */
   @Test
   public void testHasProperty() {
@@ -64,8 +86,8 @@ public class NativeJsonObjectTest {
   /**
    * Test the determination of the <code>null</code> value of a property.
    * <p>
-   * This test asserts that the JSON object correctly reports that a property
-   * exists but has a <code>null</code> value.
+   * This test asserts that the native JSON object correctly reports that a
+   * property exists but has a <code>null</code> value.
    */
   @Test
   public void testIsPropertyNull() {
@@ -85,8 +107,8 @@ public class NativeJsonObjectTest {
   /**
    * Test the deletion of a property.
    * <p>
-   * This test asserts that a property is correctly deleted from the JSON
-   * object.
+   * This test asserts that a property is correctly deleted from the native
+   * JSON object.
    */
   @Test
   public void testDeleteProperty() {
