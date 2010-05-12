@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Test;
-import org.kjots.json.object.shared.JsonObject;
 
 /**
  * Native JSON Property Test.
@@ -41,7 +40,6 @@ public class NativeJsonObjectTest {
   public class TestNativeJsonObject extends NativeJsonObject {
     /** The test property.*/
     @NativeJsonProperty
-    @SuppressWarnings("unused")
     private String testProperty;
   }
   
@@ -53,13 +51,13 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testGetPropertyNames() {
-    JsonObject testJsonObject = new TestNativeJsonObject();
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    assertEquals(Collections.emptySet(), testJsonObject.getPropertyNames());
+    assertEquals(Collections.emptySet(), testNativeJsonObject.getPropertyNames());
     
-    testJsonObject.setStringProperty("testProperty", "Test String Property Value");
+    testNativeJsonObject.setStringProperty("testProperty", "Test String Property Value");
     
-    assertEquals(new HashSet<String>(Arrays.asList("testProperty")), testJsonObject.getPropertyNames());
+    assertEquals(new HashSet<String>(Arrays.asList("testProperty")), testNativeJsonObject.getPropertyNames());
   }
   
   /**
@@ -70,17 +68,17 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testHasProperty() {
-    JsonObject testJsonObject = new TestNativeJsonObject();
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    assertFalse("testJsonObject.hasProperty(\"testProperty\") != false", testJsonObject.hasProperty("testProperty"));
+    assertFalse("testNativeJsonObject.hasProperty(\"testProperty\") != false", testNativeJsonObject.hasProperty("testProperty"));
     
-    testJsonObject.setStringProperty("testProperty", null);
+    testNativeJsonObject.setStringProperty("testProperty", null);
     
-    assertTrue("testJsonObject.hasProperty(\"testProperty\") != true", testJsonObject.hasProperty("testProperty"));
+    assertTrue("testNativeJsonObject.hasProperty(\"testProperty\") != true", testNativeJsonObject.hasProperty("testProperty"));
     
-    testJsonObject.setStringProperty("testProperty", "Test String Property Value");
+    testNativeJsonObject.setStringProperty("testProperty", "Test String Property Value");
     
-    assertTrue("testJsonObject.hasProperty(\"testProperty\") != true", testJsonObject.hasProperty("testProperty"));
+    assertTrue("testNativeJsonObject.hasProperty(\"testProperty\") != true", testNativeJsonObject.hasProperty("testProperty"));
   }
   
   /**
@@ -91,17 +89,17 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testIsPropertyNull() {
-    JsonObject testJsonObject = new TestNativeJsonObject();
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    assertFalse("testJsonObject.isNullProperty(\"testProperty\") != false", testJsonObject.isNullProperty("testProperty"));
+    assertFalse("testNativeJsonObject.isNullProperty(\"testProperty\") != false", testNativeJsonObject.isNullProperty("testProperty"));
     
-    testJsonObject.setStringProperty("testProperty", null);
+    testNativeJsonObject.setStringProperty("testProperty", null);
     
-    assertTrue("testJsonObject.isNullProperty(\"testProperty\") != true", testJsonObject.isNullProperty("testProperty"));
+    assertTrue("testNativeJsonObject.isNullProperty(\"testProperty\") != true", testNativeJsonObject.isNullProperty("testProperty"));
     
-    testJsonObject.setStringProperty("testProperty", "Test String Property Value");
+    testNativeJsonObject.setStringProperty("testProperty", "Test String Property Value");
     
-    assertFalse("testJsonObject.isNullProperty(\"testProperty\") != false", testJsonObject.isNullProperty("testProperty"));
+    assertFalse("testNativeJsonObject.isNullProperty(\"testProperty\") != false", testNativeJsonObject.isNullProperty("testProperty"));
   }
   
   /**
@@ -112,16 +110,16 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testDeleteProperty() {
-    JsonObject testJsonObject = new TestNativeJsonObject();
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    testJsonObject.setStringProperty("testProperty", "Test String Property Value");
+    testNativeJsonObject.setStringProperty("testProperty", "Test String Property Value");
     
-    assertTrue("testJsonObject.deleteProperty(\"testProperty\") != true", testJsonObject.deleteProperty("testProperty"));
-    assertFalse("testJsonObject.hasProperty(\"testProperty\") != false", testJsonObject.hasProperty("testProperty"));
-    assertNull("testJsonObject.getStringProperty(\"testProperty\") != null", testJsonObject.getStringProperty("testProperty"));
+    assertTrue("testNativeJsonObject.deleteProperty(\"testProperty\") != true", testNativeJsonObject.deleteProperty("testProperty"));
+    assertFalse("testNativeJsonObject.hasProperty(\"testProperty\") != false", testNativeJsonObject.hasProperty("testProperty"));
+    assertNull("testNativeJsonObject.testProperty != null", testNativeJsonObject.testProperty);
     
-    assertFalse("testJsonObject.deleteProperty(\"testProperty\") != false", testJsonObject.deleteProperty("testProperty"));
-    assertFalse("testJsonObject.hasProperty(\"testProperty\") != false", testJsonObject.hasProperty("testProperty"));
-    assertNull("testJsonObject.getStringProperty(\"testProperty\") != null", testJsonObject.getStringProperty("testProperty"));
+    assertFalse("testNativeJsonObject.deleteProperty(\"testProperty\") != false", testNativeJsonObject.deleteProperty("testProperty"));
+    assertFalse("testNativeJsonObject.hasProperty(\"testProperty\") != false", testNativeJsonObject.hasProperty("testProperty"));
+    assertNull("testNativeJsonObject.testProperty != null", testNativeJsonObject.testProperty);
   }
 }
