@@ -22,6 +22,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonProperty;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
+import org.kjots.json.object.shared.JsonStringPropertyAdapter;
 
 /**
  * Native JSON Object.
@@ -38,6 +41,9 @@ public abstract class NativeJsonObject implements JsonObject {
     /** The field. */
     private final Field field;
     
+    /** The adapter. */
+    private final JsonPropertyAdapter<Object, Object> adapter;
+    
     /** The has value flag. */
     private boolean hasValue;
     
@@ -46,8 +52,9 @@ public abstract class NativeJsonObject implements JsonObject {
      *
      * @param field The field.
      */
-    public NativeJsonPropertyInfo(Field field) {
+    public NativeJsonPropertyInfo(Field field, NativeJsonProperty nativeJsonPropertyAnnotation) {
       this.field = field;
+      this.adapter = this.newJsonPropertyAdapter(nativeJsonPropertyAnnotation.adapter());
     }
     
     /**
@@ -57,6 +64,15 @@ public abstract class NativeJsonObject implements JsonObject {
      */
     public Field getField() {
       return this.field;
+    }
+
+    /**
+     * Retrieve the adapter.
+     *
+     * @return The adapter.
+     */
+    public JsonPropertyAdapter<Object, Object> getAdapter() {
+      return this.adapter;
     }
 
     /**
@@ -86,16 +102,9 @@ public abstract class NativeJsonObject implements JsonObject {
      * @see #setValue(Object)
      */
     public Object getValue() {
-      this.field.setAccessible(true);
-      try {
-        return this.field.get(NativeJsonObject.this);
-      }
-      catch (IllegalAccessException iae) {
-        throw new IllegalStateException(iae);
-      }
-      finally {
-        this.field.setAccessible(false);
-      }
+      Object value = this.getRawValue();
+      
+      return this.adapter != null ? this.adapter.toJsonProperty(value) : value;
     }
     
     /**
@@ -105,9 +114,11 @@ public abstract class NativeJsonObject implements JsonObject {
      * @see #getValue()
      */
     public void setValue(Object propertyValue) {
+      Object value = this.adapter != null ? this.adapter.fromJsonProperty(propertyValue) : propertyValue;
+      
       this.field.setAccessible(true);
       try {
-        this.field.set(NativeJsonObject.this, propertyValue);
+        this.field.set(NativeJsonObject.this, value);
       }
       catch (IllegalAccessException iae) {
         throw new IllegalStateException(iae);
@@ -135,6 +146,47 @@ public abstract class NativeJsonObject implements JsonObject {
       }
       
       this.hasValue = false;
+    }
+    
+    /**
+     * Retrieve the raw value of the property.
+     *
+     * @return The raw value of the property.
+     */
+    public Object getRawValue() {
+      this.field.setAccessible(true);
+      try {
+        return this.field.get(NativeJsonObject.this);
+      }
+      catch (IllegalAccessException iae) {
+        throw new IllegalStateException(iae);
+      }
+      finally {
+        this.field.setAccessible(false);
+      }
+    }
+    
+    /**
+     * Create a new JSON property adapter with the given class.
+     *
+     * @param adapterClass The class of the JSON property adapter.
+     * @return The JSON property adapter.
+     */
+    @SuppressWarnings("unchecked")
+    private JsonPropertyAdapter<Object, Object> newJsonPropertyAdapter(Class<? extends JsonPropertyAdapter<?, ?>> adapterClass) {
+      if (adapterClass.equals(JsonProperty.NullAdapter.class)) {
+        return null;
+      }
+      
+      try {
+        return (JsonPropertyAdapter<Object, Object>)adapterClass.newInstance();
+      }
+      catch (IllegalAccessException iae) {
+        throw new IllegalStateException(iae);
+      }
+      catch (InstantiationException ie) {
+        throw new IllegalStateException(ie);
+      }
     }
   }
   
@@ -294,6 +346,11 @@ public abstract class NativeJsonObject implements JsonObject {
   public boolean isStringProperty(String propertyName) {
     NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
     
+    JsonPropertyAdapter<?, ?> adapter = nativeJsonPropertyInfo.getAdapter();
+    if (adapter != null) {
+      return adapter instanceof JsonStringPropertyAdapter<?> && nativeJsonPropertyInfo.getRawValue() != null;
+    }
+    
     Class<?> fieldType = nativeJsonPropertyInfo.getField().getType();
     if (fieldType.equals(char.class) || fieldType.equals(Character.class)) {
       return nativeJsonPropertyInfo.getHasValue() && nativeJsonPropertyInfo.getValue() instanceof Character;
@@ -320,9 +377,8 @@ public abstract class NativeJsonObject implements JsonObject {
       
       return propertyValue != null ? propertyValue.toString() : null;
     }
-    else {
-      return (String)nativeJsonPropertyInfo.getValue();
-    }
+    
+    return (String)nativeJsonPropertyInfo.getValue();
   }
   
   /**
@@ -339,10 +395,11 @@ public abstract class NativeJsonObject implements JsonObject {
     Class<?> fieldType = nativeJsonPropertyInfo.getField().getType();
     if (fieldType.equals(char.class) || fieldType.equals(Character.class)) {
       nativeJsonPropertyInfo.setValue(Character.valueOf(propertyValue.charAt(0)));
+      
+      return;
     }
-    else {
-      nativeJsonPropertyInfo.setValue(propertyValue);
-    }
+    
+    nativeJsonPropertyInfo.setValue(propertyValue);
   }
   
   /**
@@ -458,13 +515,14 @@ public abstract class NativeJsonObject implements JsonObject {
     Class<?> klass = this.getClass();
     while (!klass.equals(NativeJsonObject.class)) {
       for (Field field : klass.getDeclaredFields()) {
-        if (field.getAnnotation(NativeJsonProperty.class) != null) {
+        NativeJsonProperty nativeJsonPropertyAnnotation = field.getAnnotation(NativeJsonProperty.class);
+        if (nativeJsonPropertyAnnotation != null) {
           String propertyName = field.getName();
           if (nativeJsonPropertiesInfo.containsKey(propertyName)) {
             throw new IllegalStateException("Duplicate native JSON property: " + propertyName);
           }
           
-          nativeJsonPropertiesInfo.put(propertyName, new NativeJsonPropertyInfo(field));
+          nativeJsonPropertiesInfo.put(propertyName, new NativeJsonPropertyInfo(field, nativeJsonPropertyAnnotation));
         }
       }
       

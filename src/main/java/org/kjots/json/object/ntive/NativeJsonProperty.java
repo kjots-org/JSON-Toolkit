@@ -21,6 +21,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.kjots.json.object.shared.JsonProperty;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
+
 /**
  * Native JSON Property.
  * <p>
@@ -32,4 +35,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NativeJsonProperty {
+  /**
+   * Retrieve the JSON property adapter.
+   *
+   * @return The JSON property adapter.
+   */
+  public Class<? extends JsonPropertyAdapter<?, ?>> adapter() default JsonProperty.NullAdapter.class;
 }
