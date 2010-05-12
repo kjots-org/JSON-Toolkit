@@ -44,11 +44,11 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testGetStringProperty() {
-    TestNativeJsonObject testJsonObject = new TestNativeJsonObject();
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    testJsonObject.testStringProperty = "Test String Property Value";
+    testNativeJsonObject.testStringProperty = "Test String Property Value";
     
-    assertEquals("Test String Property Value", testJsonObject.getStringProperty("testStringProperty"));
+    assertEquals("Test String Property Value", testNativeJsonObject.getStringProperty("testStringProperty"));
   }
   
   /**
@@ -59,10 +59,10 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testSetStringProperty() {
-    TestNativeJsonObject testJsonObject = new TestNativeJsonObject();
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
     
-    testJsonObject.setStringProperty("testStringProperty", "Test String Property Value");
+    testNativeJsonObject.setStringProperty("testStringProperty", "Test String Property Value");
     
-    assertEquals("Test String Property Value", testJsonObject.testStringProperty);
+    assertEquals("Test String Property Value", testNativeJsonObject.testStringProperty);
   }
 }
