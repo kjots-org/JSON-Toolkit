@@ -152,8 +152,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isArray() {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return false;
   }
   
   /**
@@ -316,8 +315,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isObjectProperty(String propertyName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof JsonObject;
   }
 
   /**
@@ -329,8 +327,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public JsonObject getObjectProperty(String propertyName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return (JsonObject)this.getNativeJsonPropertyInfo(propertyName).getValue();
   }
   
   /**
@@ -343,9 +340,19 @@ public abstract class NativeJsonObject implements JsonObject {
    * @see #setObjectProperty(String, JsonObject)
    */
   @Override
+  @SuppressWarnings("unchecked")
   public <T extends JsonObject> T getObjectProperty(String propertyName, Class<T> jsonObjectClass) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    JsonObject propertyValue = (JsonObject)this.getNativeJsonPropertyInfo(propertyName).getValue();
+    
+    if (propertyValue == null) {
+      return null;
+    }
+    else if (jsonObjectClass.isAssignableFrom(propertyValue.getClass())) {
+      return (T)propertyValue;
+    }
+    else {
+      return propertyValue.cast(jsonObjectClass);
+    }
   }
   
   /**
@@ -358,8 +365,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public void setObjectProperty(String propertyName, JsonObject propertyValue) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    this.getNativeJsonPropertyInfo(propertyName).setValue(propertyValue);
   }
 
   /**
@@ -385,8 +391,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public Object getObject() {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return this;
   }
   
   /**
