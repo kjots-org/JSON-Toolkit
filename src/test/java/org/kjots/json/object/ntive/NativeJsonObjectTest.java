@@ -31,15 +31,9 @@ import org.kjots.json.object.shared.JsonObject;
  */
 public class NativeJsonObjectTest {
   /**
-   * Test JSON Object.
-   */
-  public interface TestJsonObject extends JsonObject {
-  }
-  
-  /**
    * Test Native JSON Object.
    */
-  public class TestNativeJsonObject extends NativeJsonObject implements TestJsonObject {
+  public class TestNativeJsonObject extends NativeJsonObject {
     /** The test property.*/
     @NativeJsonProperty
     @SuppressWarnings("unused")
@@ -54,7 +48,7 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testHasProperty() {
-    TestJsonObject testJsonObject = new TestNativeJsonObject();
+    JsonObject testJsonObject = new TestNativeJsonObject();
     
     assertFalse("testJsonObject.hasProperty(\"testProperty\") != false", testJsonObject.hasProperty("testProperty"));
     
@@ -75,7 +69,7 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testIsPropertyNull() {
-    TestJsonObject testJsonObject = new TestNativeJsonObject();
+    JsonObject testJsonObject = new TestNativeJsonObject();
     
     assertFalse("testJsonObject.isNullProperty(\"testProperty\") != false", testJsonObject.isNullProperty("testProperty"));
     
@@ -96,7 +90,7 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testDeleteProperty() {
-    TestJsonObject testJsonObject = new TestNativeJsonObject();
+    JsonObject testJsonObject = new TestNativeJsonObject();
     
     testJsonObject.setStringProperty("testProperty", "Test String Property Value");
     
