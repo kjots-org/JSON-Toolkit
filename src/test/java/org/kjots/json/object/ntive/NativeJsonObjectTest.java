@@ -37,7 +37,7 @@ public class NativeJsonObjectTest {
   /**
    * Test Native JSON Object.
    */
-  public class TestNativeJsonObject extends NativeJsonObject {
+  public static class TestNativeJsonObject extends NativeJsonObject {
     /** The test property.*/
     @NativeJsonProperty
     private String testProperty;

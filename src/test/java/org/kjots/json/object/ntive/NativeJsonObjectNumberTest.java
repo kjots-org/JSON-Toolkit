@@ -32,7 +32,7 @@ public class NativeJsonObjectNumberTest {
   /**
    * Test Native JSON Object.
    */
-  public class TestNativeJsonObject extends NativeJsonObject {
+  public static class TestNativeJsonObject extends NativeJsonObject {
     /** The test numerical property.*/
     @NativeJsonProperty
     private Number testNumberProperty;

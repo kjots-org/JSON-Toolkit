@@ -32,7 +32,7 @@ public class NativeJsonObjectBooleanTest {
   /**
    * Test Native JSON Object.
    */
-  public class TestNativeJsonObject extends NativeJsonObject {
+  public static class TestNativeJsonObject extends NativeJsonObject {
     /** The test boolean property.*/
     @NativeJsonProperty
     private Boolean testBooleanProperty;

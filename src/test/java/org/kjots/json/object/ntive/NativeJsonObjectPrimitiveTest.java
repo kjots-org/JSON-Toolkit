@@ -20,7 +20,7 @@ public class NativeJsonObjectPrimitiveTest {
   /**
    * Test Native JSON Object.
    */
-  public class TestNativeJsonObject extends NativeJsonObject {
+  public static class TestNativeJsonObject extends NativeJsonObject {
     /** The test boolean primitive property.*/
     @NativeJsonProperty
     private boolean testBooleanPrimitiveProperty;

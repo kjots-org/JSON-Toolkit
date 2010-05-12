@@ -36,22 +36,20 @@ import com.google.inject.Guice;
  */
 public class NativeJsonObjectObjectTest {
   /**
+   * Test Property JSON Object.
+   */
+  public static interface TestPropertyJsonObject extends JsonObject {
+  }
+
+  /**
    * Test Native JSON Object.
    */
-  public class TestNativeJsonObject extends NativeJsonObject {
+  public static class TestNativeJsonObject extends NativeJsonObject {
     /** The test object property.*/
     @NativeJsonProperty
     private JsonObject testObjectProperty;
   }
   
-  /**
-   * Test Property JSON Object.
-   * <p>
-   * Created: 8th December 2009.
-   */
-  public static interface TestPropertyJsonObject extends JsonObject {
-  }
-
   /**
    * Set up the JSON object implementation test.
    */
