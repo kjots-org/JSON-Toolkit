@@ -192,28 +192,26 @@ public abstract class JsonObjectGeneratorObjectTestBase {
    */
   public static class TestJsonObjectPropertyAdapter implements JsonObjectPropertyAdapter<TestJsonObjectProperty, TestPropertyJsonObject> {
     /**
-     * Convert to a JSON object property value.
+     * Convert to a JSON property value.
      *
-     * @param testJsonObjectProperty The value.
-     * @return The JSON object property value.
-     * @see #fromJsonProperty(JsonObject)
+     * @param value The value.
+     * @return The JSON property value.
      */
     @Override
-    public TestPropertyJsonObject toJsonProperty(TestJsonObjectProperty testJsonObjectProperty) {
+    public TestPropertyJsonObject toJsonProperty(TestJsonObjectProperty value) {
       TestPropertyJsonObject testPropertyJsonObject = JsonObjectFactory.get().createJsonObject(TestPropertyJsonObject.class);
       
-      testPropertyJsonObject.setProperty1(testJsonObjectProperty.getProperty1());
-      testPropertyJsonObject.setProperty2(testJsonObjectProperty.getProperty2());
+      testPropertyJsonObject.setProperty1(value.getProperty1());
+      testPropertyJsonObject.setProperty2(value.getProperty2());
       
       return testPropertyJsonObject;
     }
     
     /**
-     * Convert from a JSON object property value.
+     * Convert from a JSON property value.
      *
-     * @param propertyValue The JSON object property value.
+     * @param propertyValue The JSON property value.
      * @return The value.
-     * @see #toJsonProperty(Object)
      */
     @Override
     public TestJsonObjectProperty fromJsonProperty(TestPropertyJsonObject propertyValue) {

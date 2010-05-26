@@ -33,6 +33,14 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JsonProperty {
+  /**
+   * Null Adapter.
+   * <p>
+   * Created: 12th May 2010.
+   */
+  public static abstract class NullAdapter implements JsonPropertyAdapter<Object, Object> {
+  }
+  
   public static enum OperationType {
     /** The "has" operation type. */
     HAS,
@@ -69,5 +77,5 @@ public @interface JsonProperty {
    *
    * @return The JSON property adapter.
    */
-  public Class<? extends JsonPropertyAdapter> adapter() default JsonPropertyAdapter.class;
+  public Class<? extends JsonPropertyAdapter<?, ?>> adapter() default NullAdapter.class;
 }
