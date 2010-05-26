@@ -17,6 +17,19 @@ package org.kjots.json.object.gwt.rebind;
 
 import java.io.PrintWriter;
 
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
+import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
+import org.kjots.json.object.shared.JsonException;
+import org.kjots.json.object.shared.JsonFunction;
+import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectArray;
+import org.kjots.json.object.shared.JsonObjectMap;
+import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
+import org.kjots.json.object.shared.JsonProperty;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
+import org.kjots.json.object.shared.JsonStringPropertyAdapter;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
@@ -33,18 +46,6 @@ import com.google.gwt.core.ext.typeinfo.JTypeParameter;
 import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
-
-import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
-import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
-import org.kjots.json.object.shared.JsonFunction;
-import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectArray;
-import org.kjots.json.object.shared.JsonObjectMap;
-import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
-import org.kjots.json.object.shared.JsonProperty;
-import org.kjots.json.object.shared.JsonPropertyAdapter;
-import org.kjots.json.object.shared.JsonStringPropertyAdapter;
 
 /**
  * GWT JSON Object Generator.
@@ -123,6 +124,9 @@ public class GwtJsonObjectGenerator extends Generator {
         if (method.getAnnotation(JsonFunction.class) != null) {
           this.writeFunctionMethod(sourceWriter, logger, context, method, method.getAnnotation(JsonFunction.class));
         }
+        else if (method.getAnnotation(JsonException.class) != null) {
+          this.writeExceptionMethod(sourceWriter, logger, context, method, method.getAnnotation(JsonException.class));
+        }
         else if (method.getAnnotation(JsonProperty.class) != null) {
           this.writePropertyMethod(sourceWriter, logger, context, method, method.getAnnotation(JsonProperty.class));
         }
@@ -192,6 +196,61 @@ public class GwtJsonObjectGenerator extends Generator {
     sourceWriter.println("public final " + typeParametersBuilder.toString() + returnTypeName + " " + method.getName() + "(" + methodParametersBuilder.toString() + ") {");
     sourceWriter.indent();
     sourceWriter.println((!returnTypeName.equals("void") ? "return " : "") + functionClassType.getQualifiedSourceName() + "." + functionMethodName + "(" + functionArgumentsBuilder.toString() + ");");
+    sourceWriter.outdent();
+    sourceWriter.println("}");
+  }
+  
+  /**
+   * Write an exception method.
+   *
+   * @param sourceWriter The source writer.
+   * @param logger The logger.
+   * @param context The context.
+   * @param method The method.
+   * @param jsonExceptionAnnotation The JSON exception annotation.
+   * @throws UnableToCompleteException
+   */
+  private void writeExceptionMethod(SourceWriter sourceWriter, TreeLogger logger, GeneratorContext context, JMethod method, JsonException jsonExceptionAnnotation)
+    throws UnableToCompleteException {
+    Class<?> exceptionClass = jsonExceptionAnnotation.klass();
+    
+    StringBuilder typeParametersBuilder = new StringBuilder();
+    
+    JTypeParameter[] typeParameters = method.getTypeParameters();
+    if (typeParameters.length != 0) {
+      typeParametersBuilder.append("<");
+      
+      for (int i = 0; i < typeParameters.length; i++) {
+        if (i != 0) {
+          typeParametersBuilder.append(", ");
+        }
+
+        typeParametersBuilder.append(typeParameters[i].getQualifiedSourceName());
+      }
+      
+      typeParametersBuilder.append("> ");
+    }
+    
+    String returnTypeName = this.getTypeName(method.getReturnType());
+    
+    StringBuilder methodParametersBuilder = new StringBuilder();
+    
+    JParameter[] methodParameters = method.getParameters();
+    for (int i = 0; i < methodParameters.length; i++) {
+      if (i != 0) {
+        methodParametersBuilder.append(", ");
+      }
+      
+      methodParametersBuilder.append(this.getTypeName(methodParameters[i].getType()));
+      methodParametersBuilder.append(" arg").append(i);
+    }
+    
+    JClassType exceptionClassType = this.getType(logger, context, exceptionClass.getName().replace('$', '.'));
+    
+    sourceWriter.println("@Override");
+    sourceWriter.println("public final " + typeParametersBuilder.toString() + returnTypeName + " " + method.getName() + "(" + methodParametersBuilder.toString() + ") {");
+    sourceWriter.indent();
+    sourceWriter.println("throw new " + exceptionClassType.getQualifiedSourceName() + "();");
     sourceWriter.outdent();
     sourceWriter.println("}");
   }

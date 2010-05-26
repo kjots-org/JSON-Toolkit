@@ -25,6 +25,7 @@ import static org.objectweb.asm.Opcodes.ACONST_NULL;
 import static org.objectweb.asm.Opcodes.ALOAD;
 import static org.objectweb.asm.Opcodes.ARETURN;
 import static org.objectweb.asm.Opcodes.ASTORE;
+import static org.objectweb.asm.Opcodes.ATHROW;
 import static org.objectweb.asm.Opcodes.CHECKCAST;
 import static org.objectweb.asm.Opcodes.DCONST_0;
 import static org.objectweb.asm.Opcodes.DOUBLE;
@@ -55,13 +56,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.Method;
-
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
+import org.kjots.json.object.shared.JsonException;
 import org.kjots.json.object.shared.JsonFunction;
 import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
 import org.kjots.json.object.shared.JsonObject;
@@ -71,6 +67,11 @@ import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
 import org.kjots.json.object.shared.JsonProperty;
 import org.kjots.json.object.shared.JsonPropertyAdapter;
 import org.kjots.json.object.shared.JsonStringPropertyAdapter;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.commons.Method;
 
 /**
  * JSON Object Generator Base.
@@ -253,6 +254,9 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       if (method.getAnnotation(JsonFunction.class) != null) {
         this.generateFunctionMethod(classVisitor, jsonObjectImplType, jsonObjectClass, Method.getMethod(method), method.getAnnotation(JsonFunction.class), method.isVarArgs());
       }
+      else if (method.getAnnotation(JsonException.class) != null) {
+        this.generateExceptionMethod(classVisitor, jsonObjectImplType, jsonObjectClass, Method.getMethod(method), method.getAnnotation(JsonException.class), method.isVarArgs());
+      }
       else if (method.getAnnotation(JsonProperty.class) != null) {
         this.generatePropertyMethod(classVisitor, jsonObjectImplType, method, Method.getMethod(method), method.getAnnotation(JsonProperty.class));
       }
@@ -381,6 +385,39 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
       maxLocals += argumentType.getSize();
     }
     methodVisitor.visitMaxs(Math.max(maxLocals, returnType.getSize()), maxLocals);
+    
+    methodVisitor.visitEnd();
+  }
+  
+  /**
+   * Generate an exception method.
+   *
+   * @param classVisitor The class visitor.
+   * @param jsonObjectImplType The type of the JSON object implementation.
+   * @param jsonObjectClass The class of the JSON object.
+   * @param method The method.
+   * @param jsonExceptionAnnotation The JSON exception annotation.
+   * @param varargs The variable arguments flag.
+   */
+  private void generateExceptionMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Class<? extends JsonObject> jsonObjectClass, Method method, JsonException jsonExceptionAnnotation, boolean varargs) {
+    Type exceptionType = Type.getType(jsonExceptionAnnotation.klass());
+    
+    MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL + (varargs ? ACC_VARARGS : 0), method, null, null);
+    
+    Label start = new Label();
+    Label end = new Label();
+    
+    methodVisitor.visitCode();
+    
+    methodVisitor.visitLabel(start);
+    methodVisitor.visitTypeInsn(NEW, exceptionType);
+    methodVisitor.visitInsn(DUP);
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, exceptionType, getDefaultConstructor());
+    methodVisitor.visitInsn(ATHROW);
+    methodVisitor.visitLabel(end);
+    
+    methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
+    methodVisitor.visitMaxs(2, 1);
     
     methodVisitor.visitEnd();
   }
