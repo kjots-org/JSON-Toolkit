@@ -401,8 +401,11 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param varargs The variable arguments flag.
    */
   private void generateExceptionMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Class<? extends JsonObject> jsonObjectClass, Method method, JsonException jsonExceptionAnnotation, boolean varargs) {
+    Type[] argumentTypes = method.getArgumentTypes();
     Type exceptionType = Type.getType(jsonExceptionAnnotation.klass());
     String message = jsonExceptionAnnotation.message();
+    
+    int maxLocals = 1;
     
     MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL + (varargs ? ACC_VARARGS : 0), method, null, null);
     
@@ -425,7 +428,14 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(end);
     
     methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
-    methodVisitor.visitMaxs(message.isEmpty() ? 2 : 3, 1);
+    for (int i = 0; i < argumentTypes.length; i++) {
+      Type argumentType = argumentTypes[i];
+      
+      methodVisitor.visitLocalVariable("arg" + i, argumentType, null, start, end, maxLocals);
+      
+      maxLocals += argumentType.getSize();
+    }
+    methodVisitor.visitMaxs(message.isEmpty() ? 2 : 3, maxLocals);
     
     methodVisitor.visitEnd();
   }
