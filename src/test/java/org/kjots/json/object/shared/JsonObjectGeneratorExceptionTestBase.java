@@ -40,10 +40,22 @@ public abstract class JsonObjectGeneratorExceptionTestBase {
     public void throwTestException();
     
     /**
-     * Throw the test exception with message.
+     * Throw the test exception with a message.
      */
     @JsonException(klass = TestException.class, message = "Test Exception Message")
     public void throwTestExceptionWithMessage();
+    
+    /**
+     * Throw the test exception from a method with arguments.
+     */
+    @JsonException(klass = TestException.class)
+    public void throwTestExceptionFromMethodWithArguments(Object argument);
+    
+    /**
+     * Throw the test exception with a message from a method with arguments.
+     */
+    @JsonException(klass = TestException.class, message = "Test Exception Message")
+    public void throwTestExceptionWithMessageFromMethodWithArguments(Object argument);
   }
   
   /**
@@ -100,6 +112,51 @@ public abstract class JsonObjectGeneratorExceptionTestBase {
     Throwable throwable = null;
     try {
       testJsonObject.throwTestExceptionWithMessage();
+    }
+    catch (Throwable t) {
+      throwable = t;
+    }
+    
+    assertNotNull("throwable == null", throwable);
+    assertTrue("throwable !instanceof TestException", throwable instanceof TestException);
+    assertEquals("Test Exception Message", throwable.getMessage());
+  }
+  
+  /**
+   * Test the throwing of an exception.
+   * <p>
+   * This test asserts that a method throws an exception from a method with
+   * arguments.
+   */
+  @Test
+  public void testThrowExceptionFromMethodWithArguments() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    Throwable throwable = null;
+    try {
+      testJsonObject.throwTestExceptionFromMethodWithArguments(null);
+    }
+    catch (Throwable t) {
+      throwable = t;
+    }
+    
+    assertNotNull("throwable == null", throwable);
+    assertTrue("throwable !instanceof TestException", throwable instanceof TestException);
+  }
+  
+  /**
+   * Test the throwing of an exception.
+   * <p>
+   * This test asserts that a method throws an exception with a message from a
+   * method with arguments.
+   */
+  @Test
+  public void testThrowExceptionWithMessageFromMethodWithArguments() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    Throwable throwable = null;
+    try {
+      testJsonObject.throwTestExceptionWithMessageFromMethodWithArguments(null);
     }
     catch (Throwable t) {
       throwable = t;

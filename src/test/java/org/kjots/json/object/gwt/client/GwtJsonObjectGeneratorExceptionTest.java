@@ -42,4 +42,18 @@ public class GwtJsonObjectGeneratorExceptionTest extends GwtJsonObjectTestBase {
   public void testThrowExceptionWithMessage() {
     this.jsonObjectGeneratorExceptionTestDelegate.testThrowExceptionWithMessage();
   }
+
+  /**
+   * @see JsonObjectGeneratorExceptionTestBase#testThrowExceptionFromMethodWithArguments()
+   */
+  public void testThrowExceptionFromMethodWithArguments() {
+    this.jsonObjectGeneratorExceptionTestDelegate.testThrowExceptionFromMethodWithArguments();
+  }
+
+  /**
+   * @see JsonObjectGeneratorExceptionTestBase#testThrowExceptionWithMessageFromMethodWithArguments()
+   */
+  public void testThrowExceptionWithMessageFromMethodWithArguments() {
+    this.jsonObjectGeneratorExceptionTestDelegate.testThrowExceptionWithMessageFromMethodWithArguments();
+  }
 }
