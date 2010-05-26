@@ -38,4 +38,11 @@ public @interface JsonException {
    * @return The class.
    */
   public Class<? extends RuntimeException> klass();
+  
+  /**
+   * Retrieve the message.
+   *
+   * @return the message;
+   */
+  public String message() default "";
 }

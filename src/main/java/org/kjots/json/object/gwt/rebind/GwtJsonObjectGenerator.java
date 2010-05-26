@@ -213,6 +213,7 @@ public class GwtJsonObjectGenerator extends Generator {
   private void writeExceptionMethod(SourceWriter sourceWriter, TreeLogger logger, GeneratorContext context, JMethod method, JsonException jsonExceptionAnnotation)
     throws UnableToCompleteException {
     Class<?> exceptionClass = jsonExceptionAnnotation.klass();
+    String message = jsonExceptionAnnotation.message();
     
     StringBuilder typeParametersBuilder = new StringBuilder();
     
@@ -250,7 +251,7 @@ public class GwtJsonObjectGenerator extends Generator {
     sourceWriter.println("@Override");
     sourceWriter.println("public final " + typeParametersBuilder.toString() + returnTypeName + " " + method.getName() + "(" + methodParametersBuilder.toString() + ") {");
     sourceWriter.indent();
-    sourceWriter.println("throw new " + exceptionClassType.getQualifiedSourceName() + "();");
+    sourceWriter.println("throw new " + exceptionClassType.getQualifiedSourceName() + "(" + (!message.isEmpty() ? toQuotedString(message) : "") + ");");
     sourceWriter.outdent();
     sourceWriter.println("}");
   }
@@ -947,5 +948,36 @@ public class GwtJsonObjectGenerator extends Generator {
     else {
       return arrayType.getQualifiedSourceName();
     }
+  }
+
+  /**
+   * Quote the given string.
+   *
+   * @param string The string.
+   * @return The quoted string.
+   */
+  private String toQuotedString(String string) {
+    StringBuilder stringBuilder = new StringBuilder();
+    
+    stringBuilder.append('"');
+    
+    for (int i = 0; i < string.length(); i++) {
+      char c = string.charAt(i);
+      switch (c) {
+      case '"':
+      case '\\':
+        stringBuilder.append('\\');
+        stringBuilder.append(c);
+        
+        break;
+     
+      default:
+        stringBuilder.append(c);
+      }
+    }
+    
+    stringBuilder.append('"');
+    
+    return stringBuilder.toString();
   }
 }

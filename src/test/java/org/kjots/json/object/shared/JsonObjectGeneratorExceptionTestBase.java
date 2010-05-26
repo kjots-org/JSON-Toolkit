@@ -15,6 +15,7 @@
  */
 package org.kjots.json.object.shared;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
@@ -37,6 +38,12 @@ public abstract class JsonObjectGeneratorExceptionTestBase {
      */
     @JsonException(klass = TestException.class)
     public void throwTestException();
+    
+    /**
+     * Throw the test exception with message.
+     */
+    @JsonException(klass = TestException.class, message = "Test Exception Message")
+    public void throwTestExceptionWithMessage();
   }
   
   /**
@@ -44,10 +51,24 @@ public abstract class JsonObjectGeneratorExceptionTestBase {
    */
   @SuppressWarnings("serial")
   public static class TestException extends RuntimeException {
+    /**
+     * Construct a new Test Exception.
+     */
+    public TestException() {
+    }
+    
+    /**
+     * Construct a new Test Exception.
+     *
+     * @param message The message for the exception.
+     */
+    public TestException(String message) {
+      super(message);
+    }
   }
   
   /**
-   * Test the throwing of a exception.
+   * Test the throwing of an exception.
    * <p>
    * This test asserts that a method throws an exception.
    */
@@ -65,5 +86,27 @@ public abstract class JsonObjectGeneratorExceptionTestBase {
     
     assertNotNull("throwable == null", throwable);
     assertTrue("throwable !instanceof TestException", throwable instanceof TestException);
+  }
+  
+  /**
+   * Test the throwing of an exception.
+   * <p>
+   * This test asserts that a method throws an exception with a message.
+   */
+  @Test
+  public void testThrowExceptionWithMessage() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    Throwable throwable = null;
+    try {
+      testJsonObject.throwTestExceptionWithMessage();
+    }
+    catch (Throwable t) {
+      throwable = t;
+    }
+    
+    assertNotNull("throwable == null", throwable);
+    assertTrue("throwable !instanceof TestException", throwable instanceof TestException);
+    assertEquals("Test Exception Message", throwable.getMessage());
   }
 }

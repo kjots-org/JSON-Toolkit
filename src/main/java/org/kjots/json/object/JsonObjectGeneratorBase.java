@@ -94,12 +94,13 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   }
   
   /**
-   * Retrieve the default constructor.
+   * Retrieve the constructor with the given argument types.
    *
-   * @return The default constructor.
+   * @param argumentTypes The argument types.
+   * @return The constructor.
    */
-  private static Method getDefaultConstructor() {
-    return new Method("<init>", Type.VOID_TYPE, new Type[] {});
+  private static Method getConstructor(Type... argumentTypes) {
+    return new Method("<init>", Type.VOID_TYPE, argumentTypes);
   }
   
   /**
@@ -401,6 +402,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    */
   private void generateExceptionMethod(ClassVisitor classVisitor, Type jsonObjectImplType, Class<? extends JsonObject> jsonObjectClass, Method method, JsonException jsonExceptionAnnotation, boolean varargs) {
     Type exceptionType = Type.getType(jsonExceptionAnnotation.klass());
+    String message = jsonExceptionAnnotation.message();
     
     MethodVisitor methodVisitor = classVisitor.visitMethod(ACC_PUBLIC + ACC_FINAL + (varargs ? ACC_VARARGS : 0), method, null, null);
     
@@ -412,12 +414,18 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitTypeInsn(NEW, exceptionType);
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, exceptionType, getDefaultConstructor());
+    if (message.isEmpty()) {
+      methodVisitor.visitMethodInsn(INVOKESPECIAL, exceptionType, getConstructor());
+    }
+    else {
+      methodVisitor.visitLdcInsn(message);
+      methodVisitor.visitMethodInsn(INVOKESPECIAL, exceptionType, getConstructor(Type.getType(String.class)));
+    }
     methodVisitor.visitInsn(ATHROW);
     methodVisitor.visitLabel(end);
     
     methodVisitor.visitLocalVariable("this", jsonObjectImplType, null, start, end, 0);
-    methodVisitor.visitMaxs(2, 1);
+    methodVisitor.visitMaxs(message.isEmpty() ? 2 : 3, 1);
     
     methodVisitor.visitEnd();
   }
@@ -1090,7 +1098,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ASTORE, 1);
     methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType, this.getFromJsonPropertyMethod(jsonPrimitiveType, propertyType));
     methodVisitor.visitInsn(ARETURN);
@@ -1124,7 +1132,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType, this.getToJsonPropertyMethod(jsonPrimitiveType, propertyType));
     methodVisitor.visitVarInsn(ASTORE, 2);
@@ -1171,7 +1179,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitVarInsn(ASTORE, 1);
     methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType, this.getFromJsonPropertyMethod(jsonObjectType, propertyType));
     methodVisitor.visitInsn(ARETURN);
@@ -1206,7 +1214,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     methodVisitor.visitLabel(start);
     methodVisitor.visitTypeInsn(NEW, adapterType);
     methodVisitor.visitInsn(DUP);
-    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getDefaultConstructor());
+    methodVisitor.visitMethodInsn(INVOKESPECIAL, adapterType, getConstructor());
     methodVisitor.visitVarInsn(ALOAD, 1);
     methodVisitor.visitMethodInsn(INVOKEVIRTUAL, adapterType, this.getToJsonPropertyMethod(jsonObjectType, propertyType));
     methodVisitor.visitVarInsn(ASTORE, 2);
