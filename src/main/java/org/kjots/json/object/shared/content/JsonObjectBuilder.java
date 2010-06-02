@@ -98,7 +98,16 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startObject() {
-      JsonObjectBuilder.this.jsonObject = JsonObjectFactory.get().createJsonObject();
+      if (JsonObjectBuilder.this.jsonObject != null) {
+        switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case REPLACE:
+          JsonObjectBuilder.this.jsonObject = null;
+        }
+      }
+      
+      if (JsonObjectBuilder.this.jsonObject == null) {
+        JsonObjectBuilder.this.jsonObject = JsonObjectFactory.get().createJsonObject();
+      }
       
       JsonObjectBuilder.this.jsonContext = new ObjectJsonContext(this, JsonObjectBuilder.this.jsonObject);
     }
@@ -108,6 +117,15 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startArray() {
+      if (JsonObjectBuilder.this.jsonObject != null) {
+        switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case MERGE:
+          JsonObjectBuilder.this.jsonContext = new NonOpArrayJsonContext(this);
+          
+          return;
+        }
+      }
+      
       JsonObjectBuilder.this.jsonObject = JsonObjectFactory.get().createJsonArray();
       
       JsonObjectBuilder.this.jsonContext = new ArrayJsonContext(this, (JsonArray)JsonObjectBuilder.this.jsonObject);
@@ -383,6 +401,30 @@ public class JsonObjectBuilder implements JsonContentHandler {
   }
   
   /**
+   * Non-operational Root JSON Context.
+   * <p>
+   * Created: 2nd June 2010.
+   */
+  private class NonOpRootJsonContext extends NonOpJsonContext {
+    /**
+     * Construct a new Non-operational Root JSON Context.
+     *
+     * @param parentJsonContext The parent JSON context.
+     */
+    public NonOpRootJsonContext(JsonContext parentJsonContext) {
+      super(parentJsonContext);
+    }
+    
+    /**
+     * Handle the end of the JSON content.
+     */
+    @Override
+    public void endJson() {
+      this.close();
+    }
+  }
+  
+  /**
    * Non-operational Object JSON Context.
    * <p>
    * Created: 2nd June 2010.
@@ -443,6 +485,18 @@ public class JsonObjectBuilder implements JsonContentHandler {
   private JsonContext jsonContext = new JsonContext(null) {
     @Override
     public void startJson() {
+      if (JsonObjectBuilder.this.jsonObject != null) {
+        switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case ERROR:
+          throw new UnsupportedOperationException("JSON content already handled");
+          
+        case IGNORE:
+          JsonObjectBuilder.this.jsonContext = new NonOpRootJsonContext(JsonObjectBuilder.this.jsonContext);
+          
+          return;
+        }
+      }
+      
       JsonObjectBuilder.this.jsonContext = new RootJsonContext(JsonObjectBuilder.this.jsonContext);
     }
   };
@@ -467,6 +521,16 @@ public class JsonObjectBuilder implements JsonContentHandler {
    */
   public JsonObjectBuilder(DuplicateMemberPolicy duplicateMemberPolicy) {
     this.duplicateMemberPolicy = duplicateMemberPolicy;
+  }
+  
+  /**
+   * Construct a new JSON Object Builder.
+   *
+   * @param jsonObject The JSON object.
+   */
+  public JsonObjectBuilder(JsonObject jsonObject) {
+    this.jsonObject = jsonObject;
+    this.duplicateMemberPolicy = DuplicateMemberPolicy.MERGE;
   }
   
   /**
