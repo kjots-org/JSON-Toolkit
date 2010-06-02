@@ -117,24 +117,22 @@ public abstract class JsonObjectGeneratorStringTestBase {
    */
   public static class TestJsonStringPropertyAdapter implements JsonStringPropertyAdapter<Date> {
     /**
-     * Convert to a JSON string property value.
+     * Convert to a JSON property value.
      *
-     * @param date The value.
-     * @return The JSON string property value.
-     * @see #fromJsonProperty(String)
+     * @param value The value.
+     * @return The JSON property value.
      */
     @Override
     @SuppressWarnings("deprecation")
-    public String toJsonProperty(Date date) {
-      return date.toGMTString();
+    public String toJsonProperty(Date value) {
+      return value.toGMTString();
     }
     
     /**
-     * Convert from a JSON string property value.
+     * Convert from a JSON property value.
      *
-     * @param propertyValue The JSON string property value.
+     * @param propertyValue The JSON property value.
      * @return The value.
-     * @see #toJsonProperty(Date)
      */
     @Override
     @SuppressWarnings("deprecation")

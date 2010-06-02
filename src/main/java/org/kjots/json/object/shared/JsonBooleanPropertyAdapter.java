@@ -20,25 +20,9 @@ package org.kjots.json.object.shared;
  * <p>
  * Created: 13th December 2009.
  *
+ * @param <T> The type of the value.
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.2
  */
-public interface JsonBooleanPropertyAdapter<T> extends JsonPropertyAdapter {
-  /**
-   * Convert to a JSON boolean property value.
-   *
-   * @param t The value.
-   * @return The JSON boolean property value.
-   * @see #fromJsonProperty(Boolean)
-   */
-  public Boolean toJsonProperty(T t);
-  
-  /**
-   * Convert from a JSON boolean property value.
-   *
-   * @param propertyValue The JSON boolean property value.
-   * @return The value.
-   * @see #toJsonProperty(Object)
-   */
-  public T fromJsonProperty(Boolean propertyValue);
+public interface JsonBooleanPropertyAdapter<T> extends JsonPropertyAdapter<Boolean, T> {
 }
