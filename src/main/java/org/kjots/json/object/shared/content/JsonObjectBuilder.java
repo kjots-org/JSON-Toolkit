@@ -57,9 +57,6 @@ public class JsonObjectBuilder implements JsonContentHandler {
    * Root JSON Context.
    */
   private class RootJsonContext extends JsonContext {
-    /** The JSON object. */
-    private JsonObject jsonObject;
-    
     /**
      * Construct a new Root JSON Context.
      *
@@ -74,8 +71,6 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void endJson() {
-      JsonObjectBuilder.this.jsonObject = this.jsonObject;
-      
       this.close();
     }
 
@@ -84,11 +79,9 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startObject() {
-      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
+      JsonObjectBuilder.this.jsonObject = JsonObjectFactory.get().createJsonObject();
       
-      this.jsonObject = jsonObject;
-      
-      JsonObjectBuilder.this.jsonContext = new ObjectJsonContext(this, jsonObject);
+      JsonObjectBuilder.this.jsonContext = new ObjectJsonContext(this, JsonObjectBuilder.this.jsonObject);
     }
 
     /**
@@ -96,11 +89,9 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startArray() {
-      JsonArray jsonArray = JsonObjectFactory.get().createJsonArray();
+      JsonObjectBuilder.this.jsonObject = JsonObjectFactory.get().createJsonArray();
       
-      this.jsonObject = jsonArray;
-      
-      JsonObjectBuilder.this.jsonContext = new ArrayJsonContext(this, jsonArray);
+      JsonObjectBuilder.this.jsonContext = new ArrayJsonContext(this, (JsonArray)JsonObjectBuilder.this.jsonObject);
     }
   }
   
