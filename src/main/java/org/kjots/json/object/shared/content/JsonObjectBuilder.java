@@ -42,7 +42,10 @@ public class JsonObjectBuilder implements JsonContentHandler {
     IGNORE,
     
     /** The replace duplicate member policy. */
-    REPLACE;
+    REPLACE,
+    
+    /** The merge duplicate member policy. */
+    MERGE;
   }
   
   /**
@@ -138,8 +141,22 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startObject() {
+      JsonObject jsonObject = null;
+      
       if (this.jsonObject.hasProperty(this.nextMemberName)) {
         switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case MERGE:
+          if (this.jsonObject.isObjectProperty(this.nextMemberName)) {
+            JsonObject existingJsonObject = this.jsonObject.getObjectProperty(this.nextMemberName);
+            if (!existingJsonObject.isArray()) {
+              jsonObject = existingJsonObject;
+              
+              break;
+            }
+          }
+          
+          // Fall though
+          
         case IGNORE:
           JsonObjectBuilder.this.jsonContext = new NonOpObjectJsonContext(this);
           
@@ -147,9 +164,11 @@ public class JsonObjectBuilder implements JsonContentHandler {
         }
       }
       
-      JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
-      
-      this.jsonObject.setObjectProperty(this.nextMemberName, jsonObject);
+      if (jsonObject == null) {
+        jsonObject = JsonObjectFactory.get().createJsonObject();
+        
+        this.jsonObject.setObjectProperty(this.nextMemberName, jsonObject);
+      }
       
       JsonObjectBuilder.this.jsonContext = new ObjectJsonContext(this, jsonObject);
     }
@@ -169,6 +188,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
     public void startArray() {
       if (this.jsonObject.hasProperty(this.nextMemberName)) {
         switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case MERGE:
         case IGNORE:
           JsonObjectBuilder.this.jsonContext = new NonOpArrayJsonContext(this);
           
@@ -209,6 +229,7 @@ public class JsonObjectBuilder implements JsonContentHandler {
     public void primitive(Object value) {
       if (this.jsonObject.hasProperty(this.nextMemberName)) {
         switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case MERGE:
         case IGNORE:
           return;
         }
