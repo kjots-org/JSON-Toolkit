@@ -30,6 +30,22 @@ import org.kjots.json.object.shared.JsonObjectFactory;
  */
 public class JsonObjectBuilder implements JsonContentHandler {
   /**
+   * Duplicate Member Policy.
+   * <p>
+   * Created: 2nd June 2010.
+   */
+  public enum DuplicateMemberPolicy {
+    /** The error duplicate member policy. */
+    ERROR,
+    
+    /** The ignore duplicate member policy. */
+    IGNORE,
+    
+    /** The replace duplicate member policy. */
+    REPLACE;
+  }
+  
+  /**
    * JSON Context.
    */
   private abstract class JsonContext extends PartialJsonContentHandler {
@@ -122,6 +138,15 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startObject() {
+      if (this.jsonObject.hasProperty(this.nextMemberName)) {
+        switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case IGNORE:
+          JsonObjectBuilder.this.jsonContext = new NonOpObjectJsonContext(this);
+          
+          return;
+        }
+      }
+      
       JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
       
       this.jsonObject.setObjectProperty(this.nextMemberName, jsonObject);
@@ -142,6 +167,15 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void startArray() {
+      if (this.jsonObject.hasProperty(this.nextMemberName)) {
+        switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case IGNORE:
+          JsonObjectBuilder.this.jsonContext = new NonOpArrayJsonContext(this);
+          
+          return;
+        }
+      }
+      
       JsonArray jsonArray = JsonObjectFactory.get().createJsonArray();
       
       this.jsonObject.setObjectProperty(this.nextMemberName, jsonArray);
@@ -156,6 +190,13 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void memberName(String name) {
+      if (this.jsonObject.hasProperty(name)) {
+        switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case ERROR:
+          throw new UnsupportedOperationException("Duplicate member: " + name);
+        }
+      }
+      
       this.nextMemberName = name;
     }
 
@@ -166,6 +207,13 @@ public class JsonObjectBuilder implements JsonContentHandler {
      */
     @Override
     public void primitive(Object value) {
+      if (this.jsonObject.hasProperty(this.nextMemberName)) {
+        switch (JsonObjectBuilder.this.duplicateMemberPolicy) {
+        case IGNORE:
+          return;
+        }
+      }
+      
       if (value == null) {
         this.jsonObject.setObjectProperty(this.nextMemberName, null);
       }
@@ -272,6 +320,104 @@ public class JsonObjectBuilder implements JsonContentHandler {
     }
   }
   
+  /**
+   * Non-operational JSON Context.
+   * <p>
+   * Created: 2nd June 2010.
+   */
+  private abstract class NonOpJsonContext extends JsonContext {
+    /**
+     * Handle the start of a JSON object.
+     */
+    @Override
+    public void startObject() {
+      JsonObjectBuilder.this.jsonContext = new NonOpObjectJsonContext(this);
+    }
+    
+    /**
+     * Handle the start of a JSON array.
+     */
+    @Override
+    public void startArray() {
+      JsonObjectBuilder.this.jsonContext = new NonOpArrayJsonContext(this);
+    }
+    
+    /**
+     * Handle a JSON primitive.
+     *
+     * @param value The value of the JSON primitive.
+     */
+    @Override
+    public void primitive(Object value) {
+    }
+    
+    /**
+     * Construct a new Non-operational JSON Context.
+     *
+     * @param parentJsonContext
+     */
+    protected NonOpJsonContext(JsonContext parentJsonContext) {
+      super(parentJsonContext);
+    }
+  }
+  
+  /**
+   * Non-operational Object JSON Context.
+   * <p>
+   * Created: 2nd June 2010.
+   */
+  private class NonOpObjectJsonContext extends NonOpJsonContext {
+    /**
+     * Construct a new Non-operational Object JSON Context.
+     *
+     * @param parentJsonContext The parent JSON context.
+     */
+    public NonOpObjectJsonContext(JsonContext parentJsonContext) {
+      super(parentJsonContext);
+    }
+    
+    /**
+     * Handle the end of a JSON object.
+     */
+    @Override
+    public void endObject() {
+      this.close();
+    }
+
+    /**
+     * Handle the name of a member of a JSON object.
+     *
+     * @param name The name of the member.
+     */
+    @Override
+    public void memberName(String name) {
+    }
+  }
+  
+  /**
+   * Non-operational Array JSON Context.
+   * <p>
+   * Created: 2nd June 2010.
+   */
+  private class NonOpArrayJsonContext extends NonOpJsonContext {
+    /**
+     * Construct a new Non-operational Array JSON Context.
+     *
+     * @param parentJsonContext The parent JSON context.
+     */
+    public NonOpArrayJsonContext(JsonContext parentJsonContext) {
+      super(parentJsonContext);
+    }
+    
+    /**
+     * Handle the end of a JSON array.
+     */
+    @Override
+    public void endArray() {
+      this.close();
+    }
+  }
+  
   /** The JSON context. */
   private JsonContext jsonContext = new JsonContext(null) {
     @Override
@@ -280,9 +426,28 @@ public class JsonObjectBuilder implements JsonContentHandler {
     }
   };
   
+  /** The duplicate member policy. */
+  private DuplicateMemberPolicy duplicateMemberPolicy;
+  
   /** The JSON object. */
   private JsonObject jsonObject;
-
+  
+  /**
+   * Construct a new JSON Object Builder.
+   */
+  public JsonObjectBuilder() {
+    this.duplicateMemberPolicy = DuplicateMemberPolicy.REPLACE;
+  }
+  
+  /**
+   * Construct a new JSON Object Builder.
+   *
+   * @param duplicateMemberPolicy The duplicate member policy.
+   */
+  public JsonObjectBuilder(DuplicateMemberPolicy duplicateMemberPolicy) {
+    this.duplicateMemberPolicy = duplicateMemberPolicy;
+  }
+  
   /**
    * Handle the start of the JSON content.
    */
@@ -351,6 +516,26 @@ public class JsonObjectBuilder implements JsonContentHandler {
     this.jsonContext.primitive(value);
   }
   
+  /**
+   * Retrieve the duplicate member policy.
+   *
+   * @return The duplicate member policy.
+   * @see #setDuplicateMemberPolicy(DuplicateMemberPolicy)
+   */
+  public DuplicateMemberPolicy getDuplicateMemberPolicy() {
+    return this.duplicateMemberPolicy;
+  }
+
+  /**
+   * Set the duplicate member policy.
+   *
+   * @param duplicateMemberPolicy The duplicate member policy.
+   * @see #getDuplicateMemberPolicy()
+   */
+  public void setDuplicateMemberPolicy(DuplicateMemberPolicy duplicateMemberPolicy) {
+    this.duplicateMemberPolicy = duplicateMemberPolicy;
+  }
+
   /**
    * Retrieve the JSON object.
    *
