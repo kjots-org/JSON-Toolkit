@@ -608,8 +608,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     Type returnType = method.getReturnType();
 
-    Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
-    if (!adapterClass.equals(JsonPropertyAdapter.class)) {
+    Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateGetAdaptedPrimitivePropertyMethod(classVisitor, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.getType(adapterClass), returnType);
       }
@@ -689,8 +689,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     Type argumentType = argumentTypes[0];
     
-    Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
-    if (!adapterClass.equals(JsonPropertyAdapter.class)) {
+    Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateSetAdaptedPrimitivePropertyMethod(classVisitor, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.getType(adapterClass), argumentType);
       }
@@ -1324,7 +1324,7 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
    * @param adapterClass The class of the adapter.
    * @return The type of the JSON object.
    */
-  private Type getJsonObjectType(Class<? extends JsonPropertyAdapter> adapterClass) {
+  private Type getJsonObjectType(Class<? extends JsonPropertyAdapter<?, ?>> adapterClass) {
     ParameterizedType adapterInterface = this.getImplementedParameterizedInterface(adapterClass, JsonObjectPropertyAdapter.class);
     if (adapterInterface != null) {
       java.lang.reflect.Type[] typeArguments = adapterInterface.getActualTypeArguments();
