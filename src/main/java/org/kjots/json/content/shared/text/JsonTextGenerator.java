@@ -15,8 +15,8 @@
  */
 package org.kjots.json.content.shared.text;
 
-import org.kjots.json.content.shared.PartialJsonContentHandler;
 import org.kjots.json.content.shared.JsonContentHandler;
+import org.kjots.json.content.shared.PartialJsonContentHandler;
 
 /**
  * JSON Text Generator.
@@ -26,6 +26,22 @@ import org.kjots.json.content.shared.JsonContentHandler;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public abstract class JsonTextGenerator implements JsonContentHandler {
+  /**
+   * Numeric Context.
+   * <p>
+   * Created: 4th June 2010.
+   */
+  private enum NumericContext {
+    /** The integral numeric context. */
+    INTEGRAL,
+    
+    /** The decimal numeric context. */
+    DECIMAL,
+    
+    /** The exponential numeric context. */
+    EXPONENTIAL;
+  }
+  
   /**
    * JSON Context.
    */
@@ -66,6 +82,67 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
      */
     protected void nextEntry() {
       this.firstEntry = false;
+    }
+    
+    /**
+     * Print the given numeric value.
+     *
+     * @param value The numeric value
+     */
+    protected void printNumber(Number value) {
+      String stringValue = value.toString();
+      
+      if (JsonTextGenerator.this.maxDecimalPlaces >= 0) {
+        NumericContext numericContext = NumericContext.INTEGRAL;
+        int decimalPlaces = 0;
+        
+        for (int i = 0; i < stringValue.length(); i++) {
+          char c = stringValue.charAt(i);
+          
+          switch (numericContext) {
+          case INTEGRAL:
+            if (c == '.') {
+              if (JsonTextGenerator.this.maxDecimalPlaces != 0) {
+                this.print(c);
+              }
+              
+              numericContext = NumericContext.DECIMAL;
+            }
+            else if (c == 'e' || c == 'E') {
+              this.print(c);
+              
+              numericContext = NumericContext.EXPONENTIAL;
+            }
+            else {
+              this.print(c);
+            }
+            
+            break;
+            
+          case DECIMAL:
+            if (c == 'e' || c == 'E') {
+              this.print(c);
+              
+              numericContext = NumericContext.EXPONENTIAL;
+            }
+            else  if (decimalPlaces < JsonTextGenerator.this.maxDecimalPlaces) {
+              this.print(c);
+              
+              decimalPlaces++;
+            }
+            
+            break;
+            
+          case EXPONENTIAL:
+            this.print(c);
+           
+            break;
+          }
+        }
+      }
+      else {
+        this.print(stringValue);
+      }
     }
     
     /**
@@ -287,7 +364,7 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
       else if (value instanceof Number) {
         Number numericValue = (Number)value;
         
-        this.print(numericValue.toString());
+        this.printNumber(numericValue);
       }
       else if (value instanceof String) {
         String stringValue = (String)value;
@@ -432,6 +509,9 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
   /** The format flag. */
   private boolean format;
   
+  /** The maximum number of decimal places of numeric values. */
+  private int maxDecimalPlaces = -1;
+  
   /**
    * Handle the start of the JSON content.
    */
@@ -518,6 +598,26 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
    */
   public void setFormat(boolean format) {
     this.format = format;
+  }
+  
+  /**
+   * Retrieve the maximum number of decimal places of numeric values.
+   *
+   * @return The maximum number of decimal places of numeric values.
+   * @see #setMaxDecimalPlaces(int)
+   */
+  public int getMaxDecimalPlaces() {
+    return this.maxDecimalPlaces;
+  }
+
+  /**
+   * Set the maximum number of decimal places of numeric values.
+   *
+   * @param maxDecimalPlaces The maximum number of decimal places of numeric values.
+   * @see #getMaxDecimalPlaces()
+   */
+  public void setMaxDecimalPlaces(int maxDecimalPlaces) {
+      this.maxDecimalPlaces = maxDecimalPlaces;
   }
   
   /**
