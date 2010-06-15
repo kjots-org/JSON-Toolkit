@@ -15,6 +15,8 @@
  */
 package org.kjots.json.object.shared;
 
+import java.util.NoSuchElementException;
+
 /**
  * JSON Object Array.
  * <p>
@@ -23,7 +25,61 @@ package org.kjots.json.object.shared;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.1
  */
-public interface JsonObjectArray<T extends JsonObject> extends JsonArray {
+public interface JsonObjectArray<T extends JsonObject> extends JsonArray, Iterable<T> {
+  /**
+   * JSON Object Array Iterator.
+   * <p>
+   * Created: 15th June 2010.
+   */
+  public class Iterator<T extends JsonObject> implements java.util.Iterator<T> {
+    /** The array.*/
+    private final JsonObjectArray<T> array;
+    
+    /** The next index. */
+    private int nextIndex;
+    
+    /**
+     * Construct a new JSON Object Array Iterator.
+     *
+     * @param array The array.
+     */
+    public Iterator(JsonObjectArray<T> array) {
+      this.array = array;
+    }
+    
+    /**
+     * Determine if the iterator has more elements.
+     *
+     * @return <code>true</code> if the iterator has more elements.
+     */
+    @Override
+    public boolean hasNext() {
+      return this.nextIndex < this.array.getLength();
+    }
+
+    /**
+     * Retrieve the next element.
+     *
+     * @return The next element.
+     */
+    @Override
+    public T next() {
+      if (this.nextIndex < this.array.getLength()) {
+        return this.array.get(this.nextIndex++);
+      }
+      
+      throw new NoSuchElementException();
+    }
+    
+    /**
+     * Remove the current element.
+     */
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException();
+    }
+  }
+  
   /**
    * Cast the JSON object array to a JSON object array with the given element
    * type.

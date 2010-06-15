@@ -15,9 +15,9 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import com.google.gwt.core.client.JsArrayNumber;
-
 import org.kjots.json.object.shared.JsonNumberArray;
+
+import com.google.gwt.core.client.JsArrayNumber;
 
 /**
  * GWT JSON Number Array Implementation.
@@ -70,5 +70,15 @@ public class GwtJsonNumberArrayImpl extends GwtJsonArrayImpl implements JsonNumb
   @Override
   public final void insert(int index, Number value) {
     this.insertNumberElement(index, value);
+  }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<Number> iterator() {
+    return new Iterator(this);
   }
 }

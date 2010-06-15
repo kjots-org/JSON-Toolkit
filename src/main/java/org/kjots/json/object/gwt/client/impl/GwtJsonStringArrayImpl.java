@@ -15,9 +15,9 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import com.google.gwt.core.client.JsArrayString;
-
 import org.kjots.json.object.shared.JsonStringArray;
+
+import com.google.gwt.core.client.JsArrayString;
 
 /**
  * GWT JSON String Array Implementation.
@@ -70,5 +70,15 @@ public class GwtJsonStringArrayImpl extends GwtJsonArrayImpl implements JsonStri
   @Override
   public final void insert(int index, String value) {
     this.insertStringElement(index, value);
+  }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<String> iterator() {
+    return new Iterator(this);
   }
 }

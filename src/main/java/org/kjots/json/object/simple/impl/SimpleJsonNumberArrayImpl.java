@@ -69,4 +69,14 @@ public class SimpleJsonNumberArrayImpl extends SimpleJsonArrayImpl implements Js
   public final void insert(int index, Number value) {
     this.insertNumberElement(index, value);
   }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<Number> iterator() {
+    return new Iterator(this);
+  }
 }

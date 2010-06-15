@@ -94,6 +94,16 @@ public class JsJsonObjectArrayImpl<T extends JsonObject> extends JsJsonArrayImpl
   public final void insert(int index, T value) {
     this.insertObjectElement(index, value);
   }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<T> iterator() {
+    return new Iterator<T>(this);
+  }
   
   /**
    * Construct a new JavaScript JSON Object Array Implementation.

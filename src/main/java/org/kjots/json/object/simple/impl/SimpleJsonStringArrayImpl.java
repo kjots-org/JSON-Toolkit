@@ -69,4 +69,14 @@ public class SimpleJsonStringArrayImpl extends SimpleJsonArrayImpl implements Js
   public final void insert(int index, String value) {
     this.insertStringElement(index, value);
   }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<String> iterator() {
+    return new Iterator(this);
+  }
 }

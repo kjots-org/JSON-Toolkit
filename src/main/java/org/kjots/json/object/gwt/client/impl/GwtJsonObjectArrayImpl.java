@@ -15,10 +15,10 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import com.google.gwt.core.client.JsArray;
-
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectArray;
+
+import com.google.gwt.core.client.JsArray;
 
 /**
  * GWT JSON Object Array Implementation.
@@ -92,6 +92,16 @@ public class GwtJsonObjectArrayImpl<T extends JsonObject> extends GwtJsonArrayIm
   @Override
   public final void insert(int index, T value) {
     this.insertObjectElement(index, value);
+  }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<T> iterator() {
+    return new Iterator<T>(this);
   }
   
   /**

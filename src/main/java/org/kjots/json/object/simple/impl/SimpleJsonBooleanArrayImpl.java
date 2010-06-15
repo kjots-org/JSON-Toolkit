@@ -69,4 +69,14 @@ public class SimpleJsonBooleanArrayImpl extends SimpleJsonArrayImpl implements J
   public final void insert(int index, Boolean value) {
     this.insertBooleanElement(index, value);
   }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<Boolean> iterator() {
+    return new Iterator(this);
+  }
 }

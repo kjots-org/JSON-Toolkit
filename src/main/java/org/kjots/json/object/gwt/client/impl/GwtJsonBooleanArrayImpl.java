@@ -15,9 +15,9 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import com.google.gwt.core.client.JsArrayBoolean;
-
 import org.kjots.json.object.shared.JsonBooleanArray;
+
+import com.google.gwt.core.client.JsArrayBoolean;
 
 /**
  * GWT JSON Boolean Array Implementation.
@@ -70,5 +70,15 @@ public class GwtJsonBooleanArrayImpl extends GwtJsonArrayImpl implements JsonBoo
   @Override
   public final void insert(int index, Boolean value) {
     this.insertBooleanElement(index, value);
+  }
+
+  /**
+   * Retrieve an iterator for the array.
+   *
+   * @return The iterator.
+   */
+  @Override
+  public java.util.Iterator<Boolean> iterator() {
+    return new Iterator(this);
   }
 }
