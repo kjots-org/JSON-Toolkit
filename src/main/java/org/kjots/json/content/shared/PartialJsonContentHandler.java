@@ -18,7 +18,7 @@ package org.kjots.json.content.shared;
 /**
  * Partial JSON Content Handler.
  * <p>
- * This class implements {@link JsonContentHandler} and uses {@link UnsupportedOperationException}s
+ * This class implements {@link JsonContentHandler} and uses an {@link UnsupportedOperationException}
  * to cause every method to fail.
  * <p>
  * It is intended that this class should be used as the base for classes that
