@@ -24,18 +24,18 @@ package org.kjots.json.content.shared;
  */
 public interface JsonContentGenerator {
   /**
-   * Retrieve the content handler.
+   * Retrieve the JSON content handler.
    *
-   * @return The content handler.
-   * @see #setContentHandler(JsonContentHandler)
+   * @return The JSON content handler.
+   * @see #setJsonContentHandler(JsonContentHandler)
    */
-  public JsonContentHandler getContentHandler();
+  public JsonContentHandler getJsonContentHandler();
 
   /**
-   * Set the content handler.
+   * Set the JSON content handler.
    *
-   * @param contentHandler The content handler.
-   * @see #getContentHandler()
+   * @param jsonContentHandler The JSON content handler.
+   * @see #getJsonContentHandler()
    */
-  public void setContentHandler(JsonContentHandler contentHandler);
+  public void setJsonContentHandler(JsonContentHandler jsonContentHandler);
 }
