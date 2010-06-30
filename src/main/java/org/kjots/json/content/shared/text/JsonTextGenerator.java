@@ -16,7 +16,6 @@
 package org.kjots.json.content.shared.text;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import org.kjots.json.content.shared.JsonContentHandler;
 import org.kjots.json.content.shared.PartialJsonContentHandler;
@@ -456,7 +455,7 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
   private int maxDecimalPlaces = -1;
   
   /** The rounding mode of numeric values. */
-  private RoundingMode roundingMode = RoundingMode.HALF_UP;
+  private int roundingMode = BigDecimal.ROUND_HALF_UP;
   
   /**
    * Handle the start of the JSON content.
@@ -570,9 +569,9 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
    * Retrieve the rounding mode of numeric values.
    *
    * @return The rounding mode of numeric values.
-   * @see #setRoundingMode(RoundingMode)
+   * @see #setRoundingMode(int)
    */
-  public RoundingMode getRoundingMode() {
+  public int getRoundingMode() {
     return this.roundingMode;
   }
 
@@ -582,7 +581,7 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
    * @param roundingMode The rounding mode of numeric values.
    * @see #getRoundingMode()
    */
-  public void setRoundingMode(RoundingMode roundingMode) {
+  public void setRoundingMode(int roundingMode) {
     this.roundingMode = roundingMode;
   }
 
