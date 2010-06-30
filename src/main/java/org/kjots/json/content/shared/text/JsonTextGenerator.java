@@ -15,6 +15,9 @@
  */
 package org.kjots.json.content.shared.text;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.kjots.json.content.shared.JsonContentHandler;
 import org.kjots.json.content.shared.PartialJsonContentHandler;
 
@@ -26,22 +29,6 @@ import org.kjots.json.content.shared.PartialJsonContentHandler;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public abstract class JsonTextGenerator implements JsonContentHandler {
-  /**
-   * Numeric Context.
-   * <p>
-   * Created: 4th June 2010.
-   */
-  private enum NumericContext {
-    /** The integral numeric context. */
-    INTEGRAL,
-    
-    /** The decimal numeric context. */
-    DECIMAL,
-    
-    /** The exponential numeric context. */
-    EXPONENTIAL;
-  }
-  
   /**
    * JSON Context.
    */
@@ -93,56 +80,12 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
       String stringValue = value.toString();
       
       if (JsonTextGenerator.this.maxDecimalPlaces >= 0) {
-        NumericContext numericContext = NumericContext.INTEGRAL;
-        int decimalPlaces = 0;
+        BigDecimal bigDecimal = new BigDecimal(stringValue);
         
-        for (int i = 0; i < stringValue.length(); i++) {
-          char c = stringValue.charAt(i);
-          
-          switch (numericContext) {
-          case INTEGRAL:
-            if (c == '.') {
-              if (JsonTextGenerator.this.maxDecimalPlaces != 0) {
-                this.print(c);
-              }
-              
-              numericContext = NumericContext.DECIMAL;
-            }
-            else if (c == 'e' || c == 'E') {
-              this.print(c);
-              
-              numericContext = NumericContext.EXPONENTIAL;
-            }
-            else {
-              this.print(c);
-            }
-            
-            break;
-            
-          case DECIMAL:
-            if (c == 'e' || c == 'E') {
-              this.print(c);
-              
-              numericContext = NumericContext.EXPONENTIAL;
-            }
-            else  if (decimalPlaces < JsonTextGenerator.this.maxDecimalPlaces) {
-              this.print(c);
-              
-              decimalPlaces++;
-            }
-            
-            break;
-            
-          case EXPONENTIAL:
-            this.print(c);
-           
-            break;
-          }
-        }
+        stringValue = bigDecimal.setScale(JsonTextGenerator.this.maxDecimalPlaces, JsonTextGenerator.this.roundingMode).toString();
       }
-      else {
-        this.print(stringValue);
-      }
+      
+      this.print(stringValue);
     }
     
     /**
@@ -512,6 +455,9 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
   /** The maximum number of decimal places of numeric values. */
   private int maxDecimalPlaces = -1;
   
+  /** The rounding mode of numeric values. */
+  private RoundingMode roundingMode = RoundingMode.HALF_UP;
+  
   /**
    * Handle the start of the JSON content.
    */
@@ -609,7 +555,7 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
   public int getMaxDecimalPlaces() {
     return this.maxDecimalPlaces;
   }
-
+  
   /**
    * Set the maximum number of decimal places of numeric values.
    *
@@ -620,6 +566,26 @@ public abstract class JsonTextGenerator implements JsonContentHandler {
       this.maxDecimalPlaces = maxDecimalPlaces;
   }
   
+  /**
+   * Retrieve the rounding mode of numeric values.
+   *
+   * @return The rounding mode of numeric values.
+   * @see #setRoundingMode(RoundingMode)
+   */
+  public RoundingMode getRoundingMode() {
+    return this.roundingMode;
+  }
+
+  /**
+   * Set the rounding mode of numeric values.
+   *
+   * @param roundingMode The rounding mode of numeric values.
+   * @see #getRoundingMode()
+   */
+  public void setRoundingMode(RoundingMode roundingMode) {
+    this.roundingMode = roundingMode;
+  }
+
   /**
    * Print the given character.
    *
