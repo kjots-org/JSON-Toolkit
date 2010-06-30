@@ -58,6 +58,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
    * @param stack The stack objects.
    * @see org.objectweb.asm.MethodVisitor#visitFrame(int, int, Object[], int, Object[])
    */
+  @Override
   public void visitFrame(int type, int nLocal, Object[] local, int nStack, Object[] stack) {
     this.asmMethodVisitor.visitFrame(type, nLocal, this.convertFameObjects(local), nStack, this.convertFameObjects(stack));
   }
@@ -118,6 +119,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitAnnotation(String, boolean)
    */
+  @Override
   public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
     return this.asmMethodVisitor.visitAnnotation(desc, visible);
   }
@@ -125,6 +127,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitAnnotationDefault()
    */
+  @Override
   public AnnotationVisitor visitAnnotationDefault() {
     return this.asmMethodVisitor.visitAnnotationDefault();
   }
@@ -132,6 +135,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitAttribute(Attribute)
    */
+  @Override
   public void visitAttribute(Attribute attr) {
     this.asmMethodVisitor.visitAttribute(attr);
   }
@@ -139,6 +143,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitCode()
    */
+  @Override
   public void visitCode() {
     this.asmMethodVisitor.visitCode();
   }
@@ -146,6 +151,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitEnd()
    */
+  @Override
   public void visitEnd() {
     this.asmMethodVisitor.visitEnd();
   }
@@ -153,6 +159,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitFieldInsn(int, String, String, String)
    */
+  @Override
   public void visitFieldInsn(int opcode, String owner, String name, String desc) {
     this.asmMethodVisitor.visitFieldInsn(opcode, owner, name, desc);
   }
@@ -160,6 +167,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitIincInsn(int, int)
    */
+  @Override
   public void visitIincInsn(int var, int increment) {
     this.asmMethodVisitor.visitIincInsn(var, increment);
   }
@@ -167,6 +175,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitInsn(int)
    */
+  @Override
   public void visitInsn(int opcode) {
     this.asmMethodVisitor.visitInsn(opcode);
   }
@@ -174,6 +183,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitIntInsn(int, int)
    */
+  @Override
   public void visitIntInsn(int opcode, int operand) {
     this.asmMethodVisitor.visitIntInsn(opcode, operand);
   }
@@ -181,6 +191,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitJumpInsn(int, Label)
    */
+  @Override
   public void visitJumpInsn(int opcode, Label label) {
     this.asmMethodVisitor.visitJumpInsn(opcode, label);
   }
@@ -188,6 +199,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitLabel(Label)
    */
+  @Override
   public void visitLabel(Label label) {
     this.asmMethodVisitor.visitLabel(label);
   }
@@ -195,6 +207,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitLdcInsn(Object)
    */
+  @Override
   public void visitLdcInsn(Object cst) {
     this.asmMethodVisitor.visitLdcInsn(cst);
   }
@@ -202,6 +215,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitLineNumber(int, Label)
    */
+  @Override
   public void visitLineNumber(int line, Label start) {
     this.asmMethodVisitor.visitLineNumber(line, start);
   }
@@ -209,6 +223,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitLocalVariable(String, String, String, Label, Label, int)
    */
+  @Override
   public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index) {
     this.asmMethodVisitor.visitLocalVariable(name, desc, signature, start, end, index);
   }
@@ -216,6 +231,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitLookupSwitchInsn(Label, int[], Label[])
    */
+  @Override
   public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
     this.asmMethodVisitor.visitLookupSwitchInsn(dflt, keys, labels);
   }
@@ -223,6 +239,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitMaxs(int, int)
    */
+  @Override
   public void visitMaxs(int maxStack, int maxLocals) {
     this.asmMethodVisitor.visitMaxs(maxStack, maxLocals);
   }
@@ -230,6 +247,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitMethodInsn(int, String, String, String)
    */
+  @Override
   public void visitMethodInsn(int opcode, String owner, String name, String desc) {
     this.asmMethodVisitor.visitMethodInsn(opcode, owner, name, desc);
   }
@@ -237,6 +255,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitMultiANewArrayInsn(String, int)
    */
+  @Override
   public void visitMultiANewArrayInsn(String desc, int dims) {
     this.asmMethodVisitor.visitMultiANewArrayInsn(desc, dims);
   }
@@ -244,6 +263,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitParameterAnnotation(int, String, boolean)
    */
+  @Override
   public AnnotationVisitor visitParameterAnnotation(int parameter, String desc, boolean visible) {
     return this.asmMethodVisitor.visitParameterAnnotation(parameter, desc, visible);
   }
@@ -251,6 +271,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitTableSwitchInsn(int, int, Label, Label[])
    */
+  @Override
   public void visitTableSwitchInsn(int min, int max, Label dflt, Label[] labels) {
     this.asmMethodVisitor.visitTableSwitchInsn(min, max, dflt, labels);
   }
@@ -258,6 +279,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitTryCatchBlock(Label, Label, Label, String)
    */
+  @Override
   public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
     this.asmMethodVisitor.visitTryCatchBlock(start, end, handler, type);
   }
@@ -265,6 +287,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitTypeInsn(int, String)
    */
+  @Override
   public void visitTypeInsn(int opcode, String type) {
     this.asmMethodVisitor.visitTypeInsn(opcode, type);
   }
@@ -272,6 +295,7 @@ public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /**
    * @see org.objectweb.asm.MethodVisitor#visitVarInsn(int, int)
    */
+  @Override
   public void visitVarInsn(int opcode, int var) {
     this.asmMethodVisitor.visitVarInsn(opcode, var);
   }

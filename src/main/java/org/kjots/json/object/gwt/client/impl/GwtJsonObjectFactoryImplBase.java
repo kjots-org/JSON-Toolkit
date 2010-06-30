@@ -104,60 +104,70 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   @SuppressWarnings("unchecked")
   protected GwtJsonObjectFactoryImplBase() {
     this.registerJsonObjectInstantiator(JsonObject.class, new JsonObjectInstantiator<JsonObject>() {
+      @Override
       public final JsonObject newInstance(JavaScriptObject jsObject) {
         return new GwtJsonObjectImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonArray.class, new JsonObjectInstantiator<JsonArray>() {
+      @Override
       public final JsonArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonArrayImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonBooleanArray.class, new JsonObjectInstantiator<JsonBooleanArray>() {
+      @Override
       public final JsonBooleanArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonBooleanArrayImpl((JsArrayBoolean)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonNumberArray.class, new JsonObjectInstantiator<JsonNumberArray>() {
+      @Override
       public final JsonNumberArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonNumberArrayImpl((JsArrayNumber)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonStringArray.class, new JsonObjectInstantiator<JsonStringArray>() {
+      @Override
       public final JsonStringArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonStringArrayImpl((JsArrayString)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonObjectArray.class, new JsonObjectInstantiator<JsonObjectArray>() {
+      @Override
       public final JsonObjectArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonObjectArrayImpl((JsArray<?>)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonBooleanMap.class, new JsonObjectInstantiator<JsonBooleanMap>() {
+      @Override
       public final JsonBooleanMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonBooleanMapImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonNumberMap.class, new JsonObjectInstantiator<JsonNumberMap>() {
+      @Override
       public final JsonNumberMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonNumberMapImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonStringMap.class, new JsonObjectInstantiator<JsonStringMap>() {
+      @Override
       public final JsonStringMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonStringMapImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonObjectMap.class, new JsonObjectInstantiator<JsonObjectMap>() {
+      @Override
       public final JsonObjectMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonObjectMapImpl(jsObject);
       }

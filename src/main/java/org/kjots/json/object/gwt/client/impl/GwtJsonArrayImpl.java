@@ -248,6 +248,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @return The object value.
    * @see #setObjectElement(int, JsonObject)
    */
+  @Override
   public final <T extends JsonObject> T getObjectElement(int index, Class<T> jsonObjectClass) {
     JavaScriptObject jsObjectPropertyValue = this.getJsObjectElement(index);
     

@@ -311,6 +311,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    *
    * @return The underlying JSON object.
    */
+  @Override
   public final JavaScriptObject getObject() {
     return this.jsObject;
   }
