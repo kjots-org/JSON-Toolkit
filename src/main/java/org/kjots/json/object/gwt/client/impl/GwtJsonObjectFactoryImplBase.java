@@ -101,7 +101,7 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   /**
    * Construct a new GWT JSON Object Factory Implementation Base.
    */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   protected GwtJsonObjectFactoryImplBase() {
     this.registerJsonObjectInstantiator(JsonObject.class, new JsonObjectInstantiator<JsonObject>() {
       @Override
