@@ -72,6 +72,20 @@ public class GwtJsonObjectGeneratorStringTest extends GwtJsonObjectTestBase {
   }
 
   /**
+   * @see JsonObjectGeneratorStringTestBase#testGetAdaptedStringArrayProperty()
+   */
+  public void testGetAdaptedStringArrayProperty() {
+    this.jsonObjectGeneratorStringTestDelegate.testGetAdaptedStringArrayProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorStringTestBase#testSetAdaptedStringArrayProperty()
+   */
+  public void testSetAdaptedStringArrayProperty() {
+    this.jsonObjectGeneratorStringTestDelegate.testSetAdaptedStringArrayProperty();
+  }
+
+  /**
    * @see JsonObjectGeneratorStringTestBase#testGetStringMapProperty()
    */
   public void testGetStringMapProperty() {
@@ -83,5 +97,19 @@ public class GwtJsonObjectGeneratorStringTest extends GwtJsonObjectTestBase {
    */
   public void testSetStringMapProperty() {
     this.jsonObjectGeneratorStringTestDelegate.testSetStringMapProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorStringTestBase#testGetAdaptedStringMapProperty()
+   */
+  public void testGetAdaptedStringMapProperty() {
+    this.jsonObjectGeneratorStringTestDelegate.testGetAdaptedStringMapProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorStringTestBase#testSetAdaptedStringMapProperty()
+   */
+  public void testSetAdaptedStringMapProperty() {
+    this.jsonObjectGeneratorStringTestDelegate.testSetAdaptedStringMapProperty();
   }
 }

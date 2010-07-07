@@ -72,6 +72,20 @@ public class GwtJsonObjectGeneratorNumberTest extends GwtJsonObjectTestBase {
   }
 
   /**
+   * @see JsonObjectGeneratorNumberTestBase#testGetAdaptedNumberArrayProperty()
+   */
+  public void testGetAdaptedNumberArrayProperty() {
+    this.jsonObjectGeneratorNumberTestDelegate.testGetAdaptedNumberArrayProperty();
+  }
+
+  /**
+   * @see .JsonObjectGeneratorNumberTestBase#testSetAdaptedNumberArrayProperty()
+   */
+  public void testSetAdaptedNumberArrayProperty() {
+    this.jsonObjectGeneratorNumberTestDelegate.testSetAdaptedNumberArrayProperty();
+  }
+
+  /**
    * @see JsonObjectGeneratorNumberTestBase#testGetNumberMapProperty()
    */
   public void testGetNumberMapProperty() {
@@ -83,5 +97,19 @@ public class GwtJsonObjectGeneratorNumberTest extends GwtJsonObjectTestBase {
    */
   public void testSetNumberMapProperty() {
     this.jsonObjectGeneratorNumberTestDelegate.testSetNumberMapProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorNumberTestBase#testGetAdaptedNumberMapProperty()
+   */
+  public void testGetAdaptedNumberMapProperty() {
+    this.jsonObjectGeneratorNumberTestDelegate.testGetAdaptedNumberMapProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorNumberTestBase#testSetAdaptedNumberMapProperty()
+   */
+  public void testSetAdaptedNumberMapProperty() {
+    this.jsonObjectGeneratorNumberTestDelegate.testSetAdaptedNumberMapProperty();
   }
 }

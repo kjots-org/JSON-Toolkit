@@ -16,11 +16,15 @@
 package org.kjots.json.object.shared;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
-
 import org.kjots.json.object.shared.JsonProperty.OperationType;
 
 /**
@@ -90,6 +94,24 @@ public abstract class JsonObjectGeneratorStringTestBase {
     public void setTestStringArrayProperty(JsonStringArray testStringArrayProperty);
     
     /**
+     * Retrieve the test adapted string array property.
+     *
+     * @return The test adapted string array property.
+     * @see #setTestAdaptedStringArrayProperty(List)
+     */
+    @JsonProperty(name = "testAdaptedStringArrayProperty", operation = OperationType.GET, adapter = TestJsonStringArrayPropertyAdapter.class)
+    public List<String> getTestAdaptedStringArrayProperty();
+
+    /**
+     * Set the test adapted string array property.
+     *
+     * @param testAdaptedStringArrayProperty The test adapted string array property.
+     * @see #getTestAdaptedStringArrayProperty()
+     */
+    @JsonProperty(name = "testAdaptedStringArrayProperty", operation = OperationType.SET, adapter = TestJsonStringArrayPropertyAdapter.class)
+    public void setTestAdaptedStringArrayProperty(List<String> testAdaptedStringArrayProperty);
+
+    /**
      * Retrieve the test string map property.
      *
      * @return The test string map property.
@@ -106,6 +128,24 @@ public abstract class JsonObjectGeneratorStringTestBase {
      */
     @JsonProperty(name = "testStringMapProperty", operation = OperationType.SET)
     public void setTestStringMapProperty(JsonStringMap testStringMapProperty);
+    
+    /**
+     * Retrieve the test adapted string map property.
+     *
+     * @return The test adapted string map property.
+     * @see #setTestAdaptedStringMapProperty(Map)
+     */
+    @JsonProperty(name = "testAdaptedStringMapProperty", operation = OperationType.GET, adapter = TestJsonStringMapPropertyAdapter.class)
+    public Map<String, String> getTestAdaptedStringMapProperty();
+    
+    /**
+     * Set the test adapted string map property.
+     *
+     * @param testAdaptedStringMapProperty The test adapted string map property.
+     * @see #getTestAdaptedStringMapProperty()
+     */
+    @JsonProperty(name = "testAdaptedStringMapProperty", operation = OperationType.SET, adapter = TestJsonStringMapPropertyAdapter.class)
+    public void setTestAdaptedStringMapProperty(Map<String, String> testAdaptedStringMapProperty);
   }
   
   /**
@@ -140,6 +180,92 @@ public abstract class JsonObjectGeneratorStringTestBase {
     @SuppressWarnings("deprecation")
     public Date fromJsonProperty(String propertyValue) {
       return new Date(Date.parse(propertyValue));
+    }
+  }
+  
+  /**
+   * Test JSON String Array Property Adapter.
+   * <p>
+   * Created: 7th July 2010.
+   */
+  public static class TestJsonStringArrayPropertyAdapter implements JsonObjectPropertyAdapter<List<String>, JsonStringArray> {
+    /**
+     * Convert to a JSON object property value.
+     *
+     * @param testJsonStringProperties The value.
+     * @return The JSON object property value.
+     * @see #fromJsonProperty(JsonStringArray)
+     */
+    @Override
+    public JsonStringArray toJsonProperty(List<String> testJsonStringProperties) {
+      JsonStringArray jsonStringArray = JsonObjectFactory.get().createJsonArray(JsonStringArray.class);
+      
+      for (int i = 0; i < testJsonStringProperties.size(); i++) {
+        jsonStringArray.set(i, testJsonStringProperties.get(i));
+      }
+      
+      return jsonStringArray;
+    }
+
+    /**
+     * Convert from a JSON object property value.
+     *
+     * @param propertyValue The JSON object property value.
+     * @return The value.
+     * @see #toJsonProperty(List)
+     */
+    @Override
+    public List<String> fromJsonProperty(JsonStringArray propertyValue) {
+      List<String> list = new ArrayList<String>(propertyValue.getLength());
+      
+      for (String value : propertyValue) {
+        list.add(value);
+      }
+      
+      return list;
+    }
+  }
+  
+  /**
+   * Test JSON String Map Property Adapter.
+   * <p>
+   * Created: 7th July 2010.
+   */
+  public static class TestJsonStringMapPropertyAdapter implements JsonObjectPropertyAdapter<Map<String, String>, JsonStringMap> {
+    /**
+     * Convert to a JSON object property value.
+     *
+     * @param testJsonStringProperties The value.
+     * @return The JSON object property value.
+     * @see #fromJsonProperty(JsonStringMap)
+     */
+    @Override
+    public JsonStringMap toJsonProperty(Map<String, String> testJsonStringProperties) {
+      JsonStringMap jsonStringMap = JsonObjectFactory.get().createJsonObject(JsonStringMap.class);
+      
+      for (Map.Entry<String, String> entry : testJsonStringProperties.entrySet()) {
+        jsonStringMap.set(entry.getKey(), entry.getValue());
+      }
+      
+      return jsonStringMap;
+    }
+
+    /**
+     * Convert from a JSON object property value.
+     *
+     * @param propertyValue The JSON object property value.
+     * @return The value.
+     * @see #toJsonProperty(Map)
+     */
+    @Override
+    public Map<String, String> fromJsonProperty(JsonStringMap propertyValue) {
+      Map<String, String> map = new HashMap<String, String>();
+      
+      for (String key : propertyValue.getPropertyNames()) {
+        map.put(key, propertyValue.get(key));
+      }
+      
+      return map;
     }
   }
   
@@ -241,6 +367,62 @@ public abstract class JsonObjectGeneratorStringTestBase {
   }
   
   /**
+   * Test the retrieval of the value of an adapted string array property.
+   * <p>
+   * This test asserts that the retrieved value of an adapted string array
+   * property matches the adapted value of the corresponding property of the
+   * underlying JSON object.
+   */
+  @Test
+  public void testGetAdaptedStringArrayProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    JsonStringArray testJsonStringArray = JsonObjectFactory.get().createJsonArray(JsonStringArray.class);
+    
+    for (int i = 0; i < 10; i++) {
+      testJsonStringArray.set(i, Integer.toString(i));
+    }
+    
+    testJsonObject.setObjectProperty("testAdaptedStringArrayProperty", testJsonStringArray);
+    
+    List<String> testAdaptedStringArrayProperty = testJsonObject.getTestAdaptedStringArrayProperty();
+    
+    assertNotNull(testAdaptedStringArrayProperty);
+    assertEquals(testJsonStringArray.getLength(), testAdaptedStringArrayProperty.size());
+    for (int i = 0; i < testJsonStringArray.getLength(); i++) {
+      assertEquals(testJsonStringArray.get(i), testAdaptedStringArrayProperty.get(i));
+    }
+  }
+
+  /**
+   * Test the setting of the value of an adapted string array property.
+   * <p>
+   * This test asserts that the setting of the value of an adapted property
+   * changes the value of the corresponding property of the underlying JSON
+   * object to the adapted string array value.
+   */
+  @Test
+  public void testSetAdaptedStringArrayProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    List<String> testAdaptedStringArrayProperty = new ArrayList<String>();
+    
+    for (int i = 0; i < 10; i++) {
+      testAdaptedStringArrayProperty.add(Integer.toString(i));
+    }
+    
+    testJsonObject.setTestAdaptedStringArrayProperty(testAdaptedStringArrayProperty);
+    
+    JsonStringArray testJsonStringArray = testJsonObject.getObjectProperty("testAdaptedStringArrayProperty", JsonStringArray.class);
+    
+    assertNotNull(testJsonStringArray);
+    assertEquals(testAdaptedStringArrayProperty.size(), testJsonStringArray.getLength());
+    for (int i = 0; i < testAdaptedStringArrayProperty.size(); i++) {
+      assertEquals(testAdaptedStringArrayProperty.get(i), testJsonStringArray.get(i));
+    }
+  }
+
+  /**
    * Test the retrieval of the string map value of a property.
    * <p>
    * This test asserts that the retrieved string map value of a property
@@ -272,5 +454,61 @@ public abstract class JsonObjectGeneratorStringTestBase {
     testJsonObject.setTestStringMapProperty(testStringMapProperty);
     
     assertEquals(testStringMapProperty, testJsonObject.getObjectProperty("testStringMapProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the value of an adapted string map property.
+   * <p>
+   * This test asserts that the retrieved value of an adapted string map
+   * property matches the adapted value of the corresponding property of the
+   * underlying JSON object.
+   */
+  @Test
+  public void testGetAdaptedStringMapProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    JsonStringMap testJsonStringMap = JsonObjectFactory.get().createJsonObject(JsonStringMap.class);
+    
+    for (int i = 0; i < 10; i++) {
+      testJsonStringMap.set(Integer.toString(i), Integer.toString(i));
+    }
+    
+    testJsonObject.setObjectProperty("testAdaptedStringMapProperty", testJsonStringMap);
+    
+    Map<String, String> testAdaptedStringMapProperty = testJsonObject.getTestAdaptedStringMapProperty();
+    
+    assertNotNull(testAdaptedStringMapProperty);
+    assertEquals(testJsonStringMap.getPropertyNames().size(), testAdaptedStringMapProperty.size());
+    for (String key : testJsonStringMap.getPropertyNames()) {
+      assertEquals(testJsonStringMap.get(key), testAdaptedStringMapProperty.get(key));
+    }
+  }
+  
+  /**
+   * Test the setting of the value of an adapted string map property.
+   * <p>
+   * This test asserts that the setting of the value of an adapted property
+   * changes the value of the corresponding property of the underlying JSON
+   * object to the adapted string map value.
+   */
+  @Test
+  public void testSetAdaptedStringMapProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    Map<String, String> testAdaptedStringMapProperty = new HashMap<String, String>();
+    
+    for (int i = 0; i < 10; i++) {
+      testAdaptedStringMapProperty.put(Integer.toString(i), Integer.toString(i));
+    }
+    
+    testJsonObject.setTestAdaptedStringMapProperty(testAdaptedStringMapProperty);
+    
+    JsonStringMap testJsonStringMap = testJsonObject.getObjectProperty("testAdaptedStringMapProperty", JsonStringMap.class);
+    
+    assertNotNull(testJsonStringMap);
+    assertEquals(testAdaptedStringMapProperty.size(), testJsonStringMap.getPropertyNames().size());
+    for (Map.Entry<String, String> entry : testAdaptedStringMapProperty.entrySet()) {
+      assertEquals(testAdaptedStringMapProperty.get(entry.getKey()), testJsonStringMap.get(entry.getKey()));
+    }
   }
 }
