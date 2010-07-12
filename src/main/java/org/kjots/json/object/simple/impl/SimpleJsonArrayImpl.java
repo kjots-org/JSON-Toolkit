@@ -38,11 +38,11 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
    * @param value The value.
    */
   private static void set(List<Object> list, int index, Object value) {
-    while (list.size() < index) {
+    while (list.size() <= index) {
       list.add(null);
     }
     
-    list.add(value);
+    list.set(index, value);
   }
 
   /**
