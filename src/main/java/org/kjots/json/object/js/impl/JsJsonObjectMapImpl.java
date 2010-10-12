@@ -92,7 +92,7 @@ public class JsJsonObjectMapImpl<T extends JsonObject> extends JsJsonObjectImpl 
    * @param elementClass The element class.
    */
   private JsJsonObjectMapImpl(Invocable jsEngine, Object jsObject, Class<T> elementClass) {
-    super(jsEngine, jsObject);
+    super(JsonObjectMap.class, jsEngine, jsObject);
     
     this.elementClass = elementClass;
   }

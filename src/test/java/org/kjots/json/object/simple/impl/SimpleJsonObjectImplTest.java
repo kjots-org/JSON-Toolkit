@@ -47,7 +47,7 @@ public class SimpleJsonObjectImplTest extends JsonObjectImplTestBase<SimpleJsonV
    */
   @Override
   protected JsonObject createJsonObject(SimpleJsonValue object) {
-    return new SimpleJsonObjectImpl(object);
+    return new SimpleJsonObjectImpl(JsonObject.class, object);
   }
 
   /**

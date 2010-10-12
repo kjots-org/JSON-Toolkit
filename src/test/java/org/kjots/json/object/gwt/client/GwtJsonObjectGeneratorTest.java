@@ -45,6 +45,13 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTestBase {
   }
   
   /**
+   * @see JsonObjectGeneratorTestBase#testGetJsonObjectClass()
+   */
+  public void testGetJsonObjectClass() {
+    this.jsonObjectGeneratorTestDelegate.testGetJsonObjectClass();
+  }
+  
+  /**
    * @see JsonObjectGeneratorTestBase#testHasProperty()
    */
   public void testHasProperty() {

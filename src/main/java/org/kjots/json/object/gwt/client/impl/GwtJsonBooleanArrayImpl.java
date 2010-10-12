@@ -34,7 +34,7 @@ public class GwtJsonBooleanArrayImpl extends GwtJsonArrayImpl implements JsonBoo
    * @param jsBooleanArray The JavaScript boolean array.
    */
   public GwtJsonBooleanArrayImpl(JsArrayBoolean jsBooleanArray) {
-    super(jsBooleanArray);
+    super(JsonBooleanArray.class, jsBooleanArray);
   }
 
   /**

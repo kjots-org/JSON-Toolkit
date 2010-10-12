@@ -33,11 +33,12 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
   /**
    * Construct a new JavaScript JSON Array Implementation.
    *
+   * @param jsonArrayClass The JSON array class.
    * @param jsEngine The JavaScript engine.
    * @param jsObject The JavaScript object.
    */
-  public JsJsonArrayImpl(Invocable jsEngine, Object jsObject) {
-    super(jsEngine, jsObject);
+  public JsJsonArrayImpl(Class<? extends JsonArray> jsonArrayClass, Invocable jsEngine, Object jsObject) {
+    super(jsonArrayClass, jsEngine, jsObject);
   }
   
   /**

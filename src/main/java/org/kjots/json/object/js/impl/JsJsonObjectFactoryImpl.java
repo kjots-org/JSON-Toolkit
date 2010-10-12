@@ -77,7 +77,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
       Class<? extends JsJsonObjectImpl> jsonObjectImplClass = this.jsonObjectGenerator.getJsonObjectImplClass(jsonObjectClass);
 
       try {
-        jsonObjectImpl = jsonObjectImplClass.getConstructor(Invocable.class, Object.class).newInstance(this.jsEngine, object);
+        jsonObjectImpl = jsonObjectImplClass.getConstructor(Class.class, Invocable.class, Object.class).newInstance(jsonObjectClass, this.jsEngine, object);
       }
       catch (NoSuchMethodException nsme) {
         throw new IllegalStateException(nsme);
@@ -186,10 +186,10 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    */
   private JsJsonObjectImpl createStaticJsonObject(Class<? extends JsonObject> jsonObjectClass, Object object) {
     if (jsonObjectClass.equals(JsonObject.class)) {
-      return new JsJsonObjectImpl(this.jsEngine, object);
+      return new JsJsonObjectImpl(JsonObject.class, this.jsEngine, object);
     }
     else if (jsonObjectClass.equals(JsonArray.class)) {
-      return new JsJsonArrayImpl(this.jsEngine, object);
+      return new JsJsonArrayImpl(JsonArray.class, this.jsEngine, object);
     }
     else if (jsonObjectClass.equals(JsonBooleanArray.class)) {
       return new JsJsonBooleanArrayImpl(this.jsEngine, object);

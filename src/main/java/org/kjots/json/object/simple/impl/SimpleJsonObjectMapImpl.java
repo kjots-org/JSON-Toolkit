@@ -88,7 +88,7 @@ public class SimpleJsonObjectMapImpl<T extends JsonObject> extends SimpleJsonObj
    * @param elementClass The element class.
    */
   private SimpleJsonObjectMapImpl(SimpleJsonValue simpleJsonValue, Class<T> elementClass) {
-    super(simpleJsonValue);
+    super(JsonObjectMap.class, simpleJsonValue);
     
     this.elementClass = elementClass;
   }

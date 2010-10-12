@@ -29,16 +29,31 @@ import org.kjots.json.object.simple.SimpleJsonValue;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public class SimpleJsonObjectImpl implements JsonObject {
+  /** The JSON object class. */
+  protected final Class<? extends JsonObject> jsonObjectClass;
+  
   /** The simple JSON value. */
   protected final SimpleJsonValue simpleJsonValue;
   
   /**
    * Construct a new Simple JSON Object Implementation.
    *
+   * @param jsonObjectClass The JSON object class.
    * @param simpleJsonValue The simple JSON value.
    */
-  public SimpleJsonObjectImpl(SimpleJsonValue simpleJsonValue) {
+  public SimpleJsonObjectImpl(Class<? extends JsonObject> jsonObjectClass, SimpleJsonValue simpleJsonValue) {
+    this.jsonObjectClass = jsonObjectClass;
     this.simpleJsonValue = simpleJsonValue;
+  }
+  
+  /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  @Override
+  public Class<? extends JsonObject> getJsonObjectClass() {
+    return this.jsonObjectClass;
   }
   
   /**

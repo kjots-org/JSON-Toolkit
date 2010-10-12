@@ -109,7 +109,7 @@ public class SimpleJsonObjectArrayImpl<T extends JsonObject> extends SimpleJsonA
    * @param elementClass The element class.
    */
   private SimpleJsonObjectArrayImpl(SimpleJsonValue simpleJsonValue, Class<T> elementClass) {
-    super(simpleJsonValue);
+    super(JsonObjectArray.class, simpleJsonValue);
     
     this.elementClass = elementClass;
   }

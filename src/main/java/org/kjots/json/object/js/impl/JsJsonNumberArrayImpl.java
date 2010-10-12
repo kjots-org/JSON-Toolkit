@@ -35,7 +35,7 @@ public class JsJsonNumberArrayImpl extends JsJsonArrayImpl implements JsonNumber
    * @param jsObject The JavaScript object.
    */
   public JsJsonNumberArrayImpl(Invocable jsEngine, Object jsObject) {
-    super(jsEngine, jsObject);
+    super(JsonNumberArray.class, jsEngine, jsObject);
   }
   
   /**

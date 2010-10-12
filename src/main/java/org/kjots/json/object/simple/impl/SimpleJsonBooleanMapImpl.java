@@ -32,7 +32,7 @@ public class SimpleJsonBooleanMapImpl extends SimpleJsonObjectImpl implements Js
    * @param simpleJsonValue The simple JSON value.
    */
   public SimpleJsonBooleanMapImpl(SimpleJsonValue simpleJsonValue) {
-    super(simpleJsonValue);
+    super(JsonBooleanMap.class, simpleJsonValue);
   }
 
   /**

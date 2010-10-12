@@ -34,7 +34,7 @@ public class GwtJsonStringMapImpl extends GwtJsonObjectImpl implements JsonStrin
    * @param jsObject The JavaScript object.
    */
   public GwtJsonStringMapImpl(JavaScriptObject jsObject) {
-    super(jsObject);
+    super(JsonStringMap.class, jsObject);
   }
   
   /**

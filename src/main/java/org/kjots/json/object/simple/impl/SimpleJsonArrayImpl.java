@@ -48,10 +48,11 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
   /**
    * Construct a new Simple JSON Array Implementation.
    *
+   * @param jsonArrayClass The JSON array class.
    * @param simpleJsonValue The simple JSON value.
    */
-  public SimpleJsonArrayImpl(SimpleJsonValue simpleJsonValue) {
-    super(simpleJsonValue);
+  public SimpleJsonArrayImpl(Class<? extends JsonArray> jsonArrayClass, SimpleJsonValue simpleJsonValue) {
+    super(jsonArrayClass, simpleJsonValue);
   }
   
   /**

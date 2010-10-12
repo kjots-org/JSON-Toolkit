@@ -34,7 +34,7 @@ public class GwtJsonNumberMapImpl extends GwtJsonObjectImpl implements JsonNumbe
    * @param jsObject The JavaScript object.
    */
   public GwtJsonNumberMapImpl(JavaScriptObject jsObject) {
-    super(jsObject);
+    super(JsonNumberMap.class, jsObject);
   }
   
   /**

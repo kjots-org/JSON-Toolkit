@@ -35,7 +35,7 @@ public class JsJsonBooleanArrayImpl extends JsJsonArrayImpl implements JsonBoole
    * @param jsObject The JavaScript object.
    */
   public JsJsonBooleanArrayImpl(Invocable jsEngine, Object jsObject) {
-    super(jsEngine, jsObject);
+    super(JsonBooleanArray.class, jsEngine, jsObject);
   }
   
   /**

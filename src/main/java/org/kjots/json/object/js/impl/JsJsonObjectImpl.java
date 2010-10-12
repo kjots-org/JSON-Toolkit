@@ -33,6 +33,9 @@ import org.kjots.json.object.shared.JsonObjectFactory;
  * @since json-object-0.2
  */
 public class JsJsonObjectImpl implements JsonObject {
+  /** The JSON object class. */
+  protected final Class<? extends JsonObject> jsonObjectClass;
+  
   /** The JavaScript engine. */
   protected final Invocable jsEngine;
   
@@ -42,12 +45,24 @@ public class JsJsonObjectImpl implements JsonObject {
   /**
    * Construct a new JavaScript JSON Object Implementation.
    *
+   * @param jsonObjectClass The JSON object class.
    * @param jsEngine The JavaScript engine.
    * @param jsObject The JavaScript object.
    */
-  public JsJsonObjectImpl(Invocable jsEngine, Object jsObject) {
+  public JsJsonObjectImpl(Class<? extends JsonObject> jsonObjectClass, Invocable jsEngine, Object jsObject) {
+    this.jsonObjectClass = jsonObjectClass;
     this.jsEngine = jsEngine;
     this.jsObject = jsObject;
+  }
+  
+  /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  @Override
+  public Class<? extends JsonObject> getJsonObjectClass() {
+    return this.jsonObjectClass;
   }
   
   /**

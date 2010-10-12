@@ -34,7 +34,7 @@ public class GwtJsonNumberArrayImpl extends GwtJsonArrayImpl implements JsonNumb
    * @param jsNumberArray The JavaScript number array.
    */
   public GwtJsonNumberArrayImpl(JsArrayNumber jsNumberArray) {
-    super(jsNumberArray);
+    super(JsonNumberArray.class, jsNumberArray);
   }
 
   /**

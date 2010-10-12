@@ -36,16 +36,31 @@ import com.google.gwt.core.client.JsArrayString;
  * @since json-object-0.1
  */
 public class GwtJsonObjectImpl implements JsonObject {
+  /** The JSON object class. */
+  protected final Class<? extends JsonObject> jsonObjectClass;
+  
   /** The JavaScript object. */
   protected final JavaScriptObject jsObject;
   
   /**
    * Construct a new GWT JSON Object Implementation.
    *
+   * @param jsonObjectClass The JSON object class.
    * @param jsObject The JavaScript object.
    */
-  public GwtJsonObjectImpl(JavaScriptObject jsObject) {
+  public GwtJsonObjectImpl(Class<? extends JsonObject> jsonObjectClass, JavaScriptObject jsObject) {
+    this.jsonObjectClass = jsonObjectClass;
     this.jsObject = jsObject;
+  }
+  
+  /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  @Override
+  public Class<? extends JsonObject> getJsonObjectClass() {
+    return this.jsonObjectClass;
   }
   
   /**

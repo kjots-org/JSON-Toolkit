@@ -35,7 +35,7 @@ public class JsJsonStringArrayImpl extends JsJsonArrayImpl implements JsonString
    * @param jsObject The JavaScript object.
    */
   public JsJsonStringArrayImpl(Invocable jsEngine, Object jsObject) {
-    super(jsEngine, jsObject);
+    super(JsonStringArray.class, jsEngine, jsObject);
   }
   
   /**

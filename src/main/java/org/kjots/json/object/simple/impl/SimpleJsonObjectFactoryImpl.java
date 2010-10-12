@@ -61,7 +61,7 @@ public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
       Class<? extends SimpleJsonObjectImpl> jsonObjectImplClass = this.jsonObjectGenerator.getJsonObjectImplClass(jsonObjectClass);
       
       try {
-        jsonObjectImpl = jsonObjectImplClass.getConstructor(SimpleJsonValue.class).newInstance(object);
+        jsonObjectImpl = jsonObjectImplClass.getConstructor(Class.class, SimpleJsonValue.class).newInstance(jsonObjectClass, object);
       }
       catch (NoSuchMethodException nsme) {
         throw new IllegalStateException(nsme);
@@ -170,10 +170,10 @@ public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
    */
   private SimpleJsonObjectImpl createStaticJsonObject(Class<? extends JsonObject> jsonObjectClass, SimpleJsonValue object) {
     if (jsonObjectClass.equals(JsonObject.class)) {
-      return new SimpleJsonObjectImpl(object);
+      return new SimpleJsonObjectImpl(JsonObject.class, object);
     }
     else if (jsonObjectClass.equals(JsonArray.class)) {
-      return new SimpleJsonArrayImpl(object);
+      return new SimpleJsonArrayImpl(JsonArray.class, object);
     }
     else if (jsonObjectClass.equals(JsonBooleanArray.class)) {
       return new SimpleJsonBooleanArrayImpl(object);

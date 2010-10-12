@@ -142,14 +142,14 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
     this.registerJsonObjectInstantiator(JsonObject.class, new JsonObjectInstantiator<JsonObject>() {
       @Override
       public final JsonObject newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonObjectImpl(jsObject);
+        return new GwtJsonObjectImpl(JsonObject.class, jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonArray.class, new JsonObjectInstantiator<JsonArray>() {
       @Override
       public final JsonArray newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonArrayImpl(jsObject);
+        return new GwtJsonArrayImpl(JsonArray.class, jsObject);
       }
     });
     
@@ -232,7 +232,6 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   private <T extends JsonObject> JsonObjectInstantiator<T> getJsonObjectInstantiator(Class<T> jsonObjectClass) {
     return (JsonObjectInstantiator<T>)this.jsonObjectInstantiators.get(jsonObjectClass.getName());
   }
-  
   
   /**
    * Retrieve the instantiator for JSON objects with the given given class name. 

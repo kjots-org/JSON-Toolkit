@@ -112,9 +112,9 @@ public class GwtJsonObjectGenerator extends Generator {
       
       SourceWriter sourceWriter = composerFactory.createSourceWriter(context, printWriter);
     
-      sourceWriter.println("public " + implClassName + "(" + JavaScriptObject.class.getName() + " jsObject) {");
+      sourceWriter.println("public " + implClassName + "(" + Class.class.getName() + "<? extends " + typeClassType.getQualifiedSourceName() + "> jsonObjectClass, " + JavaScriptObject.class.getName() + " jsObject) {");
       sourceWriter.indent();
-      sourceWriter.println("super(jsObject);");
+      sourceWriter.println("super(jsonObjectClass, jsObject);");
       sourceWriter.outdent();
       sourceWriter.println("}");
       

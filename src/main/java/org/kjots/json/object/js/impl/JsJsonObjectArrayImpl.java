@@ -113,7 +113,7 @@ public class JsJsonObjectArrayImpl<T extends JsonObject> extends JsJsonArrayImpl
    * @param elementClass The element class.
    */
   private JsJsonObjectArrayImpl(Invocable jsEngine, Object jsObject, Class<T> elementClass) {
-    super(jsEngine, jsObject);
+    super(JsonObjectArray.class, jsEngine, jsObject);
     
     this.elementClass = elementClass;
   }

@@ -15,12 +15,12 @@
  */
 package org.kjots.json.object.shared;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
 import org.junit.Test;
-
 import org.kjots.json.object.shared.JsonProperty.OperationType;
 
 /**
@@ -92,6 +92,20 @@ public abstract class JsonObjectGeneratorTestBase {
     
     assertNotNull(testJsonObject);
   }
+  
+  /**
+   * Test the retrieval of the class of a JSON object.
+   * <p>
+   * This test asserts that the JSON object class returned by a JSON object
+   * matches the class which which the JSON object was created.
+   */
+  @Test
+  public void testGetJsonObjectClass() {
+    TestJsonObject testTestJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertEquals(TestJsonObject.class, testTestJsonObject.getJsonObjectClass());
+  }
+
   
   /**
    * Test the determination of the existence of a property.

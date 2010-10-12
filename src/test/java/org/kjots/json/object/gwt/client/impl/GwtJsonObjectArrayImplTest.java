@@ -36,7 +36,7 @@ public class GwtJsonObjectArrayImplTest extends GwtJsonObjectTestBase {
   private final JsonObjectArrayImplTestBase<JavaScriptObject> jsonObjectArrayImplTestDelegate = new JsonObjectArrayImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonObject createJsonObject(JavaScriptObject object) {
-      return new GwtJsonObjectImpl(object);
+      return new GwtJsonObjectImpl(JsonObject.class, object);
     }
     
     @Override

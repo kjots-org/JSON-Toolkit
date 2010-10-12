@@ -27,6 +27,13 @@ import java.util.Set;
  */
 public interface JsonObject {
   /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  public Class<? extends JsonObject> getJsonObjectClass();
+  
+  /**
    * Cast this JSON object a JSON object with the given class.
    *
    * @param <T> The type of the JSON object.
