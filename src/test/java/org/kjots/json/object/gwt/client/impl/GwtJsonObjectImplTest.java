@@ -97,10 +97,17 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
   };
   
   /**
-   * @see JsonObjectImplTestBase#testCast()
+   * @see JsonObjectImplTestBase#testCastByClass()
    */
-  public void testCast() {
-    this.jsonObjectImplTestDelegate.testCast();
+  public void testCastByClass() {
+    this.jsonObjectImplTestDelegate.testCastByClass();
+  }
+
+  /**
+   * @see JsonObjectImplTestBase#testCastByClassName()
+   */
+  public void testCastByClassName() {
+    this.jsonObjectImplTestDelegate.testCastByClassName();
   }
 
   /**

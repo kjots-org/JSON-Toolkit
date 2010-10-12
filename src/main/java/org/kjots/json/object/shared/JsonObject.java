@@ -43,6 +43,15 @@ public interface JsonObject {
   public <T extends JsonObject> T cast(Class<T> jsonObjectClass);
   
   /**
+   * Cast this JSON object a JSON object with the given class name.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The cast JSON object.
+   */
+  public <T extends JsonObject> T cast(String jsonObjectClassName);
+  
+  /**
    * Determine if the JSON object is an array.
    *
    * @return <code>true</code> if the JSON object is an array.
