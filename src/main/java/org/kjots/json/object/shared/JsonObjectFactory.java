@@ -50,6 +50,16 @@ public abstract class JsonObjectFactory {
   public abstract <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass, Object object);
   
   /**
+   * Create a new JSON object with the given underlying JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @param object The underlying JSON object.
+   * @return The JSON object.
+   */
+  public abstract <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object);
+  
+  /**
    * Create a new JSON object.
    *
    * @return The JSON object.
@@ -68,6 +78,15 @@ public abstract class JsonObjectFactory {
   public abstract <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass);
   
   /**
+   * Create a new JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The JSON object.
+   */
+  public abstract <T extends JsonObject> T createJsonObject(String jsonObjectClassName);
+  
+  /**
    * Create a new JSON array.
    *
    * @return The JSON array.
@@ -84,4 +103,13 @@ public abstract class JsonObjectFactory {
    * @return The JSON array.
    */
   public abstract <T extends JsonArray> T createJsonArray(Class<T> jsonArrayClass);
+  
+  /**
+   * Create a new JSON array.
+   *
+   * @param <T> The type of the JSON array.
+   * @param jsonArrayClassName The name of the class of the JSON array.
+   * @return The JSON array.
+   */
+  public abstract <T extends JsonArray> T createJsonArray(String jsonArrayClassName);
 }

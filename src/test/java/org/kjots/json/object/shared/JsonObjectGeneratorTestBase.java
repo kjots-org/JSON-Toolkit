@@ -70,11 +70,25 @@ public abstract class JsonObjectGeneratorTestBase {
   /**
    * Test the creation of a JSON object.
    * <p>
-   * This test asserts that a JSON object was created successfully.
+   * This test asserts that a JSON object was created successfully when created
+   * by specifying a JSON object class.
    */
   @Test
-  public void testCreateJsonObject() {
+  public void testCreateJsonObjectByClass() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    assertNotNull(testJsonObject);
+  }
+  
+  /**
+   * Test the creation of a JSON object.
+   * <p>
+   * This test asserts that a JSON object was created successfully when created
+   * by specifying a JSON object class name.
+   */
+  @Test
+  public void testCreateJsonObjectByClassName() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class.getName());
     
     assertNotNull(testJsonObject);
   }

@@ -31,10 +31,17 @@ public class GwtJsonObjectGeneratorTest extends GwtJsonObjectTestBase {
   };
 
   /**
-   * @see JsonObjectGeneratorTestBase#testCreateJsonObject()
+   * @see JsonObjectGeneratorTestBase#testCreateJsonObjectByClass()
    */
-  public void testCreateJsonObject() {
-    this.jsonObjectGeneratorTestDelegate.testCreateJsonObject();
+  public void testCreateJsonObjectByClass() {
+    this.jsonObjectGeneratorTestDelegate.testCreateJsonObjectByClass();
+  }
+  
+  /**
+   * @see JsonObjectGeneratorTestBase#testCreateJsonObjectByClassName()
+   */
+  public void testCreateJsonObjectByClassName() {
+    this.jsonObjectGeneratorTestDelegate.testCreateJsonObjectByClassName();
   }
   
   /**

@@ -107,6 +107,25 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   }
 
   /**
+   * Create a new JSON object with the given underlying JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @param object The underlying JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
+    try {
+      return this.createJsonObject((Class<T>)Class.forName(jsonObjectClassName), object);
+    }
+    catch (ClassNotFoundException cnfe) {
+      throw new IllegalArgumentException(jsonObjectClassName, cnfe);
+    }
+  }
+  
+  /**
    * Create a new JSON object.
    *
    * @param <T> The type of the JSON object.
@@ -119,6 +138,18 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   }
   
   /**
+   * Create a new JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
+    return this.createJsonObject(jsonObjectClassName, this.jsObjectProvider.get());
+  }
+  
+  /**
    * Create a new JSON array.
    *
    * @param <T> The type of the JSON array.
@@ -128,6 +159,18 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   @Override
   public <T extends JsonArray> T createJsonArray(Class<T> jsonArrayClass) {
     return this.createJsonObject(jsonArrayClass, this.jsArrayProvider.get());
+  }
+  
+  /**
+   * Create a new JSON array.
+   *
+   * @param <T> The type of the JSON array.
+   * @param jsonArrayClassName The name of the class of the JSON array.
+   * @return The JSON array.
+   */
+  @Override
+  public <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
+    return this.createJsonObject(jsonArrayClassName, this.jsArrayProvider.get());
   }
   
   /**
