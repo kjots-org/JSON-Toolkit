@@ -252,4 +252,27 @@ public interface JsonObject {
    * @return The underlying JSON object.
    */
   public Object getObject();
+  
+  /**
+   * Determine if this object is equal to the given object.
+   * <p>
+   * This method will return <code>true</code> if the given object is a JSON
+   * object, and the underlying JSON object of this JSON object is equal to the
+   * underlying JSON object of the given JSON object.
+   *
+   * @param object The object.
+   * @return TRUE if this object is equal to the given object.
+   */
+  @Override
+  public boolean equals(Object object);
+  
+  /**
+   * Calculate the hash code for this object.
+   * <p>
+   * This method will return the hash code of the underlying JSON object.
+   *
+   * @return The hash code for this object.
+   */
+  @Override
+  public int hashCode();
 }
