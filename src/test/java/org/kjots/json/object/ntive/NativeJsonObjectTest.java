@@ -61,6 +61,19 @@ public class NativeJsonObjectTest {
   }
   
   /**
+   * Test {@link NativeJsonObject#getJsonObjectClass()}.
+   * <p>
+   * This test asserts that the {@link {@link NativeJsonObject#getJsonObjectClass()}
+   * returns the class of the native JSON object.
+   */
+  @Test
+  public void testGetJsonObjectClass() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    assertEquals(TestNativeJsonObject.class, testNativeJsonObject.getJsonObjectClass());
+  }
+  
+  /**
    * Test the casting of a native JSON object.
    * <p>
    * This test asserts that the casting of a native JSON object to a

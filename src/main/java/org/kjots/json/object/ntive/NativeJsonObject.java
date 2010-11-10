@@ -199,9 +199,8 @@ public abstract class NativeJsonObject implements JsonObject {
    * @return The JSON object class.
    */
   @Override
-  public Class<? extends JsonObject> getJsonObjectClass() {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+  public Class<? extends NativeJsonObject> getJsonObjectClass() {
+    return this.getClass();
   }
   
   /**
