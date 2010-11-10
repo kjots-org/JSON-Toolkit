@@ -234,28 +234,26 @@ public abstract class JsonObjectGeneratorObjectTestBase {
    */
   public static class TestJsonObjectPropertyAdapter implements JsonObjectPropertyAdapter<TestJsonObjectProperty, TestPropertyJsonObject> {
     /**
-     * Convert to a JSON object property value.
+     * Convert to a JSON property value.
      *
-     * @param testJsonObjectProperty The value.
-     * @return The JSON object property value.
-     * @see #fromJsonProperty(JsonObject)
+     * @param value The value.
+     * @return The JSON property value.
      */
     @Override
-    public TestPropertyJsonObject toJsonProperty(TestJsonObjectProperty testJsonObjectProperty) {
+    public TestPropertyJsonObject toJsonProperty(TestJsonObjectProperty value) {
       TestPropertyJsonObject testPropertyJsonObject = JsonObjectFactory.get().createJsonObject(TestPropertyJsonObject.class);
       
-      testPropertyJsonObject.setProperty1(testJsonObjectProperty.getProperty1());
-      testPropertyJsonObject.setProperty2(testJsonObjectProperty.getProperty2());
+      testPropertyJsonObject.setProperty1(value.getProperty1());
+      testPropertyJsonObject.setProperty2(value.getProperty2());
       
       return testPropertyJsonObject;
     }
     
     /**
-     * Convert from a JSON object property value.
+     * Convert from a JSON property value.
      *
-     * @param propertyValue The JSON object property value.
+     * @param propertyValue The JSON property value.
      * @return The value.
-     * @see #toJsonProperty(TestJsonObjectProperty)
      */
     @Override
     public TestJsonObjectProperty fromJsonProperty(TestPropertyJsonObject propertyValue) {
@@ -273,29 +271,27 @@ public abstract class JsonObjectGeneratorObjectTestBase {
     private final TestJsonObjectPropertyAdapter testJsonObjectPropertyAdapter = new TestJsonObjectPropertyAdapter();
     
     /**
-     * Convert to a JSON object property value.
+     * Convert to a JSON property value.
      *
-     * @param testJsonObjectProperties The value.
-     * @return The JSON object property value.
-     * @see #fromJsonProperty(JsonObjectArray)
+     * @param value The value.
+     * @return The JSON property value.
      */
     @Override
-    public JsonObjectArray<?> toJsonProperty(List<TestJsonObjectProperty> testJsonObjectProperties) {
+    public JsonObjectArray<?> toJsonProperty(List<TestJsonObjectProperty> value) {
       JsonObjectArray<TestPropertyJsonObject> jsonObjectArray = createJsonObjectArray(TestPropertyJsonObject.class);
       
-      for (int i = 0; i < testJsonObjectProperties.size(); i++) {
-        jsonObjectArray.set(i, this.testJsonObjectPropertyAdapter.toJsonProperty(testJsonObjectProperties.get(i)));
+      for (int i = 0; i < value.size(); i++) {
+        jsonObjectArray.set(i, this.testJsonObjectPropertyAdapter.toJsonProperty(value.get(i)));
       }
       
       return jsonObjectArray;
     }
 
     /**
-     * Convert from a JSON object property value.
+     * Convert from a JSON property value.
      *
-     * @param propertyValue The JSON object property value.
+     * @param propertyValue The JSON property value.
      * @return The value.
-     * @see #toJsonProperty(List)
      */
     @Override
     public List<TestJsonObjectProperty> fromJsonProperty(JsonObjectArray<?> propertyValue) {
@@ -319,17 +315,16 @@ public abstract class JsonObjectGeneratorObjectTestBase {
     private final TestJsonObjectPropertyAdapter testJsonObjectPropertyAdapter = new TestJsonObjectPropertyAdapter();
     
     /**
-     * Convert to a JSON object property value.
+     * Convert to a JSON property value.
      *
-     * @param testJsonObjectProperties The value.
-     * @return The JSON object property value.
-     * @see #fromJsonProperty(JsonObjectMap)
+     * @param value The value.
+     * @return The JSON property value.
      */
     @Override
-    public JsonObjectMap<?> toJsonProperty(Map<String, TestJsonObjectProperty> testJsonObjectProperties) {
+    public JsonObjectMap<?> toJsonProperty(Map<String, TestJsonObjectProperty> value) {
       JsonObjectMap<TestPropertyJsonObject> jsonObjectMap = createJsonObjectMap(TestPropertyJsonObject.class);
       
-      for (Map.Entry<String, TestJsonObjectProperty> entry : testJsonObjectProperties.entrySet()) {
+      for (Map.Entry<String, TestJsonObjectProperty> entry : value.entrySet()) {
         jsonObjectMap.set(entry.getKey(), this.testJsonObjectPropertyAdapter.toJsonProperty(entry.getValue()));
       }
       
@@ -337,11 +332,10 @@ public abstract class JsonObjectGeneratorObjectTestBase {
     }
 
     /**
-     * Convert from a JSON object property value.
+     * Convert from a JSON property value.
      *
-     * @param propertyValue The JSON object property value.
+     * @param propertyValue The JSON property value.
      * @return The value.
-     * @see #toJsonProperty(Map)
      */
     @Override
     public Map<String, TestJsonObjectProperty> fromJsonProperty(JsonObjectMap<?> propertyValue) {

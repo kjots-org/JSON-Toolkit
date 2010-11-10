@@ -20,8 +20,27 @@ package org.kjots.json.object.shared;
  * <p>
  * Created: 13th December 2009.
  *
+ * @param <T> The type of the value.
+ * @param <P> The type of the JSON property.
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.2
  */
-public interface JsonPropertyAdapter {
+public interface JsonPropertyAdapter<T, P> {
+  /**
+   * Convert to a JSON property value.
+   *
+   * @param value The value.
+   * @return The JSON property value.
+   * @see #fromJsonProperty(Object)
+   */
+  public P toJsonProperty(T value);
+  
+  /**
+   * Convert from a JSON property value.
+   *
+   * @param propertyValue The JSON property value.
+   * @return The value.
+   * @see #toJsonProperty(Object)
+   */
+  public T fromJsonProperty(P propertyValue);
 }

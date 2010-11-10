@@ -156,23 +156,21 @@ public abstract class JsonObjectGeneratorBooleanTestBase {
    */
   public static class TestJsonBooleanPropertyAdapter implements JsonBooleanPropertyAdapter<String> {
     /**
-     * Convert to a JSON boolean property value.
+     * Convert to a JSON property value.
      *
-     * @param string The value.
-     * @return The JSON boolean property value.
-     * @see #fromJsonProperty(Boolean)
+     * @param value The value.
+     * @return The JSON property value.
      */
     @Override
-    public Boolean toJsonProperty(String string) {
-      return Boolean.valueOf(Boolean.parseBoolean(string));
+    public Boolean toJsonProperty(String value) {
+      return Boolean.valueOf(Boolean.parseBoolean(value));
     }
     
     /**
-     * Convert from a JSON boolean property value.
+     * Convert from a JSON property value.
      *
-     * @param propertyValue The JSON boolean property value.
+     * @param propertyValue The JSON property value.
      * @return The value.
-     * @see #toJsonProperty(String)
      */
     @Override
     public String fromJsonProperty(Boolean propertyValue) {

@@ -406,8 +406,8 @@ public class GwtJsonObjectGenerator extends Generator {
     
     String returnTypeName = method.getReturnType().getQualifiedSourceName();
 
-    Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
-    if (!adapterClass.equals(JsonPropertyAdapter.class)) {
+    Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       this.writeGetAdaptedPropertyMethod(sourceWriter, logger, context, method.getName(), jsonPropertyAnnotation.name(), returnTypeName, adapterClass.getName().replace('$', '.'));
     }
     else {
@@ -491,8 +491,8 @@ public class GwtJsonObjectGenerator extends Generator {
     
     String parameterTypeName = parameters[0].getType().getQualifiedSourceName();
     
-    Class<? extends JsonPropertyAdapter> adapterClass = jsonPropertyAnnotation.adapter();
-    if (!adapterClass.equals(JsonPropertyAdapter.class)) {
+    Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       this.writeSetAdaptedPropertyMethod(sourceWriter, logger, context, method.getName(), jsonPropertyAnnotation.name(), parameterTypeName, adapterClass.getName().replace('$', '.'));
     }
     else {

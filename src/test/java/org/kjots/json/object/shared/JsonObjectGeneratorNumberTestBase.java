@@ -156,23 +156,21 @@ public abstract class JsonObjectGeneratorNumberTestBase {
    */
   public static class TestJsonNumberPropertyAdapter implements JsonNumberPropertyAdapter<String> {
     /**
-     * Convert to a JSON number property value.
+     * Convert to a JSON property value.
      *
-     * @param string The value.
-     * @return The JSON number property value.
-     * @see #fromJsonProperty(Number)
+     * @param value The value.
+     * @return The JSON property value.
      */
     @Override
-    public Number toJsonProperty(String string) {
-      return Double.valueOf(Double.parseDouble(string));
+    public Number toJsonProperty(String value) {
+      return Double.valueOf(Double.parseDouble(value));
     }
     
     /**
-     * Convert from a JSON number property value.
+     * Convert from a JSON property value.
      *
-     * @param propertyValue The JSON number property value.
+     * @param propertyValue The JSON property value.
      * @return The value.
-     * @see #toJsonProperty(String)
      */
     @Override
     public String fromJsonProperty(Number propertyValue) {
