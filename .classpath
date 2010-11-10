@@ -9,23 +9,23 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="lib" path="ext/third-party/main/guice-2.0/guice.jar" sourcepath="ext/third-party/main/guice-2.0/guice-src.zip">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit/ext/third-party/main/guice-2.0/guice-api.zip!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit-native/ext/third-party/main/guice-2.0/guice-api.zip!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="ext/third-party/main/aopalliance-1.0/aopalliance.jar"/>
 	<classpathentry exported="true" kind="lib" path="ext/third-party/main/asm-3.2/asm-all.jar" sourcepath="ext/third-party/main/asm-3.2/asm-all-src.zip">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit/ext/third-party/main/asm-3.2/asm-all-api.zip!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit-native/ext/third-party/main/asm-3.2/asm-all-api.zip!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="ext/third-party/main/gin-1.0/gin.jar" sourcepath="ext/third-party/main/gin-1.0/gin-src.zip">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit/ext/third-party/main/gin-1.0/gin-api.zip!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit-native/ext/third-party/main/gin-1.0/gin-api.zip!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="ext/third-party/test/mockito/mockito-core.jar" sourcepath="ext/third-party/test/mockito/mockito-core-src.zip">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit/ext/third-party/test/mockito/mockito-core-api.zip!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/org.kjots.json-toolkit-native/ext/third-party/test/mockito/mockito-core-api.zip!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="ext/third-party/test/objenesis/objenesis.jar" sourcepath="ext/third-party/test/objenesis/objenesis-src.zip"/>
