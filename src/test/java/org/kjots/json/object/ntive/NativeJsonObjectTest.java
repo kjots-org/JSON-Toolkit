@@ -18,6 +18,7 @@ package org.kjots.json.object.ntive;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -35,12 +36,85 @@ import org.junit.Test;
  */
 public class NativeJsonObjectTest {
   /**
+   * Test Base Native JSON Object.
+   * <p>
+   * Created: 10th November 2010.
+   */
+  public static class TestBaseNativeJsonObject extends NativeJsonObject {
+  }
+  
+  /**
+   * Test Not Base Native JSON Object.
+   * <p>
+   * Created: 10th November 2010.
+   */
+  public static class TestNotBaseNativeJsonObject extends NativeJsonObject {
+  }
+  
+  /**
    * Test Native JSON Object.
    */
-  public static class TestNativeJsonObject extends NativeJsonObject {
+  public static class TestNativeJsonObject extends TestBaseNativeJsonObject {
     /** The test property.*/
     @NativeJsonProperty
     private String testProperty;
+  }
+  
+  /**
+   * Test the casting of a native JSON object.
+   * <p>
+   * This test asserts that the casting of a native JSON object to a
+   * compatible JSON object class returns the native JSON object.
+   */
+  @Test
+  public void testCastByClassToCompatibleClass() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    TestBaseNativeJsonObject testBaseNativeJsonObject = testNativeJsonObject.cast(TestBaseNativeJsonObject.class);
+    
+    assertSame("testNativeJsonObject !== testBaseNativeJsonObject", testNativeJsonObject, testBaseNativeJsonObject);
+  }
+  
+  /**
+   * Test the casting of a native JSON object.
+   * <p>
+   * This test asserts that the casting of a native JSON object to an
+   * incompatible JSON object class throws a {@link ClassCastException}.
+   */
+  @Test(expected = ClassCastException.class)
+  public void testCastByClassToIncompatibleClass() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    testNativeJsonObject.cast(TestNotBaseNativeJsonObject.class);
+  }
+  
+  /**
+   * Test the casting of a native JSON object.
+   * <p>
+   * This test asserts that the casting of a native JSON object to a
+   * compatible JSON object class via the classname returns the native JSON
+   * object.
+   */
+  @Test
+  public void testCastByClassNameToCompatibleClass() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    TestBaseNativeJsonObject testBaseNativeJsonObject = testNativeJsonObject.cast(TestBaseNativeJsonObject.class.getName());
+    
+    assertSame("testNativeJsonObject !== testBaseNativeJsonObject", testNativeJsonObject, testBaseNativeJsonObject);
+  }
+  
+  /**
+   * Test the casting of a native JSON object.
+   * <p>
+   * This test asserts that the casting of a native JSON object to an
+   * incompatible JSON object class via the classname throws a {@link ClassCastException}.
+   */
+  @Test(expected = ClassCastException.class)
+  public void testCastByClassNameToIncompatibleClass() {
+    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    
+    testNativeJsonObject.cast(TestNotBaseNativeJsonObject.class.getName());
   }
   
   /**

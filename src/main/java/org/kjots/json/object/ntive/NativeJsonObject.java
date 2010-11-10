@@ -213,8 +213,7 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public <T extends JsonObject> T cast(Class<T> jsonObjectClass) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    return jsonObjectClass.cast(this);
   }
   
   /**
@@ -225,9 +224,14 @@ public abstract class NativeJsonObject implements JsonObject {
    * @return The cast JSON object.
    */
   @Override
+  @SuppressWarnings("unchecked")
   public <T extends JsonObject> T cast(String jsonObjectClassName) {
-    // TODO: Implement this method.
-    throw new AssertionError("Not yet implemented");
+    try {
+      return this.cast((Class<T>)Class.forName(jsonObjectClassName));
+    }
+    catch (ClassNotFoundException cnfe) {
+      throw new IllegalArgumentException(jsonObjectClassName, cnfe);
+    }
   }
   
   /**
