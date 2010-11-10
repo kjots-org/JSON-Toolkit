@@ -15,6 +15,7 @@
  */
 package org.kjots.json.object.simple.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.kjots.json.object.shared.JsonArray;
@@ -59,10 +60,33 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
    * Retrieve the length of the array.
    *
    * @return The length of the array.
+   * @see #setLength(int)
    */
   @Override
   public final int getLength() {
     return this.simpleJsonValue.getList().size();
+  }
+  
+  /**
+   * Set the length of the array.
+   * 
+   * @param length The length of the array.
+   * @see #getLength()
+   */
+  @Override
+  public final void setLength(int length) {
+    LinkedList<Object> list = this.simpleJsonValue.getList();
+    
+    if (list.size() < length) {
+      while (list.size() < length) {
+        list.addLast(null);
+      }
+    }
+    else if (list.size() > length) {
+      while (list.size() > length) {
+        list.removeLast();
+      }
+    }
   }
   
   /**

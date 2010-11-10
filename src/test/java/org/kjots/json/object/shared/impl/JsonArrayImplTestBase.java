@@ -53,11 +53,37 @@ public abstract class JsonArrayImplTestBase<J> {
     J array = this.createUnderlyingJsonArray();
     JsonArray testJsonArray = this.createJsonArray(array);
     
-    assertEquals(this.getArrayLength(array), testJsonArray.getLength());
+    assertEquals(0, testJsonArray.getLength());
     
     this.setArrayLength(array, 5);
     
-    assertEquals(this.getArrayLength(array), testJsonArray.getLength());
+    assertEquals(5, testJsonArray.getLength());
+    
+    this.setArrayLength(array, 0);
+    
+    assertEquals(0, testJsonArray.getLength());
+  }
+  
+  /**
+   * Test the settings of the length of the array.
+   * <p>
+   * This test asserts that setting the length of the array changes the length
+   * of the underlying array.
+   */
+  @Test
+  public void testSetLength() {
+    J array = this.createUnderlyingJsonArray();
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    assertEquals(0, this.getArrayLength(array));
+    
+    testJsonArray.setLength(5);
+    
+    assertEquals(5, this.getArrayLength(array));
+    
+    testJsonArray.setLength(0);
+    
+    assertEquals(0, this.getArrayLength(array));
   }
   
   /**

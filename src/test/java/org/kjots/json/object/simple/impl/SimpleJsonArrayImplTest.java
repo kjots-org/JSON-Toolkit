@@ -39,7 +39,9 @@ public class SimpleJsonArrayImplTest extends JsonArrayImplTestBase<SimpleJsonVal
    * <p>
    * If the size of the given list is less then the given size, this method
    * will append <code>null</code> values to the list until it is the given
-   * size.
+   * size.  Conversely, if the size of the given list is greater then the given
+   * size, this method will remove the values from the end of the list until it
+   * is the given size.
    * <p>
    * For convenience, this method will return the given list.
    *
@@ -48,8 +50,15 @@ public class SimpleJsonArrayImplTest extends JsonArrayImplTestBase<SimpleJsonVal
    * @return The list.
    */
   protected static List<Object> ensureSize(List<Object> list, int size) {
-    while (list.size() < size) {
-      list.add(null);
+    if (list.size() < size) {
+      while (list.size() < size) {
+        list.add(null);
+      }
+    }
+    else if (list.size() > size) {
+      while (list.size() > size) {
+        list.remove(list.size() - 1);
+      }
     }
     
     return list;

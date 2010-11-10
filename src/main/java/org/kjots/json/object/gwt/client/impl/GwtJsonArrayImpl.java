@@ -48,10 +48,22 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * Retrieve the length of the array.
    *
    * @return The length of the array.
+   * @see #setLength(int)
    */
   @Override
   public final native int getLength() /*-{
     return this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.length;
+  }-*/;
+  
+  /**
+   * Set the length of the array.
+   * 
+   * @param length The length of the array.
+   * @see #getLength()
+   */
+  @Override
+  public final native void setLength(int length) /*-{
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.length = length;
   }-*/;
   
   /**

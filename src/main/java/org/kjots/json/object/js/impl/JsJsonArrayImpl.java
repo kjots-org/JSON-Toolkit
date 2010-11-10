@@ -45,12 +45,24 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
    * Retrieve the length of the array.
    *
    * @return The length of the array.
+   * @see #setLength(int)
    */
   @Override
   public final int getLength() {
     Number arrayLength = this.invokeFunction("getArrayLength", this.jsObject);
     
     return arrayLength.intValue();
+  }
+  
+  /**
+   * Set the length of the array.
+   * 
+   * @param length The length of the array.
+   * @see #getLength()
+   */
+  @Override
+  public final void setLength(int length) {
+    this.invokeFunction("setArrayLength", this.jsObject, length);
   }
   
   /**

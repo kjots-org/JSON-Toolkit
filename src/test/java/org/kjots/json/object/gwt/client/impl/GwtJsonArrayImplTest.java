@@ -138,6 +138,13 @@ public class GwtJsonArrayImplTest extends GwtJsonObjectTestBase {
   }
 
   /**
+   * @see JsonArrayImplTestBase#testSetLength()
+   */
+  public void testSetLength() {
+    this.jsonArrayImplTestDelegate.testSetLength();
+  }
+
+  /**
    * @see JsonArrayImplTestBase#testIsNullElement()
    */
   public void testIsNullElement() {

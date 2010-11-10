@@ -28,8 +28,17 @@ public interface JsonArray extends JsonObject {
    * Retrieve the length of the array.
    *
    * @return The length of the array.
+   * @see #setLength(int)
    */
   public int getLength();
+  
+  /**
+   * Set the length of the array.
+   * 
+   * @param length The length of the array.
+   * @see #getLength()
+   */
+  public void setLength(int length);
   
   /**
    * Determine if the element at the given index is <code>null</code>.

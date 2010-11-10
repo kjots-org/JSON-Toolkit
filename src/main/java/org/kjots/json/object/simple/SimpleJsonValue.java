@@ -17,8 +17,6 @@ package org.kjots.json.object.simple;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Simple JSON Value.
@@ -29,10 +27,10 @@ import java.util.Map;
  */
 public final class SimpleJsonValue {
   /** The map. */
-  private final Map<String, Object> map;
+  private final HashMap<String, Object> map;
   
   /** The list. */
-  private final List<Object> list;
+  private final LinkedList<Object> list;
   
   /**
    * Create a new simple JSON object.
@@ -57,7 +55,7 @@ public final class SimpleJsonValue {
    *
    * @return The map.
    */
-  public Map<String, Object> getMap() {
+  public HashMap<String, Object> getMap() {
     return this.map;
   }
 
@@ -66,7 +64,7 @@ public final class SimpleJsonValue {
    *
    * @return The list.
    */
-  public List<Object> getList() {
+  public LinkedList<Object> getList() {
     return this.list;
   }
 
@@ -120,7 +118,7 @@ public final class SimpleJsonValue {
    * @param map The map.
    * @param list The list.
    */
-  private SimpleJsonValue(Map<String, Object> map, List<Object> list) {
+  private SimpleJsonValue(HashMap<String, Object> map, LinkedList<Object> list) {
     this.map = map;
     this.list = list;
   }
