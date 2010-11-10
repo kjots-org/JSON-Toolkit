@@ -34,7 +34,7 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
   private final JsonObjectImplTestBase<JavaScriptObject> jsonObjectImplTestDelegate = new JsonObjectImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonObject createJsonObject(JavaScriptObject object) {
-      return new GwtJsonObjectImpl(object);
+      return new GwtJsonObjectImpl(JsonObject.class, object);
     }
 
     @Override
@@ -97,10 +97,17 @@ public class GwtJsonObjectImplTest<T extends JsonObject> extends GwtJsonObjectTe
   };
   
   /**
-   * @see JsonObjectImplTestBase#testCast()
+   * @see JsonObjectImplTestBase#testCastByClass()
    */
-  public void testCast() {
-    this.jsonObjectImplTestDelegate.testCast();
+  public void testCastByClass() {
+    this.jsonObjectImplTestDelegate.testCastByClass();
+  }
+
+  /**
+   * @see JsonObjectImplTestBase#testCastByClassName()
+   */
+  public void testCastByClassName() {
+    this.jsonObjectImplTestDelegate.testCastByClassName();
   }
 
   /**

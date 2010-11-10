@@ -1329,7 +1329,15 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     if (adapterInterface != null) {
       java.lang.reflect.Type[] typeArguments = adapterInterface.getActualTypeArguments();
       if (typeArguments.length != 0) {
-        return Type.getType((Class<?>)typeArguments[1]);
+        java.lang.reflect.Type type = typeArguments[1];
+        
+        while (type instanceof ParameterizedType) {
+          ParameterizedType parameterizedType = (ParameterizedType)type;
+          
+          type = parameterizedType.getRawType();
+        }
+        
+        return Type.getType((Class<?>)type);
       }
     }
     

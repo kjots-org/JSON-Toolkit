@@ -33,6 +33,9 @@ import org.kjots.json.object.shared.JsonObjectFactory;
  * @since json-object-0.2
  */
 public class JsJsonObjectImpl implements JsonObject {
+  /** The JSON object class. */
+  protected final Class<? extends JsonObject> jsonObjectClass;
+  
   /** The JavaScript engine. */
   protected final Invocable jsEngine;
   
@@ -42,12 +45,24 @@ public class JsJsonObjectImpl implements JsonObject {
   /**
    * Construct a new JavaScript JSON Object Implementation.
    *
+   * @param jsonObjectClass The JSON object class.
    * @param jsEngine The JavaScript engine.
    * @param jsObject The JavaScript object.
    */
-  public JsJsonObjectImpl(Invocable jsEngine, Object jsObject) {
+  public JsJsonObjectImpl(Class<? extends JsonObject> jsonObjectClass, Invocable jsEngine, Object jsObject) {
+    this.jsonObjectClass = jsonObjectClass;
     this.jsEngine = jsEngine;
     this.jsObject = jsObject;
+  }
+  
+  /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  @Override
+  public Class<? extends JsonObject> getJsonObjectClass() {
+    return this.jsonObjectClass;
   }
   
   /**
@@ -60,11 +75,28 @@ public class JsJsonObjectImpl implements JsonObject {
   @Override
   @SuppressWarnings("unchecked")
   public final <T extends JsonObject> T cast(Class<T> jsonObjectClass) {
-    if (jsonObjectClass.equals(this.getClass())) {
+    if (jsonObjectClass.equals(this.jsonObjectClass)) {
       return (T)this;
     }
     
     return JsonObjectFactory.get().createJsonObject(jsonObjectClass, this.jsObject);
+  }
+  
+  /**
+   * Cast this JSON object a JSON object with the given class name.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The cast JSON object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends JsonObject> T cast(String jsonObjectClassName) {
+    if (jsonObjectClassName.equals(this.jsonObjectClass.getName())) {
+      return (T)this;
+    }
+    
+    return JsonObjectFactory.get().createJsonObject(jsonObjectClassName, this.jsObject);
   }
   
   /**

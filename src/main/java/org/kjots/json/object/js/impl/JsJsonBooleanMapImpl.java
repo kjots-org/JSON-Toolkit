@@ -35,7 +35,7 @@ public class JsJsonBooleanMapImpl extends JsJsonObjectImpl implements JsonBoolea
    * @param jsObject The JavaScript object.
    */
   public JsJsonBooleanMapImpl(Invocable jsEngine, Object jsObject) {
-    super(jsEngine, jsObject);
+    super(JsonBooleanMap.class, jsEngine, jsObject);
   }
 
   /**

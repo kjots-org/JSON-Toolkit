@@ -34,7 +34,7 @@ public class GwtJsonBooleanMapImpl extends GwtJsonObjectImpl implements JsonBool
    * @param jsObject The JavaScript object.
    */
   public GwtJsonBooleanMapImpl(JavaScriptObject jsObject) {
-    super(jsObject);
+    super(JsonBooleanMap.class, jsObject);
   }
   
   /**

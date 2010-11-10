@@ -34,7 +34,7 @@ public class GwtJsonStringArrayImpl extends GwtJsonArrayImpl implements JsonStri
    * @param jsStringArray The JavaScript string array.
    */
   public GwtJsonStringArrayImpl(JsArrayString jsStringArray) {
-    super(jsStringArray);
+    super(JsonStringArray.class, jsStringArray);
   }
 
   /**

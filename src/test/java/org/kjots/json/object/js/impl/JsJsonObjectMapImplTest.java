@@ -65,7 +65,7 @@ public class JsJsonObjectMapImplTest extends JsonObjectMapImplTestBase<Object> {
    */
   @Override
   protected JsonObject createJsonObject(Object object) {
-    return new JsJsonObjectImpl(this.getJsEngine(), object);
+    return new JsJsonObjectImpl(JsonObject.class, this.getJsEngine(), object);
   }
   
   /**

@@ -27,6 +27,13 @@ import java.util.Set;
  */
 public interface JsonObject {
   /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  public Class<? extends JsonObject> getJsonObjectClass();
+  
+  /**
    * Cast this JSON object a JSON object with the given class.
    *
    * @param <T> The type of the JSON object.
@@ -34,6 +41,15 @@ public interface JsonObject {
    * @return The cast JSON object.
    */
   public <T extends JsonObject> T cast(Class<T> jsonObjectClass);
+  
+  /**
+   * Cast this JSON object a JSON object with the given class name.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The cast JSON object.
+   */
+  public <T extends JsonObject> T cast(String jsonObjectClassName);
   
   /**
    * Determine if the JSON object is an array.
@@ -236,4 +252,27 @@ public interface JsonObject {
    * @return The underlying JSON object.
    */
   public Object getObject();
+  
+  /**
+   * Determine if this object is equal to the given object.
+   * <p>
+   * This method will return <code>true</code> if the given object is a JSON
+   * object, and the underlying JSON object of this JSON object is equal to the
+   * underlying JSON object of the given JSON object.
+   *
+   * @param object The object.
+   * @return TRUE if this object is equal to the given object.
+   */
+  @Override
+  public boolean equals(Object object);
+  
+  /**
+   * Calculate the hash code for this object.
+   * <p>
+   * This method will return the hash code of the underlying JSON object.
+   *
+   * @return The hash code for this object.
+   */
+  @Override
+  public int hashCode();
 }

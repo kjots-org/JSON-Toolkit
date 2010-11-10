@@ -24,5 +24,5 @@ package org.kjots.json.object.shared;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.2
  */
-public interface JsonBooleanPropertyAdapter<T> extends JsonPropertyAdapter<Boolean, T> {
+public interface JsonBooleanPropertyAdapter<T> extends JsonPropertyAdapter<T, Boolean> {
 }

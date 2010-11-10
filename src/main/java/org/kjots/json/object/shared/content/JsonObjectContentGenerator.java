@@ -34,11 +34,11 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
    */
   public void generateContent(JsonObject jsonObject) {
     if (jsonObject != null) {
-      this.contentHandler.startJson();
+      this.jsonContentHandler.startJson();
       
       this.handleJsonObject(jsonObject);
       
-      this.contentHandler.endJson();
+      this.jsonContentHandler.endJson();
     }
   }
   
@@ -51,20 +51,20 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
     if (jsonObject.isArray()) {
       JsonArray jsonArray = jsonObject.cast(JsonArray.class);
       
-      this.contentHandler.startArray();
+      this.jsonContentHandler.startArray();
       
       for (int i = 0; i < jsonArray.getLength(); i++) {
         if (jsonArray.isNullElement(i)) {
-          this.contentHandler.primitive(null);
+          this.jsonContentHandler.primitive(null);
         }
         else if (jsonArray.isBooleanElement(i)) {
-          this.contentHandler.primitive(Boolean.valueOf(jsonArray.getBooleanElement(i)));
+          this.jsonContentHandler.primitive(Boolean.valueOf(jsonArray.getBooleanElement(i)));
         }
         else if (jsonArray.isNumberElement(i)) {
-          this.contentHandler.primitive(jsonArray.getNumberElement(i));
+          this.jsonContentHandler.primitive(jsonArray.getNumberElement(i));
         }
         else if (jsonArray.isStringElement(i)) {
-          this.contentHandler.primitive(jsonArray.getStringElement(i));
+          this.jsonContentHandler.primitive(jsonArray.getStringElement(i));
         }
         else if (jsonArray.isObjectElement(i)) {
           this.handleJsonObject(jsonArray.getObjectElement(i));
@@ -74,25 +74,25 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
         }
       }
       
-      this.contentHandler.endArray();
+      this.jsonContentHandler.endArray();
     }
     else {
-      this.contentHandler.startObject();
+      this.jsonContentHandler.startObject();
       
       for (String propertyName : jsonObject.getPropertyNames()) {
-        this.contentHandler.memberName(propertyName);
+        this.jsonContentHandler.memberName(propertyName);
         
         if (jsonObject.isNullProperty(propertyName)) {
-          this.contentHandler.primitive(null);
+          this.jsonContentHandler.primitive(null);
         }
         else if (jsonObject.isBooleanProperty(propertyName)) {
-          this.contentHandler.primitive(Boolean.valueOf(jsonObject.getBooleanProperty(propertyName)));
+          this.jsonContentHandler.primitive(Boolean.valueOf(jsonObject.getBooleanProperty(propertyName)));
         }
         else if (jsonObject.isNumberProperty(propertyName)) {
-          this.contentHandler.primitive(jsonObject.getNumberProperty(propertyName));
+          this.jsonContentHandler.primitive(jsonObject.getNumberProperty(propertyName));
         }
         else if (jsonObject.isStringProperty(propertyName)) {
-          this.contentHandler.primitive(jsonObject.getStringProperty(propertyName));
+          this.jsonContentHandler.primitive(jsonObject.getStringProperty(propertyName));
         }
         else if (jsonObject.isObjectProperty(propertyName)) {
           this.handleJsonObject(jsonObject.getObjectProperty(propertyName));
@@ -102,7 +102,7 @@ public class JsonObjectContentGenerator extends AbstractJsonContentGenerator {
         }
       }
       
-      this.contentHandler.endObject();
+      this.jsonContentHandler.endObject();
     }
   }
 }

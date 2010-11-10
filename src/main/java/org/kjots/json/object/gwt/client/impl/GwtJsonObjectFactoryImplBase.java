@@ -59,7 +59,7 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   }
   
   /** The JSON object instantiators. */
-  private final Map<Class<?>, JsonObjectInstantiator<?>> jsonObjectInstantiators = new HashMap<Class<?>, JsonObjectInstantiator<?>>();
+  private final Map<String, JsonObjectInstantiator<?>> jsonObjectInstantiators = new HashMap<String, JsonObjectInstantiator<?>>();
   
   /**
    * Create a new JSON object with the given underlying JSON object.
@@ -73,6 +73,19 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   public final <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass, Object object) {
     return this.getJsonObjectInstantiator(jsonObjectClass).newInstance((JavaScriptObject)object);
   }
+  
+  /**
+   * Create a new JSON object with the given underlying JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @param object The underlying JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
+    return this.<T>getJsonObjectInstantiator(jsonObjectClassName).newInstance((JavaScriptObject)object);
+  }
 
   /**
    * Create a new JSON object.
@@ -84,6 +97,17 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   @Override
   public final <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass) {
     return this.getJsonObjectInstantiator(jsonObjectClass).newInstance(JavaScriptObject.createObject());
+  }
+  /**
+   * Create a new JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
+    return this.<T>getJsonObjectInstantiator(jsonObjectClassName).newInstance(JavaScriptObject.createObject());
   }
   
   /**
@@ -99,65 +123,87 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   }
   
   /**
+   * Create a new JSON array.
+   *
+   * @param <T> The type of the JSON array.
+   * @param jsonArrayClassName The name of the class of the JSON array.
+   * @return The JSON array.
+   */
+  @Override
+  public <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
+    return this.<T>getJsonObjectInstantiator(jsonArrayClassName).newInstance(JavaScriptObject.createArray());
+  }
+  
+  /**
    * Construct a new GWT JSON Object Factory Implementation Base.
    */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   protected GwtJsonObjectFactoryImplBase() {
     this.registerJsonObjectInstantiator(JsonObject.class, new JsonObjectInstantiator<JsonObject>() {
+      @Override
       public final JsonObject newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonObjectImpl(jsObject);
+        return new GwtJsonObjectImpl(JsonObject.class, jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonArray.class, new JsonObjectInstantiator<JsonArray>() {
+      @Override
       public final JsonArray newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonArrayImpl(jsObject);
+        return new GwtJsonArrayImpl(JsonArray.class, jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonBooleanArray.class, new JsonObjectInstantiator<JsonBooleanArray>() {
+      @Override
       public final JsonBooleanArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonBooleanArrayImpl((JsArrayBoolean)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonNumberArray.class, new JsonObjectInstantiator<JsonNumberArray>() {
+      @Override
       public final JsonNumberArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonNumberArrayImpl((JsArrayNumber)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonStringArray.class, new JsonObjectInstantiator<JsonStringArray>() {
+      @Override
       public final JsonStringArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonStringArrayImpl((JsArrayString)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonObjectArray.class, new JsonObjectInstantiator<JsonObjectArray>() {
+      @Override
       public final JsonObjectArray newInstance(JavaScriptObject jsObject) {
         return new GwtJsonObjectArrayImpl((JsArray<?>)jsObject.cast());
       }
     });
     
     this.registerJsonObjectInstantiator(JsonBooleanMap.class, new JsonObjectInstantiator<JsonBooleanMap>() {
+      @Override
       public final JsonBooleanMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonBooleanMapImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonNumberMap.class, new JsonObjectInstantiator<JsonNumberMap>() {
+      @Override
       public final JsonNumberMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonNumberMapImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonStringMap.class, new JsonObjectInstantiator<JsonStringMap>() {
+      @Override
       public final JsonStringMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonStringMapImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonObjectMap.class, new JsonObjectInstantiator<JsonObjectMap>() {
+      @Override
       public final JsonObjectMap newInstance(JavaScriptObject jsObject) {
         return new GwtJsonObjectMapImpl(jsObject);
       }
@@ -172,7 +218,7 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
    * @param jsonObjectInstantiator The JSON object instantiator.
    */
   protected final <T extends JsonObject> void registerJsonObjectInstantiator(Class<T> jsonObjectClass, JsonObjectInstantiator<T> jsonObjectInstantiator) {
-    this.jsonObjectInstantiators.put(jsonObjectClass, jsonObjectInstantiator);
+    this.jsonObjectInstantiators.put(jsonObjectClass.getName(), jsonObjectInstantiator);
   }
   
   /**
@@ -184,6 +230,22 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
    */
   @SuppressWarnings("unchecked")
   private <T extends JsonObject> JsonObjectInstantiator<T> getJsonObjectInstantiator(Class<T> jsonObjectClass) {
-    return (JsonObjectInstantiator<T>)this.jsonObjectInstantiators.get(jsonObjectClass);
+    return (JsonObjectInstantiator<T>)this.jsonObjectInstantiators.get(jsonObjectClass.getName());
+  }
+  
+  /**
+   * Retrieve the instantiator for JSON objects with the given given class name. 
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the  class of the JSON object.
+   * @return The JSON object instantiator.
+   */
+  @SuppressWarnings("unchecked")
+  private <T extends JsonObject> JsonObjectInstantiator<T> getJsonObjectInstantiator(String jsonObjectClassName) {
+    if (!this.jsonObjectInstantiators.containsKey(jsonObjectClassName)) {
+      throw new IllegalArgumentException(jsonObjectClassName);
+    }
+    
+    return (JsonObjectInstantiator<T>)this.jsonObjectInstantiators.get(jsonObjectClassName);
   }
 }

@@ -17,6 +17,8 @@ package org.kjots.json.content.io;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.kjots.json.content.shared.text.JsonTextGenerator;
 
@@ -48,6 +50,62 @@ public class JsonWriter extends JsonTextGenerator {
     super.endJson();
     
     this.out.flush();
+  }
+
+  /**
+   * Set the rounding mode of numeric values.
+   *
+   * @param roundingMode The rounding mode of numeric values.
+   * @see #getRoundingMode()
+   */
+  public void setRoundingMode(RoundingMode roundingMode) {
+    int intRoundingMode;
+    switch (roundingMode) {
+    case UP:
+      intRoundingMode = BigDecimal.ROUND_UP;
+      
+      break;
+    
+    case DOWN:
+      intRoundingMode = BigDecimal.ROUND_DOWN;
+      
+      break;
+    
+    case CEILING:
+      intRoundingMode = BigDecimal.ROUND_CEILING;
+      
+      break;
+    
+    case FLOOR:
+      intRoundingMode = BigDecimal.ROUND_FLOOR;
+      
+      break;
+    
+    case HALF_UP:
+      intRoundingMode = BigDecimal.ROUND_HALF_UP;
+      
+      break;
+    
+    case HALF_DOWN:
+      intRoundingMode = BigDecimal.ROUND_HALF_DOWN;
+      
+      break;
+    
+    case HALF_EVEN:
+      intRoundingMode = BigDecimal.ROUND_HALF_EVEN;
+      
+      break;
+    
+    case UNNECESSARY:
+      intRoundingMode = BigDecimal.ROUND_UNNECESSARY;
+      
+      break;
+      
+    default:
+      throw new IllegalStateException();
+    }
+    
+    this.setRoundingMode(intRoundingMode);
   }
 
   /**

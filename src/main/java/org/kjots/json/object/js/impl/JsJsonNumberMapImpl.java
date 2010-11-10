@@ -35,7 +35,7 @@ public class JsJsonNumberMapImpl extends JsJsonObjectImpl implements JsonNumberM
    * @param jsObject The JavaScript object.
    */
   public JsJsonNumberMapImpl(Invocable jsEngine, Object jsObject) {
-    super(jsEngine, jsObject);
+    super(JsonNumberMap.class, jsEngine, jsObject);
   }
   
   /**

@@ -25,5 +25,5 @@ package org.kjots.json.object.shared;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.2
  */
-public interface JsonObjectPropertyAdapter<T, J extends JsonObject> extends JsonPropertyAdapter<J, T> {
+public interface JsonObjectPropertyAdapter<T, J extends JsonObject> extends JsonPropertyAdapter<T, J> {
 }

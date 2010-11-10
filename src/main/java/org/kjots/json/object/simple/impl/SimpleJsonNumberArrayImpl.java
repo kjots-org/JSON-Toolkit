@@ -32,7 +32,7 @@ public class SimpleJsonNumberArrayImpl extends SimpleJsonArrayImpl implements Js
    * @param simpleJsonValue The simple JSON value.
    */
   public SimpleJsonNumberArrayImpl(SimpleJsonValue simpleJsonValue) {
-    super(simpleJsonValue);
+    super(JsonNumberArray.class, simpleJsonValue);
   }
 
   /**

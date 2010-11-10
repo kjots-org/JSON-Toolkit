@@ -20,12 +20,12 @@ package org.kjots.json.object.shared;
  * <p>
  * Created: 13th December 2009.
  *
- * @param <Tp> The type of the JSON property.
- * @param <Tv> The type of the value.
+ * @param <T> The type of the value.
+ * @param <P> The type of the JSON property.
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.2
  */
-public interface JsonPropertyAdapter<Tp, Tv> {
+public interface JsonPropertyAdapter<T, P> {
   /**
    * Convert to a JSON property value.
    *
@@ -33,7 +33,7 @@ public interface JsonPropertyAdapter<Tp, Tv> {
    * @return The JSON property value.
    * @see #fromJsonProperty(Object)
    */
-  public Tp toJsonProperty(Tv value);
+  public P toJsonProperty(T value);
   
   /**
    * Convert from a JSON property value.
@@ -42,5 +42,5 @@ public interface JsonPropertyAdapter<Tp, Tv> {
    * @return The value.
    * @see #toJsonProperty(Object)
    */
-  public Tv fromJsonProperty(Tp propertyValue);
+  public T fromJsonProperty(P propertyValue);
 }

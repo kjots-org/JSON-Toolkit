@@ -59,9 +59,23 @@ public abstract class JsonObjectImplTestBase<J> {
    * provided to the cast method.
    */
   @Test
-  public void testCast() {
+  public void testCastByClass() {
     JsonObject testJsonObject = this.createJsonObject(this.createUnderlyingJsonObject());
     CastJsonObject castJsonObject = testJsonObject.cast(CastJsonObject.class);
+    
+    assertEquals(testJsonObject, castJsonObject);
+  }
+  
+  /**
+   * Test the casting of a JSON object.
+   * <p>
+   * This test asserts that a the class of a cast JSON object matches the class
+   * with the name provided to the cast method.
+   */
+  @Test
+  public void testCastByClassName() {
+    JsonObject testJsonObject = this.createJsonObject(this.createUnderlyingJsonObject());
+    CastJsonObject castJsonObject = testJsonObject.cast(CastJsonObject.class.getName());
     
     assertEquals(testJsonObject, castJsonObject);
   }

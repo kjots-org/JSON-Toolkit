@@ -71,7 +71,7 @@ public class SimpleJsonArrayImplTest extends JsonArrayImplTestBase<SimpleJsonVal
    */
   @Override
   protected JsonObject createJsonObject(SimpleJsonValue object) {
-    return new SimpleJsonObjectImpl(object);
+    return new SimpleJsonObjectImpl(JsonObject.class, object);
   }
 
   /**
@@ -82,7 +82,7 @@ public class SimpleJsonArrayImplTest extends JsonArrayImplTestBase<SimpleJsonVal
    */
   @Override
   protected JsonArray createJsonArray(SimpleJsonValue array) {
-    return new SimpleJsonArrayImpl(array);
+    return new SimpleJsonArrayImpl(JsonArray.class, array);
  }
 
   /**

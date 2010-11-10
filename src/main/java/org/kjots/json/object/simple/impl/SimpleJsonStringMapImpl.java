@@ -32,7 +32,7 @@ public class SimpleJsonStringMapImpl extends SimpleJsonObjectImpl implements Jso
    * @param simpleJsonValue The simple JSON value.
    */
   public SimpleJsonStringMapImpl(SimpleJsonValue simpleJsonValue) {
-    super(simpleJsonValue);
+    super(JsonStringMap.class, simpleJsonValue);
   }
 
   /**

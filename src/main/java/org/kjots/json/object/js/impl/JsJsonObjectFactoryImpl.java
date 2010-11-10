@@ -77,7 +77,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
       Class<? extends JsJsonObjectImpl> jsonObjectImplClass = this.jsonObjectGenerator.getJsonObjectImplClass(jsonObjectClass);
 
       try {
-        jsonObjectImpl = jsonObjectImplClass.getConstructor(Invocable.class, Object.class).newInstance(this.jsEngine, object);
+        jsonObjectImpl = jsonObjectImplClass.getConstructor(Class.class, Invocable.class, Object.class).newInstance(jsonObjectClass, this.jsEngine, object);
       }
       catch (NoSuchMethodException nsme) {
         throw new IllegalStateException(nsme);
@@ -107,6 +107,25 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   }
 
   /**
+   * Create a new JSON object with the given underlying JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @param object The underlying JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
+    try {
+      return this.createJsonObject((Class<T>)Class.forName(jsonObjectClassName), object);
+    }
+    catch (ClassNotFoundException cnfe) {
+      throw new IllegalArgumentException(jsonObjectClassName, cnfe);
+    }
+  }
+  
+  /**
    * Create a new JSON object.
    *
    * @param <T> The type of the JSON object.
@@ -116,6 +135,18 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   @Override
   public <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass) {
     return this.createJsonObject(jsonObjectClass, this.jsObjectProvider.get());
+  }
+  
+  /**
+   * Create a new JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
+    return this.createJsonObject(jsonObjectClassName, this.jsObjectProvider.get());
   }
   
   /**
@@ -131,6 +162,18 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   }
   
   /**
+   * Create a new JSON array.
+   *
+   * @param <T> The type of the JSON array.
+   * @param jsonArrayClassName The name of the class of the JSON array.
+   * @return The JSON array.
+   */
+  @Override
+  public <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
+    return this.createJsonObject(jsonArrayClassName, this.jsArrayProvider.get());
+  }
+  
+  /**
    * Create a new JSON object instance with given class using the given
    * underlying JSON object.
    * <p>
@@ -143,10 +186,10 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    */
   private JsJsonObjectImpl createStaticJsonObject(Class<? extends JsonObject> jsonObjectClass, Object object) {
     if (jsonObjectClass.equals(JsonObject.class)) {
-      return new JsJsonObjectImpl(this.jsEngine, object);
+      return new JsJsonObjectImpl(JsonObject.class, this.jsEngine, object);
     }
     else if (jsonObjectClass.equals(JsonArray.class)) {
-      return new JsJsonArrayImpl(this.jsEngine, object);
+      return new JsJsonArrayImpl(JsonArray.class, this.jsEngine, object);
     }
     else if (jsonObjectClass.equals(JsonBooleanArray.class)) {
       return new JsJsonBooleanArrayImpl(this.jsEngine, object);

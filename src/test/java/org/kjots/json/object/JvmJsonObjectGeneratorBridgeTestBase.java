@@ -295,7 +295,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * correctly.
    */
   @Test
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("rawtypes")
   public void testInvokeReturnValueJsonFunction() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
@@ -309,7 +309,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * correctly.
    */
   @Test
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("rawtypes")
   public void testInvokeGenericReturnValueJsonFunction() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
@@ -323,7 +323,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * with an {@link Object} argument correctly.
    */
   @Test
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testInvokeGenericParameterJsonFunctionWithObjectArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
@@ -339,7 +339,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * with an {@link Serializable} argument correctly.
    */
   @Test
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testInvokeGenericParameterJsonFunctionWithSerializableArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
@@ -355,7 +355,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * with an {@link Comparable} argument correctly.
    */
   @Test
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testInvokeGenericParameterJsonFunctionWithComparableArgument() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
@@ -371,7 +371,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * invoked correctly.
    */
   @Test
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("rawtypes")
   public void testInvokeGenericArrayReturnValueJsonFunction() {
     TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
     
@@ -385,7 +385,7 @@ public abstract class JvmJsonObjectGeneratorBridgeTestBase {
    * invoked with an {@link Object}[] argument correctly.
    */
   @Test
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void testInvokeGenericArrayParameterJsonFunctionWithObjectArgument() {
     String[] genericArrayParam = new String[] {};
     

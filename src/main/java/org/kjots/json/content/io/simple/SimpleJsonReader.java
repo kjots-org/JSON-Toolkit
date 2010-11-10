@@ -82,31 +82,31 @@ public class SimpleJsonReader extends AbstractJsonContentGenerator implements Js
     return new ContentHandler() {
       @Override
       public void startJSON() {
-        SimpleJsonReader.this.contentHandler.startJson();
+        SimpleJsonReader.this.jsonContentHandler.startJson();
       }
 
       @Override
       public void endJSON() {
-        SimpleJsonReader.this.contentHandler.endJson();
+        SimpleJsonReader.this.jsonContentHandler.endJson();
       }
       
       @Override
       public boolean startObject() {
-        SimpleJsonReader.this.contentHandler.startObject();
+        SimpleJsonReader.this.jsonContentHandler.startObject();
         
         return true;
       }
 
       @Override
       public boolean endObject() {
-        SimpleJsonReader.this.contentHandler.endObject();
+        SimpleJsonReader.this.jsonContentHandler.endObject();
         
         return true;
       }
 
       @Override
       public boolean startObjectEntry(String key) {
-        SimpleJsonReader.this.contentHandler.memberName(key);
+        SimpleJsonReader.this.jsonContentHandler.memberName(key);
         
         return true;
       }
@@ -118,14 +118,14 @@ public class SimpleJsonReader extends AbstractJsonContentGenerator implements Js
 
       @Override
       public boolean startArray()  {
-        SimpleJsonReader.this.contentHandler.startArray();
+        SimpleJsonReader.this.jsonContentHandler.startArray();
         
         return true;
       }
 
       @Override
       public boolean endArray() {
-        SimpleJsonReader.this.contentHandler.endArray();
+        SimpleJsonReader.this.jsonContentHandler.endArray();
         
         return true;
       }
@@ -156,7 +156,7 @@ public class SimpleJsonReader extends AbstractJsonContentGenerator implements Js
           }
         }
         
-        SimpleJsonReader.this.contentHandler.primitive(value);
+        SimpleJsonReader.this.jsonContentHandler.primitive(value);
         
         return true;
       }

@@ -38,20 +38,21 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
    * @param value The value.
    */
   private static void set(List<Object> list, int index, Object value) {
-    while (list.size() < index) {
+    while (list.size() <= index) {
       list.add(null);
     }
     
-    list.add(value);
+    list.set(index, value);
   }
 
   /**
    * Construct a new Simple JSON Array Implementation.
    *
+   * @param jsonArrayClass The JSON array class.
    * @param simpleJsonValue The simple JSON value.
    */
-  public SimpleJsonArrayImpl(SimpleJsonValue simpleJsonValue) {
-    super(simpleJsonValue);
+  public SimpleJsonArrayImpl(Class<? extends JsonArray> jsonArrayClass, SimpleJsonValue simpleJsonValue) {
+    super(jsonArrayClass, simpleJsonValue);
   }
   
   /**

@@ -16,9 +16,14 @@
 package org.kjots.json.object.shared;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
-
 import org.kjots.json.object.shared.JsonProperty.OperationType;
 
 /**
@@ -88,6 +93,24 @@ public abstract class JsonObjectGeneratorBooleanTestBase {
     public void setTestBooleanArrayProperty(JsonBooleanArray testBooleanArrayProperty);
     
     /**
+     * Retrieve the test adapted boolean array property.
+     *
+     * @return The test adapted boolean array property.
+     * @see #setTestAdaptedBooleanArrayProperty(List)
+     */
+    @JsonProperty(name = "testAdaptedBooleanArrayProperty", operation = OperationType.GET, adapter = TestJsonBooleanArrayPropertyAdapter.class)
+    public List<Boolean> getTestAdaptedBooleanArrayProperty();
+
+    /**
+     * Set the test adapted boolean array property.
+     *
+     * @param testAdaptedBooleanArrayProperty The test adapted boolean array property.
+     * @see #getTestAdaptedBooleanArrayProperty()
+     */
+    @JsonProperty(name = "testAdaptedBooleanArrayProperty", operation = OperationType.SET, adapter = TestJsonBooleanArrayPropertyAdapter.class)
+    public void setTestAdaptedBooleanArrayProperty(List<Boolean> testAdaptedBooleanArrayProperty);
+
+    /**
      * Retrieve the test boolean map property.
      *
      * @return The test boolean map property.
@@ -104,6 +127,24 @@ public abstract class JsonObjectGeneratorBooleanTestBase {
      */
     @JsonProperty(name = "testBooleanMapProperty", operation = OperationType.SET)
     public void setTestBooleanMapProperty(JsonBooleanMap testBooleanMapProperty);
+    
+    /**
+     * Retrieve the test adapted boolean map property.
+     *
+     * @return The test adapted boolean map property.
+     * @see #setTestAdaptedBooleanMapProperty(Map)
+     */
+    @JsonProperty(name = "testAdaptedBooleanMapProperty", operation = OperationType.GET, adapter = TestJsonBooleanMapPropertyAdapter.class)
+    public Map<String, Boolean> getTestAdaptedBooleanMapProperty();
+    
+    /**
+     * Set the test adapted boolean map property.
+     *
+     * @param testAdaptedBooleanMapProperty The test adapted boolean map property.
+     * @see #getTestAdaptedBooleanMapProperty()
+     */
+    @JsonProperty(name = "testAdaptedBooleanMapProperty", operation = OperationType.SET, adapter = TestJsonBooleanMapPropertyAdapter.class)
+    public void setTestAdaptedBooleanMapProperty(Map<String, Boolean> testAdaptedBooleanMapProperty);
   }
   
   /**
@@ -134,6 +175,92 @@ public abstract class JsonObjectGeneratorBooleanTestBase {
     @Override
     public String fromJsonProperty(Boolean propertyValue) {
       return propertyValue.toString();
+    }
+  }
+  
+  /**
+   * Test JSON Boolean Array Property Adapter.
+   * <p>
+   * Created: 7th July 2010.
+   */
+  public static class TestJsonBooleanArrayPropertyAdapter implements JsonObjectPropertyAdapter<List<Boolean>, JsonBooleanArray> {
+    /**
+     * Convert to a JSON object property value.
+     *
+     * @param testJsonBooleanProperties The value.
+     * @return The JSON object property value.
+     * @see #fromJsonProperty(JsonBooleanArray)
+     */
+    @Override
+    public JsonBooleanArray toJsonProperty(List<Boolean> testJsonBooleanProperties) {
+      JsonBooleanArray jsonBooleanArray = JsonObjectFactory.get().createJsonArray(JsonBooleanArray.class);
+      
+      for (int i = 0; i < testJsonBooleanProperties.size(); i++) {
+        jsonBooleanArray.set(i, testJsonBooleanProperties.get(i));
+      }
+      
+      return jsonBooleanArray;
+    }
+
+    /**
+     * Convert from a JSON object property value.
+     *
+     * @param propertyValue The JSON object property value.
+     * @return The value.
+     * @see #toJsonProperty(List)
+     */
+    @Override
+    public List<Boolean> fromJsonProperty(JsonBooleanArray propertyValue) {
+      List<Boolean> list = new ArrayList<Boolean>(propertyValue.getLength());
+      
+      for (Boolean value : propertyValue) {
+        list.add(value);
+      }
+      
+      return list;
+    }
+  }
+  
+  /**
+   * Test JSON Boolean Map Property Adapter.
+   * <p>
+   * Created: 7th July 2010.
+   */
+  public static class TestJsonBooleanMapPropertyAdapter implements JsonObjectPropertyAdapter<Map<String, Boolean>, JsonBooleanMap> {
+    /**
+     * Convert to a JSON object property value.
+     *
+     * @param testJsonBooleanProperties The value.
+     * @return The JSON object property value.
+     * @see #fromJsonProperty(JsonBooleanMap)
+     */
+    @Override
+    public JsonBooleanMap toJsonProperty(Map<String, Boolean> testJsonBooleanProperties) {
+      JsonBooleanMap jsonBooleanMap = JsonObjectFactory.get().createJsonObject(JsonBooleanMap.class);
+      
+      for (Map.Entry<String, Boolean> entry : testJsonBooleanProperties.entrySet()) {
+        jsonBooleanMap.set(entry.getKey(), entry.getValue());
+      }
+      
+      return jsonBooleanMap;
+    }
+
+    /**
+     * Convert from a JSON object property value.
+     *
+     * @param propertyValue The JSON object property value.
+     * @return The value.
+     * @see #toJsonProperty(Map)
+     */
+    @Override
+    public Map<String, Boolean> fromJsonProperty(JsonBooleanMap propertyValue) {
+      Map<String, Boolean> map = new HashMap<String, Boolean>();
+      
+      for (String key : propertyValue.getPropertyNames()) {
+        map.put(key, propertyValue.get(key));
+      }
+      
+      return map;
     }
   }
   
@@ -235,6 +362,62 @@ public abstract class JsonObjectGeneratorBooleanTestBase {
   }
   
   /**
+   * Test the retrieval of the value of an adapted boolean array property.
+   * <p>
+   * This test asserts that the retrieved value of an adapted boolean array
+   * property matches the adapted value of the corresponding property of the
+   * underlying JSON object.
+   */
+  @Test
+  public void testGetAdaptedBooleanArrayProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    JsonBooleanArray testJsonBooleanArray = JsonObjectFactory.get().createJsonArray(JsonBooleanArray.class);
+    
+    for (int i = 0; i < 10; i++) {
+      testJsonBooleanArray.set(i, i % 2 == 0);
+    }
+    
+    testJsonObject.setObjectProperty("testAdaptedBooleanArrayProperty", testJsonBooleanArray);
+    
+    List<Boolean> testAdaptedBooleanArrayProperty = testJsonObject.getTestAdaptedBooleanArrayProperty();
+    
+    assertNotNull(testAdaptedBooleanArrayProperty);
+    assertEquals(testJsonBooleanArray.getLength(), testAdaptedBooleanArrayProperty.size());
+    for (int i = 0; i < testJsonBooleanArray.getLength(); i++) {
+      assertEquals(testJsonBooleanArray.get(i), testAdaptedBooleanArrayProperty.get(i));
+    }
+  }
+
+  /**
+   * Test the setting of the value of an adapted boolean array property.
+   * <p>
+   * This test asserts that the setting of the value of an adapted property
+   * changes the value of the corresponding property of the underlying JSON
+   * object to the adapted boolean array value.
+   */
+  @Test
+  public void testSetAdaptedBooleanArrayProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    List<Boolean> testAdaptedBooleanArrayProperty = new ArrayList<Boolean>();
+    
+    for (int i = 0; i < 10; i++) {
+      testAdaptedBooleanArrayProperty.add(i % 2 == 0);
+    }
+    
+    testJsonObject.setTestAdaptedBooleanArrayProperty(testAdaptedBooleanArrayProperty);
+    
+    JsonBooleanArray testJsonBooleanArray = testJsonObject.getObjectProperty("testAdaptedBooleanArrayProperty", JsonBooleanArray.class);
+    
+    assertNotNull(testJsonBooleanArray);
+    assertEquals(testAdaptedBooleanArrayProperty.size(), testJsonBooleanArray.getLength());
+    for (int i = 0; i < testAdaptedBooleanArrayProperty.size(); i++) {
+      assertEquals(testAdaptedBooleanArrayProperty.get(i), testJsonBooleanArray.get(i));
+    }
+  }
+
+  /**
    * Test the retrieval of the boolean map value of a property.
    * <p>
    * This test asserts that the retrieved boolean map value of a property
@@ -266,5 +449,61 @@ public abstract class JsonObjectGeneratorBooleanTestBase {
     testJsonObject.setTestBooleanMapProperty(testBooleanMapProperty);
     
     assertEquals(testBooleanMapProperty, testJsonObject.getObjectProperty("testBooleanMapProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the value of an adapted boolean map property.
+   * <p>
+   * This test asserts that the retrieved value of an adapted boolean map
+   * property matches the adapted value of the corresponding property of the
+   * underlying JSON object.
+   */
+  @Test
+  public void testGetAdaptedBooleanMapProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    JsonBooleanMap testJsonBooleanMap = JsonObjectFactory.get().createJsonObject(JsonBooleanMap.class);
+    
+    for (int i = 0; i < 10; i++) {
+      testJsonBooleanMap.set(Integer.toString(i), i % 2 == 0);
+    }
+    
+    testJsonObject.setObjectProperty("testAdaptedBooleanMapProperty", testJsonBooleanMap);
+    
+    Map<String, Boolean> testAdaptedBooleanMapProperty = testJsonObject.getTestAdaptedBooleanMapProperty();
+    
+    assertNotNull(testAdaptedBooleanMapProperty);
+    assertEquals(testJsonBooleanMap.getPropertyNames().size(), testAdaptedBooleanMapProperty.size());
+    for (String key : testJsonBooleanMap.getPropertyNames()) {
+      assertEquals(testJsonBooleanMap.get(key), testAdaptedBooleanMapProperty.get(key));
+    }
+  }
+  
+  /**
+   * Test the setting of the value of an adapted boolean map property.
+   * <p>
+   * This test asserts that the setting of the value of an adapted property
+   * changes the value of the corresponding property of the underlying JSON
+   * object to the adapted boolean map value.
+   */
+  @Test
+  public void testSetAdaptedBooleanMapProperty() {
+    TestJsonObject testJsonObject = JsonObjectFactory.get().createJsonObject(TestJsonObject.class);
+    
+    Map<String, Boolean> testAdaptedBooleanMapProperty = new HashMap<String, Boolean>();
+    
+    for (int i = 0; i < 10; i++) {
+      testAdaptedBooleanMapProperty.put(Integer.toString(i), i % 2 == 0);
+    }
+    
+    testJsonObject.setTestAdaptedBooleanMapProperty(testAdaptedBooleanMapProperty);
+    
+    JsonBooleanMap testJsonBooleanMap = testJsonObject.getObjectProperty("testAdaptedBooleanMapProperty", JsonBooleanMap.class);
+    
+    assertNotNull(testJsonBooleanMap);
+    assertEquals(testAdaptedBooleanMapProperty.size(), testJsonBooleanMap.getPropertyNames().size());
+    for (Map.Entry<String, Boolean> entry : testAdaptedBooleanMapProperty.entrySet()) {
+      assertEquals(testAdaptedBooleanMapProperty.get(entry.getKey()), testJsonBooleanMap.get(entry.getKey()));
+    }
   }
 }

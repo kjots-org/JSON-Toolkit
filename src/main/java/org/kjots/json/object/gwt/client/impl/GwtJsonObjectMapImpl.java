@@ -90,7 +90,7 @@ public class GwtJsonObjectMapImpl<T extends JsonObject> extends GwtJsonObjectImp
    * @param elementClass The element class.
    */
   private GwtJsonObjectMapImpl(JavaScriptObject jsObject, Class<T> elementClass) {
-    super(jsObject);
+    super(JsonObjectMap.class, jsObject);
     
     this.elementClass = elementClass;
   }

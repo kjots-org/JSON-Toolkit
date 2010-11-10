@@ -111,7 +111,7 @@ public class GwtJsonObjectArrayImpl<T extends JsonObject> extends GwtJsonArrayIm
    * @param elementClass The element class.
    */
   private GwtJsonObjectArrayImpl(JsArray<?> jsObjectArray, Class<T> elementClass) {
-    super(jsObjectArray);
+    super(JsonObjectArray.class, jsObjectArray);
     
     this.elementClass = elementClass;
   }

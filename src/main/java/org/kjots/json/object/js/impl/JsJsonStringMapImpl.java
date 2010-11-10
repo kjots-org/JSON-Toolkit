@@ -35,7 +35,7 @@ public class JsJsonStringMapImpl extends JsJsonObjectImpl implements JsonStringM
    * @param jsObject The JavaScript object.
    */
   public JsJsonStringMapImpl(Invocable jsEngine, Object jsObject) {
-    super(jsEngine, jsObject);
+    super(JsonStringMap.class, jsEngine, jsObject);
   }
   
   /**

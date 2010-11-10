@@ -194,6 +194,17 @@ public abstract class NativeJsonObject implements JsonObject {
   private final Map<String, NativeJsonPropertyInfo> nativeJsonPropertiesInfo;
   
   /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  @Override
+  public Class<? extends JsonObject> getJsonObjectClass() {
+    // TODO: Implement this method.
+    throw new AssertionError("Not yet implemented");
+  }
+  
+  /**
    * Cast this JSON object a JSON object with the given class.
    *
    * @param <T> The type of the JSON object.
@@ -202,6 +213,19 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public <T extends JsonObject> T cast(Class<T> jsonObjectClass) {
+    // TODO: Implement this method.
+    throw new AssertionError("Not yet implemented");
+  }
+  
+  /**
+   * Cast this JSON object a JSON object with the given class name.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The cast JSON object.
+   */
+  @Override
+  public <T extends JsonObject> T cast(String jsonObjectClassName) {
     // TODO: Implement this method.
     throw new AssertionError("Not yet implemented");
   }

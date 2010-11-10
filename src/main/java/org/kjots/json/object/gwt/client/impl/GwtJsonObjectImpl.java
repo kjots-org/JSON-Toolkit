@@ -36,16 +36,31 @@ import com.google.gwt.core.client.JsArrayString;
  * @since json-object-0.1
  */
 public class GwtJsonObjectImpl implements JsonObject {
+  /** The JSON object class. */
+  protected final Class<? extends JsonObject> jsonObjectClass;
+  
   /** The JavaScript object. */
   protected final JavaScriptObject jsObject;
   
   /**
    * Construct a new GWT JSON Object Implementation.
    *
+   * @param jsonObjectClass The JSON object class.
    * @param jsObject The JavaScript object.
    */
-  public GwtJsonObjectImpl(JavaScriptObject jsObject) {
+  public GwtJsonObjectImpl(Class<? extends JsonObject> jsonObjectClass, JavaScriptObject jsObject) {
+    this.jsonObjectClass = jsonObjectClass;
     this.jsObject = jsObject;
+  }
+  
+  /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  @Override
+  public Class<? extends JsonObject> getJsonObjectClass() {
+    return this.jsonObjectClass;
   }
   
   /**
@@ -58,11 +73,28 @@ public class GwtJsonObjectImpl implements JsonObject {
   @Override
   @SuppressWarnings("unchecked")
   public final <T extends JsonObject> T cast(Class<T> jsonObjectClass) {
-    if (jsonObjectClass.equals(this.getClass())) {
+    if (jsonObjectClass.equals(this.jsonObjectClass)) {
       return (T)this;
     }
     
     return JsonObjectFactory.get().createJsonObject(jsonObjectClass, this.jsObject);
+  }
+  
+  /**
+   * Cast this JSON object a JSON object with the given class name.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The cast JSON object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends JsonObject> T cast(String jsonObjectClassName) {
+    if (jsonObjectClassName.equals(this.jsonObjectClass.getName())) {
+      return (T)this;
+    }
+    
+    return JsonObjectFactory.get().createJsonObject(jsonObjectClassName, this.jsObject);
   }
   
   /**
@@ -311,6 +343,7 @@ public class GwtJsonObjectImpl implements JsonObject {
    *
    * @return The underlying JSON object.
    */
+  @Override
   public final JavaScriptObject getObject() {
     return this.jsObject;
   }

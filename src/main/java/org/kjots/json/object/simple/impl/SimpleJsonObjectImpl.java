@@ -29,16 +29,31 @@ import org.kjots.json.object.simple.SimpleJsonValue;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
 public class SimpleJsonObjectImpl implements JsonObject {
+  /** The JSON object class. */
+  protected final Class<? extends JsonObject> jsonObjectClass;
+  
   /** The simple JSON value. */
   protected final SimpleJsonValue simpleJsonValue;
   
   /**
    * Construct a new Simple JSON Object Implementation.
    *
+   * @param jsonObjectClass The JSON object class.
    * @param simpleJsonValue The simple JSON value.
    */
-  public SimpleJsonObjectImpl(SimpleJsonValue simpleJsonValue) {
+  public SimpleJsonObjectImpl(Class<? extends JsonObject> jsonObjectClass, SimpleJsonValue simpleJsonValue) {
+    this.jsonObjectClass = jsonObjectClass;
     this.simpleJsonValue = simpleJsonValue;
+  }
+  
+  /**
+   * Retrieve the JSON object class.
+   *
+   * @return The JSON object class.
+   */
+  @Override
+  public Class<? extends JsonObject> getJsonObjectClass() {
+    return this.jsonObjectClass;
   }
   
   /**
@@ -51,11 +66,28 @@ public class SimpleJsonObjectImpl implements JsonObject {
   @Override
   @SuppressWarnings("unchecked")
   public final <T extends JsonObject> T cast(Class<T> jsonObjectClass) {
-    if (jsonObjectClass.equals(this.getClass())) {
+    if (jsonObjectClass.equals(this.jsonObjectClass)) {
       return (T)this;
     }
     
     return JsonObjectFactory.get().createJsonObject(jsonObjectClass, this.simpleJsonValue);
+  }
+  
+  /**
+   * Cast this JSON object a JSON object with the given class name.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The cast JSON object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends JsonObject> T cast(String jsonObjectClassName) {
+    if (jsonObjectClassName.equals(this.jsonObjectClass.getName())) {
+      return (T)this;
+    }
+    
+    return JsonObjectFactory.get().createJsonObject(jsonObjectClassName, this.simpleJsonValue);
   }
   
   /**

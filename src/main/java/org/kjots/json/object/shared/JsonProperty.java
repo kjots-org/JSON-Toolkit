@@ -36,11 +36,21 @@ public @interface JsonProperty {
   /**
    * Null Adapter.
    * <p>
-   * Created: 12th May 2010.
+   * Created: 10th November 2010.
    */
   public static abstract class NullAdapter implements JsonPropertyAdapter<Object, Object> {
+    /**
+     * Construct a new Null Adapter.
+     * <p>
+     * This constructor is declared <code>private</code> to prevent extension.
+     */
+    private NullAdapter() {
+    }
   }
   
+  /**
+   * Operation Type.
+   */
   public static enum OperationType {
     /** The "has" operation type. */
     HAS,

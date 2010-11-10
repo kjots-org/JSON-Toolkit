@@ -108,10 +108,10 @@ public class GwtJsonObjectFactoryGenerator extends Generator {
     sourceWriter.println("public final " + jsonObjectTypeName + " newInstance(" + JavaScriptObject.class.getName() + " jsObject) {");
     sourceWriter.indent();
     if (jsObjectTypeName != null) {
-      sourceWriter.println("return new " + jsonObjectImplTypeName + "((" + jsObjectTypeName + ")jsObject.cast());");
+      sourceWriter.println("return new " + jsonObjectImplTypeName + "(" + jsonObjectTypeName + ".class, (" + jsObjectTypeName + ")jsObject.cast());");
     }
     else {
-      sourceWriter.println("return new " + jsonObjectImplTypeName + "(jsObject);");
+      sourceWriter.println("return new " + jsonObjectImplTypeName + "(" + jsonObjectTypeName + ".class, jsObject);");
     }
     sourceWriter.outdent();
     sourceWriter.println("}");

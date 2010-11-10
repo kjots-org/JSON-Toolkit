@@ -33,10 +33,11 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   /**
    * Construct a new GWT JSON Array Implementation.
    *
+   * @param jsonArrayClass The JSON array class.
    * @param jsArray The JavaScript array.
    */
-  public GwtJsonArrayImpl(JavaScriptObject jsArray) {
-    super(jsArray);
+  public GwtJsonArrayImpl(Class<? extends JsonArray> jsonArrayClass, JavaScriptObject jsArray) {
+    super(jsonArrayClass, jsArray);
     
     if (!this.isArray()) {
       throw new IllegalArgumentException("jsArray is not a JavaScript array");
@@ -248,6 +249,7 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    * @return The object value.
    * @see #setObjectElement(int, JsonObject)
    */
+  @Override
   public final <T extends JsonObject> T getObjectElement(int index, Class<T> jsonObjectClass) {
     JavaScriptObject jsObjectPropertyValue = this.getJsObjectElement(index);
     

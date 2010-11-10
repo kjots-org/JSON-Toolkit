@@ -61,7 +61,7 @@ public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
       Class<? extends SimpleJsonObjectImpl> jsonObjectImplClass = this.jsonObjectGenerator.getJsonObjectImplClass(jsonObjectClass);
       
       try {
-        jsonObjectImpl = jsonObjectImplClass.getConstructor(SimpleJsonValue.class).newInstance(object);
+        jsonObjectImpl = jsonObjectImplClass.getConstructor(Class.class, SimpleJsonValue.class).newInstance(jsonObjectClass, object);
       }
       catch (NoSuchMethodException nsme) {
         throw new IllegalStateException(nsme);
@@ -91,6 +91,25 @@ public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
   }
 
   /**
+   * Create a new JSON object with the given underlying JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @param object The underlying JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
+    try {
+      return this.createJsonObject((Class<T>)Class.forName(jsonObjectClassName), object);
+    }
+    catch (ClassNotFoundException cnfe) {
+      throw new IllegalArgumentException(jsonObjectClassName, cnfe);
+    }
+  }
+  
+  /**
    * Create a new JSON object.
    *
    * @param <T> The type of the JSON object.
@@ -103,6 +122,18 @@ public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
   }
 
   /**
+   * Create a new JSON object.
+   *
+   * @param <T> The type of the JSON object.
+   * @param jsonObjectClassName The name of the class of the JSON object.
+   * @return The JSON object.
+   */
+  @Override
+  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
+    return this.createJsonObject(jsonObjectClassName, SimpleJsonValue.createObject());
+  }
+  
+  /**
    * Create a new JSON array.
    *
    * @param <T> The type of the JSON array.
@@ -114,6 +145,17 @@ public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
     return this.createJsonObject(jsonArrayClass, SimpleJsonValue.createArray());
   }
   
+  /**
+   * Create a new JSON array.
+   *
+   * @param <T> The type of the JSON array.
+   * @param jsonArrayClassName The name of the class of the JSON array.
+   * @return The JSON array.
+   */
+  @Override
+  public <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
+    return this.createJsonObject(jsonArrayClassName, SimpleJsonValue.createArray());
+  }
   
   /**
    * Create a new JSON object instance with given class using the given
@@ -128,10 +170,10 @@ public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
    */
   private SimpleJsonObjectImpl createStaticJsonObject(Class<? extends JsonObject> jsonObjectClass, SimpleJsonValue object) {
     if (jsonObjectClass.equals(JsonObject.class)) {
-      return new SimpleJsonObjectImpl(object);
+      return new SimpleJsonObjectImpl(JsonObject.class, object);
     }
     else if (jsonObjectClass.equals(JsonArray.class)) {
-      return new SimpleJsonArrayImpl(object);
+      return new SimpleJsonArrayImpl(JsonArray.class, object);
     }
     else if (jsonObjectClass.equals(JsonBooleanArray.class)) {
       return new SimpleJsonBooleanArrayImpl(object);

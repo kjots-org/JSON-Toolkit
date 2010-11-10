@@ -72,6 +72,20 @@ public class GwtJsonObjectGeneratorBooleanTest extends GwtJsonObjectTestBase {
   }
 
   /**
+   * @see JsonObjectGeneratorBooleanTestBase#testGetAdaptedBooleanArrayProperty()
+   */
+  public void testGetAdaptedBooleanArrayProperty() {
+    this.jsonObjectGeneratorBooleanTestDelegate.testGetAdaptedBooleanArrayProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorBooleanTestBase#testSetAdaptedBooleanArrayProperty()
+   */
+  public void testSetAdaptedBooleanArrayProperty() {
+    this.jsonObjectGeneratorBooleanTestDelegate.testSetAdaptedBooleanArrayProperty();
+  }
+
+  /**
    * @see JsonObjectGeneratorBooleanTestBase#testGetBooleanMapProperty()
    */
   public void testGetBooleanMapProperty() {
@@ -83,5 +97,19 @@ public class GwtJsonObjectGeneratorBooleanTest extends GwtJsonObjectTestBase {
    */
   public void testSetBooleanMapProperty() {
     this.jsonObjectGeneratorBooleanTestDelegate.testSetBooleanMapProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorBooleanTestBase#testGetAdaptedBooleanMapProperty()
+   */
+  public void testGetAdaptedBooleanMapProperty() {
+    this.jsonObjectGeneratorBooleanTestDelegate.testGetAdaptedBooleanMapProperty();
+  }
+
+  /**
+   * @see JsonObjectGeneratorBooleanTestBase#testSetAdaptedBooleanMapProperty()
+   */
+  public void testSetAdaptedBooleanMapProperty() {
+    this.jsonObjectGeneratorBooleanTestDelegate.testSetAdaptedBooleanMapProperty();
   }
 }

@@ -113,6 +113,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visit(int, int, String, String, String, String[])
    */
+  @Override
   public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
     this.asmClassVisitor.visit(version, access, name, signature, superName, interfaces);
   }
@@ -120,6 +121,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitAnnotation(String, boolean)
    */
+  @Override
   public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
     return this.asmClassVisitor.visitAnnotation(desc, visible);
   }
@@ -127,6 +129,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitAttribute(Attribute)
    */
+  @Override
   public void visitAttribute(Attribute attr) {
     this.asmClassVisitor.visitAttribute(attr);
   }
@@ -134,6 +137,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitEnd()
    */
+  @Override
   public void visitEnd() {
     this.asmClassVisitor.visitEnd();
   }
@@ -141,6 +145,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitField(int, String, String, String, Object)
    */
+  @Override
   public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
     return this.asmClassVisitor.visitField(access, name, desc, signature, value);
   }
@@ -148,6 +153,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitInnerClass(String, String, String, int)
    */
+  @Override
   public void visitInnerClass(String name, String outerName, String innerName, int access) {
     this.asmClassVisitor.visitInnerClass(name, outerName, innerName, access);
   }
@@ -155,6 +161,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitMethod(int, String, String, String, String[])
    */
+  @Override
   public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
     return new MethodVisitor(this.asmClassVisitor.visitMethod(access, name, desc, signature, exceptions));
   }
@@ -162,6 +169,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitOuterClass(String, String, String)
    */
+  @Override
   public void visitOuterClass(String owner, String name, String desc) {
     this.asmClassVisitor.visitOuterClass(owner, name, desc);
   }
@@ -169,6 +177,7 @@ public class ClassVisitor implements org.objectweb.asm.ClassVisitor {
   /**
    * @see org.objectweb.asm.ClassVisitor#visitSource(String, String)
    */
+  @Override
   public void visitSource(String source, String debug) {
     this.asmClassVisitor.visitSource(source, debug);
   }
