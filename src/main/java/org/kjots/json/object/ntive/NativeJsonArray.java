@@ -30,7 +30,14 @@ import org.kjots.json.object.shared.JsonObject;
  */
 public class NativeJsonArray extends NativeJsonObject implements JsonArray {
   /** The list. */
-  private final LinkedList<Object> list = new LinkedList<Object>();
+  protected final LinkedList<Object> list;
+  
+  /**
+   * Construct a new Native JSON Array.
+   */
+  public NativeJsonArray() {
+    this(new LinkedList<Object>());
+  }
   
   /**
    * Set the element at the given index of the given list to the given value.
@@ -298,5 +305,14 @@ public class NativeJsonArray extends NativeJsonObject implements JsonArray {
   @Override
   public void removeElements(int index, int count) {
     this.list.subList(index, index + count).clear();
+  }
+
+  /**
+   * Construct a new Native JSON Array.
+   * 
+   * @param list The list.
+   */
+  protected NativeJsonArray(LinkedList<Object> list) {
+    this.list = list;
   }
 }

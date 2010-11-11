@@ -15,13 +15,11 @@
  */
 package org.kjots.json.object.ntive;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -79,15 +77,13 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testGetLength() {
-    LinkedList<Object> list = this.getTestNativeJsonArrayList();
-    
     assertEquals(0, testNativeJsonArray.getLength());
     
-    list.addAll(Arrays.asList(null, null, null, null, null));
+    testNativeJsonArray.list.addAll(Arrays.asList(null, null, null, null, null));
     
     assertEquals(5, testNativeJsonArray.getLength());
     
-    list.clear();
+    testNativeJsonArray.list.clear();
     
     assertEquals(0, testNativeJsonArray.getLength());
   }
@@ -100,17 +96,15 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testSetLength() {
-    LinkedList<Object> list = this.getTestNativeJsonArrayList();
-    
-    assertEquals(0, list.size());
+    assertEquals(0, testNativeJsonArray.list.size());
     
     testNativeJsonArray.setLength(5);
     
-    assertEquals(5, list.size());
+    assertEquals(5, testNativeJsonArray.list.size());
     
     testNativeJsonArray.setLength(0);
     
-    assertEquals(0, list.size());
+    assertEquals(0, testNativeJsonArray.list.size());
   }
   
   /**
@@ -121,10 +115,8 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testIsNullElement() {
-    LinkedList<Object> list = this.getTestNativeJsonArrayList();
-    
-    list.add(null);
-    list.add(JsonObjectFactory.get().createJsonObject());
+    testNativeJsonArray.list.add(null);
+    testNativeJsonArray.list.add(JsonObjectFactory.get().createJsonObject());
     
     assertTrue("isNull(0) != true", testNativeJsonArray.isNullElement(0));
     assertFalse("isNull(1) != false", testNativeJsonArray.isNullElement(1));
@@ -138,13 +130,11 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testIsBooleanElement() {
-    LinkedList<Object> list = this.getTestNativeJsonArrayList();
-    
-    list.add(Boolean.TRUE);
-    list.add(Double.valueOf(3.14));
-    list.add("Test String Element Value");
-    list.add(JsonObjectFactory.get().createJsonObject());
-    list.add(null);
+    testNativeJsonArray.list.add(Boolean.TRUE);
+    testNativeJsonArray.list.add(Double.valueOf(3.14));
+    testNativeJsonArray.list.add("Test String Element Value");
+    testNativeJsonArray.list.add(JsonObjectFactory.get().createJsonObject());
+    testNativeJsonArray.list.add(null);
     
     assertTrue("isBooleanElement(0) != true", testNativeJsonArray.isBooleanElement(0));
     assertFalse("isBooleanElement(1) != false", testNativeJsonArray.isBooleanElement(1));
@@ -161,9 +151,7 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testGetBooleanElement() {
-    LinkedList<Boolean> list = this.getTestNativeJsonArrayList();
-    
-    list.add(Boolean.TRUE);
+    testNativeJsonArray.list.add(Boolean.TRUE);
     
     assertEquals(true, testNativeJsonArray.getBooleanElement(0).booleanValue());
   }
@@ -176,11 +164,9 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testSetBooleanElement() {
-    LinkedList<Boolean> list = this.getTestNativeJsonArrayList();
-    
     testNativeJsonArray.setBooleanElement(0, true);
     
-    assertEquals(true, list.get(0).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(0)).booleanValue());
   }
   
   /**
@@ -191,21 +177,19 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testInsertBooleanElement() {
-    LinkedList<Boolean> list = this.getTestNativeJsonArrayList();
-    
     testNativeJsonArray.setBooleanElement(0, true);
     testNativeJsonArray.setBooleanElement(1, true);
     
-    assertEquals(2, list.size());
-    assertEquals(true, list.get(0).booleanValue());
-    assertEquals(true, list.get(1).booleanValue());
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(0)).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(1)).booleanValue());
     
     testNativeJsonArray.insertBooleanElement(1, false);
     
-    assertEquals(3, list.size());
-    assertEquals(true, list.get(0).booleanValue());
-    assertEquals(false, list.get(1).booleanValue());
-    assertEquals(true, list.get(2).booleanValue());
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(0)).booleanValue());
+    assertEquals(false, ((Boolean)testNativeJsonArray.list.get(1)).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(2)).booleanValue());
   }
   
   /**
@@ -216,13 +200,11 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testIsNumberElement() {
-    LinkedList<Object> list = this.getTestNativeJsonArrayList();
-    
-    list.add(Boolean.TRUE);
-    list.add(Double.valueOf(3.14));
-    list.add("Test String Element Value");
-    list.add(JsonObjectFactory.get().createJsonObject());
-    list.add(null);
+    testNativeJsonArray.list.add(Boolean.TRUE);
+    testNativeJsonArray.list.add(Double.valueOf(3.14));
+    testNativeJsonArray.list.add("Test String Element Value");
+    testNativeJsonArray.list.add(JsonObjectFactory.get().createJsonObject());
+    testNativeJsonArray.list.add(null);
     
     assertFalse("isNumberElement(0) != false", testNativeJsonArray.isNumberElement(0));
     assertTrue("isNumberElement(1) != true", testNativeJsonArray.isNumberElement(1));
@@ -239,9 +221,7 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testGetNumberElement() {
-    LinkedList<Number> list = this.getTestNativeJsonArrayList();
-    
-    list.add(Double.valueOf(3.14));
+    testNativeJsonArray.list.add(Double.valueOf(3.14));
     
     assertEquals(3.14, testNativeJsonArray.getNumberElement(0).doubleValue(), 0.001);
   }
@@ -254,11 +234,9 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testSetNumberElement() {
-    LinkedList<Number> list = this.getTestNativeJsonArrayList();
-    
     testNativeJsonArray.setNumberElement(0, 3.14);
     
-    assertEquals(3.14, list.get(0).doubleValue(), 0.001);
+    assertEquals(3.14, ((Number)testNativeJsonArray.list.get(0)).doubleValue(), 0.001);
   }
   
   /**
@@ -269,21 +247,19 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testInsertNumberElement() {
-    LinkedList<Number> list = this.getTestNativeJsonArrayList();
-    
     testNativeJsonArray.setNumberElement(0, 1.1);
     testNativeJsonArray.setNumberElement(1, 3.3);
     
-    assertEquals(2, list.size());
-    assertEquals(1.1, list.get(0).doubleValue(), 0.01);
-    assertEquals(3.3, list.get(1).doubleValue(), 0.01);
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(1.1, ((Number)testNativeJsonArray.list.get(0)).doubleValue(), 0.01);
+    assertEquals(3.3, ((Number)testNativeJsonArray.list.get(1)).doubleValue(), 0.01);
     
     testNativeJsonArray.insertNumberElement(1, 2.2);
     
-    assertEquals(3, list.size());
-    assertEquals(1.1, list.get(0).doubleValue(), 0.01);
-    assertEquals(2.2, list.get(1).doubleValue(), 0.01);
-    assertEquals(3.3, list.get(2).doubleValue(), 0.01);
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(1.1, ((Number)testNativeJsonArray.list.get(0)).doubleValue(), 0.01);
+    assertEquals(2.2, ((Number)testNativeJsonArray.list.get(1)).doubleValue(), 0.01);
+    assertEquals(3.3, ((Number)testNativeJsonArray.list.get(2)).doubleValue(), 0.01);
   }
 
   /**
@@ -294,13 +270,11 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testIsStringElement() {
-    LinkedList<Object> list = this.getTestNativeJsonArrayList();
-    
-    list.add(Boolean.TRUE);
-    list.add(Double.valueOf(3.14));
-    list.add("Test String Element Value");
-    list.add(JsonObjectFactory.get().createJsonObject());
-    list.add(null);
+    testNativeJsonArray.list.add(Boolean.TRUE);
+    testNativeJsonArray.list.add(Double.valueOf(3.14));
+    testNativeJsonArray.list.add("Test String Element Value");
+    testNativeJsonArray.list.add(JsonObjectFactory.get().createJsonObject());
+    testNativeJsonArray.list.add(null);
     
     assertFalse("isStringElement(0) != false", testNativeJsonArray.isStringElement(0));
     assertFalse("isStringElement(1) != false", testNativeJsonArray.isStringElement(1));
@@ -317,9 +291,7 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testGetStringElement() {
-    LinkedList<String> list = this.getTestNativeJsonArrayList();
-    
-    list.add("Test String Element Value");
+    testNativeJsonArray.list.add("Test String Element Value");
     
     assertEquals("Test String Element Value", testNativeJsonArray.getStringElement(0));
   }
@@ -332,11 +304,9 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testSetStringElement() {
-    LinkedList<String> list = this.getTestNativeJsonArrayList();
-    
     testNativeJsonArray.setStringElement(0, "Test String Property Value");
     
-    assertEquals("Test String Property Value", list.get(0));
+    assertEquals("Test String Property Value", (String)testNativeJsonArray.list.get(0));
   }
   
   /**
@@ -347,21 +317,19 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testInsertStringElement() {
-    LinkedList<String> list = this.getTestNativeJsonArrayList();
-    
     testNativeJsonArray.setStringElement(0, "one");
     testNativeJsonArray.setStringElement(1, "three");
     
-    assertEquals(2, list.size());
-    assertEquals("one", list.get(0));
-    assertEquals("three", list.get(1));
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals("one", (String)testNativeJsonArray.list.get(0));
+    assertEquals("three", (String)testNativeJsonArray.list.get(1));
     
     testNativeJsonArray.insertStringElement(1, "two");
     
-    assertEquals(3, list.size());
-    assertEquals("one", list.get(0));
-    assertEquals("two", list.get(1));
-    assertEquals("three", list.get(2));
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals("one", (String)testNativeJsonArray.list.get(0));
+    assertEquals("two", (String)testNativeJsonArray.list.get(1));
+    assertEquals("three", (String)testNativeJsonArray.list.get(2));
   }
 
   /**
@@ -372,13 +340,11 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testIsObjectElement() {
-    LinkedList<Object> list = this.getTestNativeJsonArrayList();
-    
-    list.add(Boolean.TRUE);
-    list.add(Double.valueOf(3.14));
-    list.add("Test String Element Value");
-    list.add(JsonObjectFactory.get().createJsonObject());
-    list.add(null);
+    testNativeJsonArray.list.add(Boolean.TRUE);
+    testNativeJsonArray.list.add(Double.valueOf(3.14));
+    testNativeJsonArray.list.add("Test String Element Value");
+    testNativeJsonArray.list.add(JsonObjectFactory.get().createJsonObject());
+    testNativeJsonArray.list.add(null);
     
     assertFalse("isObjectElement(0) != false", testNativeJsonArray.isObjectElement(0));
     assertFalse("isObjectElement(1) != false", testNativeJsonArray.isObjectElement(1));
@@ -396,9 +362,8 @@ public class NativeJsonArrayTest {
   @Test
   public void testGetObjectElement() {
     JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
-    LinkedList<JsonObject> list = this.getTestNativeJsonArrayList();
     
-    list.add(jsonObject);
+    testNativeJsonArray.list.add(jsonObject);
     
     assertEquals(jsonObject, testNativeJsonArray.getObjectElement(0));
   }
@@ -414,9 +379,8 @@ public class NativeJsonArrayTest {
   @Test
   public void testGetObjectElementWithNativeClass() {
     JsonObject jsonObject = new TestNativeJsonObject();
-    LinkedList<JsonObject> list = this.getTestNativeJsonArrayList();
     
-    list.add(jsonObject);
+    testNativeJsonArray.list.add(jsonObject);
     
     TestNativeJsonObject testNativeJsonObject = testNativeJsonArray.getObjectElement(0, TestNativeJsonObject.class);
     
@@ -434,9 +398,8 @@ public class NativeJsonArrayTest {
   @Test
   public void testGetObjectElementWithNonNativeClass() {
     JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
-    LinkedList<JsonObject> list = this.getTestNativeJsonArrayList();
     
-    list.add(jsonObject);
+    testNativeJsonArray.list.add(jsonObject);
     
     TestJsonObject testJsonObject = testNativeJsonArray.getObjectElement(0, TestJsonObject.class);
     
@@ -452,11 +415,10 @@ public class NativeJsonArrayTest {
   @Test
   public void testSetObjectElement() {
     JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
-    LinkedList<JsonObject> list = this.getTestNativeJsonArrayList();
     
     testNativeJsonArray.setObjectElement(0, jsonObject);
     
-    assertEquals(jsonObject, list.get(0));
+    assertEquals(jsonObject, (JsonObject)testNativeJsonArray.list.get(0));
   }
   
   /**
@@ -470,21 +432,20 @@ public class NativeJsonArrayTest {
     JsonObject jsonObject1 = JsonObjectFactory.get().createJsonObject();
     JsonObject jsonObject2 = JsonObjectFactory.get().createJsonObject();
     JsonObject jsonObject3 = JsonObjectFactory.get().createJsonObject();
-    LinkedList<JsonObject> list = this.getTestNativeJsonArrayList();
     
     testNativeJsonArray.setObjectElement(0, jsonObject1);
     testNativeJsonArray.setObjectElement(1, jsonObject3);
     
-    assertEquals(2, list.size());
-    assertEquals(jsonObject1, list.get(0));
-    assertEquals(jsonObject3, list.get(1));
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(jsonObject1, (JsonObject)testNativeJsonArray.list.get(0));
+    assertEquals(jsonObject3, (JsonObject)testNativeJsonArray.list.get(1));
     
     testNativeJsonArray.insertObjectElement(1, jsonObject2);
     
-    assertEquals(3, list.size());
-    assertEquals(jsonObject1, list.get(0));
-    assertEquals(jsonObject2, list.get(1));
-    assertEquals(jsonObject3, list.get(2));
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(jsonObject1, (JsonObject)testNativeJsonArray.list.get(0));
+    assertEquals(jsonObject2, (JsonObject)testNativeJsonArray.list.get(1));
+    assertEquals(jsonObject3, (JsonObject)testNativeJsonArray.list.get(2));
   }
   
   /**
@@ -495,55 +456,23 @@ public class NativeJsonArrayTest {
    */
   @Test
   public void testRemoveElements() {
-    LinkedList<String> list = this.getTestNativeJsonArrayList();
-    
     testNativeJsonArray.setStringElement(0, "one");
     testNativeJsonArray.setStringElement(1, "two");
     testNativeJsonArray.setStringElement(2, "three");
     testNativeJsonArray.setStringElement(3, "four");
     testNativeJsonArray.setStringElement(4, "five");
     
-    assertEquals(5, list.size());
-    assertEquals("one", list.get(0));
-    assertEquals("two", list.get(1));
-    assertEquals("three", list.get(2));
-    assertEquals("four", list.get(3));
-    assertEquals("five", list.get(4));
+    assertEquals(5, testNativeJsonArray.list.size());
+    assertEquals("one", (String)testNativeJsonArray.list.get(0));
+    assertEquals("two", (String)testNativeJsonArray.list.get(1));
+    assertEquals("three", (String)testNativeJsonArray.list.get(2));
+    assertEquals("four", (String)testNativeJsonArray.list.get(3));
+    assertEquals("five", (String)testNativeJsonArray.list.get(4));
     
     testNativeJsonArray.removeElements(1, 3);
     
-    assertEquals(2, list.size());
-    assertEquals("one", list.get(0));
-    assertEquals("five", list.get(1));
-  }
-  
-  /**
-   * Retrieve the list field from the test native JSON array.
-   * <p>
-   * This method uses reflection to access the private <code>list</code> field
-   * of the {@link NativeJsonArray} class.
-   *
-   * @return The list field.
-   */
-  @SuppressWarnings("unchecked")
-  private <T> LinkedList<T> getTestNativeJsonArrayList() {
-    Field listField;
-    try {
-      listField = NativeJsonArray.class.getDeclaredField("list");
-    }
-    catch (NoSuchFieldException nsfe) {
-      throw new IllegalStateException(nsfe);
-    }
-    
-    listField.setAccessible(true);
-    try {
-      return (LinkedList<T>)listField.get(this.testNativeJsonArray);
-    }
-    catch (IllegalAccessException iae) {
-      throw new IllegalStateException(iae);
-    }
-    finally {
-      listField.setAccessible(false);
-    }
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals("one", (String)testNativeJsonArray.list.get(0));
+    assertEquals("five", (String)testNativeJsonArray.list.get(1));
   }
 }
