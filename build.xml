@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project name="org.kjots.json-toolkit-native" default="all" basedir=".">
+<project name="org.kjots.json-toolkit" default="all" basedir=".">
   <property environment="env"/>
   
   <fail unless="env.GWT_HOME">GWT_HOME not defined.</fail>
