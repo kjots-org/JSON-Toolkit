@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -38,6 +39,17 @@ public class NativeJsonObjectNumberTest {
     private Number testNumberProperty;
   }
   
+  /** The test native JSON object. */
+  private TestNativeJsonObject testNativeJsonObject;
+  
+  /**
+   * Setup the test environment.
+   */
+  @Before
+  public void setup() {
+    this.testNativeJsonObject = new TestNativeJsonObject();
+  }
+  
   /**
    * Test the determination of a numerical value of a property.
    * <p>
@@ -46,8 +58,6 @@ public class NativeJsonObjectNumberTest {
    */
   @Test
   public void testIsNumberProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isNumberProperty(\"testNumberProperty\") != false", testNativeJsonObject.isNumberProperty("testNumberProperty"));
     
     testNativeJsonObject.testNumberProperty = null;
@@ -68,8 +78,6 @@ public class NativeJsonObjectNumberTest {
    */
   @Test
   public void testGetNumberProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testNumberProperty = Double.valueOf(3.14);
     testNativeJsonObject.setHasProperty("testNumberProperty");
     
@@ -84,8 +92,6 @@ public class NativeJsonObjectNumberTest {
    */
   @Test
   public void testSetNumberProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setNumberProperty("testNumberProperty", Double.valueOf(3.14));
     
     assertEquals(3.14, testNativeJsonObject.testNumberProperty.doubleValue(), 0.001);

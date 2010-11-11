@@ -76,7 +76,7 @@ public class SimpleJsonStringArrayImpl extends SimpleJsonArrayImpl implements Js
    * @return The iterator.
    */
   @Override
-  public java.util.Iterator<String> iterator() {
+  public final java.util.Iterator<String> iterator() {
     return new Iterator(this);
   }
 }

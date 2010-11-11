@@ -21,8 +21,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Test;
-
 import org.kjots.json.object.shared.JsonStringPropertyAdapter;
 
 /**
@@ -77,6 +77,17 @@ public class NativeJsonObjectStringTest {
     }
   }
   
+  /** The test native JSON object. */
+  private TestNativeJsonObject testNativeJsonObject;
+  
+  /**
+   * Setup the test environment.
+   */
+  @Before
+  public void setup() {
+    this.testNativeJsonObject = new TestNativeJsonObject();
+  }
+  
   /**
    * Test the determination of a string value of a property.
    * <p>
@@ -85,8 +96,6 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testIsStringProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isStringProperty(\"testStringProperty\") != false", testNativeJsonObject.isStringProperty("testStringProperty"));
     
     testNativeJsonObject.testStringProperty = null;
@@ -107,8 +116,6 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testGetStringProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testStringProperty = "Test String Property Value";
     testNativeJsonObject.setHasProperty("testStringProperty");
     
@@ -123,8 +130,6 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testSetStringProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setStringProperty("testStringProperty", "Test String Property Value");
     
     assertEquals("Test String Property Value", testNativeJsonObject.testStringProperty);
@@ -139,8 +144,6 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testIsAdaptedStringProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isStringProperty(\"testAdaptedStringProperty\") != false", testNativeJsonObject.isStringProperty("testAdaptedStringProperty"));
     
     testNativeJsonObject.testAdaptedStringProperty = null;
@@ -161,8 +164,6 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testGetAdaptedStringProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testAdaptedStringProperty = new TestJsonStringPropertyAdapter().fromJsonProperty("13 Dec 2009 02:00:00 GMT");
     testNativeJsonObject.setHasProperty("testAdaptedStringProperty");
     
@@ -177,8 +178,6 @@ public class NativeJsonObjectStringTest {
    */
   @Test
   public void testSetAdaptedStringProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setStringProperty("testAdaptedStringProperty", "13 Dec 2009 02:00:00 GMT");
     
     assertEquals(new TestJsonStringPropertyAdapter().fromJsonProperty("13 Dec 2009 02:00:00 GMT"), testNativeJsonObject.testAdaptedStringProperty);

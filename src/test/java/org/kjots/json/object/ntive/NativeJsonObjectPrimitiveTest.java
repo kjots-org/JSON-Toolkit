@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -54,6 +55,17 @@ public class NativeJsonObjectPrimitiveTest {
     private char testCharacterPrimitiveProperty;
   }
   
+  /** The test native JSON object. */
+  private TestNativeJsonObject testNativeJsonObject;
+  
+  /**
+   * Setup the test environment.
+   */
+  @Before
+  public void setup() {
+    this.testNativeJsonObject = new TestNativeJsonObject();
+  }
+  
   /**
    * Test the determination of a boolean value of a property.
    * <p>
@@ -62,8 +74,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsBooleanPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isBooleanProperty(\"testBooleanPrimitiveProperty\") != false", testNativeJsonObject.isBooleanProperty("testBooleanPrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testBooleanPrimitiveProperty");
@@ -79,8 +89,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetBooleanPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testBooleanPrimitiveProperty = true;
     testNativeJsonObject.setHasProperty("testBooleanPrimitiveProperty");
     
@@ -95,8 +103,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetBooleanPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setBooleanProperty("testBooleanPrimitiveProperty", Boolean.TRUE);
     
     assertEquals(true, testNativeJsonObject.testBooleanPrimitiveProperty);
@@ -111,8 +117,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultBooleanPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals(false, testNativeJsonObject.getBooleanProperty("testBooleanPrimitiveProperty").booleanValue());
   }
   
@@ -124,8 +128,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsBytePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isByteProperty(\"testBytePrimitiveProperty\") != false", testNativeJsonObject.isNumberProperty("testBytePrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testBytePrimitiveProperty");
@@ -141,8 +143,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetBytePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testBytePrimitiveProperty = (byte)42;
     testNativeJsonObject.setHasProperty("testBytePrimitiveProperty");
     
@@ -157,8 +157,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetBytePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setNumberProperty("testBytePrimitiveProperty", Byte.valueOf((byte)42));
     
     assertEquals((byte)42, testNativeJsonObject.testBytePrimitiveProperty);
@@ -173,8 +171,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultBytePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals((byte)0, testNativeJsonObject.getNumberProperty("testBytePrimitiveProperty").byteValue());
   }
   
@@ -186,8 +182,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsShortPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isShortProperty(\"testShortPrimitiveProperty\") != false", testNativeJsonObject.isNumberProperty("testShortPrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testShortPrimitiveProperty");
@@ -203,8 +197,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetShortPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testShortPrimitiveProperty = (short)42;
     testNativeJsonObject.setHasProperty("testShortPrimitiveProperty");
     
@@ -219,8 +211,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetShortPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setNumberProperty("testShortPrimitiveProperty", Short.valueOf((short)42));
     
     assertEquals((short)42, testNativeJsonObject.testShortPrimitiveProperty);
@@ -235,8 +225,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultShortPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals((short)0, testNativeJsonObject.getNumberProperty("testShortPrimitiveProperty").shortValue());
   }
   
@@ -248,8 +236,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsIntegerPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isIntegerProperty(\"testIntegerPrimitiveProperty\") != false", testNativeJsonObject.isNumberProperty("testIntegerPrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testIntegerPrimitiveProperty");
@@ -265,8 +251,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetIntegerPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testIntegerPrimitiveProperty = 42;
     testNativeJsonObject.setHasProperty("testIntegerPrimitiveProperty");
     
@@ -281,8 +265,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetIntegerPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setNumberProperty("testIntegerPrimitiveProperty", Integer.valueOf(42));
     
     assertEquals(42, testNativeJsonObject.testIntegerPrimitiveProperty);
@@ -297,8 +279,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultIntegerPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals(0, testNativeJsonObject.getNumberProperty("testIntegerPrimitiveProperty").intValue());
   }
   
@@ -310,8 +290,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsLongPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isLongProperty(\"testLongPrimitiveProperty\") != false", testNativeJsonObject.isNumberProperty("testLongPrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testLongPrimitiveProperty");
@@ -327,8 +305,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetLongPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testLongPrimitiveProperty = 42L;
     testNativeJsonObject.setHasProperty("testLongPrimitiveProperty");
     
@@ -343,8 +319,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetLongPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setNumberProperty("testLongPrimitiveProperty", Long.valueOf(42L));
     
     assertEquals(42L, testNativeJsonObject.testLongPrimitiveProperty);
@@ -359,8 +333,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultLongPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals(0L, testNativeJsonObject.getNumberProperty("testLongPrimitiveProperty").longValue());
   }
   
@@ -372,8 +344,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsFloatPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isFloatProperty(\"testFloatPrimitiveProperty\") != false", testNativeJsonObject.isNumberProperty("testFloatPrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testFloatPrimitiveProperty");
@@ -389,8 +359,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetFloatPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testFloatPrimitiveProperty = 3.14f;
     testNativeJsonObject.setHasProperty("testFloatPrimitiveProperty");
     
@@ -405,8 +373,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetFloatPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setNumberProperty("testFloatPrimitiveProperty", Float.valueOf(3.14f));
     
     assertEquals(3.14f, testNativeJsonObject.testFloatPrimitiveProperty, 0.001);
@@ -421,8 +387,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultFloatPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals(0f, testNativeJsonObject.getNumberProperty("testFloatPrimitiveProperty").floatValue(), 0.0);
   }
   
@@ -434,8 +398,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsDoublePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isDoubleProperty(\"testDoublePrimitiveProperty\") != false", testNativeJsonObject.isNumberProperty("testDoublePrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testDoublePrimitiveProperty");
@@ -451,8 +413,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDoublePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testDoublePrimitiveProperty = 3.14;
     testNativeJsonObject.setHasProperty("testDoublePrimitiveProperty");
     
@@ -467,8 +427,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetDoublePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setNumberProperty("testDoublePrimitiveProperty", Double.valueOf(3.14));
     
     assertEquals(3.14, testNativeJsonObject.testDoublePrimitiveProperty, 0.001);
@@ -483,8 +441,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultDoublePrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals(0, testNativeJsonObject.getNumberProperty("testDoublePrimitiveProperty").doubleValue(), 0.0);
   }
   
@@ -496,8 +452,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testIsCharacterPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isStringProperty(\"testCharacterPrimitiveProperty\") != false", testNativeJsonObject.isStringProperty("testCharacterPrimitiveProperty"));
     
     testNativeJsonObject.setHasProperty("testCharacterPrimitiveProperty");
@@ -513,8 +467,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetCharacterPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testCharacterPrimitiveProperty = 'X';
     testNativeJsonObject.setHasProperty("testCharacterPrimitiveProperty");
     
@@ -529,8 +481,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testSetCharacterPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setStringProperty("testCharacterPrimitiveProperty", "X");
     
     assertEquals('X', testNativeJsonObject.testCharacterPrimitiveProperty);
@@ -545,8 +495,6 @@ public class NativeJsonObjectPrimitiveTest {
    */
   @Test
   public void testGetDefaultCharacterPrimitiveProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals('\0', testNativeJsonObject.getStringProperty("testCharacterPrimitiveProperty").charAt(0));
   }
 }

@@ -98,7 +98,7 @@ public class SimpleJsonObjectArrayImpl<T extends JsonObject> extends SimpleJsonA
    * @return The iterator.
    */
   @Override
-  public java.util.Iterator<T> iterator() {
+  public final java.util.Iterator<T> iterator() {
     return new Iterator<T>(this);
   }
   

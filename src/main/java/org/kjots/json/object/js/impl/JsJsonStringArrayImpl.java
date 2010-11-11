@@ -79,7 +79,7 @@ public class JsJsonStringArrayImpl extends JsJsonArrayImpl implements JsonString
    * @return The iterator.
    */
   @Override
-  public java.util.Iterator<String> iterator() {
+  public final java.util.Iterator<String> iterator() {
     return new Iterator(this);
   }
 }

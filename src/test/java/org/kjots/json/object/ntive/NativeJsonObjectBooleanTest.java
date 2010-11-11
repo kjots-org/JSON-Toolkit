@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -38,6 +39,17 @@ public class NativeJsonObjectBooleanTest {
     private Boolean testBooleanProperty;
   }
   
+  /** The test native JSON object. */
+  private TestNativeJsonObject testNativeJsonObject;
+  
+  /**
+   * Setup the test environment.
+   */
+  @Before
+  public void setup() {
+    this.testNativeJsonObject = new TestNativeJsonObject();
+  }
+  
   /**
    * Test the determination of a boolean value of a property.
    * <p>
@@ -46,8 +58,6 @@ public class NativeJsonObjectBooleanTest {
    */
   @Test
   public void testIsBooleanProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isBooleanProperty(\"testBooleanProperty\") != false", testNativeJsonObject.isBooleanProperty("testBooleanProperty"));
     
     testNativeJsonObject.testBooleanProperty = null;
@@ -68,8 +78,6 @@ public class NativeJsonObjectBooleanTest {
    */
   @Test
   public void testGetBooleanProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.testBooleanProperty = Boolean.TRUE;
     testNativeJsonObject.setHasProperty("testBooleanProperty");
     
@@ -84,8 +92,6 @@ public class NativeJsonObjectBooleanTest {
    */
   @Test
   public void testSetBooleanProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setBooleanProperty("testBooleanProperty", Boolean.TRUE);
     
     assertEquals(true, testNativeJsonObject.testBooleanProperty.booleanValue());

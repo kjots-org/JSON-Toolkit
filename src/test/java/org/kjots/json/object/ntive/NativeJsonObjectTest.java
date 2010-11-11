@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -60,6 +61,17 @@ public class NativeJsonObjectTest {
     private String testProperty;
   }
   
+  /** The test native JSON object. */
+  private TestNativeJsonObject testNativeJsonObject;
+  
+  /**
+   * Setup the test environment.
+   */
+  @Before
+  public void setup() {
+    this.testNativeJsonObject = new TestNativeJsonObject();
+  }
+  
   /**
    * Test {@link NativeJsonObject#getJsonObjectClass()}.
    * <p>
@@ -68,8 +80,6 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testGetJsonObjectClass() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals(TestNativeJsonObject.class, testNativeJsonObject.getJsonObjectClass());
   }
   
@@ -81,8 +91,6 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testCastByClassToCompatibleClass() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     TestBaseNativeJsonObject testBaseNativeJsonObject = testNativeJsonObject.cast(TestBaseNativeJsonObject.class);
     
     assertSame("testNativeJsonObject !== testBaseNativeJsonObject", testNativeJsonObject, testBaseNativeJsonObject);
@@ -96,8 +104,6 @@ public class NativeJsonObjectTest {
    */
   @Test(expected = ClassCastException.class)
   public void testCastByClassToIncompatibleClass() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.cast(TestNotBaseNativeJsonObject.class);
   }
   
@@ -110,8 +116,6 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testCastByClassNameToCompatibleClass() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     TestBaseNativeJsonObject testBaseNativeJsonObject = testNativeJsonObject.cast(TestBaseNativeJsonObject.class.getName());
     
     assertSame("testNativeJsonObject !== testBaseNativeJsonObject", testNativeJsonObject, testBaseNativeJsonObject);
@@ -125,8 +129,6 @@ public class NativeJsonObjectTest {
    */
   @Test(expected = ClassCastException.class)
   public void testCastByClassNameToIncompatibleClass() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.cast(TestNotBaseNativeJsonObject.class.getName());
   }
   
@@ -138,8 +140,6 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testGetPropertyNames() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertEquals(Collections.emptySet(), testNativeJsonObject.getPropertyNames());
     
     testNativeJsonObject.setStringProperty("testProperty", "Test String Property Value");
@@ -155,8 +155,6 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testHasProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.hasProperty(\"testProperty\") != false", testNativeJsonObject.hasProperty("testProperty"));
     
     testNativeJsonObject.setStringProperty("testProperty", null);
@@ -176,8 +174,6 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testIsPropertyNull() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isNullProperty(\"testProperty\") != false", testNativeJsonObject.isNullProperty("testProperty"));
     
     testNativeJsonObject.setStringProperty("testProperty", null);
@@ -197,8 +193,6 @@ public class NativeJsonObjectTest {
    */
   @Test
   public void testDeleteProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     testNativeJsonObject.setStringProperty("testProperty", "Test String Property Value");
     
     assertTrue("testNativeJsonObject.deleteProperty(\"testProperty\") != true", testNativeJsonObject.deleteProperty("testProperty"));

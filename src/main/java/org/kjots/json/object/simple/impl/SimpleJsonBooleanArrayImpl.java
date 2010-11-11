@@ -76,7 +76,7 @@ public class SimpleJsonBooleanArrayImpl extends SimpleJsonArrayImpl implements J
    * @return The iterator.
    */
   @Override
-  public java.util.Iterator<Boolean> iterator() {
+  public final java.util.Iterator<Boolean> iterator() {
     return new Iterator(this);
   }
 }

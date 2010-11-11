@@ -76,7 +76,7 @@ public class SimpleJsonNumberArrayImpl extends SimpleJsonArrayImpl implements Js
    * @return The iterator.
    */
   @Override
-  public java.util.Iterator<Number> iterator() {
+  public final java.util.Iterator<Number> iterator() {
     return new Iterator(this);
   }
 }

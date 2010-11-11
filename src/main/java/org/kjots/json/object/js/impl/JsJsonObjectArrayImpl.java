@@ -101,7 +101,7 @@ public class JsJsonObjectArrayImpl<T extends JsonObject> extends JsJsonArrayImpl
    * @return The iterator.
    */
   @Override
-  public java.util.Iterator<T> iterator() {
+  public final java.util.Iterator<T> iterator() {
     return new Iterator<T>(this);
   }
   

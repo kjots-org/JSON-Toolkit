@@ -20,6 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectFactory;
@@ -50,12 +51,23 @@ public class NativeJsonObjectObjectTest {
     private JsonObject testObjectProperty;
   }
   
+  /** The test native JSON object. */
+  private TestNativeJsonObject testNativeJsonObject;
+  
   /**
-   * Set up the JSON object implementation test.
+   * Setup the test class.
+   */
+  @BeforeClass
+  public static void setupClass() {
+    Guice.createInjector(new SimpleJsonObjectModule());
+  }
+  
+  /**
+   * Setup the test environment.
    */
   @Before
-  public void setUp() {
-    Guice.createInjector(new SimpleJsonObjectModule());
+  public void setup() {
+    this.testNativeJsonObject = new TestNativeJsonObject();
   }
   
   /**
@@ -66,8 +78,6 @@ public class NativeJsonObjectObjectTest {
    */
   @Test
   public void testIsObjectProperty() {
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
     assertFalse("testNativeJsonObject.isObjectProperty(\"testObjectProperty\") != false", testNativeJsonObject.isObjectProperty("testObjectProperty"));
     
     testNativeJsonObject.testObjectProperty = null;
@@ -88,13 +98,12 @@ public class NativeJsonObjectObjectTest {
    */
   @Test
   public void testGetObjectProperty() {
-    JsonObject testJsonObject = JsonObjectFactory.get().createJsonObject();
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
     
-    testNativeJsonObject.testObjectProperty = testJsonObject;
+    testNativeJsonObject.testObjectProperty = jsonObject;
     testNativeJsonObject.setHasProperty("testObjectProperty");
     
-    assertEquals(testJsonObject, testNativeJsonObject.getObjectProperty("testObjectProperty"));
+    assertEquals(jsonObject, testNativeJsonObject.getObjectProperty("testObjectProperty"));
   }
   
   /**
@@ -107,16 +116,14 @@ public class NativeJsonObjectObjectTest {
    */
   @Test
   public void testGetObjectPropertyWithNativeClass() {
-    JsonObject testJsonObjectPropertyValue = new TestNativeJsonObject();
+    JsonObject jsonObject = new TestNativeJsonObject();
     
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
-    testNativeJsonObject.testObjectProperty = testJsonObjectPropertyValue;
+    testNativeJsonObject.testObjectProperty = jsonObject;
     testNativeJsonObject.setHasProperty("testObjectProperty");
     
     TestNativeJsonObject jsonObjectPropertyValue = testNativeJsonObject.getObjectProperty("testObjectProperty", TestNativeJsonObject.class);
     
-    assertEquals(testJsonObjectPropertyValue, jsonObjectPropertyValue);
+    assertEquals(jsonObject, jsonObjectPropertyValue);
   }
   
   /**
@@ -129,16 +136,14 @@ public class NativeJsonObjectObjectTest {
    */
   @Test
   public void testGetObjectPropertyWithNonNativeClass() {
-    JsonObject testJsonObjectPropertyValue = JsonObjectFactory.get().createJsonObject();
+    JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
     
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
-    
-    testNativeJsonObject.testObjectProperty = testJsonObjectPropertyValue;
+    testNativeJsonObject.testObjectProperty = jsonObject;
     testNativeJsonObject.setHasProperty("testObjectProperty");
     
     TestPropertyJsonObject jsonObjectPropertyValue = testNativeJsonObject.getObjectProperty("testObjectProperty", TestPropertyJsonObject.class);
     
-    assertEquals(testJsonObjectPropertyValue, jsonObjectPropertyValue);
+    assertEquals(jsonObject, jsonObjectPropertyValue);
   }
   
   /**
@@ -149,12 +154,11 @@ public class NativeJsonObjectObjectTest {
    */
   @Test
   public void testSetObjectProperty() {
-    JsonObject testJsonObject = JsonObjectFactory.get().createJsonObject();
-    TestNativeJsonObject testNativeJsonObject = new TestNativeJsonObject();
+    JsonObject jsonObject = JsonObjectFactory.get().createJsonObject();
     
-    testNativeJsonObject.setObjectProperty("testObjectProperty", testJsonObject);
+    testNativeJsonObject.setObjectProperty("testObjectProperty", jsonObject);
     
-    assertEquals(testJsonObject, testNativeJsonObject.testObjectProperty);
+    assertEquals(jsonObject, testNativeJsonObject.testObjectProperty);
     assertTrue("testNativeJsonObject.hasProperty(\"testObjectProperty\") != true", testNativeJsonObject.hasProperty("testObjectProperty"));
   }
 }

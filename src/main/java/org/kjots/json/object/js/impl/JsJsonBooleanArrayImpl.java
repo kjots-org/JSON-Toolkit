@@ -79,7 +79,7 @@ public class JsJsonBooleanArrayImpl extends JsJsonArrayImpl implements JsonBoole
    * @return The iterator.
    */
   @Override
-  public java.util.Iterator<Boolean> iterator() {
+  public final java.util.Iterator<Boolean> iterator() {
     return new Iterator(this);
   }
 }
