@@ -55,6 +55,16 @@ public class NativeJsonArray extends NativeJsonObject implements JsonArray {
   }
 
   /**
+   * Determine if the JSON object is an array.
+   *
+   * @return <code>true</code> if the JSON object is an array.
+   */
+  @Override
+  public boolean isArray() {
+    return true;
+  }
+  
+  /**
    * Retrieve the length of the array.
    *
    * @return The length of the array.

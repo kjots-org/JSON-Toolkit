@@ -66,7 +66,7 @@ public class NativeJsonNumberArrayTest {
   @Test
   public void testSet() {
     for (int i = 0; i < 5; i++) {
-      testNativeJsonNumberArray.set(i, i);
+      testNativeJsonNumberArray.set(i, Double.valueOf(i));
     }
     
     assertEquals("array.length", 5, testNativeJsonNumberArray.list.size());
@@ -85,7 +85,7 @@ public class NativeJsonNumberArrayTest {
   public void testInsert() {
     for (int i = 0, j = 0; i < 5; i++) {
       if (i != 1) {
-        testNativeJsonNumberArray.set(j++, i);
+        testNativeJsonNumberArray.set(j++, Double.valueOf(i));
       }
     }
     

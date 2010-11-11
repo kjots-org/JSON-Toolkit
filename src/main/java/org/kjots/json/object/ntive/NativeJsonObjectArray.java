@@ -49,9 +49,9 @@ public class NativeJsonObjectArray<T extends JsonObject> extends NativeJsonArray
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <E extends JsonObject> JsonObjectArray<E> castElement(Class<E> elementClass) {
+  public <E extends JsonObject> NativeJsonObjectArray<E> castElement(Class<E> elementClass) {
     if (elementClass.equals(this.elementClass)) {
-      return (JsonObjectArray<E>)this;
+      return (NativeJsonObjectArray<E>)this;
     }
     
     return new NativeJsonObjectArray<E>(this.list, elementClass);

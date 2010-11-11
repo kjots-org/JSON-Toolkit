@@ -16,13 +16,13 @@
 package org.kjots.json.object.ntive;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectArray;
 import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.simple.SimpleJsonObjectModule;
 
@@ -69,10 +69,11 @@ public class NativeJsonObjectArrayTest {
    */
   @Test
   public void testCastElement() {
-    JsonObjectArray<CastJsonObject> testCastJsonObjectArray = testNativeJsonObjectArray.castElement(CastJsonObject.class);
+    NativeJsonObjectArray<CastJsonObject> testCastJsonObjectArray = testNativeJsonObjectArray.castElement(CastJsonObject.class);
     
     testNativeJsonObjectArray.set(0, JsonObjectFactory.get().createJsonObject());
     
+    assertSame("testNativeJsonObjectArray.list !=== testCastJsonObjectArray.list", testNativeJsonObjectArray.list, testCastJsonObjectArray.list);
     assertTrue("testCastJsonObjectArray[0] !instanceof " + CastJsonObject.class.getName(), testCastJsonObjectArray.get(0) instanceof CastJsonObject);
   }
   

@@ -463,19 +463,10 @@ public abstract class NativeJsonObject implements JsonObject {
    * @see #setObjectProperty(String, JsonObject)
    */
   @Override
-  @SuppressWarnings("unchecked")
   public <T extends JsonObject> T getObjectProperty(String propertyName, Class<T> jsonObjectClass) {
     JsonObject propertyValue = (JsonObject)this.getNativeJsonPropertyInfo(propertyName).getValue();
     
-    if (propertyValue == null) {
-      return null;
-    }
-    else if (jsonObjectClass.isAssignableFrom(propertyValue.getClass())) {
-      return (T)propertyValue;
-    }
-    else {
-      return propertyValue.cast(jsonObjectClass);
-    }
+    return propertyValue != null ? propertyValue.cast(jsonObjectClass) : null;
   }
   
   /**
