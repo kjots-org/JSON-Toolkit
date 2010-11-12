@@ -15,18 +15,22 @@
  */
 package org.kjots.json.object.ntive;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectFactory;
-import org.kjots.json.object.simple.SimpleJsonObjectModule;
 
 import com.google.inject.Guice;
+
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectFactory;
+import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
+import org.kjots.json.object.shared.JsonProperty;
+import org.kjots.json.object.shared.JsonProperty.OperationType;
+import org.kjots.json.object.simple.SimpleJsonObjectModule;
 
 /**
  * Native JSON Object Object Test.
@@ -40,6 +44,41 @@ public class NativeJsonObjectObjectTest {
    * Test Property JSON Object.
    */
   public static interface TestPropertyJsonObject extends JsonObject {
+    /**
+     * Retrieve the first property.
+     *
+     * @return The first property.
+     * @see #setProperty1(String)
+     */
+    @JsonProperty(name = "property1", operation = OperationType.GET)
+    public String getProperty1();
+    
+    /**
+     * Set the first property.
+     *
+     * @param property2 The first property.
+     * @see #getProperty1()
+     */
+    @JsonProperty(name = "property1", operation = OperationType.SET)
+    public void setProperty1(String property1);
+    
+    /**
+     * Retrieve the second property.
+     *
+     * @return The second property.
+     * @see #setProperty2(String)
+     */
+    @JsonProperty(name = "property2", operation = OperationType.GET)
+    public String getProperty2();
+    
+    /**
+     * Set the second property.
+     *
+     * @param property2 The second property.
+     * @see #getProperty2()
+     */
+    @JsonProperty(name = "property2", operation = OperationType.SET)
+    public void setProperty2(String property2);
   }
 
   /**
@@ -49,8 +88,131 @@ public class NativeJsonObjectObjectTest {
     /** The test object property.*/
     @NativeJsonProperty
     private JsonObject testObjectProperty;
+    
+    /** The test adapted object property.*/
+    @NativeJsonProperty(adapter = TestJsonObjectPropertyAdapter.class)
+    private TestJsonObjectProperty testAdaptedObjectProperty;
   }
   
+  /**
+   * Test JSON Object Property Adapter
+   */
+  public static class TestJsonObjectPropertyAdapter implements JsonObjectPropertyAdapter<TestJsonObjectProperty, TestPropertyJsonObject> {
+    /**
+     * Convert to a JSON property value.
+     *
+     * @param value The value.
+     * @return The JSON property value.
+     */
+    @Override
+    public TestPropertyJsonObject toJsonProperty(TestJsonObjectProperty value) {
+      TestPropertyJsonObject testPropertyJsonObject = JsonObjectFactory.get().createJsonObject(TestPropertyJsonObject.class);
+      
+      testPropertyJsonObject.setProperty1(value.getProperty1());
+      testPropertyJsonObject.setProperty2(value.getProperty2());
+      
+      return testPropertyJsonObject;
+    }
+    
+    /**
+     * Convert from a JSON property value.
+     *
+     * @param propertyValue The JSON property value.
+     * @return The value.
+     */
+    @Override
+    public TestJsonObjectProperty fromJsonProperty(TestPropertyJsonObject propertyValue) {
+      return new TestJsonObjectProperty(propertyValue.getProperty1(), propertyValue.getProperty2());
+    }
+  }
+  
+  /**
+   * Test JSON Object Property.
+   */
+  public static class TestJsonObjectProperty {
+    /** The first property. */
+    private final String property1;
+    
+    /** The second property. */
+    private final String property2;
+
+    /**
+     * Construct a new TestJsonObjectProperty.
+     *
+     * @param property1 The first property.
+     * @param property2 The second property.
+     */
+    public TestJsonObjectProperty(String property1, String property2) {
+      this.property1 = property1;
+      this.property2 = property2;
+    }
+
+    /**
+     * Retrieve the first property.
+     *
+     * @return The first property.
+     */
+    public String getProperty1() {
+      return this.property1;
+    }
+
+    /**
+     * Retrieve the second property.
+     *
+     * @return The second property.
+     */
+    public String getProperty2() {
+      return this.property2;
+    }
+    
+    /**
+     * Determine if this object is equal to the given object.
+     *
+     * @param object The object.
+     * @return TRUE if this object is equal to the given object.
+     */
+    @Override
+    public final boolean equals(Object object) {
+      if (object == this) {
+        return true;
+      }
+      else if (object instanceof TestJsonObjectProperty) {
+        TestJsonObjectProperty that = (TestJsonObjectProperty)object;
+        
+        return this.property1.equals(that.property1) &&
+               this.property2.equals(that.property2);
+      }
+      else {
+        return false;
+      }
+    }
+    
+    /**
+     * Calculate the hash code for this object.
+     *
+     * @return The hash code for this object.
+     */
+    @Override
+    public final int hashCode() {
+      int hashCode = 17;
+      
+      hashCode = hashCode * 37 + this.property1.hashCode();
+      hashCode = hashCode * 37 + this.property2.hashCode();
+      
+      return hashCode;
+    }
+    
+    /**
+     * Create a string representation of this object.
+     *
+     * @return The string representation of this object.
+     */
+    @Override
+    public String toString() {
+      return "{property1=" + this.property1 + ",property2=" + this.property2 + "}";
+    }
+  }
+ 
   /** The test native JSON object. */
   private TestNativeJsonObject testNativeJsonObject;
   
@@ -160,5 +322,61 @@ public class NativeJsonObjectObjectTest {
     
     assertEquals(jsonObject, testNativeJsonObject.testObjectProperty);
     assertTrue("testNativeJsonObject.hasProperty(\"testObjectProperty\") != true", testNativeJsonObject.hasProperty("testObjectProperty"));
+  }
+  
+  /**
+   * Test the determination of an adapted object value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly reports that a
+   * property exists and has an adapted object value.
+   */
+  @Test
+  public void testIsAdaptedObjectProperty() {
+    assertFalse("testNativeJsonObject.isObjectProperty(\"testAdaptedObjectProperty\") != false", testNativeJsonObject.isObjectProperty("testAdaptedObjectProperty"));
+    
+    testNativeJsonObject.testAdaptedObjectProperty = null;
+    testNativeJsonObject.setHasProperty("testAdaptedObjectProperty");
+    
+    assertFalse("testNativeJsonObject.isObjectProperty(\"testAdaptedObjectProperty\") != false", testNativeJsonObject.isObjectProperty("testAdaptedObjectProperty"));
+    
+    testNativeJsonObject.testAdaptedObjectProperty = new TestJsonObjectProperty("value1", "value2");
+    
+    assertTrue("testNativeJsonObject.isObjectProperty(\"testAdaptedObjectProperty\") != true", testNativeJsonObject.isObjectProperty("testAdaptedObjectProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the value of an adapted object property.
+   * <p>
+   * This test asserts that the native JSON object correctly retrieves the
+   * value of adapted object property.
+   */
+  @Test
+  public void testGetAdaptedObjectProperty() {
+    testNativeJsonObject.testAdaptedObjectProperty = new TestJsonObjectProperty("value1", "value2");
+    testNativeJsonObject.setHasProperty("testAdaptedObjectProperty");
+    
+    TestPropertyJsonObject testAdaptedObjectProperty = testNativeJsonObject.getObjectProperty("testAdaptedObjectProperty", TestPropertyJsonObject.class);
+    
+    assertEquals("value1", testAdaptedObjectProperty.getProperty1());
+    assertEquals("value2", testAdaptedObjectProperty.getProperty2());
+  }
+
+  /**
+   * Test the setting of the value of an adapted object property.
+   * <p>
+   * This test asserts that the native JSON object correctly sets the value of
+   * an adapted object property.
+   */
+  @Test
+  public void testSetAdaptedObjectProperty() {
+    TestPropertyJsonObject testAdaptedObjectProperty = JsonObjectFactory.get().createJsonObject(TestPropertyJsonObject.class);
+    
+    testAdaptedObjectProperty.setProperty1("value1");
+    testAdaptedObjectProperty.setProperty2("value2");
+    
+    testNativeJsonObject.setObjectProperty("testAdaptedObjectProperty", testAdaptedObjectProperty);
+    
+    assertEquals(new TestJsonObjectProperty("value1", "value2"), testNativeJsonObject.testAdaptedObjectProperty);
+    assertTrue("testNativeJsonObject.hasProperty(\"testAdaptedObjectProperty\") != true", testNativeJsonObject.hasProperty("testAdaptedObjectProperty"));
   }
 }

@@ -24,6 +24,7 @@ import java.util.Set;
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
 import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
 import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
 import org.kjots.json.object.shared.JsonProperty;
 import org.kjots.json.object.shared.JsonPropertyAdapter;
 import org.kjots.json.object.shared.JsonStringPropertyAdapter;
@@ -450,7 +451,14 @@ public abstract class NativeJsonObject implements JsonObject {
    */
   @Override
   public boolean isObjectProperty(String propertyName) {
-    return this.getNativeJsonPropertyInfo(propertyName).getValue() instanceof JsonObject;
+    NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
+    
+    JsonPropertyAdapter<?, ?> adapter = nativeJsonPropertyInfo.getAdapter();
+    if (adapter != null) {
+      return adapter instanceof JsonObjectPropertyAdapter<?, ?> && nativeJsonPropertyInfo.getRawValue() != null;
+    }
+    
+    return nativeJsonPropertyInfo.getValue() instanceof JsonObject;
   }
 
   /**
