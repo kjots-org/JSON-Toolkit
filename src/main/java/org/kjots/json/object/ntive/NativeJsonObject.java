@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonProperty;
 import org.kjots.json.object.shared.JsonPropertyAdapter;
@@ -296,6 +297,11 @@ public abstract class NativeJsonObject implements JsonObject {
   @Override
   public boolean isBooleanProperty(String propertyName) {
     NativeJsonPropertyInfo nativeJsonPropertyInfo = this.getNativeJsonPropertyInfo(propertyName);
+    
+    JsonPropertyAdapter<?, ?> adapter = nativeJsonPropertyInfo.getAdapter();
+    if (adapter != null) {
+      return adapter instanceof JsonBooleanPropertyAdapter<?> && nativeJsonPropertyInfo.getRawValue() != null;
+    }
     
     return nativeJsonPropertyInfo.getHasValue() && nativeJsonPropertyInfo.getValue() instanceof Boolean;
   }

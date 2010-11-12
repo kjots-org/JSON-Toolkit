@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
+
 /**
  * Native JSON Object Boolean Test.
  * <p>
@@ -37,6 +39,37 @@ public class NativeJsonObjectBooleanTest {
     /** The test boolean property.*/
     @NativeJsonProperty
     private Boolean testBooleanProperty;
+    
+    /** The test adapted boolean property.*/
+    @NativeJsonProperty(adapter = TestJsonBooleanPropertyAdapter.class)
+    private String testAdaptedBooleanProperty;
+  }
+  
+  /**
+   * Test JSON Boolean Property Adapter
+   */
+  public static class TestJsonBooleanPropertyAdapter implements JsonBooleanPropertyAdapter<String> {
+    /**
+     * Convert to a JSON property value.
+     *
+     * @param value The value.
+     * @return The JSON property value.
+     */
+    @Override
+    public Boolean toJsonProperty(String value) {
+      return Boolean.valueOf(Boolean.parseBoolean(value));
+    }
+    
+    /**
+     * Convert from a JSON property value.
+     *
+     * @param propertyValue The JSON property value.
+     * @return The value.
+     */
+    @Override
+    public String fromJsonProperty(Boolean propertyValue) {
+      return propertyValue.toString();
+    }
   }
   
   /** The test native JSON object. */
@@ -96,5 +129,53 @@ public class NativeJsonObjectBooleanTest {
     
     assertEquals(true, testNativeJsonObject.testBooleanProperty.booleanValue());
     assertTrue("testNativeJsonObject.hasProperty(\"testBooleanProperty\") != true", testNativeJsonObject.hasProperty("testBooleanProperty"));
+  }
+  
+  /**
+   * Test the determination of an adapted boolean value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly reports that a
+   * property exists and has an adapted boolean value.
+   */
+  @Test
+  public void testIsAdaptedBooleanProperty() {
+    assertFalse("testNativeJsonObject.isBooleanProperty(\"testAdaptedBooleanProperty\") != false", testNativeJsonObject.isBooleanProperty("testAdaptedBooleanProperty"));
+    
+    testNativeJsonObject.testAdaptedBooleanProperty = null;
+    testNativeJsonObject.setHasProperty("testAdaptedBooleanProperty");
+    
+    assertFalse("testNativeJsonObject.isBooleanProperty(\"testAdaptedBooleanProperty\") != false", testNativeJsonObject.isBooleanProperty("testAdaptedBooleanProperty"));
+    
+    testNativeJsonObject.testAdaptedBooleanProperty = new TestJsonBooleanPropertyAdapter().fromJsonProperty(true);
+    
+    assertTrue("testNativeJsonObject.isBooleanProperty(\"testAdaptedBooleanProperty\") != true", testNativeJsonObject.isBooleanProperty("testAdaptedBooleanProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the value of an adapted boolean property.
+   * <p>
+   * This test asserts that the native JSON object correctly retrieves the
+   * value of adapted boolean property.
+   */
+  @Test
+  public void testGetAdaptedBooleanProperty() {
+    testNativeJsonObject.testAdaptedBooleanProperty = new TestJsonBooleanPropertyAdapter().fromJsonProperty(true);
+    testNativeJsonObject.setHasProperty("testAdaptedBooleanProperty");
+    
+    assertEquals(true, testNativeJsonObject.getBooleanProperty("testAdaptedBooleanProperty").booleanValue());
+  }
+
+  /**
+   * Test the setting of the value of an adapted boolean property.
+   * <p>
+   * This test asserts that the native JSON object correctly sets the value of
+   * an adapted boolean property.
+   */
+  @Test
+  public void testSetAdaptedBooleanProperty() {
+    testNativeJsonObject.setBooleanProperty("testAdaptedBooleanProperty", true);
+    
+    assertEquals(new TestJsonBooleanPropertyAdapter().fromJsonProperty(true), testNativeJsonObject.testAdaptedBooleanProperty);
+    assertTrue("testNativeJsonObject.hasProperty(\"testAdaptedBooleanProperty\") != true", testNativeJsonObject.hasProperty("testAdaptedBooleanProperty"));
   }
 }
