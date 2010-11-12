@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
+
 /**
  * Native JSON Object Number Test.
  * <p>
@@ -37,6 +39,37 @@ public class NativeJsonObjectNumberTest {
     /** The test numerical property.*/
     @NativeJsonProperty
     private Number testNumberProperty;
+    
+    /** The test adapted number property.*/
+    @NativeJsonProperty(adapter = TestJsonNumberPropertyAdapter.class)
+    private String testAdaptedNumberProperty;
+  }
+  
+  /**
+   * Test JSON Number Property Adapter
+   */
+  public static class TestJsonNumberPropertyAdapter implements JsonNumberPropertyAdapter<String> {
+    /**
+     * Convert to a JSON property value.
+     *
+     * @param value The value.
+     * @return The JSON property value.
+     */
+    @Override
+    public Number toJsonProperty(String value) {
+      return Double.valueOf(Double.parseDouble(value));
+    }
+    
+    /**
+     * Convert from a JSON property value.
+     *
+     * @param propertyValue The JSON property value.
+     * @return The value.
+     */
+    @Override
+    public String fromJsonProperty(Number propertyValue) {
+      return propertyValue.toString();
+    }
   }
   
   /** The test native JSON object. */
@@ -96,5 +129,53 @@ public class NativeJsonObjectNumberTest {
     
     assertEquals(3.14, testNativeJsonObject.testNumberProperty.doubleValue(), 0.001);
     assertTrue("testNativeJsonObject.hasProperty(\"testNumberProperty\") != true", testNativeJsonObject.hasProperty("testNumberProperty"));
+  }
+  
+  /**
+   * Test the determination of an adapted number value of a property.
+   * <p>
+   * This test asserts that the native JSON object correctly reports that a
+   * property exists and has an adapted number value.
+   */
+  @Test
+  public void testIsAdaptedNumberProperty() {
+    assertFalse("testNativeJsonObject.isNumberProperty(\"testAdaptedNumberProperty\") != false", testNativeJsonObject.isNumberProperty("testAdaptedNumberProperty"));
+    
+    testNativeJsonObject.testAdaptedNumberProperty = null;
+    testNativeJsonObject.setHasProperty("testAdaptedNumberProperty");
+    
+    assertFalse("testNativeJsonObject.isNumberProperty(\"testAdaptedNumberProperty\") != false", testNativeJsonObject.isNumberProperty("testAdaptedNumberProperty"));
+    
+    testNativeJsonObject.testAdaptedNumberProperty = new TestJsonNumberPropertyAdapter().fromJsonProperty(3.14);
+    
+    assertTrue("testNativeJsonObject.isNumberProperty(\"testAdaptedNumberProperty\") != true", testNativeJsonObject.isNumberProperty("testAdaptedNumberProperty"));
+  }
+  
+  /**
+   * Test the retrieval of the value of an adapted number property.
+   * <p>
+   * This test asserts that the native JSON object correctly retrieves the
+   * value of adapted number property.
+   */
+  @Test
+  public void testGetAdaptedNumberProperty() {
+    testNativeJsonObject.testAdaptedNumberProperty = new TestJsonNumberPropertyAdapter().fromJsonProperty(3.14);
+    testNativeJsonObject.setHasProperty("testAdaptedNumberProperty");
+    
+    assertEquals(3.14, testNativeJsonObject.getNumberProperty("testAdaptedNumberProperty").doubleValue(), 0.001);
+  }
+
+  /**
+   * Test the setting of the value of an adapted number property.
+   * <p>
+   * This test asserts that the native JSON object correctly sets the value of
+   * an adapted number property.
+   */
+  @Test
+  public void testSetAdaptedNumberProperty() {
+    testNativeJsonObject.setNumberProperty("testAdaptedNumberProperty", 3.14);
+    
+    assertEquals(new TestJsonNumberPropertyAdapter().fromJsonProperty(3.14), testNativeJsonObject.testAdaptedNumberProperty);
+    assertTrue("testNativeJsonObject.hasProperty(\"testAdaptedNumberProperty\") != true", testNativeJsonObject.hasProperty("testAdaptedNumberProperty"));
   }
 }
