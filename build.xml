@@ -151,7 +151,8 @@
   <target name="api" depends="compile,api.uptodate" unless="api.uptodate">
     <mkdir dir="doc/api" />
     <javadoc destdir="doc/api">
-      <classpath refid="classpath" />
+      <classpath refid="classpath.json-content" />
+      <classpath refid="classpath.json-object" />
       <link href="http://java.sun.com/javase/6/docs/api/" />
       <link href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/" />
       <link href="http://google-guice.googlecode.com/svn/tags/2.0/javadoc/" />
