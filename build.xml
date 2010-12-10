@@ -106,28 +106,28 @@
 
   <target name="compile" depends="compile.json-content, compile.json-object" />
 
-  <target name="jar" depends="jar.json-content, jar.json-object" >
+  <target name="jar" depends="jar.json-content, jar.json-object">
     <jar destfile="build/json-toolkit.jar">
       <zipfileset src="build/json-content/json-content.jar">
-        <include name="**"/>
-        <exclude name="META-INF/MANIFEST.MF"/>
+        <include name="**" />
+        <exclude name="META-INF/MANIFEST.MF" />
       </zipfileset>
       <zipfileset src="build/json-object/json-object.jar">
-        <include name="**"/>
-        <exclude name="META-INF/MANIFEST.MF"/>
+        <include name="**" />
+        <exclude name="META-INF/MANIFEST.MF" />
       </zipfileset>
     </jar>
     <zip destfile="build/json-toolkit-src.zip">
       <zipfileset src="build/json-content/json-content-src.zip">
-        <include name="**"/>
+        <include name="**" />
       </zipfileset>
       <zipfileset src="build/json-object/json-object-src.zip">
-        <include name="**"/>
+        <include name="**" />
       </zipfileset>
     </zip>
   </target>
 
-  <target name="dist" depends="dist.json-content, dist.json-object, api.zip">
+  <target name="dist" depends="dist.json-content, dist.json-object, jar, api.zip">
     <copy tofile="dist/lib/json-toolkit-${version}.jar" file="build/json-toolkit.jar" />
     <copy tofile="dist/lib/json-toolkit-${version}-src.zip" file="build/json-toolkit-src.zip" />
     <copy tofile="dist/lib/json-toolkit-${version}-api.zip" file="build/json-toolkit-api.zip" />
