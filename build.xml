@@ -15,92 +15,221 @@
   limitations under the License.
 -->
 <project name="org.kjots.json-toolkit" default="all" basedir=".">
-  <property environment="env"/>
-  
+  <property environment="env" />
+
   <fail unless="env.GWT_HOME">GWT_HOME not defined.</fail>
-  <property name="gwt.home" value="${env.GWT_HOME}"/>
-  
-  <path id="classpath">
-    <pathelement location="build/main/classes" />
-    <fileset dir="ext/third-party/main">
-      <include name="**/*.jar"/>
-    </fileset>
-    <fileset dir="${gwt.home}">
-      <include name="gwt-user.jar"/>
-      <include name="gwt-dev.jar"/>
-    </fileset>
-  </path>
-  
-  <target name="all" depends="clean,jar,src.zip,api.zip"/>
-  
-  <target name="init">
-    <mkdir dir="dist"/>
-  </target>
-  
-  <target name="compile" depends="init">
-    <mkdir dir="build/main/classes"/>
-    <javac srcdir="src/main/java" destdir="build/main/classes" debug="true">
-      <classpath refid="classpath"/>
-      <include name="**/*.java" />
-    </javac>
-  </target>
-  
-  <target name="jar" depends="compile">
-    <jar destfile="dist/json-toolkit.jar">
-      <fileset dir="build/main/classes">
-        <include name="**" />
-      </fileset>
-      <fileset dir="src/main/gwt">
-        <include name="**" />
-      </fileset>
-      <fileset dir="src/main/java">
-        <include name="org/kjots/json/*/shared/**/*.java" />
-        <include name="org/kjots/json/*/gwt/client/**/*.java" />
-      </fileset>
+  <property name="gwt.home" value="${env.GWT_HOME}" />
+
+  <property name="version" value="1.1-dev" />
+
+  <macrodef name="json-toolkit-classpath">
+    <attribute name="name" />
+    <element name="extra-classpath" implicit="true" optional="true" />
+    <sequential>
+      <path id="classpath.@{name}">
+        <pathelement location="build/@{name}/classes" />
+        <fileset dir="${gwt.home}">
+          <include name="gwt-user.jar" />
+          <include name="gwt-dev.jar" />
+        </fileset>
+        <extra-classpath />
+      </path>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="json-toolkit-compile">
+    <attribute name="name" />
+    <attribute name="packagePath" />
+    <sequential>
+      <mkdir dir="build/@{name}/classes" />
+      <javac srcdir="src/main/java" destdir="build/@{name}/classes" debug="true">
+        <classpath refid="classpath.@{name}" />
+        <include name="@{packagePath}/**/*.java" />
+      </javac>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="json-toolkit-jar">
+    <attribute name="name" />
+    <attribute name="packagePath" />
+    <sequential>
+      <copy todir="build/@{name}/@{name}">
+        <fileset dir="build/@{name}/classes">
+          <include name="**/*.class" />
+        </fileset>
+        <fileset dir="src/main/gwt">
+          <include name="@{packagePath}/**" />
+        </fileset>
+        <fileset dir="src/main/java">
+          <include name="@{packagePath}/shared/**/*.java" />
+          <include name="@{packagePath}/gwt/client/**/*.java" />
+        </fileset>
+      </copy>
+      <jar destfile="build/@{name}/@{name}.jar">
+        <fileset dir="build/@{name}/@{name}">
+          <include name="**" />
+        </fileset>
+      </jar>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="json-toolkit-src-zip">
+    <attribute name="name" />
+    <attribute name="packagePath" />
+    <sequential>
+      <zip destfile="build/@{name}/@{name}-src.zip">
+        <fileset dir="src/main/java">
+          <include name="@{packagePath}/**/*.java" />
+        </fileset>
+      </zip>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="json-toolkit-dist">
+    <attribute name="name" />
+    <sequential>
+      <copy tofile="dist/lib/@{name}-${version}.jar" file="build/@{name}/@{name}.jar" />
+      <copy tofile="dist/lib/@{name}-${version}-src.zip" file="build/@{name}/@{name}-src.zip" />
+    </sequential>
+  </macrodef>
+
+  <macrodef name="json-toolkit-clean">
+    <attribute name="name" />
+    <sequential>
+      <delete dir="build/@{name}" />
+    </sequential>
+  </macrodef>
+
+  <!-- -->
+
+  <target name="all" depends="clean,dist" />
+
+  <target name="compile" depends="compile.json-content, compile.json-object" />
+
+  <target name="jar" depends="jar.json-content, jar.json-object" >
+    <jar destfile="build/json-toolkit.jar">
+      <zipfileset src="build/json-content/json-content.jar">
+        <include name="**"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+      </zipfileset>
+      <zipfileset src="build/json-object/json-object.jar">
+        <include name="**"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+      </zipfileset>
     </jar>
+    <zip destfile="build/json-toolkit-src.zip">
+      <zipfileset src="build/json-content/json-content-src.zip">
+        <include name="**"/>
+      </zipfileset>
+      <zipfileset src="build/json-object/json-object-src.zip">
+        <include name="**"/>
+      </zipfileset>
+    </zip>
   </target>
-  
+
+  <target name="dist" depends="dist.json-content, dist.json-object, api.zip">
+    <copy tofile="dist/lib/json-toolkit-${version}.jar" file="build/json-toolkit.jar" />
+    <copy tofile="dist/lib/json-toolkit-${version}-src.zip" file="build/json-toolkit-src.zip" />
+    <copy tofile="dist/lib/json-toolkit-${version}-api.zip" file="build/json-toolkit-api.zip" />
+    <copy todir="dist">
+      <fileset dir=".">
+        <include name="doc/**" />
+        <include name="COPYING" />
+        <include name="NOTICE" />
+      </fileset>
+    </copy>
+  </target>
+
   <target name="api.uptodate">
     <uptodate property="api.uptodate" targetfile="doc/api/index.html">
       <srcfiles dir="src/main/java">
-        <include name="**"/>
+        <include name="**" />
       </srcfiles>
     </uptodate>
   </target>
-  
+
   <target name="api" depends="compile,api.uptodate" unless="api.uptodate">
-    <mkdir dir="doc/api"/>
+    <mkdir dir="doc/api" />
     <javadoc destdir="doc/api">
-      <classpath refid="classpath"/>
-      <link href="http://java.sun.com/javase/6/docs/api/"/>
-      <link href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/"/>
-      <link href="http://google-guice.googlecode.com/svn/tags/2.0/javadoc/"/>
-      <link href="http://google-gin.googlecode.com/svn/tags/1.0.0/javadoc/"/>
+      <classpath refid="classpath" />
+      <link href="http://java.sun.com/javase/6/docs/api/" />
+      <link href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/" />
+      <link href="http://google-guice.googlecode.com/svn/tags/2.0/javadoc/" />
+      <link href="http://google-gin.googlecode.com/svn/tags/1.0.0/javadoc/" />
       <fileset dir="src/main/java">
-        <include name="**/*.java"/>
-        <include name="**/*.html"/>
+        <include name="**/*.java" />
+        <include name="**/*.html" />
       </fileset>
     </javadoc>
   </target>
-  
+
   <target name="api.zip" depends="api">
-    <zip destfile="dist/json-toolkit-api.zip">
+    <zip destfile="build/json-toolkit-api.zip">
       <fileset dir="doc/api">
-        <include name="**"/>
-      </fileset>
-    </zip>
-  </target>
-  
-  <target name="src.zip">
-    <zip destfile="dist/json-toolkit-src.zip">
-      <fileset dir="src/main/java">
         <include name="**" />
       </fileset>
     </zip>
   </target>
-  
-  <target name="clean">
-    <delete dir="build"/>
-    <delete dir="dist"/>
+
+  <target name="clean" depends="clean.json-content, clean.json-object">
+    <delete file="build/json-toolkit-api.zip" />
+    <delete dir="dist" />
+  </target>
+
+  <!-- JSON Content -->
+
+  <json-toolkit-classpath name="json-content" />
+
+  <target name="compile.json-content">
+    <json-toolkit-compile name="json-content" packagePath="org/kjots/json/content" />
+  </target>
+
+  <target name="jar.json-content" depends="compile.json-content">
+    <json-toolkit-jar name="json-content" packagePath="org/kjots/json/content" />
+    <json-toolkit-src-zip name="json-content" packagePath="org/kjots/json/content" />
+  </target>
+
+  <target name="dist.json-content" depends="jar.json-content">
+    <json-toolkit-dist name="json-content" />
+  </target>
+
+  <target name="clean.json-content">
+    <json-toolkit-clean name="json-content" />
+  </target>
+
+  <!-- JSON Object -->
+
+  <json-toolkit-classpath name="json-object">
+    <path refid="classpath.json-content" />
+    <fileset dir="ext/third-party/main/asm-3.2">
+      <include name="asm-all.jar" />
+    </fileset>
+    <fileset dir="ext/third-party/main/guice-2.0">
+      <include name="guice.jar" />
+    </fileset>
+    <fileset dir="ext/third-party/main/gin-1.0">
+      <include name="gin.jar" />
+    </fileset>
+  </json-toolkit-classpath>
+
+  <target name="compile.json-object" depends="compile.json-content">
+    <json-toolkit-compile name="json-object" packagePath="org/kjots/json/object" />
+  </target>
+
+  <target name="jar.json-object" depends="compile.json-object">
+    <json-toolkit-jar name="json-object" packagePath="org/kjots/json/object" />
+    <json-toolkit-src-zip name="json-object" packagePath="org/kjots/json/object" />
+  </target>
+
+  <target name="dist.json-object" depends="jar.json-object">
+    <json-toolkit-dist name="json-object" />
+    <copy tofile="dist/lib/deps/json-object/aopalliance-1.0.jar" file="ext/third-party/main/aopalliance-1.0/aopalliance.jar" />
+    <copy tofile="dist/lib/deps/json-object/asm-all-3.2.jar" file="ext/third-party/main/asm-3.2/asm-all.jar" />
+    <copy tofile="dist/lib/deps/json-object/guice-2.0.jar" file="ext/third-party/main/guice-2.0/guice.jar" />
+    <copy tofile="dist/lib/deps/json-object/gin-1.0.jar" file="ext/third-party/main/gin-1.0/gin.jar" />
+  </target>
+
+  <target name="clean.json-object">
+    <json-toolkit-clean name="json-object" />
   </target>
 </project>
