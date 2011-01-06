@@ -87,6 +87,19 @@ public abstract class JsonObjectFactory {
   public abstract <T extends JsonObject> T createJsonObject(String jsonObjectClassName);
   
   /**
+   * Create a new JSON object map.
+   *
+   * @param <E> The type of the element of the JSON object map.
+   * @param elementClass The class of the element of the JSON object array.
+   * @return The JSON object map.
+   */
+  public <E extends JsonObject> JsonObjectMap<E> createJsonObjectMap(Class<E> elementClass) {
+    JsonObjectMap<?> jsonObjectMap = this.createJsonObject(JsonObjectMap.class);
+    
+    return jsonObjectMap.castElement(elementClass);
+  }
+  
+  /**
    * Create a new JSON array.
    *
    * @return The JSON array.
@@ -112,4 +125,17 @@ public abstract class JsonObjectFactory {
    * @return The JSON array.
    */
   public abstract <T extends JsonArray> T createJsonArray(String jsonArrayClassName);
+  
+  /**
+   * Create a new JSON object array.
+   *
+   * @param <E> The type of the element of the JSON object array.
+   * @param elementClass The class of the element of the JSON object array.
+   * @return The JSON object array.
+   */
+  public <E extends JsonObject> JsonObjectArray<E> createJsonObjectArray(Class<E> elementClass) {
+    JsonObjectArray<?> jsonObjectArray = this.createJsonArray(JsonObjectArray.class);
+    
+    return jsonObjectArray.castElement(elementClass);
+  }
 }
