@@ -1,7 +1,9 @@
-JSON Toolkit license - Apache License 2.0
+JSON Toolkit Copyright © 2009 Karl J. Ots <kjots@kjots.org>
+
+Licensed under the Apache License, Version 2.0.
 
 Contains software from JSON.simple [http://code.google.com/p/json-simple/]
- version 1.1,  licensed under Apache License 2.0, modified for use with JSON
+ version 1.1, licensed under Apache License 2.0, modified for use with JSON
  Toolkit.
 
 Libraries used:
