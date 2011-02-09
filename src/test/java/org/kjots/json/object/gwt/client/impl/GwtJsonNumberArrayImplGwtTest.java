@@ -15,7 +15,7 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.gwt.client.GwtJsonObjectTestBase;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
 
@@ -23,14 +23,14 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
 
 /**
- * GWT JSON Number Array Implementation Test.
+ * GWT JSON Number Array Implementation GWT Test.
  * <p>
  * Created: 7th December 2009.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.1
  */
-public class GwtJsonNumberArrayImplTest extends GwtJsonObjectTestBase {
+public class GwtJsonNumberArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON number array implementation test delegate. */
   private final JsonNumberArrayImplTestBase<JavaScriptObject> jsonNumberArrayImplTestDelegate = new JsonNumberArrayImplTestBase<JavaScriptObject>() {;
     @Override

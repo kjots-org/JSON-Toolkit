@@ -15,21 +15,21 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.gwt.client.GwtJsonObjectTestBase;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonStringMap;
 import org.kjots.json.object.shared.impl.JsonStringMapImplTestBase;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * GWT JSON String Map Implementation Test.
+ * GWT JSON String Map Implementation GWT Test.
  * <p>
  * Created: 9th December 2009.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.1
  */
-public class GwtJsonStringMapImplTest extends GwtJsonObjectTestBase {
+public class GwtJsonStringMapImplGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON string map implementation test delegate. */
   private final JsonStringMapImplTestBase<JavaScriptObject> jsonStringMapImplTestDelegate = new JsonStringMapImplTestBase<JavaScriptObject>() {
     @Override

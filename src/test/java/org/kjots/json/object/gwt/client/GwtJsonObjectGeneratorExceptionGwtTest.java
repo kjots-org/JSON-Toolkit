@@ -18,13 +18,13 @@ package org.kjots.json.object.gwt.client;
 import org.kjots.json.object.shared.JsonObjectGeneratorExceptionTestBase;
 
 /**
- * GWT JSON Object Generator Exception Test.
+ * GWT JSON Object Generator Exception GWT Test.
  * <p>
  * Created: 26th May 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
-public class GwtJsonObjectGeneratorExceptionTest extends GwtJsonObjectTestBase {
+public class GwtJsonObjectGeneratorExceptionGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON object generator exception test delegate. */
   private final JsonObjectGeneratorExceptionTestBase jsonObjectGeneratorExceptionTestDelegate = new JsonObjectGeneratorExceptionTestBase() {
   };

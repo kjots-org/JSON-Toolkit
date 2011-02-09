@@ -18,13 +18,13 @@ package org.kjots.json.object.gwt.client;
 import org.kjots.json.object.shared.JsonObjectGeneratorBooleanTestBase;
 
 /**
- * GWT JSON Object Generator Boolean Test.
+ * GWT JSON Object Generator Boolean GWT Test.
  * <p>
  * Created: 3rd April 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
-public class GwtJsonObjectGeneratorBooleanTest extends GwtJsonObjectTestBase {
+public class GwtJsonObjectGeneratorBooleanGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON object generator boolean test delegate. */
   private final JsonObjectGeneratorBooleanTestBase jsonObjectGeneratorBooleanTestDelegate = new JsonObjectGeneratorBooleanTestBase() {
   };

@@ -18,13 +18,13 @@ package org.kjots.json.object.gwt.client;
 import org.kjots.json.object.shared.JsonObjectGeneratorPrimitiveTestBase;
 
 /**
- * GWT JSON Object Generator Primtive Test.
+ * GWT JSON Object Generator Primtive GWT Test.
  * <p>
  * Created: 3rd April 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
-public class GwtJsonObjectGeneratorPrimitiveTest extends GwtJsonObjectTestBase {
+public class GwtJsonObjectGeneratorPrimitiveGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON object generator primitive test delegate. */
   private final JsonObjectGeneratorPrimitiveTestBase jsonObjectGeneratorPrimitiveTestDelegate = new JsonObjectGeneratorPrimitiveTestBase() {
   };

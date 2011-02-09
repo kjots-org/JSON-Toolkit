@@ -20,13 +20,13 @@ import org.kjots.json.object.shared.JsonObjectGeneratorFunctionTestBase;
 import org.kjots.json.object.shared.JsonObjectGeneratorFunctionTestBase.TestJsonObject;
 
 /**
- * GWT JSON Object Generator Function Test.
+ * GWT JSON Object Generator Function GWT Test.
  * <p>
  * Created: 3rd April 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
-public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
+public class GwtJsonObjectGeneratorFunctionGwtTest extends GwtJsonObjectGwtTestBase {
   /**
    * GWT JSON Object Generator Test Function Test Functions.
    */
@@ -409,8 +409,8 @@ public class GwtJsonObjectGeneratorFunctionTest extends GwtJsonObjectTestBase {
   /** The JSON object generator function test delegate. */
   private final JsonObjectGeneratorFunctionTestBase jsonObjectGeneratorFunctionTestDelegate = new JsonObjectGeneratorFunctionTestBase() {
     @Override
-    protected GwtJsonObjectGeneratorFunctionTest.Functions functions() {
-      return (GwtJsonObjectGeneratorFunctionTest.Functions)super.functions();
+    protected GwtJsonObjectGeneratorFunctionGwtTest.Functions functions() {
+      return (GwtJsonObjectGeneratorFunctionGwtTest.Functions)super.functions();
     }
 
     @Override

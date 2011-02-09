@@ -15,26 +15,26 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.gwt.client.GwtJsonObjectTestBase;
-import org.kjots.json.object.shared.JsonNumberMap;
-import org.kjots.json.object.shared.impl.JsonNumberMapImplTestBase;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
+import org.kjots.json.object.shared.JsonBooleanMap;
+import org.kjots.json.object.shared.impl.JsonBooleanMapImplTestBase;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * GWT JSON Number Map Implementation Test.
+ * GWT JSON Boolean Map Implementation GWT Test.
  * <p>
  * Created: 9th December 2009.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.1
  */
-public class GwtJsonNumberMapImplTest extends GwtJsonObjectTestBase {
-  /** The JSON number map implementation test delegate. */
-  private final JsonNumberMapImplTestBase<JavaScriptObject> jsonNumberMapImplTestDelegate = new JsonNumberMapImplTestBase<JavaScriptObject>() {
+public class GwtJsonBooleanMapImplGwtTest extends GwtJsonObjectGwtTestBase {
+  /** The JSON boolean map implementation test delegate. */
+  private final JsonBooleanMapImplTestBase<JavaScriptObject> jsonBooleanMapImplTestDelegate = new JsonBooleanMapImplTestBase<JavaScriptObject>() {
     @Override
-    protected JsonNumberMap createJsonNumberMap(JavaScriptObject object) {
-      return new GwtJsonNumberMapImpl(object);
+    protected JsonBooleanMap createJsonBooleanMap(JavaScriptObject object) {
+      return new GwtJsonBooleanMapImpl(object);
     }
 
     @Override
@@ -43,31 +43,31 @@ public class GwtJsonNumberMapImplTest extends GwtJsonObjectTestBase {
     }
     
     @Override
-    protected final native Number getNumberProperty(JavaScriptObject object, String propertyName) /*-{
+    protected final native Boolean getBooleanProperty(JavaScriptObject object, String propertyName) /*-{
       var jsPropertyValue = object[propertyName];
       
-      return jsPropertyValue != null ? @java.lang.Double::valueOf(D)(jsPropertyValue) : null;
+      return jsPropertyValue != null ? @java.lang.Boolean::valueOf(Z)(jsPropertyValue) : null;
     }-*/;
     
     @Override
-    protected final native void setNumberProperty(JavaScriptObject object, String propertyName, Number propertyValue) /*-{
-      var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Number::doubleValue()() : null;
+    protected final native void setBooleanProperty(JavaScriptObject object, String propertyName, Boolean propertyValue) /*-{
+      var jsPropertyValue = propertyValue != null ? propertyValue.@java.lang.Boolean::booleanValue()() : null;
       
       object[propertyName] = jsPropertyValue;
     }-*/;
   };
   
   /**
-   * @see JsonNumberMapImplTestBase#testGet()
+   * @see JsonBooleanMapImplTestBase#testGet()
    */
   public void testGet() {
-    this.jsonNumberMapImplTestDelegate.testGet();
+    this.jsonBooleanMapImplTestDelegate.testGet();
   }
 
   /**
-   * @see JsonNumberMapImplTestBase#testSet()
+   * @see JsonBooleanMapImplTestBase#testSet()
    */
   public void testSet() {
-    this.jsonNumberMapImplTestDelegate.testSet();
+    this.jsonBooleanMapImplTestDelegate.testSet();
   }
 }

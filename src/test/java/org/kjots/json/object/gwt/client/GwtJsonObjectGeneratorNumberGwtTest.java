@@ -18,13 +18,13 @@ package org.kjots.json.object.gwt.client;
 import org.kjots.json.object.shared.JsonObjectGeneratorNumberTestBase;
 
 /**
- * GWT JSON Object Generator Number Test.
+ * GWT JSON Object Generator Number GWT Test.
  * <p>
  * Created: 3rd April 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  */
-public class GwtJsonObjectGeneratorNumberTest extends GwtJsonObjectTestBase {
+public class GwtJsonObjectGeneratorNumberGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON object generator number test delegate. */
   private final JsonObjectGeneratorNumberTestBase jsonObjectGeneratorNumberTestDelegate = new JsonObjectGeneratorNumberTestBase() {
   };
