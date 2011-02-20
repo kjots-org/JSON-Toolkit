@@ -3,15 +3,16 @@
 <stringAttribute key="com.google.gwt.eclipse.core.LOG_LEVEL" value="INFO"/>
 <booleanAttribute key="com.google.gwt.eclipse.core.NOT_HEADLESS" value="false"/>
 <stringAttribute key="com.google.gwt.eclipse.core.OUT_DIR" value="www-test"/>
+<booleanAttribute key="com.google.gwt.eclipse.core.STANDARDS_MODE" value="false"/>
 <stringAttribute key="com.google.gwt.eclipse.core.STYLE" value="OBFUSCATED"/>
 <stringAttribute key="com.google.gwt.eclipse.core.WEB_MODE" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/org.kjots.json-toolkit"/>
+<listEntry value="/org.kjots.json-toolkit/src/test/java/org/kjots/json/object/JsonObjectTestSuite.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
-<listEntry value="4"/>
+<listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value="=org.kjots.json-toolkit"/>
+<stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value=""/>
 <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
 <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
 <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit4"/>
@@ -23,6 +24,6 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value=""/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.kjots.json.object.JsonObjectTestSuite"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.kjots.json-toolkit"/>
 </launchConfiguration>
