@@ -1,11 +1,15 @@
 
 syntax: regexp
-^build$
+^target$
 syntax: regexp
-^eclipse-bin$
+^json-content/eclipse-bin$
 syntax: regexp
-^tomcat$
+^json-content/target$
 syntax: regexp
-^www-test$
+^json-object/eclipse-bin$
 syntax: regexp
-^dist$
+^json-object/target$
+syntax: regexp
+^json-object/tomcat$
+syntax: regexp
+^json-object/www-test$
