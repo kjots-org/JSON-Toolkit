@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
  * Created: 3rd April 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 @Documented
 @Target(ElementType.METHOD)

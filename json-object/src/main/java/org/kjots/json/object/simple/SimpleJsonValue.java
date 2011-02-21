@@ -24,6 +24,7 @@ import java.util.LinkedList;
  * Created: 4th March 2010
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public final class SimpleJsonValue {
   /** The map. */

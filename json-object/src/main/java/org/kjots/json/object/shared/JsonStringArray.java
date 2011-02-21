@@ -30,6 +30,8 @@ public interface JsonStringArray extends JsonArray, Iterable<String> {
    * JSON String Array Iterator.
    * <p>
    * Created: 15th June 2010.
+   * 
+   * @since 1.0
    */
   public class Iterator implements java.util.Iterator<String> {
     /** The array.*/

@@ -26,6 +26,7 @@ import org.junit.Test;
  * Created: 11th November 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class NativeJsonStringArrayTest {
   /** The test native JSON string array. */

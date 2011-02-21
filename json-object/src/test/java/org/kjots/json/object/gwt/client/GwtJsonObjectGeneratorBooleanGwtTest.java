@@ -23,6 +23,7 @@ import org.kjots.json.object.shared.JsonObjectGeneratorBooleanTestBase;
  * Created: 3rd April 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class GwtJsonObjectGeneratorBooleanGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON object generator boolean test delegate. */

@@ -23,6 +23,7 @@ import org.kjots.json.object.shared.JsonObjectGeneratorExceptionTestBase;
  * Created: 26th May 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class GwtJsonObjectGeneratorExceptionGwtTest extends GwtJsonObjectGwtTestBase {
   /** The JSON object generator exception test delegate. */

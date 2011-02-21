@@ -30,6 +30,8 @@ public interface JsonBooleanArray extends JsonArray, Iterable<Boolean> {
    * JSON Boolean Array Iterator.
    * <p>
    * Created: 15th June 2010.
+   * 
+   * @since 1.0
    */
   public class Iterator implements java.util.Iterator<Boolean> {
     /** The array.*/

@@ -79,6 +79,7 @@ import org.objectweb.asm.commons.Method;
  * Created: 5th March 2010
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   /** The class of the JSON object implementation. */

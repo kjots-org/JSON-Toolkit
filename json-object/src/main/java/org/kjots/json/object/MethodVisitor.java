@@ -27,6 +27,7 @@ import org.objectweb.asm.commons.Method;
  * Created: 7th April 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class MethodVisitor implements org.objectweb.asm.MethodVisitor {
   /** The ASM method visitor. */

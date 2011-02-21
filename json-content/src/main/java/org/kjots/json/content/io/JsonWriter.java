@@ -28,6 +28,7 @@ import org.kjots.json.content.shared.text.JsonTextGenerator;
  * Created: 2nd February 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class JsonWriter extends JsonTextGenerator {
   /** The output. */

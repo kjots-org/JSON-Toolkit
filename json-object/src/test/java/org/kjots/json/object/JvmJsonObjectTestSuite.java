@@ -29,7 +29,7 @@ import org.kjots.json.object.simple.SimpleJsonObjectTestSuite;
  * Created: 20th February 2011.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
- * @since 1.11
+ * @since 1.1
  */
 @RunWith(Suite.class)
 @SuiteClasses({

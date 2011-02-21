@@ -26,6 +26,7 @@ import org.kjots.json.object.shared.JsonObjectArray;
  * Created: 11th November 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class NativeJsonObjectArray<T extends JsonObject> extends NativeJsonArray implements JsonObjectArray<T> {
   /** The element class. */

@@ -27,6 +27,7 @@ import org.kjots.json.object.shared.JsonObjectFactory;
  * Created: 15th February 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class JsonObjectBuilder implements JsonContentHandler {
   /**

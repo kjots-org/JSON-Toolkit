@@ -21,6 +21,7 @@ package org.kjots.json.content.shared;
  * Created: 13th July 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public abstract class AbstractJsonContentChannel extends AbstractJsonContentGenerator implements JsonContentChannel {
 }

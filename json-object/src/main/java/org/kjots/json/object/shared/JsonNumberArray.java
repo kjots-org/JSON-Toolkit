@@ -30,6 +30,8 @@ public interface JsonNumberArray extends JsonArray, Iterable<Number> {
    * JSON Number Array Iterator.
    * <p>
    * Created: 15th June 2010.
+   * 
+   * @since 1.0
    */
   public class Iterator implements java.util.Iterator<Number> {
     /** The array.*/

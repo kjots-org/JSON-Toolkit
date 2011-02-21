@@ -23,6 +23,7 @@ import java.io.Serializable;
  * Created: 1st February 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class JsonReaderException extends Exception {
   /** Serial Version UID for this {@link Serializable} class. */

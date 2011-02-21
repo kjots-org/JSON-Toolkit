@@ -37,6 +37,8 @@ public @interface JsonProperty {
    * Null Adapter.
    * <p>
    * Created: 10th November 2010.
+   * 
+   * @since 1.0
    */
   public static abstract class NullAdapter implements JsonPropertyAdapter<Object, Object> {
     /**

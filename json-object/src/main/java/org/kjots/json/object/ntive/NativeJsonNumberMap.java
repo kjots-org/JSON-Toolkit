@@ -23,6 +23,7 @@ import org.kjots.json.object.shared.JsonNumberMap;
  * Created: 11th November 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class NativeJsonNumberMap extends NativeJsonMap implements JsonNumberMap {
   /**

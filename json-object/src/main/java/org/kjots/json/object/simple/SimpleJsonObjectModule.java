@@ -27,6 +27,7 @@ import com.google.inject.Singleton;
  * Created: 5th March 2010
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class SimpleJsonObjectModule extends AbstractModule {
   /**

@@ -29,6 +29,7 @@ import org.kjots.json.object.simple.SimpleJsonValue;
  * Created: 4th March 2010.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+ * @since 1.0
  */
 public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArray {
   /**

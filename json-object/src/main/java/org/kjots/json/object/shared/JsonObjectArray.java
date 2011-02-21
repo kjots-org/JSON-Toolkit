@@ -30,6 +30,8 @@ public interface JsonObjectArray<T extends JsonObject> extends JsonArray, Iterab
    * JSON Object Array Iterator.
    * <p>
    * Created: 15th June 2010.
+   * 
+   * @since 1.0
    */
   public class Iterator<T extends JsonObject> implements java.util.Iterator<T> {
     /** The array.*/
