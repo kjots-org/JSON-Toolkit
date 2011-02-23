@@ -44,6 +44,8 @@ public class GwtJsonObjectGeneratorGwtTestSuite extends GWTTestSuite {
     suite.addTestSuite(GwtJsonObjectGeneratorStringGwtTest.class);
     suite.addTestSuite(GwtJsonObjectGeneratorObjectGwtTest.class);
     
+    suite.addTestSuite(GwtJsonObjectGeneratorAutoAdaptedPropertyGwtTest.class);
+    
     suite.addTestSuite(GwtJsonObjectGeneratorFunctionGwtTest.class);
     suite.addTestSuite(GwtJsonObjectGeneratorExceptionGwtTest.class);
     

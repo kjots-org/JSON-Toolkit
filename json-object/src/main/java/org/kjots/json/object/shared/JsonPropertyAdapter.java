@@ -15,6 +15,12 @@
  */
 package org.kjots.json.object.shared;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * JSON Property Adapter.
  * <p>
@@ -26,6 +32,26 @@ package org.kjots.json.object.shared;
  * @since json-object-0.2
  */
 public interface JsonPropertyAdapter<T, P> {
+  /**
+   * Auto-Adapted Type.
+   * <p>
+   * Created: 23rd February 2011.
+   *
+   * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
+   * @since 1.1
+   */
+  @Documented
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface AutoAdaptedType {
+    /**
+     * Retrieve the JSON property adapter.
+     *
+     * @return The JSON property adapter.
+     */
+    public Class<? extends JsonPropertyAdapter<?, ?>> value();
+  }
+  
   /**
    * Convert to a JSON property value.
    *

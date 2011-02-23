@@ -610,6 +610,13 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     Type returnType = method.getReturnType();
 
     Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (adapterClass.equals(JsonProperty.NullAdapter.class) && this.isObjectType(returnType)) {
+      JsonPropertyAdapter.AutoAdaptedType autoAdaptedTypeAnnotation = this.getClass(returnType).getAnnotation(JsonPropertyAdapter.AutoAdaptedType.class);
+      if (autoAdaptedTypeAnnotation != null) {
+        adapterClass = autoAdaptedTypeAnnotation.value();
+      }
+    }
+    
     if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateGetAdaptedPrimitivePropertyMethod(classVisitor, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.getType(adapterClass), returnType);
@@ -691,6 +698,13 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     Type argumentType = argumentTypes[0];
     
     Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (adapterClass.equals(JsonProperty.NullAdapter.class) && this.isObjectType(argumentType)) {
+      JsonPropertyAdapter.AutoAdaptedType autoAdaptedTypeAnnotation = this.getClass(argumentType).getAnnotation(JsonPropertyAdapter.AutoAdaptedType.class);
+      if (autoAdaptedTypeAnnotation != null) {
+        adapterClass = autoAdaptedTypeAnnotation.value();
+      }
+    }
+    
     if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       if (JsonBooleanPropertyAdapter.class.isAssignableFrom(adapterClass)) {
         this.generateSetAdaptedPrimitivePropertyMethod(classVisitor, jsonObjectImplType, method, jsonPropertyAnnotation.name(), Type.getType(Boolean.class), Type.getType(adapterClass), argumentType);
@@ -1281,7 +1295,32 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
     
     methodVisitor.visitEnd();
   }
-
+  
+  /**
+   * Determine if the given type is an object type.
+   *
+   * @param type The type.
+   * @return <code>true</code> if the type is an object type.
+   */
+  private boolean isObjectType(Type type) {
+    return type.getDescriptor().charAt(0) == 'L';
+  }
+  
+  /**
+   * Retrieve the class for the given type.
+   *
+   * @param type The type.
+   * @return The class.
+   */
+  private Class<?> getClass(Type type) {
+    try {
+      return Class.forName(type.getClassName());
+    }
+    catch (ClassNotFoundException cnfe) {
+      throw new IllegalArgumentException(type.toString(), cnfe);
+    }
+  }
+  
   /**
    * Retrieve the methods of the extra interfaces of the JSON object with the
    * given class.

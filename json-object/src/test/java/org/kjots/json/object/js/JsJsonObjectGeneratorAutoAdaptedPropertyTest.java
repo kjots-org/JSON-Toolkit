@@ -15,34 +15,25 @@
  */
 package org.kjots.json.object.js;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+import org.junit.Before;
+import org.kjots.json.object.shared.JsonObjectGeneratorAutoAdaptedPropertyTestBase;
+
+import com.google.inject.Guice;
 
 /**
- * JavaScript JSON Object Generator Test Suite.
+ * JavaScript JSON Object Generator Auto-Adapted Property Test.
  * <p>
- * Created: 9th February 2011.
+ * Created: 23rd February 2011.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 1.1
  */
-@RunWith(Suite.class)
-@SuiteClasses({
-  JsJsonObjectGeneratorTest.class,
-  
-  JsJsonObjectGeneratorPrimitiveTest.class,
-  JsJsonObjectGeneratorBooleanTest.class,
-  JsJsonObjectGeneratorNumberTest.class,
-  JsJsonObjectGeneratorStringTest.class,
-  JsJsonObjectGeneratorObjectTest.class,
-  
-  JsJsonObjectGeneratorAutoAdaptedPropertyTest.class,
-  
-  JsJsonObjectGeneratorFunctionTest.class,
-  JsJsonObjectGeneratorExceptionTest.class,
-  
-  JsJsonObjectGeneratorBridgeTest.class,
-})
-public class JsJsonObjectGeneratorTestSuite {
+public class JsJsonObjectGeneratorAutoAdaptedPropertyTest extends JsonObjectGeneratorAutoAdaptedPropertyTestBase {
+  /**
+   * Set up the JSON object implementation test.
+   */
+  @Before
+  public void setUp() {
+    Guice.createInjector(new JsJsonObjectModule());
+  }
 }

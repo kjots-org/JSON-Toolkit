@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-JsonStringPropertyAdapter (JSON Toolkit 1.1-SNAPSHOT API)
+JsonPropertyAdapter.AutoAdaptedType (JSON Toolkit 1.1-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ JsonStringPropertyAdapter (JSON Toolkit 1.1-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="JsonStringPropertyAdapter (JSON Toolkit 1.1-SNAPSHOT API)";
+        parent.document.title="JsonPropertyAdapter.AutoAdaptedType (JSON Toolkit 1.1-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -39,7 +39,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsonStringPropertyAdapter.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsonPropertyAdapter.AutoAdaptedType.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -54,11 +54,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../org/kjots/json/object/shared/JsonStringMap.html" title="interface in org.kjots.json.object.shared"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/kjots/json/object/shared/JsonStringArray.html" title="interface in org.kjots.json.object.shared"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?org/kjots/json/object/shared/JsonStringPropertyAdapter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JsonStringPropertyAdapter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?org/kjots/json/object/shared/JsonPropertyAdapter.AutoAdaptedType.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JsonPropertyAdapter.AutoAdaptedType.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -75,9 +75,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;METHOD</FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#annotation_type_required_element_summary">REQUIRED</A>&nbsp;|&nbsp;OPTIONAL</FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;METHOD</FONT></TD>
+DETAIL:&nbsp;<A HREF="#annotation_type_element_detail">ELEMENT</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -89,73 +89,75 @@ DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;METHOD</FONT></TD>
 <FONT SIZE="-1">
 org.kjots.json.object.shared</FONT>
 <BR>
-Interface JsonStringPropertyAdapter&lt;T&gt;</H2>
-<DL>
-<DT><DT><B>Type Parameters:</B><DD><CODE>T</CODE> - The type of the value.</DL>
-<DL>
-<DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;T,<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</DD>
-</DL>
+Annotation Type JsonPropertyAdapter.AutoAdaptedType</H2>
 <HR>
 <DL>
-<DT><PRE>public interface <B>JsonStringPropertyAdapter&lt;T&gt;</B><DT>extends <A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;T,<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&gt;</DL>
+<DT><PRE><FONT SIZE="-1"><A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Documented.html?is-external=true" title="class or interface in java.lang.annotation">@Documented</A>
+<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</A>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</A>=<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/ElementType.html?is-external=true#TYPE" title="class or interface in java.lang.annotation">TYPE</A>)
+<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Retention.html?is-external=true" title="class or interface in java.lang.annotation">@Retention</A>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Retention.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</A>=<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/RetentionPolicy.html?is-external=true#RUNTIME" title="class or interface in java.lang.annotation">RUNTIME</A>)
+</FONT>public static @interface <B>JsonPropertyAdapter.AutoAdaptedType</B></DL>
 </PRE>
 
 <P>
-JSON String Property Adapter.
+Auto-Adapted Type.
  <p>
- Created: 13th December 2009.
+ Created: 23rd February 2011.
 <P>
 
 <P>
 <DL>
 <DT><B>Since:</B></DT>
-  <DD>json-object-0.2</DD>
+  <DD>1.1</DD>
 <DT><B>Author:</B></DT>
   <DD><a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a></DD>
 </DL>
 <HR>
 
 <P>
-<!-- ======== NESTED CLASS SUMMARY ======== -->
+<!-- =========== ANNOTATION TYPE REQUIRED MEMBER SUMMARY =========== -->
 
-<A NAME="nested_class_summary"><!-- --></A>
+<A NAME="annotation_type_required_element_summary"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Nested Class Summary</B></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;<A NAME="nested_classes_inherited_from_class_org.kjots.json.object.shared.JsonPropertyAdapter"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface org.kjots.json.object.shared.<A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A></B></TH>
+<B>Required Element Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.AutoAdaptedType.html" title="annotation in org.kjots.json.object.shared">JsonPropertyAdapter.AutoAdaptedType</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;? extends <A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.AutoAdaptedType.html#value()">value</A></B></CODE>
 
-<!-- ========== METHOD SUMMARY =========== -->
-
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_org.kjots.json.object.shared.JsonPropertyAdapter"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from interface org.kjots.json.object.shared.<A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html#fromJsonProperty(P)">fromJsonProperty</A>, <A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html#toJsonProperty(T)">toJsonProperty</A></CODE></TD>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the JSON property adapter.</TD>
 </TR>
 </TABLE>
 &nbsp;
 <P>
+
+<!-- ============ ANNOTATION TYPE MEMBER DETAIL =========== -->
+
+<A NAME="annotation_type_element_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Element Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="value()"><!-- --></A><H3>
+value</H3>
+<PRE>
+public abstract <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;? extends <A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt; <B>value</B></PRE>
+<DL>
+<DD>Retrieve the JSON property adapter.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>The JSON property adapter.</DL>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -172,7 +174,7 @@ JSON String Property Adapter.
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsonStringPropertyAdapter.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsonPropertyAdapter.AutoAdaptedType.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -187,11 +189,11 @@ JSON String Property Adapter.
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../org/kjots/json/object/shared/JsonStringMap.html" title="interface in org.kjots.json.object.shared"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../org/kjots/json/object/shared/JsonStringArray.html" title="interface in org.kjots.json.object.shared"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?org/kjots/json/object/shared/JsonStringPropertyAdapter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JsonStringPropertyAdapter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?org/kjots/json/object/shared/JsonPropertyAdapter.AutoAdaptedType.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JsonPropertyAdapter.AutoAdaptedType.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -208,9 +210,9 @@ JSON String Property Adapter.
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;METHOD</FONT></TD>
+  SUMMARY:&nbsp;<A HREF="#annotation_type_required_element_summary">REQUIRED</A>&nbsp;|&nbsp;OPTIONAL</FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;METHOD</FONT></TD>
+DETAIL:&nbsp;<A HREF="#annotation_type_element_detail">ELEMENT</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

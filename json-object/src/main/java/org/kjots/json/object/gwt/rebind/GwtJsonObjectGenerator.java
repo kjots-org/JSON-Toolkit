@@ -404,9 +404,19 @@ public class GwtJsonObjectGenerator extends Generator {
       throw new UnableToCompleteException();
     }
     
-    String returnTypeName = method.getReturnType().getQualifiedSourceName();
+    JType returnType = method.getReturnType();
+    String returnTypeName = returnType.getQualifiedSourceName();
 
     Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (adapterClass.equals(JsonProperty.NullAdapter.class) && (returnType instanceof JClassType)) {
+      JClassType returnClassType = (JClassType)returnType;
+      
+      JsonPropertyAdapter.AutoAdaptedType autoAdaptedTypeAnnotation = returnClassType.getAnnotation(JsonPropertyAdapter.AutoAdaptedType.class);
+      if (autoAdaptedTypeAnnotation != null) {
+        adapterClass = autoAdaptedTypeAnnotation.value();
+      }
+    }
+    
     if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       this.writeGetAdaptedPropertyMethod(sourceWriter, logger, context, method.getName(), jsonPropertyAnnotation.name(), returnTypeName, adapterClass.getName().replace('$', '.'));
     }
@@ -423,7 +433,7 @@ public class GwtJsonObjectGenerator extends Generator {
       else if (returnTypeName.equals(JsonObjectArray.class.getName()) || returnTypeName.equals(JsonObjectMap.class.getName())) {
         String elementTypeName;
         
-        JParameterizedType parameterizedReturnType = method.getReturnType().isParameterized();
+        JParameterizedType parameterizedReturnType = returnType.isParameterized();
         if (parameterizedReturnType != null) {
           elementTypeName = parameterizedReturnType.getTypeArgs()[0].getQualifiedSourceName();
         }
@@ -489,9 +499,19 @@ public class GwtJsonObjectGenerator extends Generator {
       throw new UnableToCompleteException();
     }
     
-    String parameterTypeName = parameters[0].getType().getQualifiedSourceName();
+    JType parameterType = parameters[0].getType();
+    String parameterTypeName = parameterType.getQualifiedSourceName();
     
     Class<? extends JsonPropertyAdapter<?, ?>> adapterClass = jsonPropertyAnnotation.adapter();
+    if (adapterClass.equals(JsonProperty.NullAdapter.class) && (parameterType instanceof JClassType)) {
+      JClassType parameterClassType = (JClassType)parameterType;
+      
+      JsonPropertyAdapter.AutoAdaptedType autoAdaptedTypeAnnotation = parameterClassType.getAnnotation(JsonPropertyAdapter.AutoAdaptedType.class);
+      if (autoAdaptedTypeAnnotation != null) {
+        adapterClass = autoAdaptedTypeAnnotation.value();
+      }
+    }
+    
     if (!adapterClass.equals(JsonProperty.NullAdapter.class)) {
       this.writeSetAdaptedPropertyMethod(sourceWriter, logger, context, method.getName(), jsonPropertyAnnotation.name(), parameterTypeName, adapterClass.getName().replace('$', '.'));
     }
