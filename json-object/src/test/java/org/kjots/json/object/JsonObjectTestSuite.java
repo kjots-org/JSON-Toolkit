@@ -18,8 +18,7 @@ package org.kjots.json.object;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-
-import org.kjots.json.object.gwt.client.GwtJsonObjectTestSuite;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestSuite;
 
 /**
  * JSON Object Test Suite.
@@ -31,7 +30,7 @@ import org.kjots.json.object.gwt.client.GwtJsonObjectTestSuite;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-  GwtJsonObjectTestSuite.class,
+  GwtJsonObjectGwtTestSuite.class,
   JvmJsonObjectTestSuite.class
 })
 public class JsonObjectTestSuite {

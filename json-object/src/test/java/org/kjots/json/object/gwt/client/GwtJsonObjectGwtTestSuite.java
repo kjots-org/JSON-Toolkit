@@ -13,29 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.gwt.client.impl;
+package org.kjots.json.object.gwt.client;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImplGwtTestSuite;
+
 import com.google.gwt.junit.tools.GWTTestSuite;
 
 /**
- * GWT JSON Object Implementation GWT Test Suite.
+ * GWT JSON Object Test GWT Suite.
  * <p>
- * Created: 9th February 2011.
+ * Created: 20th February 2011.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 1.1
  */
-public class GwtJsonObjectImplGwtTestSuite extends GWTTestSuite {
+public class GwtJsonObjectGwtTestSuite extends GWTTestSuite {
   /**
    * Create the test suite.
    *
    * @return The test suite.
    */
   public static Test suite() {
-    GwtJsonObjectImplGwtTestSuite suite = new GwtJsonObjectImplGwtTestSuite();
+    GwtJsonObjectGwtTestSuite suite = new GwtJsonObjectGwtTestSuite();
     
     addTestSuites(suite);
     
@@ -48,27 +50,17 @@ public class GwtJsonObjectImplGwtTestSuite extends GWTTestSuite {
    * @param suite The test suite.
    */
   public static void addTestSuites(TestSuite suite) {
-    suite.addTestSuite(GwtJsonObjectImplGwtTest.class);
-    suite.addTestSuite(GwtJsonArrayImplGwtTest.class);
-    
-    suite.addTestSuite(GwtJsonBooleanArrayImplGwtTest.class);
-    suite.addTestSuite(GwtJsonNumberArrayImplGwtTest.class);
-    suite.addTestSuite(GwtJsonStringArrayImplGwtTest.class);
-    suite.addTestSuite(GwtJsonObjectArrayImplGwtTest.class);
-    
-    suite.addTestSuite(GwtJsonBooleanMapImplGwtTest.class);
-    suite.addTestSuite(GwtJsonNumberMapImplGwtTest.class);
-    suite.addTestSuite(GwtJsonStringMapImplGwtTest.class);
-    suite.addTestSuite(GwtJsonObjectMapImplGwtTest.class);
+    GwtJsonObjectGeneratorGwtTestSuite.addTestSuites(suite);
+    GwtJsonObjectImplGwtTestSuite.addTestSuites(suite);
   }
   
   /**
-   * Construct a new GWT JSON Object Implementation GWT Test Suite.
+   * Construct a new GWT JSON Object GWT Test Suite.
    * <p>
    * This constructor is declared <code>private</code> to prevent external
    * instantiation.
    */
-  private GwtJsonObjectImplGwtTestSuite() {
-    super("GWT Json Object Implementation GWT Test Suite");
+  private GwtJsonObjectGwtTestSuite() {
+    super("GWT Json Object GWT Test Suite");
   }
 }

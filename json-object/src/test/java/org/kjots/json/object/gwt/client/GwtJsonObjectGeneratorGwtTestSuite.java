@@ -16,6 +16,7 @@
 package org.kjots.json.object.gwt.client;
 
 import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
 
@@ -36,6 +37,17 @@ public class GwtJsonObjectGeneratorGwtTestSuite extends GWTTestSuite {
   public static Test suite() {
     GwtJsonObjectGeneratorGwtTestSuite suite = new GwtJsonObjectGeneratorGwtTestSuite();
     
+    addTestSuites(suite);
+    
+    return suite;
+  }
+  
+  /**
+   * Add the test suites.
+   *
+   * @param suite The test suite.
+   */
+  public static void addTestSuites(TestSuite suite) {
     suite.addTestSuite(GwtJsonObjectGeneratorGwtTest.class);
     
     suite.addTestSuite(GwtJsonObjectGeneratorPrimitiveGwtTest.class);
@@ -48,8 +60,6 @@ public class GwtJsonObjectGeneratorGwtTestSuite extends GWTTestSuite {
     
     suite.addTestSuite(GwtJsonObjectGeneratorFunctionGwtTest.class);
     suite.addTestSuite(GwtJsonObjectGeneratorExceptionGwtTest.class);
-    
-    return suite;
   }
   
   /**
