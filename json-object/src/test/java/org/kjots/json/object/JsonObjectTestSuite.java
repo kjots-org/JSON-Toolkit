@@ -18,7 +18,7 @@ package org.kjots.json.object;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestSuite;
+import org.kjots.json.object.gwt.test.GwtJsonObjectGwtTestSuite;
 
 /**
  * JSON Object Test Suite.

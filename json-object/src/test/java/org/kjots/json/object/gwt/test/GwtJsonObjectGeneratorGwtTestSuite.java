@@ -13,7 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.kjots.json.object.gwt.client;
+package org.kjots.json.object.gwt.test;
+
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorAutoAdaptedPropertyGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorBooleanGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorExceptionGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorFunctionGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorNumberGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorObjectGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorPrimitiveGwtTest;
+import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorStringGwtTest;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
