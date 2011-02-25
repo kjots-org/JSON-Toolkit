@@ -36,11 +36,13 @@ public class JsonContentUtil {
    *   {@link #handle(JsonContentHandler, Object, boolean) handle}(<code>jsonContentHandler</code>, <code>value</code>, <code>false</code>)
    * </pre>
    *
+   * @param <T> The type of the JSON content handler.
    * @param jsonContentHandler The JSON content handler.
    * @param value The value.
+   * @return The JSON content handler.
    */
-  public static void handle(JsonContentHandler jsonContentHandler, Object value) {
-    handle(jsonContentHandler, value, false);
+  public static <T extends JsonContentHandler> T handle(T jsonContentHandler, Object value) {
+    return handle(jsonContentHandler, value, false);
   }
   
   /**
@@ -60,13 +62,17 @@ public class JsonContentUtil {
    * method will <em>not</em> generate a complete JSON content stream (i.e. the
    * methods {@link JsonContentHandler#startJson()} and {@link JsonContentHandler#endJson()}
    * will <em>not</em> be invoked).
+   * <p>
+   * For convenience, this method will return the given JSON content handler.
    * 
+   * @param <T> The type of the JSON content handler.
    * @param jsonContentHandler The JSON content handler.
    * @param value The value.
    * @param fragment The fragment flag.
+   * @return The JSON content handler.
    */
   @SuppressWarnings("unchecked")
-  public static void handle(JsonContentHandler jsonContentHandler, Object value, boolean fragment) {
+  public static <T extends JsonContentHandler> T handle(T jsonContentHandler, Object value, boolean fragment) {
     if (value instanceof Map<?, ?>) {
       handle(jsonContentHandler, (Map<String, ?>)value, fragment);
     }
@@ -79,6 +85,8 @@ public class JsonContentUtil {
     else {
       throw new IllegalArgumentException("Unsupported type: " + (value != null ? value.getClass().getName() : null));
     }
+    
+    return jsonContentHandler;
   }
 
   /**
@@ -90,11 +98,13 @@ public class JsonContentUtil {
    *   {@link #handle(JsonContentHandler, Map, boolean) handle}(<code>jsonContentHandler</code>, <code>map</code>, <code>false</code>)
    * </pre>
    *
+   * @param <T> The type of the JSON content handler.
    * @param jsonContentHandler The JSON content handler.
    * @param map The map.
+   * @return The JSON content handler.
    */
-  public static void handle(JsonContentHandler jsonContentHandler, Map<String, ?> map) {
-    handle(jsonContentHandler, map, false);
+  public static <T extends JsonContentHandler> T handle(T jsonContentHandler, Map<String, ?> map) {
+    return handle(jsonContentHandler, map, false);
   }
 
   /**
@@ -108,12 +118,16 @@ public class JsonContentUtil {
    * method will <em>not</em> generate a complete JSON content stream (i.e. the
    * methods {@link JsonContentHandler#startJson()} and {@link JsonContentHandler#endJson()}
    * will <em>not</em> be invoked).
+   * <p>
+   * For convenience, this method will return the given JSON content handler.
    *
+   * @param <T> The type of the JSON content handler.
    * @param jsonContentHandler The JSON content handler.
    * @param map The map.
    * @param fragment The fragment flag.
+   * @return The JSON content handler.
    */
-  public static void handle(JsonContentHandler jsonContentHandler, Map<String, ?> map, boolean fragment) {
+  public static <T extends JsonContentHandler> T handle(T jsonContentHandler, Map<String, ?> map, boolean fragment) {
     if (!fragment) {
       jsonContentHandler.startJson();
     }
@@ -132,6 +146,8 @@ public class JsonContentUtil {
     if (!fragment) {
       jsonContentHandler.endJson();
     }
+    
+    return jsonContentHandler;
   }
   
   /**
@@ -143,11 +159,13 @@ public class JsonContentUtil {
    *   {@link #handle(JsonContentHandler, List, boolean) handle}(<code>jsonContentHandler</code>, <code>list</code>, <code>false</code>)
    * </pre>
    *
+   * @param <T> The type of the JSON content handler.
    * @param jsonContentHandler The JSON content handler.
    * @param list The list.
+   * @return The JSON content handler.
    */
-  public static void handle(JsonContentHandler jsonContentHandler, List<?> list) {
-    handle(jsonContentHandler, list, false);
+  public static <T extends JsonContentHandler> T handle(T jsonContentHandler, List<?> list) {
+    return handle(jsonContentHandler, list, false);
   }
   
   /**
@@ -160,12 +178,16 @@ public class JsonContentUtil {
    * method will <em>not</em> generate a complete JSON content stream (i.e. the
    * methods {@link JsonContentHandler#startJson()} and {@link JsonContentHandler#endJson()}
    * will <em>not</em> be invoked).
+   * <p>
+   * For convenience, this method will return the given JSON content handler.
    *
+   * @param <T> The type of the JSON content handler.
    * @param jsonContentHandler The JSON content handler.
    * @param list The list.
    * @param fragment The fragment flag.
+   * @return The JSON content handler.
    */
-  public static void handle(JsonContentHandler jsonContentHandler, List<?> list, boolean fragment) {
+  public static <T extends JsonContentHandler> T handle(T jsonContentHandler, List<?> list, boolean fragment) {
     if (!fragment) {
       jsonContentHandler.startJson();
     }
@@ -181,5 +203,7 @@ public class JsonContentUtil {
     if (!fragment) {
       jsonContentHandler.endJson();
     }
+    
+    return jsonContentHandler;
   }
 }

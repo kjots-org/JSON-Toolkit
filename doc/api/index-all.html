@@ -171,6 +171,9 @@ Method in class org.kjots.json.object.simple.impl.<A HREF="./org/kjots/json/obje
 <DT><A HREF="./org/kjots/json/object/ClassVisitor.html" title="class in org.kjots.json.object"><B>ClassVisitor</B></A> - Class in <A HREF="./org/kjots/json/object/package-summary.html">org.kjots.json.object</A><DD>Class Visitor.<DT><A HREF="./org/kjots/json/object/ClassVisitor.html#ClassVisitor(org.objectweb.asm.ClassVisitor)"><B>ClassVisitor(ClassVisitor)</B></A> - 
 Constructor for class org.kjots.json.object.<A HREF="./org/kjots/json/object/ClassVisitor.html" title="class in org.kjots.json.object">ClassVisitor</A>
 <DD>Construct a new Class Visitor.
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#clone(T)"><B>clone(T)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Clone the given JSON object.
 <DT><A HREF="./org/kjots/json/object/gwt/client/JsonObjectGinModule.html#configure()"><B>configure()</B></A> - 
 Method in class org.kjots.json.object.gwt.client.<A HREF="./org/kjots/json/object/gwt/client/JsonObjectGinModule.html" title="class in org.kjots.json.object.gwt.client">JsonObjectGinModule</A>
 <DD>Configure the module.
@@ -378,6 +381,18 @@ Static variable in exception org.kjots.json.content.rebase.org.json.simple.parse
 <A NAME="_F_"><!-- --></A><H2>
 <B>F</B></H2>
 <DL>
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#forList(java.util.List)"><B>forList(List&lt;?&gt;)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Create a JSON array from the given list.
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#forList(java.lang.Class, java.util.List)"><B>forList(Class&lt;T&gt;, List&lt;?&gt;)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Create a JSON array from the given list.
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#forMap(java.util.Map)"><B>forMap(Map&lt;String, ?&gt;)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Create a JSON object from the given map.
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#forMap(java.lang.Class, java.util.Map)"><B>forMap(Class&lt;T&gt;, Map&lt;String, ?&gt;)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Create a JSON object from the given map.
 <DT><A HREF="./org/kjots/json/object/shared/JsonPropertyAdapter.html#fromJsonProperty(P)"><B>fromJsonProperty(P)</B></A> - 
 Method in interface org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>
 <DD>Convert from a JSON property value.
@@ -873,25 +888,25 @@ Constructor for class org.kjots.json.object.gwt.client.impl.<A HREF="./org/kjots
 <A NAME="_H_"><!-- --></A><H2>
 <B>H</B></H2>
 <DL>
-<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(org.kjots.json.content.shared.JsonContentHandler, java.lang.Object)"><B>handle(JsonContentHandler, Object)</B></A> - 
+<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(T, java.lang.Object)"><B>handle(T, Object)</B></A> - 
 Static method in class org.kjots.json.content.shared.<A HREF="./org/kjots/json/content/shared/JsonContentUtil.html" title="class in org.kjots.json.content.shared">JsonContentUtil</A>
 <DD>Handle the given value with the given JSON content handler as a complete
  JSON stream.
-<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(org.kjots.json.content.shared.JsonContentHandler, java.lang.Object, boolean)"><B>handle(JsonContentHandler, Object, boolean)</B></A> - 
+<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(T, java.lang.Object, boolean)"><B>handle(T, Object, boolean)</B></A> - 
 Static method in class org.kjots.json.content.shared.<A HREF="./org/kjots/json/content/shared/JsonContentUtil.html" title="class in org.kjots.json.content.shared">JsonContentUtil</A>
 <DD>Handle the given value with the given JSON content handler.
-<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(org.kjots.json.content.shared.JsonContentHandler, java.util.Map)"><B>handle(JsonContentHandler, Map&lt;String, ?&gt;)</B></A> - 
+<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(T, java.util.Map)"><B>handle(T, Map&lt;String, ?&gt;)</B></A> - 
 Static method in class org.kjots.json.content.shared.<A HREF="./org/kjots/json/content/shared/JsonContentUtil.html" title="class in org.kjots.json.content.shared">JsonContentUtil</A>
 <DD>Handle the given map with the given JSON content handler as a complete
  JSON stream.
-<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(org.kjots.json.content.shared.JsonContentHandler, java.util.Map, boolean)"><B>handle(JsonContentHandler, Map&lt;String, ?&gt;, boolean)</B></A> - 
+<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(T, java.util.Map, boolean)"><B>handle(T, Map&lt;String, ?&gt;, boolean)</B></A> - 
 Static method in class org.kjots.json.content.shared.<A HREF="./org/kjots/json/content/shared/JsonContentUtil.html" title="class in org.kjots.json.content.shared">JsonContentUtil</A>
 <DD>Handle the given map with the given JSON content handler.
-<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(org.kjots.json.content.shared.JsonContentHandler, java.util.List)"><B>handle(JsonContentHandler, List&lt;?&gt;)</B></A> - 
+<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(T, java.util.List)"><B>handle(T, List&lt;?&gt;)</B></A> - 
 Static method in class org.kjots.json.content.shared.<A HREF="./org/kjots/json/content/shared/JsonContentUtil.html" title="class in org.kjots.json.content.shared">JsonContentUtil</A>
 <DD>Handle the given list with the given JSON content handler as a complete
  JSON stream.
-<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(org.kjots.json.content.shared.JsonContentHandler, java.util.List, boolean)"><B>handle(JsonContentHandler, List&lt;?&gt;, boolean)</B></A> - 
+<DT><A HREF="./org/kjots/json/content/shared/JsonContentUtil.html#handle(T, java.util.List, boolean)"><B>handle(T, List&lt;?&gt;, boolean)</B></A> - 
 Static method in class org.kjots.json.content.shared.<A HREF="./org/kjots/json/content/shared/JsonContentUtil.html" title="class in org.kjots.json.content.shared">JsonContentUtil</A>
 <DD>Handle the given list with the given JSON content handler.
 <DT><A HREF="./org/kjots/json/object/gwt/client/impl/GwtJsonObjectImpl.html#hashCode()"><B>hashCode()</B></A> - 
@@ -1442,7 +1457,10 @@ Constructor for class org.kjots.json.object.<A HREF="./org/kjots/json/object/Jso
 <DT><A HREF="./org/kjots/json/object/gwt/client/JsonObjectGinModule.html" title="class in org.kjots.json.object.gwt.client"><B>JsonObjectGinModule</B></A> - Class in <A HREF="./org/kjots/json/object/gwt/client/package-summary.html">org.kjots.json.object.gwt.client</A><DD>JSON Object Gin Module.<DT><A HREF="./org/kjots/json/object/gwt/client/JsonObjectGinModule.html#JsonObjectGinModule()"><B>JsonObjectGinModule()</B></A> - 
 Constructor for class org.kjots.json.object.gwt.client.<A HREF="./org/kjots/json/object/gwt/client/JsonObjectGinModule.html" title="class in org.kjots.json.object.gwt.client">JsonObjectGinModule</A>
 <DD>&nbsp;
-<DT><A HREF="./org/kjots/json/object/shared/JsonObjectMap.html" title="interface in org.kjots.json.object.shared"><B>JsonObjectMap</B></A>&lt;<A HREF="./org/kjots/json/object/shared/JsonObjectMap.html" title="type parameter in JsonObjectMap">T</A> extends <A HREF="./org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; - Interface in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>JSON Object Map.<DT><A HREF="./org/kjots/json/object/shared/JsonObjectPropertyAdapter.html" title="interface in org.kjots.json.object.shared"><B>JsonObjectPropertyAdapter</B></A>&lt;<A HREF="./org/kjots/json/object/shared/JsonObjectPropertyAdapter.html" title="type parameter in JsonObjectPropertyAdapter">T</A>,<A HREF="./org/kjots/json/object/shared/JsonObjectPropertyAdapter.html" title="type parameter in JsonObjectPropertyAdapter">J</A> extends <A HREF="./org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; - Interface in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>JSON Object Property Adapter.<DT><A HREF="./org/kjots/json/content/rebase/org/json/simple/parser/JSONParser.html" title="class in org.kjots.json.content.rebase.org.json.simple.parser"><B>JSONParser</B></A> - Class in <A HREF="./org/kjots/json/content/rebase/org/json/simple/parser/package-summary.html">org.kjots.json.content.rebase.org.json.simple.parser</A><DD>Parser for JSON text.<DT><A HREF="./org/kjots/json/content/rebase/org/json/simple/parser/JSONParser.html#JSONParser()"><B>JSONParser()</B></A> - 
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectMap.html" title="interface in org.kjots.json.object.shared"><B>JsonObjectMap</B></A>&lt;<A HREF="./org/kjots/json/object/shared/JsonObjectMap.html" title="type parameter in JsonObjectMap">T</A> extends <A HREF="./org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; - Interface in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>JSON Object Map.<DT><A HREF="./org/kjots/json/object/shared/JsonObjectPropertyAdapter.html" title="interface in org.kjots.json.object.shared"><B>JsonObjectPropertyAdapter</B></A>&lt;<A HREF="./org/kjots/json/object/shared/JsonObjectPropertyAdapter.html" title="type parameter in JsonObjectPropertyAdapter">T</A>,<A HREF="./org/kjots/json/object/shared/JsonObjectPropertyAdapter.html" title="type parameter in JsonObjectPropertyAdapter">J</A> extends <A HREF="./org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; - Interface in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>JSON Object Property Adapter.<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared"><B>JsonObjectUtil</B></A> - Class in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>JSON Object Utility.<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#JsonObjectUtil()"><B>JsonObjectUtil()</B></A> - 
+Constructor for class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>&nbsp;
+<DT><A HREF="./org/kjots/json/content/rebase/org/json/simple/parser/JSONParser.html" title="class in org.kjots.json.content.rebase.org.json.simple.parser"><B>JSONParser</B></A> - Class in <A HREF="./org/kjots/json/content/rebase/org/json/simple/parser/package-summary.html">org.kjots.json.content.rebase.org.json.simple.parser</A><DD>Parser for JSON text.<DT><A HREF="./org/kjots/json/content/rebase/org/json/simple/parser/JSONParser.html#JSONParser()"><B>JSONParser()</B></A> - 
 Constructor for class org.kjots.json.content.rebase.org.json.simple.parser.<A HREF="./org/kjots/json/content/rebase/org/json/simple/parser/JSONParser.html" title="class in org.kjots.json.content.rebase.org.json.simple.parser">JSONParser</A>
 <DD>&nbsp;
 <DT><A HREF="./org/kjots/json/object/shared/JsonProperty.html" title="annotation in org.kjots.json.object.shared"><B>JsonProperty</B></A> - Annotation Type in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>JSON Property.<DT><A HREF="./org/kjots/json/object/shared/JsonProperty.NullAdapter.html" title="class in org.kjots.json.object.shared"><B>JsonProperty.NullAdapter</B></A> - Class in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>Null Adapter.<DT><A HREF="./org/kjots/json/object/shared/JsonProperty.OperationType.html" title="enum in org.kjots.json.object.shared"><B>JsonProperty.OperationType</B></A> - Enum in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>Operation Type.<DT><A HREF="./org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared"><B>JsonPropertyAdapter</B></A>&lt;<A HREF="./org/kjots/json/object/shared/JsonPropertyAdapter.html" title="type parameter in JsonPropertyAdapter">T</A>,<A HREF="./org/kjots/json/object/shared/JsonPropertyAdapter.html" title="type parameter in JsonPropertyAdapter">P</A>&gt; - Interface in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>JSON Property Adapter.<DT><A HREF="./org/kjots/json/object/shared/JsonPropertyAdapter.AutoAdaptedType.html" title="annotation in org.kjots.json.object.shared"><B>JsonPropertyAdapter.AutoAdaptedType</B></A> - Annotation Type in <A HREF="./org/kjots/json/object/shared/package-summary.html">org.kjots.json.object.shared</A><DD>Auto-Adapted Type.<DT><A HREF="./org/kjots/json/content/io/JsonReader.html" title="interface in org.kjots.json.content.io"><B>JsonReader</B></A> - Interface in <A HREF="./org/kjots/json/content/io/package-summary.html">org.kjots.json.content.io</A><DD>JSON Reader.<DT><A HREF="./org/kjots/json/content/io/JsonReaderException.html" title="class in org.kjots.json.content.io"><B>JsonReaderException</B></A> - Exception in <A HREF="./org/kjots/json/content/io/package-summary.html">org.kjots.json.content.io</A><DD>JSON Reader Exception.<DT><A HREF="./org/kjots/json/content/io/JsonReaderException.html#JsonReaderException()"><B>JsonReaderException()</B></A> - 
@@ -1500,6 +1518,15 @@ Method in class org.kjots.json.content.shared.text.<A HREF="./org/kjots/json/con
 <DT><A HREF="./org/kjots/json/object/shared/content/JsonObjectBuilder.html#memberName(java.lang.String)"><B>memberName(String)</B></A> - 
 Method in class org.kjots.json.object.shared.content.<A HREF="./org/kjots/json/object/shared/content/JsonObjectBuilder.html" title="class in org.kjots.json.object.shared.content">JsonObjectBuilder</A>
 <DD>Handle the name of a member of a JSON object.
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#merge(org.kjots.json.object.shared.JsonObject...)"><B>merge(JsonObject...)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Merge the given JSON objects.
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#merge(java.lang.Class, T...)"><B>merge(Class&lt;T&gt;, T...)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Merge the given JSON objects.
+<DT><A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html#mergeInto(T, T...)"><B>mergeInto(T, T...)</B></A> - 
+Static method in class org.kjots.json.object.shared.<A HREF="./org/kjots/json/object/shared/JsonObjectUtil.html" title="class in org.kjots.json.object.shared">JsonObjectUtil</A>
+<DD>Merge given JSON objects into the given JSON object.
 <DT><A HREF="./org/kjots/json/object/MethodVisitor.html" title="class in org.kjots.json.object"><B>MethodVisitor</B></A> - Class in <A HREF="./org/kjots/json/object/package-summary.html">org.kjots.json.object</A><DD>Method Visitor.<DT><A HREF="./org/kjots/json/object/MethodVisitor.html#MethodVisitor(org.objectweb.asm.MethodVisitor)"><B>MethodVisitor(MethodVisitor)</B></A> - 
 Constructor for class org.kjots.json.object.<A HREF="./org/kjots/json/object/MethodVisitor.html" title="class in org.kjots.json.object">MethodVisitor</A>
 <DD>Construct a new Method Visitor.
