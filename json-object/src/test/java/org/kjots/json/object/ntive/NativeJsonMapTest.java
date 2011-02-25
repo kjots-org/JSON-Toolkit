@@ -25,14 +25,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
+import com.google.inject.Guice;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.simple.SimpleJsonObjectModule;
-
-import com.google.inject.Guice;
 
 /**
  * Native JSON Map Test.

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+
 import org.kjots.json.object.shared.JsonProperty.OperationType;
 
 /**

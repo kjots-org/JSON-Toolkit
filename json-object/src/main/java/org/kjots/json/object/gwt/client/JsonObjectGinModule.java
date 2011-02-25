@@ -15,11 +15,12 @@
  */
 package org.kjots.json.object.gwt.client;
 
-import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
-import org.kjots.json.object.shared.JsonObjectFactory;
+import com.google.inject.Singleton;
 
 import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.inject.Singleton;
+
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
+import org.kjots.json.object.shared.JsonObjectFactory;
 
 /**
  * JSON Object Gin Module.

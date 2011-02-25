@@ -17,6 +17,8 @@ package org.kjots.json.object.simple.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
+import com.google.inject.Inject;
+
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.JsonBooleanMap;
@@ -30,8 +32,6 @@ import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.JsonStringMap;
 import org.kjots.json.object.simple.SimpleJsonObjectGenerator;
 import org.kjots.json.object.simple.SimpleJsonValue;
-
-import com.google.inject.Inject;
 
 /**
  * Simple JSON Object Factory Implementation.

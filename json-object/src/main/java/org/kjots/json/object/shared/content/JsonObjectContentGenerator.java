@@ -16,6 +16,7 @@
 package org.kjots.json.object.shared.content;
 
 import org.kjots.json.content.shared.AbstractJsonContentGenerator;
+
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonObject;
 

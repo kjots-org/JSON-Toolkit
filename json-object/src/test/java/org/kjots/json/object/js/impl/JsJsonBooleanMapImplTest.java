@@ -18,15 +18,16 @@ package org.kjots.json.object.js.impl;
 import javax.script.Invocable;
 import javax.script.ScriptException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.kjots.json.object.js.JsJsonObjectModule;
-import org.kjots.json.object.shared.JsonBooleanMap;
-import org.kjots.json.object.shared.impl.JsonBooleanMapImplTestBase;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
+
+import org.junit.After;
+import org.junit.Before;
+
+import org.kjots.json.object.js.JsJsonObjectModule;
+import org.kjots.json.object.shared.JsonBooleanMap;
+import org.kjots.json.object.shared.impl.JsonBooleanMapImplTestBase;
 
 /**
  * JavaScript JSON Boolean Array Implementation Test.

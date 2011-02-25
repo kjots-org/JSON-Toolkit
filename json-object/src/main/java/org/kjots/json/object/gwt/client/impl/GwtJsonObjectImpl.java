@@ -18,11 +18,11 @@ package org.kjots.json.object.gwt.client.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectFactory;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
+
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectFactory;
 
 /**
  * GWT JSON Object Implementation.

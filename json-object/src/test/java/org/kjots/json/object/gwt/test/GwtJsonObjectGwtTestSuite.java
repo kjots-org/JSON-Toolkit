@@ -15,12 +15,12 @@
  */
 package org.kjots.json.object.gwt.test;
 
+import com.google.gwt.junit.tools.GWTTestSuite;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.kjots.json.object.gwt.test.impl.GwtJsonObjectImplGwtTestSuite;
-
-import com.google.gwt.junit.tools.GWTTestSuite;
 
 /**
  * GWT JSON Object Test GWT Suite.

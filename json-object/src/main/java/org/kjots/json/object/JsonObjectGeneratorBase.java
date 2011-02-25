@@ -56,6 +56,12 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.commons.Method;
+
 import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
 import org.kjots.json.object.shared.JsonException;
 import org.kjots.json.object.shared.JsonFunction;
@@ -67,11 +73,6 @@ import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
 import org.kjots.json.object.shared.JsonProperty;
 import org.kjots.json.object.shared.JsonPropertyAdapter;
 import org.kjots.json.object.shared.JsonStringPropertyAdapter;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.Method;
 
 /**
  * JSON Object Generator Base.

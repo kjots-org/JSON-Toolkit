@@ -19,10 +19,6 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.kjots.json.object.gwt.client.impl.GwtJsonObjectFactoryImplBase;
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectFactory;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
@@ -33,6 +29,10 @@ import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.core.ext.typeinfo.TypeOracle;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
+
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectFactoryImplBase;
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectFactory;
 
 /**
  * GWT JSON Object Factory Generator.

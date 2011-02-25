@@ -15,10 +15,11 @@
  */
 package org.kjots.json.object.js;
 
-import org.junit.Before;
-import org.kjots.json.object.JvmJsonObjectGeneratorBridgeTestBase;
-
 import com.google.inject.Guice;
+
+import org.junit.Before;
+
+import org.kjots.json.object.JvmJsonObjectGeneratorBridgeTestBase;
 
 /**
  * JavaScript JSON Object Generator Bridge Test.

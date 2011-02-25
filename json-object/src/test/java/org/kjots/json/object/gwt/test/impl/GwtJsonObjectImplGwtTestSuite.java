@@ -15,6 +15,11 @@
  */
 package org.kjots.json.object.gwt.test.impl;
 
+import com.google.gwt.junit.tools.GWTTestSuite;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.kjots.json.object.gwt.client.impl.GwtJsonArrayImplGwtTest;
 import org.kjots.json.object.gwt.client.impl.GwtJsonBooleanArrayImplGwtTest;
 import org.kjots.json.object.gwt.client.impl.GwtJsonBooleanMapImplGwtTest;
@@ -25,11 +30,6 @@ import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImplGwtTest;
 import org.kjots.json.object.gwt.client.impl.GwtJsonObjectMapImplGwtTest;
 import org.kjots.json.object.gwt.client.impl.GwtJsonStringArrayImplGwtTest;
 import org.kjots.json.object.gwt.client.impl.GwtJsonStringMapImplGwtTest;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import com.google.gwt.junit.tools.GWTTestSuite;
 
 /**
  * GWT JSON Object Implementation GWT Test Suite.

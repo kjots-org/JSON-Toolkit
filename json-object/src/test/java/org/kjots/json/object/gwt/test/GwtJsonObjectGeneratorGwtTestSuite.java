@@ -15,6 +15,11 @@
  */
 package org.kjots.json.object.gwt.test;
 
+import com.google.gwt.junit.tools.GWTTestSuite;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorAutoAdaptedPropertyGwtTest;
 import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorBooleanGwtTest;
 import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorExceptionGwtTest;
@@ -24,11 +29,6 @@ import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorNumberGwtTest;
 import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorObjectGwtTest;
 import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorPrimitiveGwtTest;
 import org.kjots.json.object.gwt.client.GwtJsonObjectGeneratorStringGwtTest;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import com.google.gwt.junit.tools.GWTTestSuite;
 
 /**
  * GWT JSON Object Generator GWT Test Suite.

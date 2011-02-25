@@ -15,11 +15,11 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonNumberMap;
 import org.kjots.json.object.shared.impl.JsonNumberMapImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * GWT JSON Number Map Implementation GWT Test.

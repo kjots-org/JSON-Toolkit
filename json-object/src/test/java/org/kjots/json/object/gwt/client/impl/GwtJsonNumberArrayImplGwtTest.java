@@ -15,12 +15,12 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayNumber;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayNumber;
 
 /**
  * GWT JSON Number Array Implementation GWT Test.

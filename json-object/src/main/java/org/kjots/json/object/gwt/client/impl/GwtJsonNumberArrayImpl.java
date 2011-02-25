@@ -15,9 +15,9 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.shared.JsonNumberArray;
-
 import com.google.gwt.core.client.JsArrayNumber;
+
+import org.kjots.json.object.shared.JsonNumberArray;
 
 /**
  * GWT JSON Number Array Implementation.

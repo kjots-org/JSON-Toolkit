@@ -15,9 +15,9 @@
  */
 package org.kjots.json.object.simple;
 
-import org.junit.Before;
-
 import com.google.inject.Guice;
+
+import org.junit.Before;
 
 import org.kjots.json.object.shared.JsonObjectGeneratorObjectTestBase;
 

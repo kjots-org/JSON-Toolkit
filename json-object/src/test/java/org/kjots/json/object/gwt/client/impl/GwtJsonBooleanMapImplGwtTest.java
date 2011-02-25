@@ -15,11 +15,11 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonBooleanMap;
 import org.kjots.json.object.shared.impl.JsonBooleanMapImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * GWT JSON Boolean Map Implementation GWT Test.

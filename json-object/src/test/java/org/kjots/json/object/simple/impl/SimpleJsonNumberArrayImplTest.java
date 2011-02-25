@@ -15,13 +15,14 @@
  */
 package org.kjots.json.object.simple.impl;
 
+import com.google.inject.Guice;
+
 import org.junit.Before;
+
 import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
 import org.kjots.json.object.simple.SimpleJsonObjectModule;
 import org.kjots.json.object.simple.SimpleJsonValue;
-
-import com.google.inject.Guice;
 
 /**
  * Simple JSON Number Array Implementation Test.

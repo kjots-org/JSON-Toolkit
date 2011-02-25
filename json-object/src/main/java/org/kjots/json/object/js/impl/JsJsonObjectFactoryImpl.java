@@ -19,6 +19,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.script.Invocable;
 
+import com.google.inject.Inject;
+
 import org.kjots.json.object.js.JsJsonObjectGenerator;
 import org.kjots.json.object.js.JsJsonObjectModule;
 import org.kjots.json.object.shared.JsonArray;
@@ -32,8 +34,6 @@ import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.shared.JsonObjectMap;
 import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.JsonStringMap;
-
-import com.google.inject.Inject;
 
 /**
  * JavaScript JSON Object Factory Implementation.

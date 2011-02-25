@@ -15,12 +15,12 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.impl.JsonStringArrayImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayString;
 
 /**
  * GWT JSON String Array Implementation GWT Test.

@@ -16,8 +16,9 @@
 package org.kjots.json.object.gwt.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.junit.client.GWTTestCase;
+
+import com.google.gwt.inject.client.GinModules;
 
 /**
  * GWT JSON Object GWT Test Base.

@@ -18,15 +18,16 @@ package org.kjots.json.object.js.impl;
 import javax.script.Invocable;
 import javax.script.ScriptException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.kjots.json.object.js.JsJsonObjectModule;
-import org.kjots.json.object.shared.JsonNumberArray;
-import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
+
+import org.junit.After;
+import org.junit.Before;
+
+import org.kjots.json.object.js.JsJsonObjectModule;
+import org.kjots.json.object.shared.JsonNumberArray;
+import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
 
 /**
  * JavaScript JSON Number Array Implementation Test.

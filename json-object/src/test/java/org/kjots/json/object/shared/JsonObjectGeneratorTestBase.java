@@ -21,6 +21,7 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
 import org.junit.Test;
+
 import org.kjots.json.object.shared.JsonProperty.OperationType;
 
 /**

@@ -26,15 +26,15 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import org.kjots.json.object.js.impl.JsJsonObjectFactoryImpl;
-import org.kjots.json.object.js.impl.JsJsonObjectImpl;
-import org.kjots.json.object.shared.JsonObjectFactory;
-
 import com.google.inject.AbstractModule;
 import com.google.inject.BindingAnnotation;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+
+import org.kjots.json.object.js.impl.JsJsonObjectFactoryImpl;
+import org.kjots.json.object.js.impl.JsJsonObjectImpl;
+import org.kjots.json.object.shared.JsonObjectFactory;
 
 /**
  * JavaScript JSON Object Module.

@@ -15,11 +15,11 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.impl.JsonObjectImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * GWT JSON Object Implementation GWT Test.

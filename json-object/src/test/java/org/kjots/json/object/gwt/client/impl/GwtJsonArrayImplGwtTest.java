@@ -15,13 +15,12 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.junit.Test;
+import com.google.gwt.core.client.JavaScriptObject;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.impl.JsonArrayImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * GWT JSON Array Implementation GWT Test.
@@ -119,7 +118,6 @@ public class GwtJsonArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
    * This test asserts that the constructor of a JSON array will throw a
    * {@link IllegalArgumentException} if the argument is not an array object.
    */
-  @Test(expected = IllegalArgumentException.class)
   public void testConstructionWithNonArrayObject() {
     try {
       new GwtJsonArrayImpl(JsonArray.class, JavaScriptObject.createObject());

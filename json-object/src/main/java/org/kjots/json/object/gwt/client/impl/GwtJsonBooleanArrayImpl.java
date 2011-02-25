@@ -15,9 +15,9 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
-import org.kjots.json.object.shared.JsonBooleanArray;
-
 import com.google.gwt.core.client.JsArrayBoolean;
+
+import org.kjots.json.object.shared.JsonBooleanArray;
 
 /**
  * GWT JSON Boolean Array Implementation.

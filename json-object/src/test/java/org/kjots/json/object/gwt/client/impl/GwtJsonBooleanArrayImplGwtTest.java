@@ -15,12 +15,12 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayBoolean;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.impl.JsonBooleanArrayImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayBoolean;
 
 /**
  * GWT JSON Boolean Array Implementation GWT Test.

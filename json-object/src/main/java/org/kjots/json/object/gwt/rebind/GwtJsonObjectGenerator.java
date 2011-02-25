@@ -17,19 +17,6 @@ package org.kjots.json.object.gwt.rebind;
 
 import java.io.PrintWriter;
 
-import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
-import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
-import org.kjots.json.object.shared.JsonException;
-import org.kjots.json.object.shared.JsonFunction;
-import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
-import org.kjots.json.object.shared.JsonObject;
-import org.kjots.json.object.shared.JsonObjectArray;
-import org.kjots.json.object.shared.JsonObjectMap;
-import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
-import org.kjots.json.object.shared.JsonProperty;
-import org.kjots.json.object.shared.JsonPropertyAdapter;
-import org.kjots.json.object.shared.JsonStringPropertyAdapter;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.ext.Generator;
 import com.google.gwt.core.ext.GeneratorContext;
@@ -46,6 +33,19 @@ import com.google.gwt.core.ext.typeinfo.JTypeParameter;
 import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
+
+import org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl;
+import org.kjots.json.object.shared.JsonBooleanPropertyAdapter;
+import org.kjots.json.object.shared.JsonException;
+import org.kjots.json.object.shared.JsonFunction;
+import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
+import org.kjots.json.object.shared.JsonObject;
+import org.kjots.json.object.shared.JsonObjectArray;
+import org.kjots.json.object.shared.JsonObjectMap;
+import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
+import org.kjots.json.object.shared.JsonProperty;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
+import org.kjots.json.object.shared.JsonStringPropertyAdapter;
 
 /**
  * GWT JSON Object Generator.

@@ -15,10 +15,10 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JsArray;
+
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectArray;
-
-import com.google.gwt.core.client.JsArray;
 
 /**
  * GWT JSON Object Array Implementation.

@@ -18,6 +18,7 @@ package org.kjots.json.object.shared;
 import static junit.framework.Assert.assertEquals;
 
 import org.junit.Test;
+
 import org.kjots.json.object.shared.JsonProperty.OperationType;
 import org.kjots.json.object.shared.JsonPropertyAdapter.AutoAdaptedType;
 

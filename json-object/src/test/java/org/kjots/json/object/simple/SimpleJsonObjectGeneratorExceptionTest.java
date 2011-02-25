@@ -15,10 +15,11 @@
  */
 package org.kjots.json.object.simple;
 
-import org.junit.Before;
-import org.kjots.json.object.shared.JsonObjectGeneratorExceptionTestBase;
-
 import com.google.inject.Guice;
+
+import org.junit.Before;
+
+import org.kjots.json.object.shared.JsonObjectGeneratorExceptionTestBase;
 
 /**
  * Simple JSON Object Generator Exception Test.

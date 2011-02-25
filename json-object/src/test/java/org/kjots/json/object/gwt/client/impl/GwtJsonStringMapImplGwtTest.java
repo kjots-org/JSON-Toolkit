@@ -15,11 +15,11 @@
  */
 package org.kjots.json.object.gwt.client.impl;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 import org.kjots.json.object.gwt.client.GwtJsonObjectGwtTestBase;
 import org.kjots.json.object.shared.JsonStringMap;
 import org.kjots.json.object.shared.impl.JsonStringMapImplTestBase;
-
-import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * GWT JSON String Map Implementation GWT Test.

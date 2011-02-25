@@ -15,10 +15,11 @@
  */
 package org.kjots.json.object.simple;
 
-import org.junit.Before;
-import org.kjots.json.object.shared.JsonObjectGeneratorAutoAdaptedPropertyTestBase;
-
 import com.google.inject.Guice;
+
+import org.junit.Before;
+
+import org.kjots.json.object.shared.JsonObjectGeneratorAutoAdaptedPropertyTestBase;
 
 /**
  * Simple JSON Object Generator Auto-Adapted Property Test.
