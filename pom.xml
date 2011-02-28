@@ -36,6 +36,16 @@
     <gwt.plugin.version>2.1.0-1</gwt.plugin.version>
   </properties>
   
+  <scm>
+    <connection>scm:hg:http://json-toolkit.googlecode.com/hg/</connection>
+    <developerConnection>scm:hg:https://json-toolkit.googlecode.com/hg/</developerConnection>
+    <url>http://code.google.com/p/json-toolkit/source/browse/</url>
+  </scm>
+  
+  <distributionManagement>
+    <downloadUrl>http://code.google.com/p/json-toolkit/</downloadUrl>
+  </distributionManagement>
+  
   <repositories>
     <repository>
       <id>project-local</id>
