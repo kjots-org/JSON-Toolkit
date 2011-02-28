@@ -26,15 +26,12 @@
   
   <name>JSON Toolkit</name>
   
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
-    
-    <gwt.sdk.version>2.2.0</gwt.sdk.version>
-    <gwt.plugin.version>2.1.0-1</gwt.plugin.version>
-  </properties>
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
   
   <scm>
     <connection>scm:hg:http://json-toolkit.googlecode.com/hg/</connection>
@@ -59,6 +56,16 @@
       <layout>default</layout>
     </repository>
   </repositories>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    
+    <gwt.sdk.version>2.2.0</gwt.sdk.version>
+    <gwt.plugin.version>2.1.0-1</gwt.plugin.version>
+  </properties>
   
   <modules>
     <module>json-content</module>
