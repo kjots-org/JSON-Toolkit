@@ -36,6 +36,15 @@
     <gwt.plugin.version>2.1.0-1</gwt.plugin.version>
   </properties>
   
+  <repositories>
+    <repository>
+      <id>project-local</id>
+      <name>JSON Toolkit project-local repository</name>
+      <url>http://json-toolkit.googlecode.com/hg/maven/</url>
+      <layout>default</layout>
+    </repository>
+  </repositories>
+  
   <modules>
     <module>json-content</module>
     <module>json-object</module>
