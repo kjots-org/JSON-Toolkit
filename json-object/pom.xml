@@ -75,7 +75,7 @@
     <dependency>
       <groupId>com.google.gwt.inject</groupId>
       <artifactId>gin</artifactId>
-      <version>1.5-pre-gwt-2.2</version>
+      <version>1.5-post-gwt-2.2</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -160,9 +160,9 @@
             </offlineLink>
           </offlineLinks>
           <links>
-            <link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.1/</link>
+            <link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.2/</link>
             <link>http://google-guice.googlecode.com/svn/tags/3.0-rc2/javadoc/</link>
-            <link>http://google-gin.googlecode.com/svn/tags/1.5.0-pre-gwt-2.2/javadoc/</link>
+            <link>http://google-gin.googlecode.com/svn/tags/1.5.0-post-gwt-2.2/javadoc/</link>
           </links>
         </configuration>
         <executions>
