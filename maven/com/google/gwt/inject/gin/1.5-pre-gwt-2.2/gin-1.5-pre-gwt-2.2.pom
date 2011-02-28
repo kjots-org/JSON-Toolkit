@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.google.gwt.inject</groupId>
+  <artifactId>gin</artifactId>
+  <version>1.5-pre-gwt-2.2</version>
+  <name>google GIN</name>
+  <url>http://code.google.com/p/google-gin/</url>
+
+  <licenses>
+    <license>
+      <name>Apache 2.0</name>
+      <url>http://code.google.com/p/google-gin/source/browse/trunk/LICENSE</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>http://google-gin.googlecode.com/svn/tags/1.5.0-pre-gwt-2.2/</connection>
+    <url>http://code.google.com/p/google-gin/source/browse/#svn/tags/1.5.0-pre-gwt-2.2</url>
+  </scm>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.google.inject</groupId> 
+      <artifactId>guice</artifactId>
+      <version>3.0-rc2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId> 
+      <artifactId>guice-assistedinject</artifactId>
+      <version>3.0-rc2</version>
+    </dependency>
+  </dependencies>
+
+</project>
