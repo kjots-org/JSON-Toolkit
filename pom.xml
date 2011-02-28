@@ -46,6 +46,11 @@
     <downloadUrl>http://code.google.com/p/json-toolkit/</downloadUrl>
   </distributionManagement>
   
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/json-toolkit/issues/list</url>
+  </issueManagement>
+  
   <repositories>
     <repository>
       <id>project-local</id>
