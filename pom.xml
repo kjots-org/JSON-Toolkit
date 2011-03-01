@@ -22,6 +22,7 @@
   <groupId>org.kjots.json-toolkit</groupId>
   <artifactId>json-toolkit</artifactId>
   <version>1.1-SNAPSHOT</version>
+  
   <packaging>pom</packaging>
   
   <name>JSON Toolkit</name>

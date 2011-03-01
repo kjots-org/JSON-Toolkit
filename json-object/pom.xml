@@ -26,9 +26,8 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   
-  <groupId>org.kjots.json-toolkit</groupId>
   <artifactId>json-object</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  
   <packaging>jar</packaging>
   
   <name>JSON Object</name>
