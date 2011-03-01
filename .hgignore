@@ -13,3 +13,5 @@ syntax: regexp
 ^json-object/tomcat$
 syntax: regexp
 ^json-object/www-test$
+syntax: regexp
+^json-object_pre-gwt-2\.2/target$

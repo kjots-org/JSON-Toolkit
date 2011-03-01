@@ -71,6 +71,7 @@
   <modules>
     <module>json-content</module>
     <module>json-object</module>
+    <module>json-object_pre-gwt-2.2</module>
   </modules>
   
   <build>
