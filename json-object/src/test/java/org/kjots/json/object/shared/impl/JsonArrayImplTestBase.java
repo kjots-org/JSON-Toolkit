@@ -193,6 +193,60 @@ public abstract class JsonArrayImplTestBase<J> {
   }
   
   /**
+   * Test the prepending of a boolean value element.
+   * <p>
+   * This test asserts that the prepending of a boolean value element prepends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testPrependBooleanElement() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setBooleanElement(0, true);
+    testJsonArray.setBooleanElement(1, true);
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals(true, this.getBooleanElement(array, 0).booleanValue());
+    assertEquals(true, this.getBooleanElement(array, 1).booleanValue());
+    
+    testJsonArray.prependBooleanElement(false);
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals(false, this.getBooleanElement(array, 0).booleanValue());
+    assertEquals(true, this.getBooleanElement(array, 1).booleanValue());
+    assertEquals(true, this.getBooleanElement(array, 2).booleanValue());
+  }
+  
+  /**
+   * Test the appending of a boolean value element.
+   * <p>
+   * This test asserts that the appending of a boolean value element appends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testAppendBooleanElement() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setBooleanElement(0, true);
+    testJsonArray.setBooleanElement(1, true);
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals(true, this.getBooleanElement(array, 0).booleanValue());
+    assertEquals(true, this.getBooleanElement(array, 1).booleanValue());
+    
+    testJsonArray.appendBooleanElement(false);
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals(true, this.getBooleanElement(array, 0).booleanValue());
+    assertEquals(true, this.getBooleanElement(array, 1).booleanValue());
+    assertEquals(false, this.getBooleanElement(array, 2).booleanValue());
+  }
+  
+  /**
    * Test the determination of a numeric value of a property.
    * <p>
    * This test asserts that the JSON object correctly reports that an element
@@ -280,6 +334,60 @@ public abstract class JsonArrayImplTestBase<J> {
   }
 
   /**
+   * Test the prepending of a number value element.
+   * <p>
+   * This test asserts that the prepending of a number value element prepends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testPrependNumberElement() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setNumberElement(0, 2.2);
+    testJsonArray.setNumberElement(1, 3.3);
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals(2.2, this.getNumberElement(array, 0).doubleValue(), 0.01);
+    assertEquals(3.3, this.getNumberElement(array, 1).doubleValue(), 0.01);
+    
+    testJsonArray.prependNumberElement(1.1);
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals(1.1, this.getNumberElement(array, 0).doubleValue(), 0.01);
+    assertEquals(2.2, this.getNumberElement(array, 1).doubleValue(), 0.01);
+    assertEquals(3.3, this.getNumberElement(array, 2).doubleValue(), 0.01);
+  }
+  
+  /**
+   * Test the appending of a number value element.
+   * <p>
+   * This test asserts that the appending of a number value element appends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testAppendNumberElement() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setNumberElement(0, 1.1);
+    testJsonArray.setNumberElement(1, 2.2);
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals(1.1, this.getNumberElement(array, 0).doubleValue(), 0.01);
+    assertEquals(2.2, this.getNumberElement(array, 1).doubleValue(), 0.01);
+    
+    testJsonArray.appendNumberElement(3.3);
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals(1.1, this.getNumberElement(array, 0).doubleValue(), 0.01);
+    assertEquals(2.2, this.getNumberElement(array, 1).doubleValue(), 0.01);
+    assertEquals(3.3, this.getNumberElement(array, 2).doubleValue(), 0.01);
+  }
+  
+  /**
    * Test the determination of a string value of a property.
    * <p>
    * This test asserts that the JSON object correctly reports that an element
@@ -366,6 +474,60 @@ public abstract class JsonArrayImplTestBase<J> {
     assertEquals("three", this.getStringElement(array, 2));
   }
 
+  /**
+   * Test the prepending of a string value element.
+   * <p>
+   * This test asserts that the prepending of a string value element prepends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testPrependStringElement() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setStringElement(0, "two");
+    testJsonArray.setStringElement(1, "three");
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals("two", this.getStringElement(array, 0));
+    assertEquals("three", this.getStringElement(array, 1));
+    
+    testJsonArray.prependStringElement("one");
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals("one", this.getStringElement(array, 0));
+    assertEquals("two", this.getStringElement(array, 1));
+    assertEquals("three", this.getStringElement(array, 2));
+  }
+  
+  /**
+   * Test the appending of a string value element.
+   * <p>
+   * This test asserts that the appending of a string value element appends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testAppendStringElement() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setStringElement(0, "one");
+    testJsonArray.setStringElement(1, "two");
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals("one", this.getStringElement(array, 0));
+    assertEquals("two", this.getStringElement(array, 1));
+    
+    testJsonArray.appendStringElement("three");
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals("one", this.getStringElement(array, 0));
+    assertEquals("two", this.getStringElement(array, 1));
+    assertEquals("three", this.getStringElement(array, 2));
+  }
+  
   /**
    * Test the determination of an object value of a property.
    * <p>
@@ -473,6 +635,66 @@ public abstract class JsonArrayImplTestBase<J> {
     assertEquals(objectElementValue3, this.getObjectElement(array, 1));
     
     testJsonArray.insertObjectElement(1, this.createJsonObject(objectElementValue2));
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals(objectElementValue1, this.getObjectElement(array, 0));
+    assertEquals(objectElementValue2, this.getObjectElement(array, 1));
+    assertEquals(objectElementValue3, this.getObjectElement(array, 2));
+  }
+  
+  /**
+   * Test the prepending of a object value element.
+   * <p>
+   * This test asserts that the prepending of an object value element prepends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testPrependObjectElement() {
+    J array = this.createUnderlyingJsonArray();
+    J objectElementValue1 = this.createUnderlyingJsonObject();
+    J objectElementValue2 = this.createUnderlyingJsonObject();
+    J objectElementValue3 = this.createUnderlyingJsonObject();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setObjectElement(0, this.createJsonObject(objectElementValue2));
+    testJsonArray.setObjectElement(1, this.createJsonObject(objectElementValue3));
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals(objectElementValue2, this.getObjectElement(array, 0));
+    assertEquals(objectElementValue3, this.getObjectElement(array, 1));
+    
+    testJsonArray.prependObjectElement(this.createJsonObject(objectElementValue1));
+    
+    assertEquals(3, this.getArrayLength(array));
+    assertEquals(objectElementValue1, this.getObjectElement(array, 0));
+    assertEquals(objectElementValue2, this.getObjectElement(array, 1));
+    assertEquals(objectElementValue3, this.getObjectElement(array, 2));
+  }
+  
+  /**
+   * Test the appending of a object value element.
+   * <p>
+   * This test asserts that the appending of an object value element appends 
+   * a corresponding element to the the underlying JSON array.
+   */
+  @Test
+  public void testAppendObjectElement() {
+    J array = this.createUnderlyingJsonArray();
+    J objectElementValue1 = this.createUnderlyingJsonObject();
+    J objectElementValue2 = this.createUnderlyingJsonObject();
+    J objectElementValue3 = this.createUnderlyingJsonObject();
+    
+    JsonArray testJsonArray = this.createJsonArray(array);
+    
+    testJsonArray.setObjectElement(0, this.createJsonObject(objectElementValue1));
+    testJsonArray.setObjectElement(1, this.createJsonObject(objectElementValue2));
+    
+    assertEquals(2, this.getArrayLength(array));
+    assertEquals(objectElementValue1, this.getObjectElement(array, 0));
+    assertEquals(objectElementValue2, this.getObjectElement(array, 1));
+    
+    testJsonArray.appendObjectElement(this.createJsonObject(objectElementValue3));
     
     assertEquals(3, this.getArrayLength(array));
     assertEquals(objectElementValue1, this.getObjectElement(array, 0));

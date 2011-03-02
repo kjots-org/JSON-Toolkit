@@ -89,6 +89,20 @@ public interface JsonArray extends JsonObject {
   public void insertBooleanElement(int index, Boolean value);
   
   /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  public void prependBooleanElement(Boolean value);
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  public void appendBooleanElement(Boolean value);
+  
+  /**
    * Determine if the element at the given index has a numeric value.
    * <p>
    * This method will return <code>false</code> if the element at the given
@@ -129,6 +143,20 @@ public interface JsonArray extends JsonObject {
   public void insertNumberElement(int index, Number value);
 
   /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  public void prependNumberElement(Number value);
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  public void appendNumberElement(Number value);
+  
+  /**
    * Determine if the element at the given index has a string value.
    * <p>
    * This method will return <code>false</code> if the element at the given
@@ -168,6 +196,20 @@ public interface JsonArray extends JsonObject {
    */
   public void insertStringElement(int index, String value);
 
+  /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  public void prependStringElement(String value);
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  public void appendStringElement(String value);
+  
   /**
    * Determine if the element at the given index has an object value.
    * <p>
@@ -223,6 +265,20 @@ public interface JsonArray extends JsonObject {
    * @param value The object value.
    */
   public void insertObjectElement(int index, JsonObject value);
+  
+  /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  public void prependObjectElement(JsonObject value);
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  public void appendObjectElement(JsonObject value);
   
   /**
    * Remove the given number of elements at the given index.

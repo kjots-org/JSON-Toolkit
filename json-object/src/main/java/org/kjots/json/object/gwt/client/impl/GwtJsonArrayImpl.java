@@ -130,6 +130,30 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   }-*/;
   
   /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final native void prependBooleanElement(Boolean value) /*-{
+    var jsValue = value != null ? value.@java.lang.Boolean::booleanValue()() : null;
+    
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.unshift(jsValue);
+  }-*/;
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final native void appendBooleanElement(Boolean value) /*-{
+    var jsValue = value != null ? value.@java.lang.Boolean::booleanValue()() : null;
+    
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.push(jsValue);
+  }-*/;
+  
+  /**
    * Determine if the element at the given index has a numeric value.
    *
    * @param index The index.
@@ -182,6 +206,30 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   }-*/;
 
   /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final native void prependNumberElement(Number value) /*-{
+    var jsValue = value != null ? value.@java.lang.Number::doubleValue()() : null;
+    
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.unshift(jsValue);
+  }-*/;
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final native void appendNumberElement(Number value) /*-{
+    var jsValue = value != null ? value.@java.lang.Number::doubleValue()() : null;
+    
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.push(jsValue);
+  }-*/;
+  
+  /**
    * Determine if the element at the given index has a string value.
    *
    * @param index The index.
@@ -227,6 +275,26 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
     this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
   }-*/;
 
+  /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final native void prependStringElement(String value) /*-{
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.unshift(value);
+  }-*/;
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final native void appendStringElement(String value) /*-{
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.push(value);
+  }-*/;
+  
   /**
    * Determine if the element at the given index has an object value.
    *
@@ -302,6 +370,36 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   }
   
   /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void prependObjectElement(JsonObject value) {
+    if (value != null) {
+      this.prependJsObjectElement((JavaScriptObject)value.getObject());
+    }
+    else {
+      this.prependJsObjectElement(null);
+    }
+  }
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void appendObjectElement(JsonObject value) {
+    if (value != null) {
+      this.appendJsObjectElement((JavaScriptObject)value.getObject());
+    }
+    else {
+      this.appendJsObjectElement(null);
+    }
+  }
+  
+  /**
    * Remove the given number of elements at the given index.
    *
    * @param index The index.
@@ -342,5 +440,23 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
    */
   private native void insertJsObjectElement(int index, JavaScriptObject value) /*-{
     this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.splice(index, 0, value);
+  }-*/;
+  
+  /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  private final native void prependJsObjectElement(JavaScriptObject value) /*-{
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.unshift(value);
+  }-*/;
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  private final native void appendJsObjectElement(JavaScriptObject value) /*-{
+    this.@org.kjots.json.object.gwt.client.impl.GwtJsonObjectImpl::jsObject.push(value);
   }-*/;
 }

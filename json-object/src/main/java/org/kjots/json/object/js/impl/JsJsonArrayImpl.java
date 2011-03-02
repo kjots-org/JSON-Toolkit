@@ -127,6 +127,26 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
   }
   
   /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void prependBooleanElement(Boolean value) {
+    this.invokeFunction("prependElement", this.jsObject, value);
+  }
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void appendBooleanElement(Boolean value) {
+    this.invokeFunction("appendElement", this.jsObject, value);
+  }
+  
+  /**
    * Determine if the element at the given index has a numeric value.
    *
    * @param index The index.
@@ -175,6 +195,26 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
   }
 
   /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void prependNumberElement(Number value) {
+    this.invokeFunction("prependElement", this.jsObject, value);
+  }
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void appendNumberElement(Number value) {
+    this.invokeFunction("appendElement", this.jsObject, value);
+  }
+  
+  /**
    * Determine if the element at the given index has a string value.
    *
    * @param index The index.
@@ -222,6 +262,26 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
     this.invokeFunction("insertElement", this.jsObject, index, value);
   }
 
+  /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void prependStringElement(String value) {
+    this.invokeFunction("prependElement", this.jsObject, value);
+  }
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void appendStringElement(String value) {
+    this.invokeFunction("appendElement", this.jsObject, value);
+  }
+  
   /**
    * Determine if the element at the given index has an object value.
    *
@@ -287,6 +347,30 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
     Object jsValue = value != null ? value.getObject() : null;
     
     this.invokeFunction("insertElement", this.jsObject, index, jsValue);
+  }
+  
+  /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void prependObjectElement(JsonObject value) {
+    Object jsValue = value != null ? value.getObject() : null;
+    
+    this.invokeFunction("prependElement", this.jsObject, jsValue);
+  }
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void appendObjectElement(JsonObject value) {
+    Object jsValue = value != null ? value.getObject() : null;
+    
+    this.invokeFunction("appendElement", this.jsObject, jsValue);
   }
   
   /**

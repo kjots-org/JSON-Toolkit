@@ -195,6 +195,52 @@ public class NativeJsonArrayTest {
   }
   
   /**
+   * Test the prepending of a boolean value element.
+   * <p>
+   * This test asserts that the native JSON array correctly prepends a boolean
+   * element to the array.
+   */
+  @Test
+  public void testPrependBooleanElement() {
+    testNativeJsonArray.setBooleanElement(0, true);
+    testNativeJsonArray.setBooleanElement(1, true);
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(0)).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(1)).booleanValue());
+    
+    testNativeJsonArray.prependBooleanElement(false);
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(false, ((Boolean)testNativeJsonArray.list.get(0)).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(1)).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(2)).booleanValue());
+  }
+  
+  /**
+   * Test the appending of a boolean value element.
+   * <p>
+   * This test asserts that the native JSON array correctly appends a boolean
+   * element to the array.
+   */
+  @Test
+  public void testAppendBooleanElement() {
+    testNativeJsonArray.setBooleanElement(0, true);
+    testNativeJsonArray.setBooleanElement(1, true);
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(0)).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(1)).booleanValue());
+    
+    testNativeJsonArray.appendBooleanElement(false);
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(0)).booleanValue());
+    assertEquals(true, ((Boolean)testNativeJsonArray.list.get(1)).booleanValue());
+    assertEquals(false, ((Boolean)testNativeJsonArray.list.get(2)).booleanValue());
+  }
+  
+  /**
    * Test the determination of a numeric value of a property.
    * <p>
    * This test asserts that the native JSON object correctly reports that an
@@ -265,6 +311,52 @@ public class NativeJsonArrayTest {
   }
 
   /**
+   * Test the prepending of a number value element.
+   * <p>
+   * This test asserts that the native JSON array correctly prepends a number
+   * element to the array.
+   */
+  @Test
+  public void testPrependNumberElement() {
+    testNativeJsonArray.setNumberElement(0, 2.2);
+    testNativeJsonArray.setNumberElement(1, 3.3);
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(2.2, ((Number)testNativeJsonArray.list.get(0)).doubleValue(), 0.01);
+    assertEquals(3.3, ((Number)testNativeJsonArray.list.get(1)).doubleValue(), 0.01);
+    
+    testNativeJsonArray.prependNumberElement(1.1);
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(1.1, ((Number)testNativeJsonArray.list.get(0)).doubleValue(), 0.01);
+    assertEquals(2.2, ((Number)testNativeJsonArray.list.get(1)).doubleValue(), 0.01);
+    assertEquals(3.3, ((Number)testNativeJsonArray.list.get(2)).doubleValue(), 0.01);
+  }
+  
+  /**
+   * Test the appending of a number value element.
+   * <p>
+   * This test asserts that the native JSON array correctly appends a number
+   * element to the array.
+   */
+  @Test
+  public void testAppendNumberElement() {
+    testNativeJsonArray.setNumberElement(0, 1.1);
+    testNativeJsonArray.setNumberElement(1, 2.2);
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(1.1, ((Number)testNativeJsonArray.list.get(0)).doubleValue(), 0.01);
+    assertEquals(2.2, ((Number)testNativeJsonArray.list.get(1)).doubleValue(), 0.01);
+    
+    testNativeJsonArray.appendNumberElement(3.3);
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(1.1, ((Number)testNativeJsonArray.list.get(0)).doubleValue(), 0.01);
+    assertEquals(2.2, ((Number)testNativeJsonArray.list.get(1)).doubleValue(), 0.01);
+    assertEquals(3.3, ((Number)testNativeJsonArray.list.get(2)).doubleValue(), 0.01);
+  }
+  
+  /**
    * Test the determination of a string value of a property.
    * <p>
    * This test asserts that the native JSON object correctly reports that an
@@ -327,6 +419,52 @@ public class NativeJsonArrayTest {
     assertEquals("three", (String)testNativeJsonArray.list.get(1));
     
     testNativeJsonArray.insertStringElement(1, "two");
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals("one", (String)testNativeJsonArray.list.get(0));
+    assertEquals("two", (String)testNativeJsonArray.list.get(1));
+    assertEquals("three", (String)testNativeJsonArray.list.get(2));
+  }
+
+  /**
+   * Test the prepending of a string value element.
+   * <p>
+   * This test asserts that the native JSON array correctly prepends a string
+   * element to the array.
+   */
+  @Test
+  public void testPrependStringElement() {
+    testNativeJsonArray.setStringElement(0, "two");
+    testNativeJsonArray.setStringElement(1, "three");
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals("two", (String)testNativeJsonArray.list.get(0));
+    assertEquals("three", (String)testNativeJsonArray.list.get(1));
+    
+    testNativeJsonArray.prependStringElement("one");
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals("one", (String)testNativeJsonArray.list.get(0));
+    assertEquals("two", (String)testNativeJsonArray.list.get(1));
+    assertEquals("three", (String)testNativeJsonArray.list.get(2));
+  }
+  
+  /**
+   * Test the appending of a string value element.
+   * <p>
+   * This test asserts that the native JSON array correctly appends a string
+   * element to the array.
+   */
+  @Test
+  public void testAppendStringElement() {
+    testNativeJsonArray.setStringElement(0, "one");
+    testNativeJsonArray.setStringElement(1, "two");
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals("one", (String)testNativeJsonArray.list.get(0));
+    assertEquals("two", (String)testNativeJsonArray.list.get(1));
+    
+    testNativeJsonArray.appendStringElement("three");
     
     assertEquals(3, testNativeJsonArray.list.size());
     assertEquals("one", (String)testNativeJsonArray.list.get(0));
@@ -443,6 +581,60 @@ public class NativeJsonArrayTest {
     assertEquals(jsonObject3, (JsonObject)testNativeJsonArray.list.get(1));
     
     testNativeJsonArray.insertObjectElement(1, jsonObject2);
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(jsonObject1, (JsonObject)testNativeJsonArray.list.get(0));
+    assertEquals(jsonObject2, (JsonObject)testNativeJsonArray.list.get(1));
+    assertEquals(jsonObject3, (JsonObject)testNativeJsonArray.list.get(2));
+  }
+
+  /**
+   * Test the prepending of a object value element.
+   * <p>
+   * This test asserts that the native JSON array correctly prepends an object
+   * element to the array.
+   */
+  @Test
+  public void testPrependObjectElement() {
+    JsonObject jsonObject1 = JsonObjectFactory.get().createJsonObject();
+    JsonObject jsonObject2 = JsonObjectFactory.get().createJsonObject();
+    JsonObject jsonObject3 = JsonObjectFactory.get().createJsonObject();
+    
+    testNativeJsonArray.setObjectElement(0, jsonObject2);
+    testNativeJsonArray.setObjectElement(1, jsonObject3);
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(jsonObject2, (JsonObject)testNativeJsonArray.list.get(0));
+    assertEquals(jsonObject3, (JsonObject)testNativeJsonArray.list.get(1));
+    
+    testNativeJsonArray.prependObjectElement(jsonObject1);
+    
+    assertEquals(3, testNativeJsonArray.list.size());
+    assertEquals(jsonObject1, (JsonObject)testNativeJsonArray.list.get(0));
+    assertEquals(jsonObject2, (JsonObject)testNativeJsonArray.list.get(1));
+    assertEquals(jsonObject3, (JsonObject)testNativeJsonArray.list.get(2));
+  }
+  
+  /**
+   * Test the appending of a object value element.
+   * <p>
+   * This test asserts that the native JSON array correctly appends an object
+   * element to the array.
+   */
+  @Test
+  public void testAppendObjectElement() {
+    JsonObject jsonObject1 = JsonObjectFactory.get().createJsonObject();
+    JsonObject jsonObject2 = JsonObjectFactory.get().createJsonObject();
+    JsonObject jsonObject3 = JsonObjectFactory.get().createJsonObject();
+    
+    testNativeJsonArray.setObjectElement(0, jsonObject1);
+    testNativeJsonArray.setObjectElement(1, jsonObject2);
+    
+    assertEquals(2, testNativeJsonArray.list.size());
+    assertEquals(jsonObject1, (JsonObject)testNativeJsonArray.list.get(0));
+    assertEquals(jsonObject2, (JsonObject)testNativeJsonArray.list.get(1));
+    
+    testNativeJsonArray.appendObjectElement(jsonObject3);
     
     assertEquals(3, testNativeJsonArray.list.size());
     assertEquals(jsonObject1, (JsonObject)testNativeJsonArray.list.get(0));

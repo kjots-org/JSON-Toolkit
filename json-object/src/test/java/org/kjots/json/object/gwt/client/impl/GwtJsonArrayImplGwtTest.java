@@ -178,6 +178,20 @@ public class GwtJsonArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
   }
 
   /**
+   * @see JsonArrayImplTestBase#testPrependBooleanElement()
+   */
+  public void testPrependBooleanElement() {
+    this.jsonArrayImplTestDelegate.testPrependBooleanElement();
+  }
+
+  /**
+   * @see JsonArrayImplTestBase#testAppendBooleanElement()
+   */
+  public void testAppendBooleanElement() {
+    this.jsonArrayImplTestDelegate.testAppendBooleanElement();
+  }
+
+  /**
    * @see JsonArrayImplTestBase#testIsNumberElement()
    */
   public void testIsNumberElement() {
@@ -206,6 +220,20 @@ public class GwtJsonArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
   }
 
   /**
+   * @see JsonArrayImplTestBase#testPrependNumberElement()
+   */
+  public void testPrependNumberElement() {
+    this.jsonArrayImplTestDelegate.testPrependNumberElement();
+  }
+
+  /**
+   * @see JsonArrayImplTestBase#testAppendNumberElement()
+   */
+  public void testAppendNumberElement() {
+    this.jsonArrayImplTestDelegate.testAppendNumberElement();
+  }
+
+  /**
    * @see JsonArrayImplTestBase#testIsStringElement()
    */
   public void testIsStringElement() {
@@ -231,6 +259,20 @@ public class GwtJsonArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
    */
   public void testInsertStringElement() {
     this.jsonArrayImplTestDelegate.testInsertStringElement();
+  }
+
+  /**
+   * @see JsonArrayImplTestBase#testPrependStringElement()
+   */
+  public void testPrependStringElement() {
+    this.jsonArrayImplTestDelegate.testPrependStringElement();
+  }
+
+  /**
+   * @see JsonArrayImplTestBase#testAppendStringElement()
+   */
+  public void testAppendStringElement() {
+    this.jsonArrayImplTestDelegate.testAppendStringElement();
   }
 
   /**
@@ -266,6 +308,20 @@ public class GwtJsonArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
    */
   public void testInsertObjectElement() {
     this.jsonArrayImplTestDelegate.testInsertObjectElement();
+  }
+
+  /**
+   * @see JsonArrayImplTestBase#testPrependObjectElement()
+   */
+  public void testPrependObjectElement() {
+    this.jsonArrayImplTestDelegate.testPrependObjectElement();
+  }
+
+  /**
+   * @see JsonArrayImplTestBase#testAppendObjectElement()
+   */
+  public void testAppendObjectElement() {
+    this.jsonArrayImplTestDelegate.testAppendObjectElement();
   }
 
   /**

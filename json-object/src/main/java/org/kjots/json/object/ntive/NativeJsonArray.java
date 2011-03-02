@@ -154,6 +154,26 @@ public class NativeJsonArray extends NativeJsonObject implements JsonArray {
   }
 
   /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public void prependBooleanElement(Boolean value) {
+    this.list.add(0, value);
+  }
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public void appendBooleanElement(Boolean value) {
+    this.list.add(value);
+  }
+  
+  /**
    * Determine if the element at the given index has a numeric value.
    *
    * @param index The index.
@@ -200,6 +220,26 @@ public class NativeJsonArray extends NativeJsonObject implements JsonArray {
   }
 
   /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public void prependNumberElement(Number value) {
+    this.list.add(0, value);
+  }
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public void appendNumberElement(Number value) {
+    this.list.add(value);
+  }
+  
+  /**
    * Determine if the element at the given index has a string value.
    *
    * @param index The index.
@@ -245,6 +285,26 @@ public class NativeJsonArray extends NativeJsonObject implements JsonArray {
     this.list.add(index, value);
   }
 
+  /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public void prependStringElement(String value) {
+    this.list.add(0, value);
+  }
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public void appendStringElement(String value) {
+    this.list.add(value);
+  }
+  
   /**
    * Determine if the element at the given index has an object value.
    *
@@ -305,6 +365,26 @@ public class NativeJsonArray extends NativeJsonObject implements JsonArray {
   @Override
   public void insertObjectElement(int index, JsonObject value) {
     this.list.add(index, value);
+  }
+  
+  /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public void prependObjectElement(JsonObject value) {
+    this.list.add(0, value);
+  }
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public void appendObjectElement(JsonObject value) {
+    this.list.add(value);
   }
 
   /**

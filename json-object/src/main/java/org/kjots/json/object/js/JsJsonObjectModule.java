@@ -171,6 +171,8 @@ public class JsJsonObjectModule extends AbstractModule {
       jsEngine.eval("function setProperty(jsObject, propertyName, propertyValue) { jsObject[propertyName] = propertyValue; }");
       jsEngine.eval("function deleteProperty(jsObject, propertyName) { delete jsObject[propertyName]; }");
       jsEngine.eval("function insertElement(jsObject, index, value) { jsObject.splice(index, 0, value); }");
+      jsEngine.eval("function prependElement(jsObject, value) { jsObject.unshift(value); }");
+      jsEngine.eval("function appendElement(jsObject, value) { jsObject.push(value); }");
       jsEngine.eval("function removeElements(jsObject, index, count) { jsObject.splice(index, count); }");
     }
     catch (ScriptException se) {

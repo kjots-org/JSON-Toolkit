@@ -148,6 +148,26 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
   }
   
   /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void prependBooleanElement(Boolean value) {
+    this.simpleJsonValue.getList().add(0, value);
+  }
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void appendBooleanElement(Boolean value) {
+    this.simpleJsonValue.getList().add(value);
+  }
+  
+  /**
    * Determine if the element at the given index has a numeric value.
    *
    * @param index The index.
@@ -194,6 +214,26 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
   }
 
   /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void prependNumberElement(Number value) {
+    this.simpleJsonValue.getList().add(0, value);
+  }
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void appendNumberElement(Number value) {
+    this.simpleJsonValue.getList().add(value);
+  }
+  
+  /**
    * Determine if the element at the given index has a string value.
    *
    * @param index The index.
@@ -239,6 +279,26 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
     this.simpleJsonValue.getList().add(index, value);
   }
 
+  /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void prependStringElement(String value) {
+    this.simpleJsonValue.getList().add(0, value);
+  }
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void appendStringElement(String value) {
+    this.simpleJsonValue.getList().add(value);
+  }
+  
   /**
    * Determine if the element at the given index has an object value.
    *
@@ -303,6 +363,30 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
     SimpleJsonValue simpleValue = value != null ? (SimpleJsonValue)value.getObject() : null;
     
     this.simpleJsonValue.getList().add(index, simpleValue);
+  }
+  
+  /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void prependObjectElement(JsonObject value) {
+    SimpleJsonValue simpleValue = value != null ? (SimpleJsonValue)value.getObject() : null;
+    
+    this.simpleJsonValue.getList().add(0, simpleValue);
+  }
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void appendObjectElement(JsonObject value) {
+    SimpleJsonValue simpleValue = value != null ? (SimpleJsonValue)value.getObject() : null;
+    
+    this.simpleJsonValue.getList().add(simpleValue);
   }
   
   /**
