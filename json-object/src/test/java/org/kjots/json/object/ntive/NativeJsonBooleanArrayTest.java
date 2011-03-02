@@ -97,4 +97,48 @@ public class NativeJsonBooleanArrayTest {
       assertEquals("array[" + i + "]", i % 2 == 0, ((Boolean)testNativeJsonBooleanArray.list.get(i)).booleanValue());
     }
   }
+  
+  /**
+   * Test the prepending of an element of the array.
+   * <p>
+   * This test asserts that the native JSON boolean array correctly prepends
+   * elements to the array.
+   */
+  @Test
+  public void testPrepend() {
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 0) {
+        testNativeJsonBooleanArray.set(j++, i % 2 == 0);
+      }
+    }
+    
+    testNativeJsonBooleanArray.prepend(true);
+    
+    assertEquals("array.length", 5, testNativeJsonBooleanArray.list.size());
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", i % 2 == 0, ((Boolean)testNativeJsonBooleanArray.list.get(i)).booleanValue());
+    }
+  }
+  
+  /**
+   * Test the appending of an element of the array.
+   * <p>
+   * This test asserts that the native JSON boolean array correctly appends
+   * elements to the array.
+   */
+  @Test
+  public void testAppend() {
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 4) {
+        testNativeJsonBooleanArray.set(j++, i % 2 == 0);
+      }
+    }
+    
+    testNativeJsonBooleanArray.append(true);
+    
+    assertEquals("array.length", 5, testNativeJsonBooleanArray.list.size());
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", i % 2 == 0, ((Boolean)testNativeJsonBooleanArray.list.get(i)).booleanValue());
+    }
+  }
 }

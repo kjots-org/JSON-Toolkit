@@ -102,6 +102,58 @@ public abstract class JsonBooleanArrayImplTestBase<J> {
   }
   
   /**
+   * Test the prepending of an element of the array.
+   * <p>
+   * This test asserts that prepending an element prepends an element to the
+   * underlying array.
+   */
+  @Test
+  public void testPrepend() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonBooleanArray testJsonBooleanArray = this.createJsonBooleanArray(array);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 0) {
+        testJsonBooleanArray.set(j++, i % 2 == 0);
+      }
+    }
+    
+    testJsonBooleanArray.prepend(true);
+    
+    assertEquals("array.length", 5, this.getArrayLength(array));
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", i % 2 == 0, this.getBooleanElement(array, i).booleanValue());
+    }
+  }
+  
+  /**
+   * Test the appending of an element of the array.
+   * <p>
+   * This test asserts that appending an element appends an element to the
+   * underlying array.
+   */
+  @Test
+  public void testAppend() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonBooleanArray testJsonBooleanArray = this.createJsonBooleanArray(array);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 4) {
+        testJsonBooleanArray.set(j++, i % 2 == 0);
+      }
+    }
+    
+    testJsonBooleanArray.append(true);
+    
+    assertEquals("array.length", 5, this.getArrayLength(array));
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", i % 2 == 0, this.getBooleanElement(array, i).booleanValue());
+    }
+  }
+  
+  /**
    * Create a JSON boolean array with the given underlying JSON array.
    *
    * @param array The underlying JSON array.

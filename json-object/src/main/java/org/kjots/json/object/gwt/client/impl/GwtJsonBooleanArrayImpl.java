@@ -73,6 +73,26 @@ public class GwtJsonBooleanArrayImpl extends GwtJsonArrayImpl implements JsonBoo
   }
 
   /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void prepend(Boolean value) {
+    this.prependBooleanElement(value);
+  }
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void append(Boolean value) {
+    this.appendBooleanElement(value);
+  }
+
+  /**
    * Retrieve an iterator for the array.
    *
    * @return The iterator.

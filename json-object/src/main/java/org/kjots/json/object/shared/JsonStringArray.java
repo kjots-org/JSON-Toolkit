@@ -107,4 +107,18 @@ public interface JsonStringArray extends JsonArray, Iterable<String> {
    * @param value The string value.
    */
   public void insert(int index, String value);
+  
+  /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  public void prepend(String value);
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  public void append(String value);
 }

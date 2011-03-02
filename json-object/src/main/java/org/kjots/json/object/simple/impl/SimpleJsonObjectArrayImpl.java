@@ -92,6 +92,26 @@ public class SimpleJsonObjectArrayImpl<T extends JsonObject> extends SimpleJsonA
   public final void insert(int index, T value) {
     this.insertObjectElement(index, value);
   }
+  
+  /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void prepend(T value) {
+    this.prependObjectElement(value);
+  }
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  @Override
+  public final void append(T value) {
+    this.appendObjectElement(value);
+  }
 
   /**
    * Retrieve an iterator for the array.

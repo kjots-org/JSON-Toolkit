@@ -62,6 +62,26 @@ public class NativeJsonNumberArray extends NativeJsonArray implements JsonNumber
   }
 
   /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void prepend(Number value) {
+    this.prependNumberElement(value);
+  }
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void append(Number value) {
+    this.appendNumberElement(value);
+  }
+
+  /**
    * Retrieve an iterator for the array.
    *
    * @return The iterator.

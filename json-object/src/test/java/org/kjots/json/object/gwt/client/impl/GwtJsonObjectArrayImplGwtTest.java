@@ -97,4 +97,18 @@ public class GwtJsonObjectArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
   public void testInsert() {
     this.jsonObjectArrayImplTestDelegate.testInsert();
   }
+
+  /**
+   * @see JsonObjectArrayImplTestBase#testPrepend()
+   */
+  public void testPrepend() {
+    this.jsonObjectArrayImplTestDelegate.testPrepend();
+  }
+
+  /**
+   * @see JsonObjectArrayImplTestBase#testAppend()
+   */
+  public void testAppend() {
+    this.jsonObjectArrayImplTestDelegate.testAppend();
+  }
 }

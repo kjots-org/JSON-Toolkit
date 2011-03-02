@@ -70,6 +70,26 @@ public class SimpleJsonStringArrayImpl extends SimpleJsonArrayImpl implements Js
   public final void insert(int index, String value) {
     this.insertStringElement(index, value);
   }
+  
+  /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void prepend(String value) {
+    this.prependStringElement(value);
+  }
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void append(String value) {
+    this.appendStringElement(value);
+  }
 
   /**
    * Retrieve an iterator for the array.

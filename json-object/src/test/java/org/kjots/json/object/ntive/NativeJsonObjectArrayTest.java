@@ -144,6 +144,54 @@ public class NativeJsonObjectArrayTest {
   }
   
   /**
+   * Test the prepending of an element of the array.
+   * <p>
+   * This test asserts that the native JSON object array correctly prepends
+   * elements to the array.
+   */
+  @Test
+  public void testPrepend() {
+    JsonObject[] jsonObjects = this.createJsonObjects(5);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 0) {
+        testNativeJsonObjectArray.set(j++, jsonObjects[i]);
+      }
+    }
+    
+    testNativeJsonObjectArray.prepend(jsonObjects[0]);
+    
+    assertEquals("array.length", 5, testNativeJsonObjectArray.list.size());
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", jsonObjects[i], (JsonObject)testNativeJsonObjectArray.list.get(i));
+    }
+  }
+  
+  /**
+   * Test the appending of an element of the array.
+   * <p>
+   * This test asserts that the native JSON object array correctly appends
+   * elements to the array.
+   */
+  @Test
+  public void testAppend() {
+    JsonObject[] jsonObjects = this.createJsonObjects(5);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 4) {
+        testNativeJsonObjectArray.set(j++, jsonObjects[i]);
+      }
+    }
+    
+    testNativeJsonObjectArray.append(jsonObjects[4]);
+    
+    assertEquals("array.length", 5, testNativeJsonObjectArray.list.size());
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", jsonObjects[i], (JsonObject)testNativeJsonObjectArray.list.get(i));
+    }
+  }
+  
+  /**
    * Create an array of JSON objects.
    *
    * @param n The number of JSON objects.

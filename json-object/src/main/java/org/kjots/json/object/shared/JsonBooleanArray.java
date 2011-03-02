@@ -107,4 +107,18 @@ public interface JsonBooleanArray extends JsonArray, Iterable<Boolean> {
    * @param value The boolean value.
    */
   public void insert(int index, Boolean value);
+  
+  /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  public void prepend(Boolean value);
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  public void append(Boolean value);
 }

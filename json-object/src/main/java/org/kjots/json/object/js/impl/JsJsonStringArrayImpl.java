@@ -74,6 +74,26 @@ public class JsJsonStringArrayImpl extends JsJsonArrayImpl implements JsonString
   }
 
   /**
+   * Prepend the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void prepend(String value) {
+    this.prependStringElement(value);
+  }
+  
+  /**
+   * Append the given string value.
+   *
+   * @param value The string value.
+   */
+  @Override
+  public final void append(String value) {
+    this.appendStringElement(value);
+  }
+
+  /**
    * Retrieve an iterator for the array.
    *
    * @return The iterator.

@@ -116,4 +116,18 @@ public interface JsonObjectArray<T extends JsonObject> extends JsonArray, Iterab
    * @param value The object value.
    */
   public void insert(int index, T value);
+  
+  /**
+   * Prepend the given object value.
+   *
+   * @param value The object value.
+   */
+  public void prepend(T value);
+  
+  /**
+   * Append the given object value.
+   *
+   * @param value The object value.
+   */
+  public void append(T value);
 }

@@ -137,6 +137,62 @@ public abstract class JsonObjectArrayImplTestBase<J> {
   }
   
   /**
+   * Test the prepending of an element of the array.
+   * <p>
+   * This test asserts that prepending an element prepends an element to the
+   * underlying array.
+   */
+  @Test
+  public void testPrepend() {
+    JsonObject[] jsonObjects = this.createJsonObjects(5);
+    
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonObjectArray<JsonObject> testJsonObjectArray = this.createJsonObjectArray(array);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 0) {
+        testJsonObjectArray.set(j++, jsonObjects[i]);
+      }
+    }
+    
+    testJsonObjectArray.prepend(jsonObjects[0]);
+    
+    assertEquals("array.length", 5, this.getArrayLength(array));
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", jsonObjects[i].getObject(), this.getObjectElement(array, i));
+    }
+  }
+  
+  /**
+   * Test the appending of an element of the array.
+   * <p>
+   * This test asserts that appending an element appends an element to the
+   * underlying array.
+   */
+  @Test
+  public void testAppend() {
+    JsonObject[] jsonObjects = this.createJsonObjects(5);
+    
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonObjectArray<JsonObject> testJsonObjectArray = this.createJsonObjectArray(array);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 4) {
+        testJsonObjectArray.set(j++, jsonObjects[i]);
+      }
+    }
+    
+    testJsonObjectArray.append(jsonObjects[4]);
+    
+    assertEquals("array.length", 5, this.getArrayLength(array));
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", jsonObjects[i].getObject(), this.getObjectElement(array, i));
+    }
+  }
+  
+  /**
    * Create a JSON object with the given underlying JSON object.
    *
    * @param object The underlying JSON object.

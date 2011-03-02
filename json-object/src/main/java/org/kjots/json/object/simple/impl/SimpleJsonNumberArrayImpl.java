@@ -70,6 +70,26 @@ public class SimpleJsonNumberArrayImpl extends SimpleJsonArrayImpl implements Js
   public final void insert(int index, Number value) {
     this.insertNumberElement(index, value);
   }
+  
+  /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void prepend(Number value) {
+    this.prependNumberElement(value);
+  }
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  @Override
+  public final void append(Number value) {
+    this.appendNumberElement(value);
+  }
 
   /**
    * Retrieve an iterator for the array.

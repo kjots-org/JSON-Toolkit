@@ -102,6 +102,58 @@ public abstract class JsonStringArrayImplTestBase<J> {
   }
   
   /**
+   * Test the prepending of an element of the array.
+   * <p>
+   * This test asserts that prepending an element prepends an element to the
+   * underlying array.
+   */
+  @Test
+  public void testPrepend() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonStringArray testJsonStringArray = this.createJsonStringArray(array);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 0) {
+        testJsonStringArray.set(j++, Integer.toString(i));
+      }
+    }
+    
+    testJsonStringArray.prepend("0");
+    
+    assertEquals("array.length", 5, this.getArrayLength(array));
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", Integer.toString(i), this.getStringElement(array, i));
+    }
+  }
+  
+  /**
+   * Test the appending of an element of the array.
+   * <p>
+   * This test asserts that appending an element appends an element to the
+   * underlying array.
+   */
+  @Test
+  public void testAppend() {
+    J array = this.createUnderlyingJsonArray();
+    
+    JsonStringArray testJsonStringArray = this.createJsonStringArray(array);
+    
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 4) {
+        testJsonStringArray.set(j++, Integer.toString(i));
+      }
+    }
+    
+    testJsonStringArray.append("4");
+    
+    assertEquals("array.length", 5, this.getArrayLength(array));
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", Integer.toString(i), this.getStringElement(array, i));
+    }
+  }
+  
+  /**
    * Create a JSON string array with the given underlying JSON array.
    *
    * @param array The underlying JSON array.

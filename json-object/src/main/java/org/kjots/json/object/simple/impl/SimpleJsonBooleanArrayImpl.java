@@ -70,6 +70,26 @@ public class SimpleJsonBooleanArrayImpl extends SimpleJsonArrayImpl implements J
   public final void insert(int index, Boolean value) {
     this.insertBooleanElement(index, value);
   }
+  
+  /**
+   * Prepend the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void prepend(Boolean value) {
+    this.prependBooleanElement(value);
+  }
+  
+  /**
+   * Append the given boolean value.
+   *
+   * @param value The boolean value.
+   */
+  @Override
+  public final void append(Boolean value) {
+    this.appendBooleanElement(value);
+  }
 
   /**
    * Retrieve an iterator for the array.

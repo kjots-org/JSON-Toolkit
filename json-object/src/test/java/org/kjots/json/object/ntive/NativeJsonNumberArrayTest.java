@@ -97,4 +97,48 @@ public class NativeJsonNumberArrayTest {
       assertEquals("array[" + i + "]", i, ((Number)testNativeJsonNumberArray.list.get(i)).doubleValue(), 0.1);
     }
   }
+  
+  /**
+   * Test the prepending of an element of the array.
+   * <p>
+   * This test asserts that the native JSON number array correctly prepends
+   * elements to the array.
+   */
+  @Test
+  public void testPrepend() {
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 0) {
+        testNativeJsonNumberArray.set(j++, Double.valueOf(i));
+      }
+    }
+    
+    testNativeJsonNumberArray.prepend(0.0);
+    
+    assertEquals("array.length", 5, testNativeJsonNumberArray.list.size());
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", i, ((Number)testNativeJsonNumberArray.list.get(i)).doubleValue(), 0.1);
+    }
+  }
+  
+  /**
+   * Test the appending of an element of the array.
+   * <p>
+   * This test asserts that the native JSON number array correctly appends
+   * elements to the array.
+   */
+  @Test
+  public void testAppend() {
+    for (int i = 0, j = 0; i < 5; i++) {
+      if (i != 4) {
+        testNativeJsonNumberArray.set(j++, Double.valueOf(i));
+      }
+    }
+    
+    testNativeJsonNumberArray.append(4.0);
+    
+    assertEquals("array.length", 5, testNativeJsonNumberArray.list.size());
+    for (int i = 0; i < 5; i++) {
+      assertEquals("array[" + i + "]", i, ((Number)testNativeJsonNumberArray.list.get(i)).doubleValue(), 0.1);
+    }
+  }
 }

@@ -107,4 +107,18 @@ public interface JsonNumberArray extends JsonArray, Iterable<Number> {
    * @param value The numeric value.
    */
   public void insert(int index, Number value);
+  
+  /**
+   * Prepend the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  public void prepend(Number value);
+  
+  /**
+   * Append the given numeric value.
+   *
+   * @param value The numeric value.
+   */
+  public void append(Number value);
 }
