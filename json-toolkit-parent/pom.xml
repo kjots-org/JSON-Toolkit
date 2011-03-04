@@ -49,6 +49,14 @@
     <url>http://code.google.com/p/json-toolkit/issues/list</url>
   </issueManagement>
   
+  <developers>
+    <developer>
+      <id>kjots</id>
+      <name>Karl J. Ots</name>
+      <email>kjots@kjots.org</email>
+    </developer>
+  </developers>
+  
   <repositories>
     <repository>
       <id>json-toolkit</id>
