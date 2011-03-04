@@ -2,6 +2,8 @@
 syntax: regexp
 ^target$
 syntax: regexp
+^snapshots$
+syntax: regexp
 ^json-content/eclipse-bin$
 syntax: regexp
 ^json-content/target$

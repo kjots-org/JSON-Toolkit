@@ -42,6 +42,20 @@
   
   <distributionManagement>
     <downloadUrl>http://code.google.com/p/json-toolkit/</downloadUrl>
+    <repository>
+      <id>json-toolkit</id>
+      <name>JSON Toolkit</name>
+      <url>file://${dir.project.json-toolkit}/maven/</url>
+      <layout>default</layout>
+      <uniqueVersion>false</uniqueVersion>
+    </repository>
+    <snapshotRepository>
+      <id>json-toolkit-snapshot</id>
+      <name>JSON Toolkit Snapshots</name>
+      <url>file://${dir.project.json-toolkit}/snapshots/</url>
+      <layout>default</layout>
+      <uniqueVersion>true</uniqueVersion>
+    </snapshotRepository>
   </distributionManagement>
   
   <issueManagement>
@@ -67,6 +81,13 @@
   </repositories>
   
   <properties>
+    <dir.project.json-toolkit>${basedir}/..</dir.project.json-toolkit>
+    
+    <dir.module.json-toolkit-parent>${dir.project.json-toolkit}/json-toolkit-parent</dir.module.json-toolkit-parent>
+    <dir.module.json-content>${dir.project.json-toolkit}/json-content</dir.module.json-content>
+    <dir.module.json-object>${dir.project.json-toolkit}/json-object</dir.module.json-object>
+    <dir.module.json-object_pre-gwt-2.2>${dir.project.json-toolkit}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
+    
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
     <maven.compiler.source>1.6</maven.compiler.source>

@@ -32,6 +32,10 @@
   
   <name>JSON Toolkit</name>
   
+  <properties>
+    <dir.project.json-toolkit>${basedir}</dir.project.json-toolkit>
+  </properties>
+  
   <modules>
     <module>json-toolkit-parent</module>
     <module>json-content</module>
