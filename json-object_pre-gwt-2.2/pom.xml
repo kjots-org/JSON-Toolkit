@@ -21,9 +21,9 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>json-toolkit</artifactId>
+    <artifactId>json-toolkit-parent</artifactId>
     <version>1.1-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <relativePath>../json-toolkit-parent/pom.xml</relativePath>
   </parent>
   
   <artifactId>json-object_pre-gwt-2.2</artifactId>
