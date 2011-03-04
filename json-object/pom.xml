@@ -140,8 +140,23 @@
         </configuration>
         <executions>
           <execution>
+            <phase>test</phase>
             <goals>
               <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.1.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
             </goals>
           </execution>
         </executions>
@@ -152,6 +167,8 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.7</version>
         <configuration>
+          <destDir>doc/api</destDir>
+          <notimestamp>true</notimestamp>
           <offlineLinks>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
@@ -166,15 +183,10 @@
         </configuration>
         <executions>
           <execution>
-            <phase>install</phase>
+            <phase>package</phase>
             <goals>
-              <goal>javadoc</goal>
+              <goal>jar</goal>
             </goals>
-            <configuration>
-              <reportOutputDirectory>doc</reportOutputDirectory>
-              <destDir>api</destDir>
-              <notimestamp>true</notimestamp>
-            </configuration>
           </execution>
         </executions>
       </plugin>

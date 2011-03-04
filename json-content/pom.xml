@@ -86,19 +86,32 @@
       
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.7</version>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.1.2</version>
         <executions>
           <execution>
-            <phase>install</phase>
+            <phase>package</phase>
             <goals>
-              <goal>javadoc</goal>
+              <goal>jar</goal>
             </goals>
-            <configuration>
-              <reportOutputDirectory>doc</reportOutputDirectory>
-              <destDir>api</destDir>
-              <notimestamp>true</notimestamp>
-            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <destDir>doc/api</destDir>
+          <notimestamp>true</notimestamp>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

@@ -146,8 +146,23 @@
         </configuration>
         <executions>
           <execution>
+            <phase>test</phase>
             <goals>
               <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.1.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
             </goals>
           </execution>
         </executions>
@@ -158,6 +173,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.7</version>
         <configuration>
+          <notimestamp>true</notimestamp>
           <offlineLinks>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
@@ -170,6 +186,14 @@
             <link>http://google-gin.googlecode.com/svn/tags/1.5.0-pre-gwt-2.2/javadoc/</link>
           </links>
         </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins> 
   </build>
