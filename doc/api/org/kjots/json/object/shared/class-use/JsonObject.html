@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-Uses of Interface org.kjots.json.object.shared.JsonObject (JSON Toolkit 1.1-SNAPSHOT API)
+Uses of Interface org.kjots.json.object.shared.JsonObject (JSON Toolkit 1.1 API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ Uses of Interface org.kjots.json.object.shared.JsonObject (JSON Toolkit 1.1-SNAP
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Uses of Interface org.kjots.json.object.shared.JsonObject (JSON Toolkit 1.1-SNAPSHOT API)";
+        parent.document.title="Uses of Interface org.kjots.json.object.shared.JsonObject (JSON Toolkit 1.1 API)";
     }
 }
 </SCRIPT>
@@ -798,14 +798,14 @@ T</CODE></FONT></TD>
 <TD NOWRAP><FONT SIZE="-1">
 <CODE>&lt;E extends <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; 
 <BR>
-<A HREF="../../../../../../org/kjots/json/object/shared/JsonObjectMap.html" title="interface in org.kjots.json.object.shared">JsonObjectMap</A>&lt;E&gt;</CODE></FONT></TD>
+<A HREF="../../../../../../org/kjots/json/object/shared/JsonObjectArray.html" title="interface in org.kjots.json.object.shared">JsonObjectArray</A>&lt;E&gt;</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B>JsJsonObjectMapImpl.</B><B><A HREF="../../../../../../org/kjots/json/object/js/impl/JsJsonObjectMapImpl.html#castElement(java.lang.Class)">castElement</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</CODE>
+<TD><CODE><B>JsJsonObjectArrayImpl.</B><B><A HREF="../../../../../../org/kjots/json/object/js/impl/JsJsonObjectArrayImpl.html#castElement(java.lang.Class)">castElement</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast the JSON object map to a JSON object map with the given element
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast the JSON object array to a JSON object array with the given element
  type.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -816,14 +816,14 @@ T</CODE></FONT></TD>
 <TD NOWRAP><FONT SIZE="-1">
 <CODE>&lt;E extends <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; 
 <BR>
-<A HREF="../../../../../../org/kjots/json/object/shared/JsonObjectArray.html" title="interface in org.kjots.json.object.shared">JsonObjectArray</A>&lt;E&gt;</CODE></FONT></TD>
+<A HREF="../../../../../../org/kjots/json/object/shared/JsonObjectMap.html" title="interface in org.kjots.json.object.shared">JsonObjectMap</A>&lt;E&gt;</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B>JsJsonObjectArrayImpl.</B><B><A HREF="../../../../../../org/kjots/json/object/js/impl/JsJsonObjectArrayImpl.html#castElement(java.lang.Class)">castElement</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</CODE>
+<TD><CODE><B>JsJsonObjectMapImpl.</B><B><A HREF="../../../../../../org/kjots/json/object/js/impl/JsJsonObjectMapImpl.html#castElement(java.lang.Class)">castElement</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast the JSON object array to a JSON object array with the given element
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast the JSON object map to a JSON object map with the given element
  type.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -1188,23 +1188,6 @@ T</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#cast(java.lang.Class)">cast</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonObjectClass)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast this JSON object a JSON object with the given class.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
-<TR ALIGN="right" VALIGN="">
-<TD NOWRAP><FONT SIZE="-1">
-<CODE>&lt;T extends <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; 
-<BR>
-T</CODE></FONT></TD>
-</TR>
-</TABLE>
-</CODE></FONT></TD>
 <TD><CODE><B>NativeJsonMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonMap.html#cast(java.lang.Class)">cast</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonObjectClass)</CODE>
 
 <BR>
@@ -1222,10 +1205,10 @@ T</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#cast(java.lang.String)">cast</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonObjectClassName)</CODE>
+<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#cast(java.lang.Class)">cast</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonObjectClass)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast this JSON object a JSON object with the given class name.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast this JSON object a JSON object with the given class.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1250,17 +1233,16 @@ T</CODE></FONT></TD>
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
 <TR ALIGN="right" VALIGN="">
 <TD NOWRAP><FONT SIZE="-1">
-<CODE>&lt;E extends <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; 
+<CODE>&lt;T extends <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; 
 <BR>
-<A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObjectMap.html" title="class in org.kjots.json.object.ntive">NativeJsonObjectMap</A>&lt;E&gt;</CODE></FONT></TD>
+T</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B>NativeJsonObjectMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObjectMap.html#castElement(java.lang.Class)">castElement</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</CODE>
+<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#cast(java.lang.String)">cast</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonObjectClassName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast the JSON object map to a JSON object map with the given element
- type.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast this JSON object a JSON object with the given class name.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1278,6 +1260,24 @@ T</CODE></FONT></TD>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast the JSON object array to a JSON object array with the given element
+ type.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
+<TR ALIGN="right" VALIGN="">
+<TD NOWRAP><FONT SIZE="-1">
+<CODE>&lt;E extends <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; 
+<BR>
+<A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObjectMap.html" title="class in org.kjots.json.object.ntive">NativeJsonObjectMap</A>&lt;E&gt;</CODE></FONT></TD>
+</TR>
+</TABLE>
+</CODE></FONT></TD>
+<TD><CODE><B>NativeJsonObjectMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObjectMap.html#castElement(java.lang.Class)">castElement</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cast the JSON object map to a JSON object map with the given element
  type.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -1310,7 +1310,7 @@ T</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#getObjectProperty(java.lang.String, java.lang.Class)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
+<TD><CODE><B>NativeJsonMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonMap.html#getObjectProperty(java.lang.String, java.lang.Class)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
                   <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonObjectClass)</CODE>
 
 <BR>
@@ -1328,7 +1328,7 @@ T</CODE></FONT></TD>
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B>NativeJsonMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonMap.html#getObjectProperty(java.lang.String, java.lang.Class)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
+<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#getObjectProperty(java.lang.String, java.lang.Class)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
                   <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonObjectClass)</CODE>
 
 <BR>
@@ -1353,7 +1353,7 @@ T</CODE></FONT></TD>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A></CODE></FONT></TD>
-<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#getObjectProperty(java.lang.String)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName)</CODE>
+<TD><CODE><B>NativeJsonMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonMap.html#getObjectProperty(java.lang.String)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the object value of the property with the given name.</TD>
@@ -1361,7 +1361,7 @@ T</CODE></FONT></TD>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A></CODE></FONT></TD>
-<TD><CODE><B>NativeJsonMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonMap.html#getObjectProperty(java.lang.String)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName)</CODE>
+<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#getObjectProperty(java.lang.String)">getObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the object value of the property with the given name.</TD>
@@ -1411,7 +1411,7 @@ T</CODE></FONT></TD>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#setObjectProperty(java.lang.String, org.kjots.json.object.shared.JsonObject)">setObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
+<TD><CODE><B>NativeJsonMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonMap.html#setObjectProperty(java.lang.String, org.kjots.json.object.shared.JsonObject)">setObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
                   <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&nbsp;propertyValue)</CODE>
 
 <BR>
@@ -1420,7 +1420,7 @@ T</CODE></FONT></TD>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B>NativeJsonMap.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonMap.html#setObjectProperty(java.lang.String, org.kjots.json.object.shared.JsonObject)">setObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
+<TD><CODE><B>NativeJsonObject.</B><B><A HREF="../../../../../../org/kjots/json/object/ntive/NativeJsonObject.html#setObjectProperty(java.lang.String, org.kjots.json.object.shared.JsonObject)">setObjectProperty</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;propertyName,
                   <A HREF="../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&nbsp;propertyValue)</CODE>
 
 <BR>
