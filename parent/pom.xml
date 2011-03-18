@@ -76,7 +76,8 @@
   <properties>
     <dir.project.json-toolkit>${basedir}/..</dir.project.json-toolkit>
     
-    <dir.module.json-toolkit-parent>${dir.project.json-toolkit}/json-toolkit-parent</dir.module.json-toolkit-parent>
+    <dir.module.parent>${dir.project.json-toolkit}/parent</dir.module.parent>
+    
     <dir.module.json-content>${dir.project.json-toolkit}/json-content</dir.module.json-content>
     <dir.module.json-object>${dir.project.json-toolkit}/json-object</dir.module.json-object>
     <dir.module.json-object_pre-gwt-2.2>${dir.project.json-toolkit}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>

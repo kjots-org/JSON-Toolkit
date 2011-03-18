@@ -23,7 +23,7 @@
     <groupId>org.kjots.json-toolkit</groupId>
     <artifactId>json-toolkit-parent</artifactId>
     <version>1.2-SNAPSHOT</version>
-    <relativePath>../json-toolkit-parent/pom.xml</relativePath>
+    <relativePath>../parent/pom.xml</relativePath>
   </parent>
   
   <artifactId>json-object</artifactId>

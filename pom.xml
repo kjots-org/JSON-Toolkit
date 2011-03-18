@@ -23,7 +23,7 @@
     <groupId>org.kjots.json-toolkit</groupId>
     <artifactId>json-toolkit-parent</artifactId>
     <version>1.2-SNAPSHOT</version>
-    <relativePath>json-toolkit-parent/pom.xml</relativePath>
+    <relativePath>parent/pom.xml</relativePath>
   </parent>
   
   <artifactId>json-toolkit</artifactId>
@@ -52,7 +52,8 @@
   </properties>
   
   <modules>
-    <module>json-toolkit-parent</module>
+    <module>parent</module>
+    
     <module>json-content</module>
     <module>json-object</module>
     <module>json-object_pre-gwt-2.2</module>
