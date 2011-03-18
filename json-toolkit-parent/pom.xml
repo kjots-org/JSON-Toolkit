@@ -19,6 +19,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
+  <parent>
+    <groupId>org.kjots</groupId>
+    <artifactId>maven-base</artifactId>
+    <version>11.3.19</version>
+    <relativePath>../../org.kjots.java-lib/org.kjots.maven-base/pom.xml</relativePath>
+  </parent>
+  
   <groupId>org.kjots.json-toolkit</groupId>
   <artifactId>json-toolkit-parent</artifactId>
   <version>1.2-SNAPSHOT</version>
@@ -56,15 +63,13 @@
     <url>http://code.google.com/p/json-toolkit/issues/list</url>
   </issueManagement>
   
-  <developers>
-    <developer>
-      <id>kjots</id>
-      <name>Karl J. Ots</name>
-      <email>kjots@kjots.org</email>
-    </developer>
-  </developers>
-  
   <repositories>
+    <repository>
+      <id>kjots-org-java-lib</id>
+      <name>kjots.org Java Library</name>
+      <url>http://kjots-org-java-lib.googlecode.com/hg/maven/</url>
+      <layout>default</layout>
+    </repository>
     <repository>
       <id>json-toolkit</id>
       <name>JSON Toolkit</name>
@@ -80,11 +85,6 @@
     <dir.module.json-content>${dir.project.json-toolkit}/json-content</dir.module.json-content>
     <dir.module.json-object>${dir.project.json-toolkit}/json-object</dir.module.json-object>
     <dir.module.json-object_pre-gwt-2.2>${dir.project.json-toolkit}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
-    
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
     
     <gwt.sdk.version>2.2.0</gwt.sdk.version>
     <gwt.plugin.version>2.1.0-1</gwt.plugin.version>
