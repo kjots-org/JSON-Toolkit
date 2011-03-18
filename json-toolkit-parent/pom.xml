@@ -58,11 +58,6 @@
     </snapshotRepository>
   </distributionManagement>
   
-  <issueManagement>
-    <system>Google Code</system>
-    <url>http://code.google.com/p/json-toolkit/issues/list</url>
-  </issueManagement>
-  
   <repositories>
     <repository>
       <id>kjots-org-java-lib</id>
