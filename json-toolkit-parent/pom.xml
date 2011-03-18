@@ -23,7 +23,7 @@
     <groupId>org.kjots</groupId>
     <artifactId>maven-base</artifactId>
     <version>11.3.19</version>
-    <relativePath>../../org.kjots.java-lib/org.kjots.maven-base/pom.xml</relativePath>
+    <relativePath/>
   </parent>
   
   <groupId>org.kjots.json-toolkit</groupId>
