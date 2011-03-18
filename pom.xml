@@ -48,7 +48,7 @@
   </issueManagement>
   
   <properties>
-    <dir.project.json-toolkit>${basedir}</dir.project.json-toolkit>
+    <dir.project>${basedir}</dir.project>
   </properties>
   
   <modules>

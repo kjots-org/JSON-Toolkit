@@ -45,14 +45,14 @@
     <repository>
       <id>json-toolkit</id>
       <name>JSON Toolkit</name>
-      <url>file://${dir.project.json-toolkit}/maven/</url>
+      <url>file://${dir.project}/maven/</url>
       <layout>default</layout>
       <uniqueVersion>false</uniqueVersion>
     </repository>
     <snapshotRepository>
       <id>json-toolkit-snapshot</id>
       <name>JSON Toolkit Snapshots</name>
-      <url>file://${dir.project.json-toolkit}/snapshots/</url>
+      <url>file://${dir.project}/snapshots/</url>
       <layout>default</layout>
       <uniqueVersion>true</uniqueVersion>
     </snapshotRepository>
@@ -74,13 +74,13 @@
   </repositories>
   
   <properties>
-    <dir.project.json-toolkit>${basedir}/..</dir.project.json-toolkit>
+    <dir.project>${basedir}/..</dir.project>
     
-    <dir.module.parent>${dir.project.json-toolkit}/parent</dir.module.parent>
+    <dir.module.parent>${dir.project}/parent</dir.module.parent>
     
-    <dir.module.json-content>${dir.project.json-toolkit}/json-content</dir.module.json-content>
-    <dir.module.json-object>${dir.project.json-toolkit}/json-object</dir.module.json-object>
-    <dir.module.json-object_pre-gwt-2.2>${dir.project.json-toolkit}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
+    <dir.module.json-content>${dir.project}/json-content</dir.module.json-content>
+    <dir.module.json-object>${dir.project}/json-object</dir.module.json-object>
+    <dir.module.json-object_pre-gwt-2.2>${dir.project}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
     
     <gwt.sdk.version>2.2.0</gwt.sdk.version>
     <gwt.plugin.version>2.2.0</gwt.plugin.version>
