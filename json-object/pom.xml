@@ -172,7 +172,7 @@
           <offlineLinks>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
-              <location>${basedir}/../json-content/doc/api/</location>
+              <location>${dir.module.json-content}/doc/api/</location>
             </offlineLink>
           </offlineLinks>
           <links>

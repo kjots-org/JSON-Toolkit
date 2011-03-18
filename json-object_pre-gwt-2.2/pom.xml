@@ -95,18 +95,18 @@
   </dependencies>
   
   <build>
-    <sourceDirectory>../json-object/src/main/java</sourceDirectory>
-    <testSourceDirectory>../json-object/src/test/java</testSourceDirectory>
+    <sourceDirectory>${dir.module.json-object}/src/main/java</sourceDirectory>
+    <testSourceDirectory>${dir.module.json-object}/src/test/java</testSourceDirectory>
   
     <resources>
       <resource>
-        <directory>../json-object/src/main/gwt</directory>
+        <directory>${dir.module.json-object}/src/main/gwt</directory>
         <includes>
           <include>${package.path}/**</include>
         </includes>
       </resource>
       <resource>
-        <directory>../json-object/src/main/java</directory>
+        <directory>${dir.module.json-object}/src/main/java</directory>
         <includes>
           <include>${package.path}/shared/**/*.java</include>
           <include>${package.path}/gwt/client/**/*.java</include>
@@ -116,7 +116,7 @@
     
     <testResources>
       <testResource>
-        <directory>../json-object/src/test/gwt</directory>
+        <directory>${dir.module.json-object}/src/test/gwt</directory>
         <includes>
           <include>${package.path}/**</include>
         </includes>
@@ -177,7 +177,7 @@
           <offlineLinks>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
-              <location>${basedir}/../json-content/doc/api/</location>
+              <location>${dir.module.json-content}/doc/api/</location>
             </offlineLink>
           </offlineLinks>
           <links>
