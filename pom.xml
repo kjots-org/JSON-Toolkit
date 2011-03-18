@@ -32,6 +32,21 @@
   
   <name>JSON Toolkit</name>
   
+  <scm>
+    <connection>scm:hg:http://json-toolkit.googlecode.com/hg/</connection>
+    <developerConnection>scm:hg:https://json-toolkit.googlecode.com/hg/</developerConnection>
+    <url>http://code.google.com/p/json-toolkit/source/browse/</url>
+  </scm>
+  
+  <distributionManagement>
+    <downloadUrl>http://code.google.com/p/json-toolkit/</downloadUrl>
+  </distributionManagement>
+  
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/json-toolkit/issues/list</url>
+  </issueManagement>
+  
   <properties>
     <dir.project.json-toolkit>${basedir}</dir.project.json-toolkit>
   </properties>
