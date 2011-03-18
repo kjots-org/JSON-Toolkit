@@ -82,6 +82,6 @@
     <dir.module.json-object_pre-gwt-2.2>${dir.project.json-toolkit}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
     
     <gwt.sdk.version>2.2.0</gwt.sdk.version>
-    <gwt.plugin.version>2.1.0-1</gwt.plugin.version>
+    <gwt.plugin.version>2.2.0</gwt.plugin.version>
   </properties>
 </project>
