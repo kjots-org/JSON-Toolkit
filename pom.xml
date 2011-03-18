@@ -32,6 +32,13 @@
   
   <name>JSON Toolkit</name>
   
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  
   <scm>
     <connection>scm:hg:http://json-toolkit.googlecode.com/hg/</connection>
     <developerConnection>scm:hg:https://json-toolkit.googlecode.com/hg/</developerConnection>
