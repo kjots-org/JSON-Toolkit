@@ -15,12 +15,12 @@
  */
 package org.kjots.json.object.js.impl;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.script.Invocable;
 import javax.script.ScriptException;
 
 import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Key;
 
 import org.junit.After;
 import org.junit.Before;
@@ -41,15 +41,24 @@ import org.kjots.json.object.shared.impl.JsonObjectImplTestBase;
  * @since json-object-0.2
  */
 public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
-  /** The injector. */
-  private Injector injector;
+  /** The JavaScript engine. */
+  @Inject @JsEngine
+  private Invocable jsEngine;
+  
+  /** The JavaScript object provider. */
+  @Inject @JsObject
+  private Provider<Object> jsObjectProvider;
+  
+  /** The JavaScript array provider. */
+  @Inject @JsArray
+  private Provider<Object> jsArrayProvider;
   
   /**
    * Set up the JSON object implementation test.
    */
   @Before
   public void setUp() {
-    this.injector = Guice.createInjector(new JsJsonObjectModule());
+    Guice.createInjector(new JsJsonObjectModule()).injectMembers(this);
   }
   
   /**
@@ -57,7 +66,9 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    */
   @After
   public void tearDown() {
-    this.injector = null;
+    this.jsEngine = null;
+    this.jsObjectProvider = null;
+    this.jsArrayProvider = null;
   }
   
   /**
@@ -68,7 +79,7 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    */
   @Override
   protected JsonObject createJsonObject(Object object) {
-    return new JsJsonObjectImpl(JsonObject.class, this.getJsEngine(), object);
+    return new JsJsonObjectImpl(JsonObject.class, this.jsEngine, object);
   }
 
   /**
@@ -78,7 +89,7 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    */
   @Override
   protected Object createUnderlyingJsonObject() {
-    return this.injector.getInstance(Key.get(Object.class, JsObject.class));
+    return this.jsObjectProvider.get();
   }
   
   /**
@@ -88,7 +99,7 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
    */
   @Override
   protected Object createUnderlyingJsonArray() {
-    return this.injector.getInstance(Key.get(Object.class, JsArray.class));
+    return this.jsArrayProvider.get();
   }
   
   /**
@@ -204,15 +215,6 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
   }
   
   /**
-   * Retrieve the JavaScript engine.
-   *
-   * @return The JavaScript engine.
-   */
-  private Invocable getJsEngine() {
-    return this.injector.getInstance(Key.get(Invocable.class, JsEngine.class));
-  }
-  
-  /**
    * Invoke the function with the given name and arguments and return the
    * result.
    *
@@ -224,7 +226,7 @@ public class JsJsonObjectImplTest extends JsonObjectImplTestBase<Object> {
   @SuppressWarnings("unchecked")
   private <T> T invokeFunction(String name, Object... args) {
     try {
-      return (T)this.getJsEngine().invokeFunction(name, args);
+      return (T)this.jsEngine.invokeFunction(name, args);
     }
     catch (ScriptException se) {
       throw new IllegalStateException(se);
