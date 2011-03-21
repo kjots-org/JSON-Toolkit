@@ -25,7 +25,9 @@ import com.google.inject.Key;
 import org.junit.After;
 import org.junit.Before;
 
+import org.kjots.json.object.js.JsEngine;
 import org.kjots.json.object.js.JsJsonObjectModule;
+import org.kjots.json.object.js.JsObject;
 import org.kjots.json.object.shared.JsonStringMap;
 import org.kjots.json.object.shared.impl.JsonStringMapImplTestBase;
 
@@ -75,7 +77,7 @@ public class JsJsonStringMapImplTest extends JsonStringMapImplTestBase<Object> {
    */
   @Override
   protected Object createUnderlyingJsonObject() {
-    return this.injector.getInstance(Key.get(Object.class, JsJsonObjectModule.JsObject.class));
+    return this.injector.getInstance(Key.get(Object.class, JsObject.class));
   }
   
   /**
@@ -112,7 +114,7 @@ public class JsJsonStringMapImplTest extends JsonStringMapImplTestBase<Object> {
    * @return The JavaScript engine.
    */
   private Invocable getJsEngine() {
-    return this.injector.getInstance(Key.get(Invocable.class, JsJsonObjectModule.JsEngine.class));
+    return this.injector.getInstance(Key.get(Invocable.class, JsEngine.class));
   }
   
   /**

@@ -20,9 +20,12 @@ import java.lang.reflect.InvocationTargetException;
 import javax.script.Invocable;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
+import org.kjots.json.object.js.JsArray;
+import org.kjots.json.object.js.JsEngine;
 import org.kjots.json.object.js.JsJsonObjectGenerator;
-import org.kjots.json.object.js.JsJsonObjectModule;
+import org.kjots.json.object.js.JsObject;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
 import org.kjots.json.object.shared.JsonBooleanMap;
@@ -49,17 +52,16 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   private JsJsonObjectGenerator jsonObjectGenerator;
   
   /** The JavaScript engine. */
-  @Inject
-  @JsJsonObjectModule.JsEngine
+  @Inject @JsEngine
   private Invocable jsEngine;
   
   /** The JavaScript object provider. */
-  @Inject
-  private JsJsonObjectModule.JsObjectProvider jsObjectProvider;
+  @Inject @JsObject
+  private Provider<Object> jsObjectProvider;
   
   /** The JavaScript array provider. */
-  @Inject
-  private JsJsonObjectModule.JsArrayProvider jsArrayProvider;
+  @Inject @JsArray
+  private Provider<Object> jsArrayProvider;
   
   /**
    * Create a new JSON object with the given underlying JSON object.

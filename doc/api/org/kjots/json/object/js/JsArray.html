@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-JsJsonObjectModule.JsObject (JSON Object 1.2-SNAPSHOT API)
+JsArray (JSON Toolkit 1.2-SNAPSHOT API)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ JsJsonObjectModule.JsObject (JSON Object 1.2-SNAPSHOT API)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="JsJsonObjectModule.JsObject (JSON Object 1.2-SNAPSHOT API)";
+        parent.document.title="JsArray (JSON Toolkit 1.2-SNAPSHOT API)";
     }
 }
 </SCRIPT>
@@ -39,7 +39,7 @@ function windowTitle()
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsJsonObjectModule.JsObject.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsArray.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -54,11 +54,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../org/kjots/json/object/js/JsJsonObjectModule.JsEngine.html" title="annotation in org.kjots.json.object.js"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../org/kjots/json/object/js/JsJsonObjectModule.JsObjectProvider.html" title="class in org.kjots.json.object.js"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../org/kjots/json/object/js/JsEngine.html" title="annotation in org.kjots.json.object.js"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?org/kjots/json/object/js/JsJsonObjectModule.JsObject.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JsJsonObjectModule.JsObject.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?org/kjots/json/object/js/JsArray.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JsArray.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -89,20 +89,28 @@ DETAIL:&nbsp;ELEMENT</FONT></TD>
 <FONT SIZE="-1">
 org.kjots.json.object.js</FONT>
 <BR>
-Annotation Type JsJsonObjectModule.JsObject</H2>
+Annotation Type JsArray</H2>
 <HR>
 <DL>
 <DT><PRE><FONT SIZE="-1"><A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Documented.html?is-external=true" title="class or interface in java.lang.annotation">@Documented</A>
 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</A>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</A>={<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/ElementType.html?is-external=true#FIELD" title="class or interface in java.lang.annotation">FIELD</A>,<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/ElementType.html?is-external=true#PARAMETER" title="class or interface in java.lang.annotation">PARAMETER</A>,<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/ElementType.html?is-external=true#METHOD" title="class or interface in java.lang.annotation">METHOD</A>})
 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Retention.html?is-external=true" title="class or interface in java.lang.annotation">@Retention</A>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/Retention.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</A>=<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/annotation/RetentionPolicy.html?is-external=true#RUNTIME" title="class or interface in java.lang.annotation">RUNTIME</A>)
-</FONT>public static @interface <B>JsJsonObjectModule.JsObject</B></DL>
+</FONT>public @interface <B>JsArray</B></DL>
 </PRE>
 
 <P>
-JavaScript Object.
+JavaScript Array.
+ <p>
+ Created: 12th December 2009.
 <P>
 
 <P>
+<DL>
+<DT><B>Since:</B></DT>
+  <DD>json-object-0.2</DD>
+<DT><B>Author:</B></DT>
+  <DD><a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a></DD>
+</DL>
 
 <P>
 
@@ -123,7 +131,7 @@ JavaScript Object.
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsJsonObjectModule.JsObject.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="class-use/JsArray.html"><FONT CLASS="NavBarFont1"><B>Use</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
   <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
@@ -138,11 +146,11 @@ JavaScript Object.
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../org/kjots/json/object/js/JsJsonObjectModule.JsEngine.html" title="annotation in org.kjots.json.object.js"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../org/kjots/json/object/js/JsJsonObjectModule.JsObjectProvider.html" title="class in org.kjots.json.object.js"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../org/kjots/json/object/js/JsEngine.html" title="annotation in org.kjots.json.object.js"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?org/kjots/json/object/js/JsJsonObjectModule.JsObject.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JsJsonObjectModule.JsObject.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?org/kjots/json/object/js/JsArray.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JsArray.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

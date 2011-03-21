@@ -15,21 +15,13 @@
  */
 package org.kjots.json.object.js;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.BindingAnnotation;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 import org.kjots.json.object.js.impl.JsJsonObjectFactoryImpl;
@@ -46,119 +38,14 @@ import org.kjots.json.object.shared.JsonObjectFactory;
  */
 public class JsJsonObjectModule extends AbstractModule {
   /**
-   * JavaScript Engine.
-   */
-  @BindingAnnotation 
-  @Documented
-  @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD}) 
-  @Retention(RetentionPolicy.RUNTIME)
-  public static @interface JsEngine {
-  }
-  
-  /**
-   * JavaScript Object.
-   */
-  @BindingAnnotation 
-  @Documented
-  @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD}) 
-  @Retention(RetentionPolicy.RUNTIME)
-  public static @interface JsObject {
-  }
-  
-  /**
-   * JavaScript Array.
-   */
-  @BindingAnnotation 
-  @Documented
-  @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD}) 
-  @Retention(RetentionPolicy.RUNTIME)
-  public static @interface JsArray {
-  }
-  
-  /**
-   * JavaScript Object Provider
-   */
-  @Singleton
-  public static class JsObjectProvider implements Provider<Object> {
-    /** The JavaScript engine. */
-    @Inject
-    @JsEngine
-    private Invocable jsEngine;
-    
-    /**
-     * Retrieve a JavaScript object.
-     *
-     * @return The JavaScript object.
-     */
-    @Override
-    public Object get() {
-      try {
-        return this.jsEngine.invokeFunction("newObject");
-      }
-      catch (ScriptException se) {
-        throw new IllegalStateException(se);
-      }
-      catch (NoSuchMethodException nsme) {
-        throw new IllegalStateException(nsme);
-      }
-    }
-  }
-  
-  /**
-   * JavaScript Array Provider
-   */
-  @Singleton
-  public static class JsArrayProvider implements Provider<Object> {
-    /** The JavaScript engine. */
-    @Inject
-    @JsEngine
-    private Invocable jsEngine;
-    
-    /**
-     * Retrieve a JavaScript array.
-     *
-     * @return The JavaScript array.
-     */
-    @Override
-    public Object get() {
-      try {
-        return this.jsEngine.invokeFunction("newArray");
-      }
-      catch (ScriptException se) {
-        throw new IllegalStateException(se);
-      }
-      catch (NoSuchMethodException nsme) {
-        throw new IllegalStateException(nsme);
-      }
-    }
-  }
-  
-  /**
-   * Configure the module.
-   */
-  @Override
-  protected void configure() {
-    ScriptEngine jsScriptEngine = new ScriptEngineManager().getEngineByName("JavaScript");
-    
-    this.installFunctions(jsScriptEngine);
-    
-    this.bind(Invocable.class).annotatedWith(JsEngine.class).toInstance((Invocable)jsScriptEngine);
-    this.bind(Object.class).annotatedWith(JsObject.class).toProvider(JsObjectProvider.class);
-    this.bind(Object.class).annotatedWith(JsArray.class).toProvider(JsArrayProvider.class);
-    
-    this.bind(JsJsonObjectGenerator.class).in(Singleton.class);
-    this.bind(JsonObjectFactory.class).to(JsJsonObjectFactoryImpl.class).in(Singleton.class);
-    
-    this.requestStaticInjection(JsonObjectFactory.class);
-    this.requestStaticInjection(JsJsonObjectImpl.class);
-  }
-  
-  /**
-   * Install the required functions to the the given JavaScript engine.
+   * Provide the JavaScript engine.
    *
-   * @param jsEngine The JavaScript engine.
+   * @return The JavaScript engine.
    */
-  private void installFunctions(ScriptEngine jsEngine) {
+  @Provides @JsEngine @Singleton
+  public Invocable provideJsEngine() {
+    ScriptEngine jsEngine = new ScriptEngineManager().getEngineByName("JavaScript");
+    
     try {
       jsEngine.eval("function newObject() { return {}; }");
       jsEngine.eval("function newArray() { return []; }");
@@ -178,5 +65,57 @@ public class JsJsonObjectModule extends AbstractModule {
     catch (ScriptException se) {
       throw new IllegalStateException(se);
     }
+    
+    return (Invocable)jsEngine;
+  }
+  
+  /**
+   * Provide a JavaScript object.
+   *
+   * @param jsEngine The JavaScript engine.
+   * @return The JavaScript object.
+   */
+  @Provides @JsObject
+  public Object provideJsObject(@JsEngine Invocable jsEngine) {
+    try {
+      return jsEngine.invokeFunction("newObject");
+    }
+    catch (ScriptException se) {
+      throw new IllegalStateException(se);
+    }
+    catch (NoSuchMethodException nsme) {
+      throw new IllegalStateException(nsme);
+    }
+  }
+  
+  /**
+   * Provide a JavaScript array.
+   *
+   * @param jsEngine The JavaScript engine.
+   * @return The JavaScript array.
+   */
+  @Provides @JsArray
+  public Object provideJsArray(@JsEngine Invocable jsEngine) {
+    try {
+      return jsEngine.invokeFunction("newArray");
+    }
+    catch (ScriptException se) {
+      throw new IllegalStateException(se);
+    }
+    catch (NoSuchMethodException nsme) {
+      throw new IllegalStateException(nsme);
+    }
+  }
+  
+  /**
+   * Configure the module.
+   */
+  @Override
+  protected void configure() {
+    this.bind(JsJsonObjectGenerator.class).in(Singleton.class);
+    this.bind(JsonObjectFactory.class).to(JsJsonObjectFactoryImpl.class).in(Singleton.class);
+    
+    this.requestStaticInjection(JsonObjectFactory.class);
+    this.requestStaticInjection(JsJsonObjectImpl.class);
   }
 }

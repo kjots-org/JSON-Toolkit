@@ -25,6 +25,8 @@ import com.google.inject.Key;
 import org.junit.After;
 import org.junit.Before;
 
+import org.kjots.json.object.js.JsArray;
+import org.kjots.json.object.js.JsEngine;
 import org.kjots.json.object.js.JsJsonObjectModule;
 import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.impl.JsonNumberArrayImplTestBase;
@@ -75,7 +77,7 @@ public class JsJsonNumberArrayImplTest extends JsonNumberArrayImplTestBase<Objec
    */
   @Override
   protected Object createUnderlyingJsonArray() {
-    return this.injector.getInstance(Key.get(Object.class, JsJsonObjectModule.JsArray.class));
+    return this.injector.getInstance(Key.get(Object.class, JsArray.class));
   }
   
   /**
@@ -126,7 +128,7 @@ public class JsJsonNumberArrayImplTest extends JsonNumberArrayImplTestBase<Objec
    * @return The JavaScript engine.
    */
   private Invocable getJsEngine() {
-    return this.injector.getInstance(Key.get(Invocable.class, JsJsonObjectModule.JsEngine.class));
+    return this.injector.getInstance(Key.get(Invocable.class, JsEngine.class));
   }
   
   /**

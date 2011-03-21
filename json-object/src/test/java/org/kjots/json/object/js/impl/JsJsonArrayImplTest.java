@@ -25,7 +25,10 @@ import com.google.inject.Key;
 import org.junit.After;
 import org.junit.Before;
 
+import org.kjots.json.object.js.JsArray;
+import org.kjots.json.object.js.JsEngine;
 import org.kjots.json.object.js.JsJsonObjectModule;
+import org.kjots.json.object.js.JsObject;
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.impl.JsonArrayImplTestBase;
@@ -87,7 +90,7 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    */
   @Override
   protected Object createUnderlyingJsonObject() {
-    return this.injector.getInstance(Key.get(Object.class, JsJsonObjectModule.JsObject.class));
+    return this.injector.getInstance(Key.get(Object.class, JsObject.class));
   }
   
   /**
@@ -97,7 +100,7 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    */
   @Override
   protected Object createUnderlyingJsonArray() {
-    return this.injector.getInstance(Key.get(Object.class, JsJsonObjectModule.JsArray.class));
+    return this.injector.getInstance(Key.get(Object.class, JsArray.class));
   }
   
   /**
@@ -244,7 +247,7 @@ public class JsJsonArrayImplTest extends JsonArrayImplTestBase<Object> {
    * @return The JavaScript engine.
    */
   private Invocable getJsEngine() {
-    return this.injector.getInstance(Key.get(Invocable.class, JsJsonObjectModule.JsEngine.class));
+    return this.injector.getInstance(Key.get(Invocable.class, JsEngine.class));
   }
   
   /**
