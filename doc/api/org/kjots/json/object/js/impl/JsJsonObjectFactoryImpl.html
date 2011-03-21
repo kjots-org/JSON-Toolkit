@@ -126,10 +126,13 @@ JavaScript JSON Object Factory Implementation.
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../org/kjots/json/object/js/impl/JsJsonObjectFactoryImpl.html#JsJsonObjectFactoryImpl()">JsJsonObjectFactoryImpl</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../org/kjots/json/object/js/impl/JsJsonObjectFactoryImpl.html#JsJsonObjectFactoryImpl(org.kjots.json.object.js.JsJsonObjectGenerator, javax.script.Invocable, javax.inject.Provider, javax.inject.Provider)">JsJsonObjectFactoryImpl</A></B>(<A HREF="../../../../../../org/kjots/json/object/js/JsJsonObjectGenerator.html" title="class in org.kjots.json.object.js">JsJsonObjectGenerator</A>&nbsp;jsonObjectGenerator,
+                        <A HREF="http://java.sun.com/javase/6/docs/api/javax/script/Invocable.html?is-external=true" title="class or interface in javax.script">Invocable</A>&nbsp;jsEngine,
+                        javax.inject.Provider&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;jsObjectProvider,
+                        javax.inject.Provider&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;jsArrayProvider)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Construct a new JavaScript JSON Object Factory Implementation.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -277,11 +280,22 @@ T</CODE></FONT></TD>
 </TR>
 </TABLE>
 
-<A NAME="JsJsonObjectFactoryImpl()"><!-- --></A><H3>
+<A NAME="JsJsonObjectFactoryImpl(org.kjots.json.object.js.JsJsonObjectGenerator, javax.script.Invocable, javax.inject.Provider, javax.inject.Provider)"><!-- --></A><H3>
 JsJsonObjectFactoryImpl</H3>
 <PRE>
-public <B>JsJsonObjectFactoryImpl</B>()</PRE>
+<FONT SIZE="-1">@Inject
+</FONT>public <B>JsJsonObjectFactoryImpl</B>(<A HREF="../../../../../../org/kjots/json/object/js/JsJsonObjectGenerator.html" title="class in org.kjots.json.object.js">JsJsonObjectGenerator</A>&nbsp;jsonObjectGenerator,
+                                      <FONT SIZE="-1"><A HREF="../../../../../../org/kjots/json/object/js/JsEngine.html" title="annotation in org.kjots.json.object.js">@JsEngine</A></FONT>
+                                      <A HREF="http://java.sun.com/javase/6/docs/api/javax/script/Invocable.html?is-external=true" title="class or interface in javax.script">Invocable</A>&nbsp;jsEngine,
+                                      <FONT SIZE="-1"><A HREF="../../../../../../org/kjots/json/object/js/JsObject.html" title="annotation in org.kjots.json.object.js">@JsObject</A></FONT>
+                                      javax.inject.Provider&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;jsObjectProvider,
+                                      <FONT SIZE="-1"><A HREF="../../../../../../org/kjots/json/object/js/JsArray.html" title="annotation in org.kjots.json.object.js">@JsArray</A></FONT>
+                                      javax.inject.Provider&lt;<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&gt;&nbsp;jsArrayProvider)</PRE>
 <DL>
+<DD>Construct a new JavaScript JSON Object Factory Implementation.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>jsonObjectGenerator</CODE> - The JSON object generator.<DD><CODE>jsEngine</CODE> - The JavaScript engine.<DD><CODE>jsObjectProvider</CODE> - The JavaScript object provider.<DD><CODE>jsArrayProvider</CODE> - The JavaScript array provider.</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->

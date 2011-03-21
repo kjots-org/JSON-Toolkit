@@ -15,8 +15,9 @@
  */
 package org.kjots.json.object.simple;
 
+import javax.inject.Singleton;
+
 import com.google.inject.AbstractModule;
-import com.google.inject.Singleton;
 
 import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.simple.impl.SimpleJsonObjectFactoryImpl;

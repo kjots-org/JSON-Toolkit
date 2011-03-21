@@ -15,6 +15,7 @@
  */
 package org.kjots.json.object.js;
 
+import javax.inject.Singleton;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -22,7 +23,6 @@ import javax.script.ScriptException;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.Singleton;
 
 import org.kjots.json.object.js.impl.JsJsonObjectFactoryImpl;
 import org.kjots.json.object.js.impl.JsJsonObjectImpl;

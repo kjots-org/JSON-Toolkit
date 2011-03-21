@@ -15,7 +15,7 @@
  */
 package org.kjots.json.object.gwt.client;
 
-import com.google.inject.Singleton;
+import javax.inject.Singleton;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 

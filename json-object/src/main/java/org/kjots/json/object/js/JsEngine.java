@@ -21,7 +21,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.google.inject.BindingAnnotation;
+import javax.inject.Qualifier;
 
 /**
  * JavaScript Engine.
@@ -31,7 +31,7 @@ import com.google.inject.BindingAnnotation;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.2
  */
-@BindingAnnotation 
+@Qualifier
 @Documented
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD}) 
 @Retention(RetentionPolicy.RUNTIME)

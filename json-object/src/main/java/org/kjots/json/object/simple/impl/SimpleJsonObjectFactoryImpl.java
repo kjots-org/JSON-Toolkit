@@ -17,7 +17,7 @@ package org.kjots.json.object.simple.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 import org.kjots.json.object.shared.JsonArray;
 import org.kjots.json.object.shared.JsonBooleanArray;
@@ -43,8 +43,17 @@ import org.kjots.json.object.simple.SimpleJsonValue;
  */
 public class SimpleJsonObjectFactoryImpl extends JsonObjectFactory {
   /** The JSON object generator. */
+  private final SimpleJsonObjectGenerator jsonObjectGenerator;
+  
+  /**
+   * Construct a new  Simple JSON Object Factory Implementation.
+   *
+   * @param jsonObjectGenerator The JSON object generator.
+   */
   @Inject
-  private SimpleJsonObjectGenerator jsonObjectGenerator;
+  public SimpleJsonObjectFactoryImpl(SimpleJsonObjectGenerator jsonObjectGenerator) {
+    this.jsonObjectGenerator = jsonObjectGenerator;
+  }
   
   /**
    * Create a new JSON object with the given underlying JSON object.

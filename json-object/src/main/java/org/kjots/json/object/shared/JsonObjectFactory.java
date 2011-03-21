@@ -15,7 +15,7 @@
  */
 package org.kjots.json.object.shared;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 /**
  * JSON Object Factory.

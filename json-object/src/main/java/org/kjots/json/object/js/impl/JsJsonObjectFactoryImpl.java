@@ -17,10 +17,9 @@ package org.kjots.json.object.js.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.script.Invocable;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 import org.kjots.json.object.js.JsArray;
 import org.kjots.json.object.js.JsEngine;
@@ -48,20 +47,32 @@ import org.kjots.json.object.shared.JsonStringMap;
  */
 public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
   /** The JSON object generator. */
-  @Inject
-  private JsJsonObjectGenerator jsonObjectGenerator;
+  private final JsJsonObjectGenerator jsonObjectGenerator;
   
   /** The JavaScript engine. */
-  @Inject @JsEngine
-  private Invocable jsEngine;
+  private final Invocable jsEngine;
   
   /** The JavaScript object provider. */
-  @Inject @JsObject
-  private Provider<Object> jsObjectProvider;
+  private final Provider<Object> jsObjectProvider;
   
   /** The JavaScript array provider. */
-  @Inject @JsArray
-  private Provider<Object> jsArrayProvider;
+  private final Provider<Object> jsArrayProvider;
+  
+  /**
+   * Construct a new JavaScript JSON Object Factory Implementation.
+   *
+   * @param jsonObjectGenerator The JSON object generator.
+   * @param jsEngine The JavaScript engine.
+   * @param jsObjectProvider The JavaScript object provider.
+   * @param jsArrayProvider The JavaScript array provider.
+   */
+  @Inject
+  public JsJsonObjectFactoryImpl(JsJsonObjectGenerator jsonObjectGenerator, @JsEngine Invocable jsEngine, @JsObject Provider<Object> jsObjectProvider, @JsArray Provider<Object> jsArrayProvider) {
+    this.jsonObjectGenerator = jsonObjectGenerator;
+    this.jsEngine = jsEngine;
+    this.jsObjectProvider = jsObjectProvider;
+    this.jsArrayProvider = jsArrayProvider;
+  }
   
   /**
    * Create a new JSON object with the given underlying JSON object.
