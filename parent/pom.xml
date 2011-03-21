@@ -75,10 +75,10 @@
     <dir.module.json-object>${dir.project}/json-object</dir.module.json-object>
     <dir.module.json-object_pre-gwt-2.2>${dir.project}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
     
-    <version.guice>3.0-rc2</version.guice>
+    <version.guice>3.0-rc3</version.guice>
     <version.asm>3.2</version.asm>
     <version.gwt>2.2.0</version.gwt>
-    <version.gin>1.5-post-gwt-2.2</version.gin>
+    <version.gin>1.5.0</version.gin>
     
     <version.junit>4.8.2</version.junit>
     <version.mockito>1.8.0</version.mockito>
