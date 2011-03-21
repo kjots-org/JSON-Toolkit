@@ -33,8 +33,10 @@
   <name>JSON Object (pre-GWT 2.2)</name>
   
   <properties>
-    <gwt.sdk.version>2.1.1</gwt.sdk.version>
-    <gwt.plugin.version>2.1.0-1</gwt.plugin.version>
+    <version.gwt>2.1.1</version.gwt>
+    <version.gin>1.5-pre-gwt-2.2</version.gin>
+    
+    <version.plugin.gwt>2.1.0-1</version.plugin.gwt>
     
     <package>org.kjots.json.object</package>
     <package.path>org/kjots/json/object</package.path>
@@ -53,43 +55,43 @@
     <dependency>
       <groupId>com.google.inject</groupId>
       <artifactId>guice</artifactId>
-      <version>3.0-rc2</version>
+      <version>${version.guice}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>asm</groupId>
       <artifactId>asm-all</artifactId>
-      <version>3.2</version>
+      <version>${version.asm}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
-      <version>${gwt.sdk.version}</version>
+      <version>${version.gwt}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-dev</artifactId>
-      <version>${gwt.sdk.version}</version>
+      <version>${version.gwt}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.google.gwt.inject</groupId>
       <artifactId>gin</artifactId>
-      <version>1.5-pre-gwt-2.2</version>
+      <version>${version.gin}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.2</version>
+      <version>${version.junit}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
-      <version>1.8.0</version>
+      <version>${version.mockito}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -127,7 +129,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.6</version>
+        <version>${version.plugin.maven-surefire}</version>
         <configuration>
           <includes>
             <include>${package.path}/JvmJsonObjectTestSuite.java</include>
@@ -138,7 +140,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
-        <version>${gwt.plugin.version}</version>
+        <version>${version.plugin.gwt}</version>
         <configuration>
           <includes>${package.path}/gwt/test/GwtJsonObjectGwtTestSuite.java</includes>
           <mode>htmlunit</mode>
@@ -157,7 +159,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>2.1.2</version>
+        <version>${version.plugin.maven-source}</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -171,7 +173,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.7</version>
+        <version>${version.plugin.maven-javadoc}</version>
         <configuration>
           <notimestamp>true</notimestamp>
           <offlineLinks>

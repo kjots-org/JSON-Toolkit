@@ -75,7 +75,17 @@
     <dir.module.json-object>${dir.project}/json-object</dir.module.json-object>
     <dir.module.json-object_pre-gwt-2.2>${dir.project}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
     
-    <gwt.sdk.version>2.2.0</gwt.sdk.version>
-    <gwt.plugin.version>2.2.0</gwt.plugin.version>
+    <version.guice>3.0-rc2</version.guice>
+    <version.asm>3.2</version.asm>
+    <version.gwt>2.2.0</version.gwt>
+    <version.gin>1.5-post-gwt-2.2</version.gin>
+    
+    <version.junit>4.8.2</version.junit>
+    <version.mockito>1.8.0</version.mockito>
+    
+    <version.plugin.maven-surefire>2.6</version.plugin.maven-surefire>
+    <version.plugin.maven-source>2.1.2</version.plugin.maven-source>
+    <version.plugin.maven-javadoc>2.7</version.plugin.maven-javadoc>
+    <version.plugin.gwt>2.2.0</version.plugin.gwt>
   </properties>
 </project>
