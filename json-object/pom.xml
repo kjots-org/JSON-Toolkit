@@ -140,10 +140,21 @@
         </configuration>
         <executions>
           <execution>
+            <id>development-mode</id>
             <phase>test</phase>
             <goals>
               <goal>test</goal>
             </goals>
+          </execution>
+          <execution>
+            <id>production-mode</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <productionMode>true</productionMode>
+            </configuration>
           </execution>
         </executions>
       </plugin>
