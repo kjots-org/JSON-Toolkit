@@ -21,16 +21,16 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>json-toolkit-parent</artifactId>
+    <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
     <version>1.2-SNAPSHOT</version>
-    <relativePath>../parent/pom.xml</relativePath>
+    <relativePath>../maven-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>json-object_pre-gwt-2.2</artifactId>
+  <artifactId>org.kjots.json-toolkit.json-object_pre-gwt-2.2</artifactId>
   
   <packaging>jar</packaging>
   
-  <name>JSON Object (pre-GWT 2.2)</name>
+  <name>JSON Toolkit - JSON Object (pre-GWT 2.2)</name>
   
   <properties>
     <version.gwt>2.1.1</version.gwt>
@@ -48,7 +48,7 @@
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>json-content</artifactId>
+      <artifactId>org.kjots.json-toolkit.json-content</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>

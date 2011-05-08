@@ -21,18 +21,18 @@
   
   <parent>
     <groupId>org.kjots</groupId>
-    <artifactId>maven-base</artifactId>
-    <version>11.3.23</version>
+    <artifactId>org.kjots.maven-base</artifactId>
+    <version>11.5.8</version>
     <relativePath/>
   </parent>
   
   <groupId>org.kjots.json-toolkit</groupId>
-  <artifactId>json-toolkit-parent</artifactId>
+  <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
   <version>1.2-SNAPSHOT</version>
   
   <packaging>pom</packaging>
   
-  <name>JSON Toolkit Parent</name>
+  <name>JSON Toolkit - Maven Parent</name>
   
   <distributionManagement>
     <repository>
@@ -69,8 +69,7 @@
   <properties>
     <dir.project>${basedir}/..</dir.project>
     
-    <dir.module.parent>${dir.project}/parent</dir.module.parent>
-    
+    <dir.module.maven-parent>${dir.project}/maven-parent</dir.module.maven-parent>
     <dir.module.json-content>${dir.project}/json-content</dir.module.json-content>
     <dir.module.json-object>${dir.project}/json-object</dir.module.json-object>
     <dir.module.json-object_pre-gwt-2.2>${dir.project}/json-object_pre-gwt-2.2</dir.module.json-object_pre-gwt-2.2>
