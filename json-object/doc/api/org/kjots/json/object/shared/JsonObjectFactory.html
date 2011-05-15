@@ -95,7 +95,7 @@ Class JsonObjectFactory</H2>
   <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>org.kjots.json.object.shared.JsonObjectFactory</B>
 </PRE>
 <DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.html" title="class in org.kjots.json.object.gwt.client.impl">GwtJsonObjectFactoryImplBase</A>, <A HREF="../../../../../org/kjots/json/object/js/impl/JsJsonObjectFactoryImpl.html" title="class in org.kjots.json.object.js.impl">JsJsonObjectFactoryImpl</A>, <A HREF="../../../../../org/kjots/json/object/simple/impl/SimpleJsonObjectFactoryImpl.html" title="class in org.kjots.json.object.simple.impl">SimpleJsonObjectFactoryImpl</A></DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.html" title="class in org.kjots.json.object.gwt.client.impl">GwtJsonObjectFactoryImplBase</A>, <A HREF="../../../../../org/kjots/json/object/impl/JvmJsonObjectFactoryImplBase.html" title="class in org.kjots.json.object.impl">JvmJsonObjectFactoryImplBase</A></DD>
 </DL>
 <HR>
 <DL>
@@ -305,6 +305,23 @@ T</CODE></FONT></TD>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the JSON object factory.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>abstract 
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
+<TR ALIGN="right" VALIGN="">
+<TD NOWRAP><FONT SIZE="-1">
+<CODE>&lt;T extends <A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt; 
+<BR>
+T</CODE></FONT></TD>
+</TR>
+</TABLE>
+</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../org/kjots/json/object/shared/JsonObjectFactory.html#getJsonPropertyAdapter(java.lang.Class)">getJsonPropertyAdapter</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonPropertyAdapterClass)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the JSON property adapter with the given class.</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -392,7 +409,7 @@ public abstract &lt;T extends <A HREF="../../../../../org/kjots/json/object/shar
 <A NAME="createJsonObject()"><!-- --></A><H3>
 createJsonObject</H3>
 <PRE>
-public <A HREF="../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A> <B>createJsonObject</B>()</PRE>
+public final <A HREF="../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A> <B>createJsonObject</B>()</PRE>
 <DL>
 <DD>Create a new JSON object.
 <P>
@@ -434,7 +451,7 @@ public abstract &lt;T extends <A HREF="../../../../../org/kjots/json/object/shar
 <A NAME="createJsonObjectMap(java.lang.Class)"><!-- --></A><H3>
 createJsonObjectMap</H3>
 <PRE>
-public &lt;E extends <A HREF="../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; <A HREF="../../../../../org/kjots/json/object/shared/JsonObjectMap.html" title="interface in org.kjots.json.object.shared">JsonObjectMap</A>&lt;E&gt; <B>createJsonObjectMap</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</PRE>
+public final &lt;E extends <A HREF="../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; <A HREF="../../../../../org/kjots/json/object/shared/JsonObjectMap.html" title="interface in org.kjots.json.object.shared">JsonObjectMap</A>&lt;E&gt; <B>createJsonObjectMap</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</PRE>
 <DL>
 <DD>Create a new JSON object map.
 <P>
@@ -448,7 +465,7 @@ public &lt;E extends <A HREF="../../../../../org/kjots/json/object/shared/JsonOb
 <A NAME="createJsonArray()"><!-- --></A><H3>
 createJsonArray</H3>
 <PRE>
-public <A HREF="../../../../../org/kjots/json/object/shared/JsonArray.html" title="interface in org.kjots.json.object.shared">JsonArray</A> <B>createJsonArray</B>()</PRE>
+public final <A HREF="../../../../../org/kjots/json/object/shared/JsonArray.html" title="interface in org.kjots.json.object.shared">JsonArray</A> <B>createJsonArray</B>()</PRE>
 <DL>
 <DD>Create a new JSON array.
 <P>
@@ -490,13 +507,27 @@ public abstract &lt;T extends <A HREF="../../../../../org/kjots/json/object/shar
 <A NAME="createJsonObjectArray(java.lang.Class)"><!-- --></A><H3>
 createJsonObjectArray</H3>
 <PRE>
-public &lt;E extends <A HREF="../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; <A HREF="../../../../../org/kjots/json/object/shared/JsonObjectArray.html" title="interface in org.kjots.json.object.shared">JsonObjectArray</A>&lt;E&gt; <B>createJsonObjectArray</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</PRE>
+public final &lt;E extends <A HREF="../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; <A HREF="../../../../../org/kjots/json/object/shared/JsonObjectArray.html" title="interface in org.kjots.json.object.shared">JsonObjectArray</A>&lt;E&gt; <B>createJsonObjectArray</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;E&gt;&nbsp;elementClass)</PRE>
 <DL>
 <DD>Create a new JSON object array.
 <P>
 <DD><DL>
 <DT><B>Type Parameters:</B><DD><CODE>E</CODE> - The type of the element of the JSON object array.<DT><B>Parameters:</B><DD><CODE>elementClass</CODE> - The class of the element of the JSON object array.
 <DT><B>Returns:</B><DD>The JSON object array.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getJsonPropertyAdapter(java.lang.Class)"><!-- --></A><H3>
+getJsonPropertyAdapter</H3>
+<PRE>
+public abstract &lt;T extends <A HREF="../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt; T <B>getJsonPropertyAdapter</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonPropertyAdapterClass)</PRE>
+<DL>
+<DD>Retrieve the JSON property adapter with the given class.
+<P>
+<DD><DL>
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - The type of the JSON property adapter.<DT><B>Parameters:</B><DD><CODE>jsonPropertyAdapterClass</CODE> - The class of the JSON property adapter.
+<DT><B>Returns:</B><DD>The JSON property adapter.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

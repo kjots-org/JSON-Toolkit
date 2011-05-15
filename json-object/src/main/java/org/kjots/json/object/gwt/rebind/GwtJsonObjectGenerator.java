@@ -41,6 +41,7 @@ import org.kjots.json.object.shared.JsonFunction;
 import org.kjots.json.object.shared.JsonNumberPropertyAdapter;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectArray;
+import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.shared.JsonObjectMap;
 import org.kjots.json.object.shared.JsonObjectPropertyAdapter;
 import org.kjots.json.object.shared.JsonProperty;
@@ -808,7 +809,7 @@ public class GwtJsonObjectGenerator extends Generator {
     }
     
     sourceWriter.println();
-    sourceWriter.println("return new " + adapterType.getQualifiedSourceName() + "().fromJsonProperty(_" + propertyName + ");");
+    sourceWriter.println("return " + JsonObjectFactory.class.getName() + ".get().getJsonPropertyAdapter(" + adapterType.getQualifiedSourceName() + ".class).fromJsonProperty(_" + propertyName + ");");
     sourceWriter.outdent();
     sourceWriter.println("}");
   }
@@ -833,17 +834,17 @@ public class GwtJsonObjectGenerator extends Generator {
     
     JClassType adapterType = this.getType(logger, context, adapterTypeName);
     if (adapterType.isAssignableTo(this.getType(logger, context, JsonBooleanPropertyAdapter.class.getName()))) {
-      sourceWriter.println("boolean _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
+      sourceWriter.println("boolean _" + propertyName + " = " + JsonObjectFactory.class.getName() + ".get().getJsonPropertyAdapter(" + adapterType.getQualifiedSourceName() + ".class).toJsonProperty(" + propertyName + ");");
       sourceWriter.println();
       sourceWriter.println("this.setBooleanProperty(\"" + propertyName + "\", _" + propertyName + ");");
     }
     else if (adapterType.isAssignableTo(this.getType(logger, context, JsonNumberPropertyAdapter.class.getName()))) {
-      sourceWriter.println(Number.class.getName() + " _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
+      sourceWriter.println(Number.class.getName() + " _" + propertyName + " = " + JsonObjectFactory.class.getName() + ".get().getJsonPropertyAdapter(" + adapterType.getQualifiedSourceName() + ".class).toJsonProperty(" + propertyName + ");");
       sourceWriter.println();
       sourceWriter.println("this.setNumberProperty(\"" + propertyName + "\", _" + propertyName + ");");
     }
     else if (adapterType.isAssignableTo(this.getType(logger, context, JsonStringPropertyAdapter.class.getName()))) {
-      sourceWriter.println(String.class.getName() + " _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
+      sourceWriter.println(String.class.getName() + " _" + propertyName + " = " + JsonObjectFactory.class.getName() + ".get().getJsonPropertyAdapter(" + adapterType.getQualifiedSourceName() + ".class).toJsonProperty(" + propertyName + ");");
       sourceWriter.println();
       sourceWriter.println("this.setStringProperty(\"" + propertyName + "\", _" + propertyName + ");");
     }
@@ -851,7 +852,7 @@ public class GwtJsonObjectGenerator extends Generator {
       JParameterizedType jsonObjectPropertyType = (JParameterizedType)this.getImplementedInterface(adapterType, JsonObjectPropertyAdapter.class.getName());
       JClassType jsonObjectType = jsonObjectPropertyType.getTypeArgs()[1];
       
-      sourceWriter.println(jsonObjectType.getQualifiedSourceName() + " _" + propertyName + " = new " + adapterType.getQualifiedSourceName() + "().toJsonProperty(" + propertyName + ");");
+      sourceWriter.println(jsonObjectType.getQualifiedSourceName() + " _" + propertyName + " = " + JsonObjectFactory.class.getName() + ".get().getJsonPropertyAdapter(" + adapterType.getQualifiedSourceName() + ".class).toJsonProperty(" + propertyName + ");");
       sourceWriter.println();
       sourceWriter.println("this.setObjectProperty(\"" + propertyName + "\", _" + propertyName + ");");
     }

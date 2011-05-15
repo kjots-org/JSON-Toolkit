@@ -64,7 +64,7 @@ public abstract class JsonObjectFactory {
    *
    * @return The JSON object.
    */
-  public JsonObject createJsonObject() {
+  public final JsonObject createJsonObject() {
     return this.createJsonObject(JsonObject.class);
   }
 
@@ -93,7 +93,7 @@ public abstract class JsonObjectFactory {
    * @param elementClass The class of the element of the JSON object array.
    * @return The JSON object map.
    */
-  public <E extends JsonObject> JsonObjectMap<E> createJsonObjectMap(Class<E> elementClass) {
+  public final <E extends JsonObject> JsonObjectMap<E> createJsonObjectMap(Class<E> elementClass) {
     JsonObjectMap<?> jsonObjectMap = this.createJsonObject(JsonObjectMap.class);
     
     return jsonObjectMap.castElement(elementClass);
@@ -104,7 +104,7 @@ public abstract class JsonObjectFactory {
    *
    * @return The JSON array.
    */
-  public JsonArray createJsonArray() {
+  public final JsonArray createJsonArray() {
     return this.createJsonArray(JsonArray.class);
   }
   
@@ -133,9 +133,18 @@ public abstract class JsonObjectFactory {
    * @param elementClass The class of the element of the JSON object array.
    * @return The JSON object array.
    */
-  public <E extends JsonObject> JsonObjectArray<E> createJsonObjectArray(Class<E> elementClass) {
+  public final <E extends JsonObject> JsonObjectArray<E> createJsonObjectArray(Class<E> elementClass) {
     JsonObjectArray<?> jsonObjectArray = this.createJsonArray(JsonObjectArray.class);
     
     return jsonObjectArray.castElement(elementClass);
   }
+  
+  /**
+   * Retrieve the JSON property adapter with the given class.
+   *
+   * @param <T> The type of the JSON property adapter.
+   * @param jsonPropertyAdapterClass The class of the JSON property adapter.
+   * @return The JSON property adapter.
+   */
+  public abstract <T extends JsonPropertyAdapter<?, ?>> T getJsonPropertyAdapter(Class<T> jsonPropertyAdapterClass);
 }

@@ -33,6 +33,7 @@ import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectArray;
 import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.shared.JsonObjectMap;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
 import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.JsonStringMap;
 
@@ -58,8 +59,27 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
     public T newInstance(JavaScriptObject object);
   }
   
+  /**
+   * JSON Property Adaptor Instantiator.
+   * <p>
+   * Created: 15th May 2011.
+   *
+   * @since 1.2
+   */
+  protected interface JsonPropertyAdapterInstantiator<T extends JsonPropertyAdapter<?, ?>> {
+    /**
+     * Create a new JSON property adapter instance.
+     *
+     * @return The JSON property adapter.
+     */
+    public T newInstance();
+  }
+  
   /** The JSON object instantiators. */
   private final Map<String, JsonObjectInstantiator<?>> jsonObjectInstantiators = new HashMap<String, JsonObjectInstantiator<?>>();
+  
+  /** The JSON property adapter instantiators. */
+  private final Map<Class<?>, JsonPropertyAdapterInstantiator<?>> jsonPropertyAdapterInstantiators = new HashMap<Class<?>, JsonPropertyAdapterInstantiator<?>>();
   
   /**
    * Create a new JSON object with the given underlying JSON object.
@@ -83,7 +103,7 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
    * @return The JSON object.
    */
   @Override
-  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
+  public final <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
     return this.<T>getJsonObjectInstantiator(jsonObjectClassName).newInstance((JavaScriptObject)object);
   }
 
@@ -106,7 +126,7 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
    * @return The JSON object.
    */
   @Override
-  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
+  public final <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
     return this.<T>getJsonObjectInstantiator(jsonObjectClassName).newInstance(JavaScriptObject.createObject());
   }
   
@@ -130,8 +150,20 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
    * @return The JSON array.
    */
   @Override
-  public <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
+  public final <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
     return this.<T>getJsonObjectInstantiator(jsonArrayClassName).newInstance(JavaScriptObject.createArray());
+  }
+  
+  /**
+   * Retrieve the JSON property adapter with the given class.
+   *
+   * @param <T> The type of the JSON property adapter.
+   * @param jsonPropertyAdapterClass The class of the JSON property adapter.
+   * @return The JSON property adapter.
+   */
+  @Override
+  public final <T extends JsonPropertyAdapter<?, ?>> T getJsonPropertyAdapter(Class<T> jsonPropertyAdapterClass) {
+    return this.<T>getJsonPropertyAdapterInstantiator(jsonPropertyAdapterClass).newInstance();
   }
   
   /**
@@ -211,7 +243,7 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   }
   
   /**
-   * Register the given instantiator for JSON objects with the given given class. 
+   * Register the given instantiator for JSON objects with the given class. 
    *
    * @param <T> The type of the JSON object.
    * @param jsonObjectClass The class of the JSON object.
@@ -222,7 +254,18 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   }
   
   /**
-   * Retrieve the instantiator for JSON objects with the given given class. 
+   * Register the given instantiator for JSON property adapters with the given class.
+   *
+   * @param <T> The type of the JSON property adapter.
+   * @param jsonPropertyAdapterClass The class of the JSON property adapter.
+   * @param jsonPropertyAdapterInstantiator The JSON property adapter instantiator.
+   */
+  protected final <T extends JsonPropertyAdapter<?, ?>> void registerJsonPropertyAdapterInstantiator(Class<T> jsonPropertyAdapterClass, JsonPropertyAdapterInstantiator<T> jsonPropertyAdapterInstantiator) {
+    this.jsonPropertyAdapterInstantiators.put(jsonPropertyAdapterClass, jsonPropertyAdapterInstantiator);
+  }
+  
+  /**
+   * Retrieve the instantiator for JSON objects with the given class. 
    *
    * @param <T> The type of the JSON object.
    * @param jsonObjectClass The class of the JSON object.
@@ -234,7 +277,7 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
   }
   
   /**
-   * Retrieve the instantiator for JSON objects with the given given class name. 
+   * Retrieve the instantiator for JSON objects with the given class name. 
    *
    * @param <T> The type of the JSON object.
    * @param jsonObjectClassName The name of the  class of the JSON object.
@@ -247,5 +290,21 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
     }
     
     return (JsonObjectInstantiator<T>)this.jsonObjectInstantiators.get(jsonObjectClassName);
+  }
+  
+  /**
+   * Retrieve the instantiator for JSON property adapters with the given class.
+   *
+   * @param <T> The type of the JSON property adapter.
+   * @param jsonPropertyAdapterClass The class of the JSON property adapter.
+   * @return The JSON property adapter instantiator.
+   */
+  @SuppressWarnings("unchecked")
+  private <T extends JsonPropertyAdapter<?, ?>> JsonPropertyAdapterInstantiator<T> getJsonPropertyAdapterInstantiator(Class<T> jsonPropertyAdapterClass) {
+    if (!this.jsonPropertyAdapterInstantiators.containsKey(jsonPropertyAdapterClass)) {
+      throw new IllegalArgumentException(jsonPropertyAdapterClass.getName());
+    }
+    
+    return (JsonPropertyAdapterInstantiator<T>)this.jsonPropertyAdapterInstantiators.get(jsonPropertyAdapterClass);
   }
 }

@@ -17,7 +17,9 @@ package org.kjots.json.object.gwt.rebind;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.ext.Generator;
@@ -25,7 +27,6 @@ import com.google.gwt.core.ext.GeneratorContext;
 import com.google.gwt.core.ext.TreeLogger;
 import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.core.ext.typeinfo.JClassType;
-import com.google.gwt.core.ext.typeinfo.NotFoundException;
 import com.google.gwt.core.ext.typeinfo.TypeOracle;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
@@ -33,6 +34,7 @@ import com.google.gwt.user.rebind.SourceWriter;
 import org.kjots.json.object.gwt.client.impl.GwtJsonObjectFactoryImplBase;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectFactory;
+import org.kjots.json.object.shared.JsonPropertyAdapter;
 
 /**
  * GWT JSON Object Factory Generator.
@@ -82,7 +84,11 @@ public class GwtJsonObjectFactoryGenerator extends Generator {
       sourceWriter.indent();
       
       for (Map.Entry<String, String> entry : this.getJsonObjectImplClasses(logger, context).entrySet()) {
-        this.writeInstantiator(sourceWriter, entry.getKey(), entry.getValue(), null);
+        this.writeJsonObjectInstantiator(sourceWriter, entry.getKey(), entry.getValue());
+      }
+      
+      for (String jsonPropertyAdapterTypeName : this.getJsonPropertyAdapterClasses(logger, context)) {
+        this.writeJsonPropertyAdapterInstantiator(sourceWriter, jsonPropertyAdapterTypeName);
       }
       
       sourceWriter.outdent();
@@ -100,19 +106,31 @@ public class GwtJsonObjectFactoryGenerator extends Generator {
    * @param sourceWriter The source writer.
    * @param jsonObjectTypeName The name of the JSON object type.
    * @param jsonObjectImplTypeName The name of the JSON object implementation type.
-   * @param jsObjectTypeName The name of the JavaScript object type.
    */
-  private void writeInstantiator(SourceWriter sourceWriter, String jsonObjectTypeName, String jsonObjectImplTypeName, String jsObjectTypeName) {
+  private void writeJsonObjectInstantiator(SourceWriter sourceWriter, String jsonObjectTypeName, String jsonObjectImplTypeName) {
     sourceWriter.println("this.registerJsonObjectInstantiator(" + jsonObjectTypeName + ".class, new JsonObjectInstantiator<" + jsonObjectTypeName + ">() {");
     sourceWriter.indent();
     sourceWriter.println("public final " + jsonObjectTypeName + " newInstance(" + JavaScriptObject.class.getName() + " jsObject) {");
     sourceWriter.indent();
-    if (jsObjectTypeName != null) {
-      sourceWriter.println("return new " + jsonObjectImplTypeName + "(" + jsonObjectTypeName + ".class, (" + jsObjectTypeName + ")jsObject.cast());");
-    }
-    else {
-      sourceWriter.println("return new " + jsonObjectImplTypeName + "(" + jsonObjectTypeName + ".class, jsObject);");
-    }
+    sourceWriter.println("return new " + jsonObjectImplTypeName + "(" + jsonObjectTypeName + ".class, jsObject);");
+    sourceWriter.outdent();
+    sourceWriter.println("}");
+    sourceWriter.outdent();
+    sourceWriter.println("});");
+  }
+  
+  /**
+   * Write an instantiator for the given JSON property adapter type.
+   *
+   * @param sourceWriter The source writer.
+   * @param jsonPropertyAdapterTypeName The name of the JSON property adapter type.
+   */
+  private void writeJsonPropertyAdapterInstantiator(SourceWriter sourceWriter, String jsonPropertyAdapterTypeName) {
+    sourceWriter.println("this.registerJsonPropertyAdapterInstantiator(" + jsonPropertyAdapterTypeName + ".class, new JsonPropertyAdapterInstantiator<" + jsonPropertyAdapterTypeName + ">() {");
+    sourceWriter.indent();
+    sourceWriter.println("public final " + jsonPropertyAdapterTypeName + " newInstance() {");
+    sourceWriter.indent();
+    sourceWriter.println("return new " + jsonPropertyAdapterTypeName + "();");
     sourceWriter.outdent();
     sourceWriter.println("}");
     sourceWriter.outdent();
@@ -125,7 +143,7 @@ public class GwtJsonObjectFactoryGenerator extends Generator {
    * @param logger The logger.
    * @param context The context.
    * @return The JSON object implementation classes.
-   * @throws NotFoundException 
+   * @throws UnableToCompleteException 
    */
   private Map<String, String> getJsonObjectImplClasses(TreeLogger logger, GeneratorContext context)
     throws UnableToCompleteException {
@@ -148,5 +166,27 @@ public class GwtJsonObjectFactoryGenerator extends Generator {
     }
     
     return jsonObjectImplClasses;
+  }
+  
+  /**
+   * Retrieve the JSON property adapter classes.
+   *
+   * @param logger The logger.
+   * @param context The context.
+   * @return The JSON property adapter classes.
+   */
+  private Set<String> getJsonPropertyAdapterClasses(TreeLogger logger, GeneratorContext context) {
+    Set<String> jsonPropertyAdapterClasses = new HashSet<String>();
+    
+    TypeOracle typeOracle = context.getTypeOracle();
+    JClassType jsonPropertyAdapterType = typeOracle.findType(JsonPropertyAdapter.class.getName());
+    
+    for (JClassType type : typeOracle.getTypes()) {
+      if (type.isAssignableTo(jsonPropertyAdapterType) && !type.isAbstract()) {
+        jsonPropertyAdapterClasses.add(type.getQualifiedSourceName());
+      }
+    }
+    
+    return jsonPropertyAdapterClasses;
   }
 }

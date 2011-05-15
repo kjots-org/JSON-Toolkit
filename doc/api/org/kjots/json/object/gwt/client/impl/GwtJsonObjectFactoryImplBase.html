@@ -132,6 +132,14 @@ GWT JSON Object Factory Implementation Base.
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSON Object Instantiator.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator.html" title="interface in org.kjots.json.object.gwt.client.impl">GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator</A>&lt;<A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator.html" title="type parameter in GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator">T</A> extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt;</B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSON Property Adaptor Instantiator.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -266,6 +274,23 @@ T</CODE></FONT></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
+<TR ALIGN="right" VALIGN="">
+<TD NOWRAP><FONT SIZE="-1">
+<CODE>&lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt; 
+<BR>
+T</CODE></FONT></TD>
+</TR>
+</TABLE>
+</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.html#getJsonPropertyAdapter(java.lang.Class)">getJsonPropertyAdapter</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonPropertyAdapterClass)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the JSON property adapter with the given class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected 
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
 <TR ALIGN="right" VALIGN="">
@@ -280,7 +305,25 @@ void</CODE></FONT></TD>
                                <A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.JsonObjectInstantiator.html" title="interface in org.kjots.json.object.gwt.client.impl">GwtJsonObjectFactoryImplBase.JsonObjectInstantiator</A>&lt;T&gt;&nbsp;jsonObjectInstantiator)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register the given instantiator for JSON objects with the given given class.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register the given instantiator for JSON objects with the given class.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected 
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
+<TR ALIGN="right" VALIGN="">
+<TD NOWRAP><FONT SIZE="-1">
+<CODE>&lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt; 
+<BR>
+void</CODE></FONT></TD>
+</TR>
+</TABLE>
+</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.html#registerJsonPropertyAdapterInstantiator(java.lang.Class, org.kjots.json.object.gwt.client.impl.GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator)">registerJsonPropertyAdapterInstantiator</A></B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonPropertyAdapterClass,
+                                        <A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator.html" title="interface in org.kjots.json.object.gwt.client.impl">GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator</A>&lt;T&gt;&nbsp;jsonPropertyAdapterInstantiator)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register the given instantiator for JSON property adapters with the given class.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_org.kjots.json.object.shared.JsonObjectFactory"><!-- --></A>
@@ -354,8 +397,8 @@ public final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/s
 <A NAME="createJsonObject(java.lang.String, java.lang.Object)"><!-- --></A><H3>
 createJsonObject</H3>
 <PRE>
-public &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; T <B>createJsonObject</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonObjectClassName,
-                                                 <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</PRE>
+public final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; T <B>createJsonObject</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonObjectClassName,
+                                                       <A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</A>&nbsp;object)</PRE>
 <DL>
 <DD>Create a new JSON object with the given underlying JSON object.
 <P>
@@ -389,7 +432,7 @@ public final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/s
 <A NAME="createJsonObject(java.lang.String)"><!-- --></A><H3>
 createJsonObject</H3>
 <PRE>
-public &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; T <B>createJsonObject</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonObjectClassName)</PRE>
+public final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; T <B>createJsonObject</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonObjectClassName)</PRE>
 <DL>
 <DD>Create a new JSON object.
 <P>
@@ -423,7 +466,7 @@ public final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/s
 <A NAME="createJsonArray(java.lang.String)"><!-- --></A><H3>
 createJsonArray</H3>
 <PRE>
-public &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonArray.html" title="interface in org.kjots.json.object.shared">JsonArray</A>&gt; T <B>createJsonArray</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonArrayClassName)</PRE>
+public final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonArray.html" title="interface in org.kjots.json.object.shared">JsonArray</A>&gt; T <B>createJsonArray</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;jsonArrayClassName)</PRE>
 <DL>
 <DD>Create a new JSON array.
 <P>
@@ -437,16 +480,47 @@ public &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/
 </DL>
 <HR>
 
+<A NAME="getJsonPropertyAdapter(java.lang.Class)"><!-- --></A><H3>
+getJsonPropertyAdapter</H3>
+<PRE>
+public final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt; T <B>getJsonPropertyAdapter</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonPropertyAdapterClass)</PRE>
+<DL>
+<DD>Retrieve the JSON property adapter with the given class.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../org/kjots/json/object/shared/JsonObjectFactory.html#getJsonPropertyAdapter(java.lang.Class)">getJsonPropertyAdapter</A></CODE> in class <CODE><A HREF="../../../../../../../org/kjots/json/object/shared/JsonObjectFactory.html" title="class in org.kjots.json.object.shared">JsonObjectFactory</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - The type of the JSON property adapter.<DT><B>Parameters:</B><DD><CODE>jsonPropertyAdapterClass</CODE> - The class of the JSON property adapter.
+<DT><B>Returns:</B><DD>The JSON property adapter.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="registerJsonObjectInstantiator(java.lang.Class, org.kjots.json.object.gwt.client.impl.GwtJsonObjectFactoryImplBase.JsonObjectInstantiator)"><!-- --></A><H3>
 registerJsonObjectInstantiator</H3>
 <PRE>
 protected final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonObject.html" title="interface in org.kjots.json.object.shared">JsonObject</A>&gt; void <B>registerJsonObjectInstantiator</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonObjectClass,
                                                                            <A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.JsonObjectInstantiator.html" title="interface in org.kjots.json.object.gwt.client.impl">GwtJsonObjectFactoryImplBase.JsonObjectInstantiator</A>&lt;T&gt;&nbsp;jsonObjectInstantiator)</PRE>
 <DL>
-<DD>Register the given instantiator for JSON objects with the given given class.
+<DD>Register the given instantiator for JSON objects with the given class.
 <P>
 <DD><DL>
 <DT><B>Type Parameters:</B><DD><CODE>T</CODE> - The type of the JSON object.<DT><B>Parameters:</B><DD><CODE>jsonObjectClass</CODE> - The class of the JSON object.<DD><CODE>jsonObjectInstantiator</CODE> - The JSON object instantiator.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="registerJsonPropertyAdapterInstantiator(java.lang.Class, org.kjots.json.object.gwt.client.impl.GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator)"><!-- --></A><H3>
+registerJsonPropertyAdapterInstantiator</H3>
+<PRE>
+protected final &lt;T extends <A HREF="../../../../../../../org/kjots/json/object/shared/JsonPropertyAdapter.html" title="interface in org.kjots.json.object.shared">JsonPropertyAdapter</A>&lt;?,?&gt;&gt; void <B>registerJsonPropertyAdapterInstantiator</B>(<A HREF="http://java.sun.com/javase/6/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</A>&lt;T&gt;&nbsp;jsonPropertyAdapterClass,
+                                                                                                  <A HREF="../../../../../../../org/kjots/json/object/gwt/client/impl/GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator.html" title="interface in org.kjots.json.object.gwt.client.impl">GwtJsonObjectFactoryImplBase.JsonPropertyAdapterInstantiator</A>&lt;T&gt;&nbsp;jsonPropertyAdapterInstantiator)</PRE>
+<DL>
+<DD>Register the given instantiator for JSON property adapters with the given class.
+<P>
+<DD><DL>
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - The type of the JSON property adapter.<DT><B>Parameters:</B><DD><CODE>jsonPropertyAdapterClass</CODE> - The class of the JSON property adapter.<DD><CODE>jsonPropertyAdapterInstantiator</CODE> - The JSON property adapter instantiator.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

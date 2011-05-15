@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.script.Invocable;
 
+import org.kjots.json.object.impl.JvmJsonObjectFactoryImplBase;
 import org.kjots.json.object.js.JsArray;
 import org.kjots.json.object.js.JsEngine;
 import org.kjots.json.object.js.JsJsonObjectGenerator;
@@ -32,7 +33,6 @@ import org.kjots.json.object.shared.JsonNumberArray;
 import org.kjots.json.object.shared.JsonNumberMap;
 import org.kjots.json.object.shared.JsonObject;
 import org.kjots.json.object.shared.JsonObjectArray;
-import org.kjots.json.object.shared.JsonObjectFactory;
 import org.kjots.json.object.shared.JsonObjectMap;
 import org.kjots.json.object.shared.JsonStringArray;
 import org.kjots.json.object.shared.JsonStringMap;
@@ -45,7 +45,7 @@ import org.kjots.json.object.shared.JsonStringMap;
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since json-object-0.5
  */
-public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
+public class JsJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
   /** The JSON object generator. */
   private final JsJsonObjectGenerator jsonObjectGenerator;
   
@@ -84,7 +84,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass, Object object) {
+  public final <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass, Object object) {
     JsJsonObjectImpl jsonObjectImpl = this.createStaticJsonObject(jsonObjectClass, object);
     if (jsonObjectImpl == null) {
       Class<? extends JsJsonObjectImpl> jsonObjectImplClass = this.jsonObjectGenerator.getJsonObjectImplClass(jsonObjectClass);
@@ -129,7 +129,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
+  public final <T extends JsonObject> T createJsonObject(String jsonObjectClassName, Object object) {
     try {
       return this.createJsonObject((Class<T>)Class.forName(jsonObjectClassName), object);
     }
@@ -146,7 +146,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    * @return The JSON object.
    */
   @Override
-  public <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass) {
+  public final <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass) {
     return this.createJsonObject(jsonObjectClass, this.jsObjectProvider.get());
   }
   
@@ -158,7 +158,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    * @return The JSON object.
    */
   @Override
-  public <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
+  public final <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
     return this.createJsonObject(jsonObjectClassName, this.jsObjectProvider.get());
   }
   
@@ -170,7 +170,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    * @return The JSON array.
    */
   @Override
-  public <T extends JsonArray> T createJsonArray(Class<T> jsonArrayClass) {
+  public final <T extends JsonArray> T createJsonArray(Class<T> jsonArrayClass) {
     return this.createJsonObject(jsonArrayClass, this.jsArrayProvider.get());
   }
   
@@ -182,7 +182,7 @@ public class JsJsonObjectFactoryImpl extends JsonObjectFactory {
    * @return The JSON array.
    */
   @Override
-  public <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
+  public final <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
     return this.createJsonObject(jsonArrayClassName, this.jsArrayProvider.get());
   }
   
