@@ -88,7 +88,7 @@ public class SimpleJsonObjectImpl implements JsonObject {
       return (T)this;
     }
     
-    return JsonObjectFactory.get().createJsonObject(jsonObjectClassName, this.simpleJsonValue);
+    return JsonObjectFactory.get().<T>createJsonObject(jsonObjectClassName, this.simpleJsonValue);
   }
   
   /**

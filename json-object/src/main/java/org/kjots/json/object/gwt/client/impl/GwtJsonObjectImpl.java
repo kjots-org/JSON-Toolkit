@@ -94,7 +94,7 @@ public class GwtJsonObjectImpl implements JsonObject {
       return (T)this;
     }
     
-    return JsonObjectFactory.get().createJsonObject(jsonObjectClassName, this.jsObject);
+    return JsonObjectFactory.get().<T>createJsonObject(jsonObjectClassName, this.jsObject);
   }
   
   /**

@@ -159,7 +159,7 @@ public class JsJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
    */
   @Override
   public final <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
-    return this.createJsonObject(jsonObjectClassName, this.jsObjectProvider.get());
+    return this.<T>createJsonObject(jsonObjectClassName, this.jsObjectProvider.get());
   }
   
   /**
@@ -183,7 +183,7 @@ public class JsJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
    */
   @Override
   public final <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
-    return this.createJsonObject(jsonArrayClassName, this.jsArrayProvider.get());
+    return this.<T>createJsonObject(jsonArrayClassName, this.jsArrayProvider.get());
   }
   
   /**

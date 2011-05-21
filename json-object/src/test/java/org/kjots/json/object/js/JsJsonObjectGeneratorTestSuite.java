@@ -42,7 +42,7 @@ import org.junit.runners.Suite.SuiteClasses;
   JsJsonObjectGeneratorFunctionTest.class,
   JsJsonObjectGeneratorExceptionTest.class,
   
-  JsJsonObjectGeneratorBridgeTest.class,
+  JsJsonObjectGeneratorBridgeTest.class
 })
 public class JsJsonObjectGeneratorTestSuite {
 }

@@ -610,7 +610,7 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    * @return The type parameter generic return value.
    */
   public static <T> T testTypeParameterGenericReturnValueJsonFunction(JsonObject jsonObject) {
-    return functions.testTypeParameterGenericReturnValueJsonFunction(jsonObject);
+    return functions.<T>testTypeParameterGenericReturnValueJsonFunction(jsonObject);
   }
 
   /**
@@ -620,7 +620,7 @@ public abstract class JsonObjectGeneratorFunctionTestBase {
    * @return The type parameter generic array return value.
    */
   public static <T> T[] testTypeParameterGenericArrayReturnValueJsonFunction(JsonObject jsonObject) {
-    return functions.testTypeParameterGenericArrayReturnValueJsonFunction(jsonObject);
+    return functions.<T>testTypeParameterGenericArrayReturnValueJsonFunction(jsonObject);
   }
 
   /**

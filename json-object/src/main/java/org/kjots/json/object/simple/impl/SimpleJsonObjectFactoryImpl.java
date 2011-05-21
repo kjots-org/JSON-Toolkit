@@ -140,7 +140,7 @@ public class SimpleJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
    */
   @Override
   public final <T extends JsonObject> T createJsonObject(String jsonObjectClassName) {
-    return this.createJsonObject(jsonObjectClassName, SimpleJsonValue.createObject());
+    return this.<T>createJsonObject(jsonObjectClassName, SimpleJsonValue.createObject());
   }
   
   /**
@@ -164,7 +164,7 @@ public class SimpleJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
    */
   @Override
   public final <T extends JsonArray> T createJsonArray(String jsonArrayClassName) {
-    return this.createJsonObject(jsonArrayClassName, SimpleJsonValue.createArray());
+    return this.<T>createJsonObject(jsonArrayClassName, SimpleJsonValue.createArray());
   }
   
   /**
