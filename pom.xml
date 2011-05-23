@@ -61,8 +61,14 @@
   <modules>
     <module>maven-parent</module>
     <module>json-content</module>
-    <module>json-object</module>
-    <module>json-object_pre-gwt-2.2</module>
+    
+    <module>json-object/maven-parent</module>
+    <module>json-object/shared</module>
+    <module>json-object/simple</module>
+    <module>json-object/js</module>
+    <module>json-object/native</module>
+    <module>json-object/gwt</module>
+    <module>json-object/gwt_pre-gwt-2.2</module>
   </modules>
   
   <build>

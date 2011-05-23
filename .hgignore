@@ -8,12 +8,28 @@ syntax: regexp
 syntax: regexp
 ^json-content/target$
 syntax: regexp
-^json-object/eclipse-bin$
+^json-object/shared/eclipse-bin$
 syntax: regexp
-^json-object/target$
+^json-object/shared/target$
 syntax: regexp
-^json-object/tomcat$
+^json-object/simple/eclipse-bin$
 syntax: regexp
-^json-object/www-test$
+^json-object/simple/target$
 syntax: regexp
-^json-object_pre-gwt-2\.2/target$
+^json-object/js/eclipse-bin$
+syntax: regexp
+^json-object/js/target$
+syntax: regexp
+^json-object/native/eclipse-bin$
+syntax: regexp
+^json-object/native/target$
+syntax: regexp
+^json-object/gwt/eclipse-bin$
+syntax: regexp
+^json-object/gwt/target$
+syntax: regexp
+^json-object/gwt/tomcat$
+syntax: regexp
+^json-object/gwt/www-test$
+syntax: regexp
+^json-object/gwt_pre-gwt-2\.2/target$

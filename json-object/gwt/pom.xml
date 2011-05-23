@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright © 2011 Karl J. Ots <kjots@kjots.org>
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>org.kjots.json-toolkit</groupId>
+    <artifactId>org.kjots.json-toolkit.json-object.maven-parent</artifactId>
+    <version>1.2-SNAPSHOT</version>
+    <relativePath>../maven-parent/pom.xml</relativePath>
+  </parent>
+  
+  <artifactId>org.kjots.json-toolkit.json-object.gwt</artifactId>
+  
+  <packaging>jar</packaging>
+  
+  <name>JSON Toolkit - JSON Object - GWT</name>
+  
+  <properties>
+    <package>org.kjots.json.object</package>
+    <package.path>org/kjots/json/object</package.path>
+    
+    <gwt.module.name>JsonObject</gwt.module.name>
+    <gwt.module>${package}.${gwt.module.name}</gwt.module>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>${version.gwt}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <version>${version.gwt}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${version.javax.validation}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${version.javax.validation}</version>
+      <classifier>sources</classifier>
+      <scope>provided</scope>
+    </dependency>    
+    <dependency>
+      <groupId>com.google.gwt.inject</groupId>
+      <artifactId>gin</artifactId>
+      <version>${version.gin}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/gwt</directory>
+        <includes>
+          <include>${package.path}/**</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${dir.module.json-object.shared}/src/main/java</directory>
+        <includes>
+          <include>${package.path}/shared/**/*.java</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>${package.path}/gwt/client/**/*.java</include>
+        </includes>
+      </resource>
+    </resources> 
+    
+    <testResources>
+      <testResource>
+        <directory>src/test/gwt</directory>
+        <includes>
+          <include>${package.path}/**</include>
+        </includes>
+      </testResource>
+      <testResource>
+        <directory>${dir.module.json-object.shared}/src/test/java</directory>
+        <includes>
+          <include>${package.path}/shared/**/*.java</include>
+        </includes>
+      </testResource>
+    </testResources>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.plugin.maven-surefire}</version>
+        <configuration>
+          <excludes>
+            <exclude>**/*GwtTest.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>${version.plugin.gwt}</version>
+        <configuration>
+          <includes>${package.path}/gwt/test/GwtJsonObjectGwtTestSuite.java</includes>
+          <mode>htmlunit</mode>
+          <testTimeOut>0</testTimeOut>
+        </configuration>
+        <executions>
+          <execution>
+            <id>development-mode</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>production-mode</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <productionMode>true</productionMode>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${version.plugin.maven-source}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${version.plugin.maven-javadoc}</version>
+        <configuration>
+          <destDir>doc/api</destDir>
+          <notimestamp>true</notimestamp>
+          <offlineLinks>
+            <offlineLink>
+              <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
+              <location>${dir.module.json-content}/doc/api/</location>
+            </offlineLink>
+            <offlineLink>
+              <url>http://json-toolkit.googlecode.com/hg/json-object/shared/doc/api/</url>
+              <location>${dir.module.json-object.shared}/doc/api/</location>
+            </offlineLink>
+          </offlineLinks>
+          <links>
+            <link>http://google-guice.googlecode.com/svn/tags/3.0/javadoc/</link>
+            <link>http://google-web-toolkit.googlecode.com/svn/javadoc/2.3/</link>
+            <link>http://google-gin.googlecode.com/svn/tags/1.5.0-post-gwt-2.2/javadoc/</link>
+          </links>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins> 
+  </build>
+</project>
