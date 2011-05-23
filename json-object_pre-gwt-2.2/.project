@@ -3,15 +3,16 @@
 	<name>org.kjots.json-toolkit.json-object_pre-gwt-2.2</name>
 	<comment></comment>
 	<projects>
+		<project>org.kjots.json-toolkit.maven-parent</project>
 	</projects>
-  <buildSpec>
-    <buildCommand>
-      <name>org.maven.ide.eclipse.maven2Builder</name>
-      <arguments>
-      </arguments>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.maven.ide.eclipse.maven2Nature</nature>
-  </natures>
+	<buildSpec>
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+	</natures>
 </projectDescription>
