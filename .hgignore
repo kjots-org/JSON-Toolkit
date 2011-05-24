@@ -12,6 +12,10 @@ syntax: regexp
 syntax: regexp
 ^json-object/shared/target$
 syntax: regexp
+^json-object/jvm-shared/eclipse-bin$
+syntax: regexp
+^json-object/jvm-shared/target$
+syntax: regexp
 ^json-object/simple/eclipse-bin$
 syntax: regexp
 ^json-object/simple/target$

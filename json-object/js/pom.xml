@@ -40,13 +40,20 @@
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
+      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
       <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -107,6 +114,10 @@
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-object/shared/doc/api/</url>
               <location>${dir.module.json-object.shared}/doc/api/</location>
+            </offlineLink>
+            <offlineLink>
+              <url>http://json-toolkit.googlecode.com/hg/json-object/jvm-shared/doc/api/</url>
+              <location>${dir.module.json-object.jvm-shared}/doc/api/</location>
             </offlineLink>
           </offlineLinks>
           <links>

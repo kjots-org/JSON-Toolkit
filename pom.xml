@@ -64,6 +64,7 @@
     
     <module>json-object/maven-parent</module>
     <module>json-object/shared</module>
+    <module>json-object/jvm-shared</module>
     <module>json-object/simple</module>
     <module>json-object/js</module>
     <module>json-object/native</module>
