@@ -26,11 +26,11 @@
     <relativePath>../maven-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>org.kjots.json-toolkit.json-object.gwt_pre-gwt-2.2</artifactId>
+  <artifactId>org.kjots.json-toolkit.json-object.gwt-pre-2.2</artifactId>
   
   <packaging>jar</packaging>
   
-  <name>JSON Toolkit - JSON Object - GWT (pre-GWT 2.2)</name>
+  <name>JSON Toolkit - JSON Object - GWT (pre 2.2)</name>
   
   <properties>
     <version.gwt>2.1.1</version.gwt>

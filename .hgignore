@@ -32,4 +32,4 @@ syntax: regexp
 syntax: regexp
 ^json-object/gwt/www-test$
 syntax: regexp
-^json-object/gwt_pre-gwt-2\.2/target$
+^json-object/gwt-pre-2\.2/target$

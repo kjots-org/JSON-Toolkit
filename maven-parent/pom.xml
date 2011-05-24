@@ -78,6 +78,7 @@
     <dir.module.json-object.js>${dir.project}/json-object/js</dir.module.json-object.js>
     <dir.module.json-object.native>${dir.project}/json-object/native</dir.module.json-object.native>
     <dir.module.json-object.gwt>${dir.project}/json-object/gwt</dir.module.json-object.gwt>
+    <dir.module.json-object.gwt-pre-2.2>${dir.project}/json-object/gwt-pre-2.2</dir.module.json-object.gwt-pre-2.2>
     
     <version.guice>3.0</version.guice>
     <version.asm>3.2</version.asm>
