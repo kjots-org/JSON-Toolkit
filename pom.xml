@@ -54,15 +54,11 @@
     <url>http://code.google.com/p/json-toolkit/issues/list</url>
   </issueManagement>
   
-  <properties>
-    <dir.project>${basedir}</dir.project>
-  </properties>
-  
   <modules>
     <module>maven-parent</module>
+    
     <module>json-content</module>
     
-    <module>json-object/maven-parent</module>
     <module>json-object/shared</module>
     <module>json-object/jvm-shared</module>
     <module>json-object/simple</module>

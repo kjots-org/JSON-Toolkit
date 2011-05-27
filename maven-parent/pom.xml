@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.kjots</groupId>
     <artifactId>org.kjots.maven-base</artifactId>
-    <version>11.5.23</version>
+    <version>11.5.27</version>
     <relativePath/>
   </parent>
   
@@ -34,53 +34,20 @@
   
   <name>JSON Toolkit - Maven Parent</name>
   
-  <distributionManagement>
-    <repository>
-      <id>json-toolkit</id>
-      <name>JSON Toolkit</name>
-      <url>file://${dir.project}/maven/</url>
-      <layout>default</layout>
-      <uniqueVersion>false</uniqueVersion>
-    </repository>
-    <snapshotRepository>
-      <id>json-toolkit-snapshot</id>
-      <name>JSON Toolkit Snapshots</name>
-      <url>file://${dir.project}/snapshots/</url>
-      <layout>default</layout>
-      <uniqueVersion>true</uniqueVersion>
-    </snapshotRepository>
-  </distributionManagement>
-  
   <repositories>
     <repository>
-      <id>kjots-org-java-lib</id>
-      <name>kjots.org Java Library</name>
-      <url>http://kjots-org-java-lib.googlecode.com/hg/maven/</url>
-      <layout>default</layout>
+      <id>kjots-org-maven-repository</id>
+      <name>kjots.org Maven repository</name>
+      <url>http://kjots-org-maven-repository.googlecode.com/svn/repository/</url>
     </repository>
     <repository>
-      <id>json-toolkit</id>
-      <name>JSON Toolkit</name>
-      <url>http://json-toolkit.googlecode.com/hg/maven/</url>
-      <layout>default</layout>
+      <id>kjots-org-maven-snapshot-repository</id>
+      <name>kjots.org Maven snapshot repository</name>
+      <url>http://kjots-org-maven-repository.googlecode.com/svn/snapshot-repository/</url>
     </repository>
   </repositories>
   
   <properties>
-    <dir.project>${basedir}/..</dir.project>
-    
-    <dir.module.maven-parent>${dir.project}/maven-parent</dir.module.maven-parent>
-    <dir.module.json-content>${dir.project}/json-content</dir.module.json-content>
-    
-    <dir.module.json-object.maven-parent>${dir.project}/json-object/maven-parent</dir.module.json-object.maven-parent>
-    <dir.module.json-object.shared>${dir.project}/json-object/shared</dir.module.json-object.shared>
-    <dir.module.json-object.jvm-shared>${dir.project}/json-object/jvm-shared</dir.module.json-object.jvm-shared>
-    <dir.module.json-object.simple>${dir.project}/json-object/simple</dir.module.json-object.simple>
-    <dir.module.json-object.js>${dir.project}/json-object/js</dir.module.json-object.js>
-    <dir.module.json-object.native>${dir.project}/json-object/native</dir.module.json-object.native>
-    <dir.module.json-object.gwt>${dir.project}/json-object/gwt</dir.module.json-object.gwt>
-    <dir.module.json-object.gwt-pre-2.2>${dir.project}/json-object/gwt-pre-2.2</dir.module.json-object.gwt-pre-2.2>
-    
     <version.guice>3.0</version.guice>
     <version.asm>3.2</version.asm>
     <version.gwt>2.3.0</version.gwt>

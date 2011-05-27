@@ -21,9 +21,9 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>org.kjots.json-toolkit.json-object.maven-parent</artifactId>
+    <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
     <version>1.2-SNAPSHOT</version>
-    <relativePath>../maven-parent/pom.xml</relativePath>
+    <relativePath>../../maven-parent/pom.xml</relativePath>
   </parent>
   
   <artifactId>org.kjots.json-toolkit.json-object.js</artifactId>
@@ -109,15 +109,15 @@
           <offlineLinks>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
-              <location>${dir.module.json-content}/doc/api/</location>
+              <location>${basedir}/../../json-content/doc/api/</location>
             </offlineLink>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-object/shared/doc/api/</url>
-              <location>${dir.module.json-object.shared}/doc/api/</location>
+              <location>${basedir}/../shared/doc/api/</location>
             </offlineLink>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-object/jvm-shared/doc/api/</url>
-              <location>${dir.module.json-object.jvm-shared}/doc/api/</location>
+              <location>${basedir}/../jvm-shared/doc/api/</location>
             </offlineLink>
           </offlineLinks>
           <links>
