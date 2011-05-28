@@ -68,6 +68,7 @@
     <module>json-object/native</module>
     <module>json-object/gwt</module>
     <module>json-object/gwt-pre-2.2</module>
+    <module>json-object/scala</module>
   </modules>
   
   <build>

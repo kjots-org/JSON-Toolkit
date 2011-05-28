@@ -53,10 +53,12 @@
     <version.gwt>2.3.0</version.gwt>
     <version.javax.validation>1.0.0.GA</version.javax.validation>
     <version.gin>1.5.0</version.gin>
+    <version.scala>2.9.0</version.scala>
     
     <version.junit>4.8.2</version.junit>
     <version.mockito>1.8.0</version.mockito>
     
     <version.plugin.gwt>2.2.0</version.plugin.gwt>
+    <version.plugin.scala>2.15.2</version.plugin.scala>
   </properties>
 </project>
