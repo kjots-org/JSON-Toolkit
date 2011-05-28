@@ -15,8 +15,6 @@
  */
 package org.kjots.json.object.simple.impl;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.inject.Inject;
 
 import org.kjots.json.object.impl.JvmJsonObjectFactoryImplBase;
@@ -68,33 +66,7 @@ public class SimpleJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
   public final <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass, Object object) {
     SimpleJsonObjectImpl jsonObjectImpl = this.createStaticJsonObject(jsonObjectClass, (SimpleJsonValue)object);
     if (jsonObjectImpl == null) {
-      Class<? extends SimpleJsonObjectImpl> jsonObjectImplClass = this.jsonObjectGenerator.getJsonObjectImplClass(jsonObjectClass);
-      
-      try {
-        jsonObjectImpl = jsonObjectImplClass.getConstructor(Class.class, SimpleJsonValue.class).newInstance(jsonObjectClass, object);
-      }
-      catch (NoSuchMethodException nsme) {
-        throw new IllegalStateException(nsme);
-      }
-      catch (IllegalAccessException iae) {
-        throw new IllegalStateException(iae);
-      }
-      catch (InstantiationException ie) {
-        throw new IllegalStateException(ie);
-      }
-      catch (InvocationTargetException ite) {
-        Throwable t = ite.getCause();
-        
-        if (t instanceof RuntimeException) {
-          throw (RuntimeException)t;
-        }
-        else if (t instanceof Error) {
-          throw (Error)t;
-        }
-        else {
-          throw new IllegalStateException(t);
-        }
-      }
+      jsonObjectImpl = this.jsonObjectGenerator.newJsonObjectImpl(jsonObjectClass, (SimpleJsonValue)object);
     }
     
     return (T)jsonObjectImpl;

@@ -15,8 +15,6 @@
  */
 package org.kjots.json.object.js.impl;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.script.Invocable;
@@ -87,33 +85,7 @@ public class JsJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
   public final <T extends JsonObject> T createJsonObject(Class<T> jsonObjectClass, Object object) {
     JsJsonObjectImpl jsonObjectImpl = this.createStaticJsonObject(jsonObjectClass, object);
     if (jsonObjectImpl == null) {
-      Class<? extends JsJsonObjectImpl> jsonObjectImplClass = this.jsonObjectGenerator.getJsonObjectImplClass(jsonObjectClass);
-
-      try {
-        jsonObjectImpl = jsonObjectImplClass.getConstructor(Class.class, Invocable.class, Object.class).newInstance(jsonObjectClass, this.jsEngine, object);
-      }
-      catch (NoSuchMethodException nsme) {
-        throw new IllegalStateException(nsme);
-      }
-      catch (IllegalAccessException iae) {
-        throw new IllegalStateException(iae);
-      }
-      catch (InstantiationException ie) {
-        throw new IllegalStateException(ie);
-      }
-      catch (InvocationTargetException ite) {
-        Throwable t = ite.getCause();
-        
-        if (t instanceof RuntimeException) {
-          throw (RuntimeException)t;
-        }
-        else if (t instanceof Error) {
-          throw (Error)t;
-        }
-        else {
-          throw new IllegalStateException(t);
-        }
-      }
+      jsonObjectImpl = this.jsonObjectGenerator.newJsonObjectImpl(jsonObjectClass, this.jsEngine, object);
     }
     
     return (T)jsonObjectImpl;
