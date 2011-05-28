@@ -57,7 +57,9 @@
   <modules>
     <module>maven-parent</module>
     
-    <module>json-content</module>
+    <module>json-content/shared</module>
+    <module>json-content/jvm</module>
+    <module>json-content/gwt</module>
     
     <module>json-object/shared</module>
     <module>json-object/jvm-shared</module>

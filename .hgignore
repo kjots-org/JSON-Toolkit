@@ -4,9 +4,17 @@ syntax: regexp
 syntax: regexp
 ^snapshots$
 syntax: regexp
-^json-content/eclipse-bin$
+^json-content/shared/eclipse-bin$
 syntax: regexp
-^json-content/target$
+^json-content/shared/target$
+syntax: regexp
+^json-content/jvm/eclipse-bin$
+syntax: regexp
+^json-content/jvm/target$
+syntax: regexp
+^json-content/gwt/eclipse-bin$
+syntax: regexp
+^json-content/gwt/target$
 syntax: regexp
 ^json-object/shared/eclipse-bin$
 syntax: regexp

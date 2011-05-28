@@ -40,7 +40,7 @@
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-content</artifactId>
+      <artifactId>org.kjots.json-toolkit.json-content.shared</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
@@ -97,8 +97,8 @@
           <notimestamp>true</notimestamp>
           <offlineLinks>
             <offlineLink>
-              <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
-              <location>${basedir}/../../json-content/doc/api/</location>
+              <url>http://json-toolkit.googlecode.com/hg/json-content/shared/doc/api/</url>
+              <location>${basedir}/../../json-content/shared/doc/api/</location>
             </offlineLink>
           </offlineLinks>
           <links>

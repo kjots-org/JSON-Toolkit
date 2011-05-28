@@ -108,16 +108,20 @@
           <notimestamp>true</notimestamp>
           <offlineLinks>
             <offlineLink>
-              <url>http://json-toolkit.googlecode.com/hg/json-content/doc/api/</url>
-              <location>${basedir}/../../json-content/doc/api/</location>
-            </offlineLink>
-            <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-object/shared/doc/api/</url>
               <location>${basedir}/../shared/doc/api/</location>
             </offlineLink>
             <offlineLink>
               <url>http://json-toolkit.googlecode.com/hg/json-object/jvm-shared/doc/api/</url>
               <location>${basedir}/../jvm-shared/doc/api/</location>
+            </offlineLink>
+            <offlineLink>
+              <url>http://json-toolkit.googlecode.com/hg/json-content/shared/doc/api/</url>
+              <location>${basedir}/../../json-content/shared/doc/api/</location>
+            </offlineLink>
+            <offlineLink>
+              <url>http://json-toolkit.googlecode.com/hg/json-content/jvm/doc/api/</url>
+              <location>${basedir}/../../json-content/jvm/doc/api/</location>
             </offlineLink>
           </offlineLinks>
           <links>

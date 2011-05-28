@@ -3,8 +3,8 @@
 	<name>org.kjots.json-toolkit.json-object.simple</name>
 	<comment></comment>
 	<projects>
-    <project>org.kjots.java-lib.json-object.maven-parent</project>
-		<project>org.kjots.java-lib.json-object.shared</project>
+    <project>org.kjots.json-toolkit.maven-parent</project>
+		<project>org.kjots.json-toolkit.json-object.jvm-shared</project>
 	</projects>
   <buildSpec>
     <buildCommand>
