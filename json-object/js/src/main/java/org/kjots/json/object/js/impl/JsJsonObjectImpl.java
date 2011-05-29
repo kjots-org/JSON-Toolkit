@@ -56,6 +56,16 @@ public class JsJsonObjectImpl implements JsonObject {
   }
   
   /**
+   * Construct a new JavaScript JSON Object Implementation.
+   *
+   * @param jsEngine The JavaScript engine.
+   * @param jsObject The JavaScript object.
+   */
+  public JsJsonObjectImpl(Invocable jsEngine, Object jsObject) {
+    this(JsonObject.class, jsEngine, jsObject);
+  }
+  
+  /**
    * Retrieve the JSON object class.
    *
    * @return The JSON object class.

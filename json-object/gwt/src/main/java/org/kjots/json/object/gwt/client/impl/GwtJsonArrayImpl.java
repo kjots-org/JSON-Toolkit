@@ -45,6 +45,15 @@ public class GwtJsonArrayImpl extends GwtJsonObjectImpl implements JsonArray {
   }
   
   /**
+   * Construct a new GWT JSON Array Implementation.
+   *
+   * @param jsArray The JavaScript array.
+   */
+  public GwtJsonArrayImpl(JavaScriptObject jsArray) {
+    this(JsonArray.class, jsArray);
+  }
+  
+  /**
    * Retrieve the length of the array.
    *
    * @return The length of the array.

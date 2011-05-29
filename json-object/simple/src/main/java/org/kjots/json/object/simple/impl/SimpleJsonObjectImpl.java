@@ -48,6 +48,15 @@ public class SimpleJsonObjectImpl implements JsonObject {
   }
   
   /**
+   * Construct a new Simple JSON Object Implementation.
+   *
+   * @param simpleJsonValue The simple JSON value.
+   */
+  public SimpleJsonObjectImpl(SimpleJsonValue simpleJsonValue) {
+    this(JsonObject.class, simpleJsonValue);
+  }
+  
+  /**
    * Retrieve the JSON object class.
    *
    * @return The JSON object class.

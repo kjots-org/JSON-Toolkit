@@ -50,7 +50,7 @@ public class SimpleJsonObjectMapImplTest extends JsonObjectMapImplTestBase<Simpl
    */
   @Override
   protected JsonObject createJsonObject(SimpleJsonValue object) {
-    return new SimpleJsonObjectImpl(JsonObject.class, object);
+    return new SimpleJsonObjectImpl(object);
   }
 
   /**

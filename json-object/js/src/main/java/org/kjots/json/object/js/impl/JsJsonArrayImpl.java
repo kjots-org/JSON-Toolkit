@@ -42,6 +42,16 @@ public class JsJsonArrayImpl extends JsJsonObjectImpl implements JsonArray {
   }
   
   /**
+   * Construct a new JavaScript JSON Array Implementation.
+   *
+   * @param jsEngine The JavaScript engine.
+   * @param jsObject The JavaScript object.
+   */
+  public JsJsonArrayImpl(Invocable jsEngine, Object jsObject) {
+    this(JsonArray.class, jsEngine, jsObject);
+  }
+  
+  /**
    * Retrieve the length of the array.
    *
    * @return The length of the array.

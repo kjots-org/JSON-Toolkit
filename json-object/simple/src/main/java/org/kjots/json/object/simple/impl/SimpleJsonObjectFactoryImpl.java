@@ -152,10 +152,10 @@ public class SimpleJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
    */
   private SimpleJsonObjectImpl createStaticJsonObject(Class<? extends JsonObject> jsonObjectClass, SimpleJsonValue object) {
     if (jsonObjectClass.equals(JsonObject.class)) {
-      return new SimpleJsonObjectImpl(JsonObject.class, object);
+      return new SimpleJsonObjectImpl(object);
     }
     else if (jsonObjectClass.equals(JsonArray.class)) {
-      return new SimpleJsonArrayImpl(JsonArray.class, object);
+      return new SimpleJsonArrayImpl(object);
     }
     else if (jsonObjectClass.equals(JsonBooleanArray.class)) {
       return new SimpleJsonBooleanArrayImpl(object);
