@@ -171,10 +171,10 @@ public class JsJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
    */
   private JsJsonObjectImpl createStaticJsonObject(Class<? extends JsonObject> jsonObjectClass, Object object) {
     if (jsonObjectClass.equals(JsonObject.class)) {
-      return new JsJsonObjectImpl(JsonObject.class, this.jsEngine, object);
+      return new JsJsonObjectImpl(this.jsEngine, object);
     }
     else if (jsonObjectClass.equals(JsonArray.class)) {
-      return new JsJsonArrayImpl(JsonArray.class, this.jsEngine, object);
+      return new JsJsonArrayImpl(this.jsEngine, object);
     }
     else if (jsonObjectClass.equals(JsonBooleanArray.class)) {
       return new JsJsonBooleanArrayImpl(this.jsEngine, object);

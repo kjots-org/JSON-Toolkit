@@ -54,6 +54,15 @@ public class GwtJsonObjectImpl implements JsonObject {
   }
   
   /**
+   * Construct a new GWT JSON Object Implementation.
+   *
+   * @param jsObject The JavaScript object.
+   */
+  public GwtJsonObjectImpl(JavaScriptObject jsObject) {
+    this(JsonObject.class, jsObject);
+  }
+  
+  /**
    * Retrieve the JSON object class.
    *
    * @return The JSON object class.

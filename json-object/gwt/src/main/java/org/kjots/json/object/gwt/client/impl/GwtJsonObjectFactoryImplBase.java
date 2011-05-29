@@ -174,14 +174,14 @@ public abstract class GwtJsonObjectFactoryImplBase extends JsonObjectFactory {
     this.registerJsonObjectInstantiator(JsonObject.class, new JsonObjectInstantiator<JsonObject>() {
       @Override
       public final JsonObject newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonObjectImpl(JsonObject.class, jsObject);
+        return new GwtJsonObjectImpl(jsObject);
       }
     });
     
     this.registerJsonObjectInstantiator(JsonArray.class, new JsonObjectInstantiator<JsonArray>() {
       @Override
       public final JsonArray newInstance(JavaScriptObject jsObject) {
-        return new GwtJsonArrayImpl(JsonArray.class, jsObject);
+        return new GwtJsonArrayImpl(jsObject);
       }
     });
     

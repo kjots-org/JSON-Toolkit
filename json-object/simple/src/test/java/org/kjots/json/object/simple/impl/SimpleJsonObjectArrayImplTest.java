@@ -50,7 +50,7 @@ public class SimpleJsonObjectArrayImplTest extends JsonObjectArrayImplTestBase<S
    */
   @Override
   protected JsonObject createJsonObject(SimpleJsonValue object) {
-    return new SimpleJsonObjectImpl(JsonObject.class, object);
+    return new SimpleJsonObjectImpl(object);
   }
   
   /**

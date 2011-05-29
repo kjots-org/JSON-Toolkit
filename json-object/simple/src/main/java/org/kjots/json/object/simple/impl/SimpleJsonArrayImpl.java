@@ -58,6 +58,15 @@ public class SimpleJsonArrayImpl extends SimpleJsonObjectImpl implements JsonArr
   }
   
   /**
+   * Construct a new Simple JSON Array Implementation.
+   *
+   * @param simpleJsonValue The simple JSON value.
+   */
+  public SimpleJsonArrayImpl(SimpleJsonValue simpleJsonValue) {
+    this(JsonArray.class, simpleJsonValue);
+  }
+  
+  /**
    * Retrieve the length of the array.
    *
    * @return The length of the array.

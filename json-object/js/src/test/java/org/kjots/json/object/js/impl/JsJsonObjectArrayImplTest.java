@@ -80,7 +80,7 @@ public class JsJsonObjectArrayImplTest extends JsonObjectArrayImplTestBase<Objec
    */
   @Override
   protected JsonObject createJsonObject(Object object) {
-    return new JsJsonObjectImpl(JsonObject.class, this.jsEngine, object);
+    return new JsJsonObjectImpl(this.jsEngine, object);
   }
 
   /**

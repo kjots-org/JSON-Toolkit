@@ -35,12 +35,12 @@ public class GwtJsonArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
   private final JsonArrayImplTestBase<JavaScriptObject> jsonArrayImplTestDelegate = new JsonArrayImplTestBase<JavaScriptObject>() {
     @Override
     protected JsonObject createJsonObject(JavaScriptObject object) {
-      return new GwtJsonObjectImpl(JsonObject.class, object);
+      return new GwtJsonObjectImpl(object);
     }
 
     @Override
     protected JsonArray createJsonArray(JavaScriptObject array) {
-      return new GwtJsonArrayImpl(JsonArray.class, array);
+      return new GwtJsonArrayImpl(array);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class GwtJsonArrayImplGwtTest extends GwtJsonObjectGwtTestBase {
    */
   public void testConstructionWithNonArrayObject() {
     try {
-      new GwtJsonArrayImpl(JsonArray.class, JavaScriptObject.createObject());
+      new GwtJsonArrayImpl(JavaScriptObject.createObject());
       
       fail("Expected " + IllegalArgumentException.class.getName());
     }
