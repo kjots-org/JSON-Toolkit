@@ -20,9 +20,9 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <groupId>org.kjots</groupId>
-    <artifactId>org.kjots.maven-base</artifactId>
-    <version>11.7.24</version>
+    <groupId>org.kjots.maven-lib</groupId>
+    <artifactId>org.kjots.maven-lib.maven-base-pom</artifactId>
+    <version>11.9.7-SNAPSHOT</version>
     <relativePath/>
   </parent>
   
