@@ -103,31 +103,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${version.plugin.maven-javadoc}</version>
-        <configuration>
-          <destDir>doc/api</destDir>
-          <notimestamp>true</notimestamp>
-          <offlineLinks>
-            <offlineLink>
-              <url>http://json-toolkit.googlecode.com/hg/json-object/shared/doc/api/</url>
-              <location>${basedir}/../shared/doc/api/</location>
-            </offlineLink>
-            <offlineLink>
-              <url>http://json-toolkit.googlecode.com/hg/json-object/jvm-shared/doc/api/</url>
-              <location>${basedir}/../jvm-shared/doc/api/</location>
-            </offlineLink>
-            <offlineLink>
-              <url>http://json-toolkit.googlecode.com/hg/json-content/shared/doc/api/</url>
-              <location>${basedir}/../../json-content/shared/doc/api/</location>
-            </offlineLink>
-            <offlineLink>
-              <url>http://json-toolkit.googlecode.com/hg/json-content/jvm/doc/api/</url>
-              <location>${basedir}/../../json-content/jvm/doc/api/</location>
-            </offlineLink>
-          </offlineLinks>
-          <links>
-            <link>http://google-guice.googlecode.com/svn/tags/3.0/javadoc/</link>
-          </links>
-        </configuration>
         <executions>
           <execution>
             <phase>package</phase>
