@@ -50,20 +50,33 @@
   <properties>
     <version.guice>3.0</version.guice>
     <version.asm>3.2</version.asm>
-    <version.gwt>2.3.0</version.gwt>
-    <version.javax.validation>1.0.0.GA</version.javax.validation>
-    <version.gin>1.5.0</version.gin>
     <version.scala>2.9.0</version.scala>
     
     <version.junit>4.8.2</version.junit>
     <version.mockito>1.8.0</version.mockito>
     
-    <version.plugin.gwt>2.3.0-1</version.plugin.gwt>
     <version.plugin.scala>2.15.2</version.plugin.scala>
+    
+    <version.plugin.emma>1.0-alpha-3</version.plugin.emma>
   </properties>
   
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>emma-maven-plugin</artifactId>
+        <version>${version.plugin.emma}</version>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>emma</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
