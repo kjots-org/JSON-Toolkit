@@ -53,10 +53,27 @@
     
     <version.junit>4.8.2</version.junit>
     <version.mockito>1.8.0</version.mockito>
+    
+    <version.plugin.emma>1.0-alpha-3</version.plugin.emma>
   </properties>
   
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>emma-maven-plugin</artifactId>
+        <version>${version.plugin.emma}</version>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>emma</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
