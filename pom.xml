@@ -66,8 +66,6 @@
     <module>json-object/simple</module>
     <module>json-object/js</module>
     <module>json-object/native</module>
-    <module>json-object/gwt</module>
-    <module>json-object/gwt-pre-2.2</module>
   </modules>
   
   <build>

@@ -1,6 +1,0 @@
-#Fri Feb 25 14:17:23 EST 2011
-eclipse.preferences.version=1
-org.eclipse.jdt.ui.ignorelowercasenames=true
-org.eclipse.jdt.ui.importorder=java;javax;com.google.gwt;com.google.inject;com.google.gwt.inject;org.objectweb.asm;;junit;org.junit;org.mockito;org.kjots.json.content;org.kjots.json.object;
-org.eclipse.jdt.ui.ondemandthreshold=99999
-org.eclipse.jdt.ui.staticondemandthreshold=99999
