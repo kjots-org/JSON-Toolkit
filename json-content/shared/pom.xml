@@ -51,19 +51,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${version.plugin.maven-surefire}</version>
-        <configuration>
-          <includes>
-            <include>${package.path}/JsonContentSharedTestSuite.java</include>
-          </includes>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
