@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.kjots.maven-lib</groupId>
     <artifactId>org.kjots.maven-lib.maven-base-pom</artifactId>
-    <version>11.9.7-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <relativePath/>
   </parent>
   
