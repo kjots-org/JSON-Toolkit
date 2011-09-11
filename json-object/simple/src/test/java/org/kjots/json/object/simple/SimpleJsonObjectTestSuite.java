@@ -19,7 +19,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import org.kjots.json.object.simple.impl.SimpleJsonObjectImplTestSuite;
+import org.kjots.json.object.simple.impl.SimpleJsonArrayImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonBooleanArrayImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonBooleanMapImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonNumberArrayImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonNumberMapImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonObjectArrayImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonObjectImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonObjectMapImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonStringArrayImplTest;
+import org.kjots.json.object.simple.impl.SimpleJsonStringMapImplTest;
 
 /**
  * Simple JSON Object Test Suite.
@@ -31,8 +40,51 @@ import org.kjots.json.object.simple.impl.SimpleJsonObjectImplTestSuite;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-  SimpleJsonObjectGeneratorTestSuite.class,
-  SimpleJsonObjectImplTestSuite.class
+  SimpleJsonObjectTestSuite.SimpleJsonObjectGeneratorTestSuite.class,
+  SimpleJsonObjectTestSuite.SimpleJsonObjectImplTestSuite.class
 })
 public class SimpleJsonObjectTestSuite {
+  /**
+   * Simple JSON Object Generator Test Suite.
+   */
+  @RunWith(Suite.class)
+  @SuiteClasses({
+    SimpleJsonObjectGeneratorTest.class,
+    
+    SimpleJsonObjectGeneratorPrimitiveTest.class,
+    SimpleJsonObjectGeneratorBooleanTest.class,
+    SimpleJsonObjectGeneratorNumberTest.class,
+    SimpleJsonObjectGeneratorStringTest.class,
+    SimpleJsonObjectGeneratorObjectTest.class,
+    
+    SimpleJsonObjectGeneratorAutoAdaptedPropertyTest.class,
+    
+    SimpleJsonObjectGeneratorFunctionTest.class,
+    SimpleJsonObjectGeneratorExceptionTest.class,
+    
+    SimpleJsonObjectGeneratorBridgeTest.class
+  })
+  public static class SimpleJsonObjectGeneratorTestSuite {
+  }
+  
+  /**
+   * Simple JSON Object Implementation Test Suite.
+   */
+  @RunWith(Suite.class)
+  @SuiteClasses({
+    SimpleJsonObjectImplTest.class,
+    SimpleJsonArrayImplTest.class,
+    
+    SimpleJsonBooleanArrayImplTest.class,
+    SimpleJsonNumberArrayImplTest.class,
+    SimpleJsonStringArrayImplTest.class,
+    SimpleJsonObjectArrayImplTest.class,
+    
+    SimpleJsonBooleanMapImplTest.class,
+    SimpleJsonNumberMapImplTest.class,
+    SimpleJsonStringMapImplTest.class,
+    SimpleJsonObjectMapImplTest.class
+  })
+  public static class SimpleJsonObjectImplTestSuite {
+  }
 }
