@@ -19,7 +19,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import org.kjots.json.object.js.impl.JsJsonObjectImplTestSuite;
+import org.kjots.json.object.js.impl.JsJsonArrayImplTest;
+import org.kjots.json.object.js.impl.JsJsonBooleanArrayImplTest;
+import org.kjots.json.object.js.impl.JsJsonBooleanMapImplTest;
+import org.kjots.json.object.js.impl.JsJsonNumberArrayImplTest;
+import org.kjots.json.object.js.impl.JsJsonNumberMapImplTest;
+import org.kjots.json.object.js.impl.JsJsonObjectArrayImplTest;
+import org.kjots.json.object.js.impl.JsJsonObjectImplTest;
+import org.kjots.json.object.js.impl.JsJsonObjectMapImplTest;
+import org.kjots.json.object.js.impl.JsJsonStringArrayImplTest;
+import org.kjots.json.object.js.impl.JsJsonStringMapImplTest;
 
 /**
  * JavaScript JSON Object Test Suite.
@@ -31,8 +40,51 @@ import org.kjots.json.object.js.impl.JsJsonObjectImplTestSuite;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-  JsJsonObjectGeneratorTestSuite.class,
-  JsJsonObjectImplTestSuite.class
+  JsJsonObjectTestSuite.JsJsonObjectGeneratorTestSuite.class,
+  JsJsonObjectTestSuite.JsJsonObjectImplTestSuite.class
 })
 public class JsJsonObjectTestSuite {
+  /**
+   * JavaScript JSON Object Generator Test Suite.
+   */
+  @RunWith(Suite.class)
+  @SuiteClasses({
+    JsJsonObjectGeneratorTest.class,
+    
+    JsJsonObjectGeneratorPrimitiveTest.class,
+    JsJsonObjectGeneratorBooleanTest.class,
+    JsJsonObjectGeneratorNumberTest.class,
+    JsJsonObjectGeneratorStringTest.class,
+    JsJsonObjectGeneratorObjectTest.class,
+    
+    JsJsonObjectGeneratorAutoAdaptedPropertyTest.class,
+    
+    JsJsonObjectGeneratorFunctionTest.class,
+    JsJsonObjectGeneratorExceptionTest.class,
+    
+    JsJsonObjectGeneratorBridgeTest.class
+  })
+  public static class JsJsonObjectGeneratorTestSuite {
+  }
+  
+  /**
+   * JavaScript JSON Object Implementation Test Suite.
+   */
+  @RunWith(Suite.class)
+  @SuiteClasses({
+    JsJsonObjectImplTest.class,
+    JsJsonArrayImplTest.class,
+    
+    JsJsonBooleanArrayImplTest.class,
+    JsJsonNumberArrayImplTest.class,
+    JsJsonStringArrayImplTest.class,
+    JsJsonObjectArrayImplTest.class,
+    
+    JsJsonBooleanMapImplTest.class,
+    JsJsonNumberMapImplTest.class,
+    JsJsonStringMapImplTest.class,
+    JsJsonObjectMapImplTest.class
+  })
+  public static class JsJsonObjectImplTestSuite {
+  }
 }
