@@ -28,7 +28,7 @@
   
   <groupId>org.kjots.json-toolkit</groupId>
   <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2-scala-SNAPSHOT</version>
   
   <packaging>pom</packaging>
   
