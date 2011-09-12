@@ -45,15 +45,41 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>org.kjots.json-toolkit.json-object.simple</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
       <version>${version.scala}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>${version.mockito}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -95,6 +121,36 @@
           </includes>
         </configuration>
       </plugin>
-    </plugins> 
+    </plugins>
+    
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>${version.plugin.m2e-lifecycle-mapping}</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                  <groupId>org.scala-tools</groupId>
+                  <artifactId>maven-scala-plugin</artifactId>
+                    <versionRange>${version.plugin.scala}</versionRange>
+                    <goals>
+                    <goal>compile</goal>
+                    <goal>testCompile</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute/>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 </project>

@@ -15,31 +15,25 @@
  */
 package org.kjots.json.`object`.scala
 
-import com.google.inject.Guice
+import javax.inject.Singleton
 
-import org.junit.Before
+import com.google.inject.AbstractModule
 
-import org.junit.runner.RunWith
-import org.junit.runners.Suite
-import org.junit.runners.Suite.SuiteClasses
+import org.kjots.json.`object`.scala.impl.SimpleJsonObjectFactoryImpl
+import org.kjots.json.`object`.shared.JsonObjectFactory
 
 /**
- * Scala JSON Object Test Suite.
+ * Simple JSON Object Module.
  * <p>
- * Created: 28th May 2011.
+ * Created: 24th May 2011.
  *
  * @author <a href="mailto:kjots@kjots.org">Karl J. Ots &lt;kjots@kjots.org&gt;</a>
  * @since 1.2
  */
-@RunWith(classOf[Suite])
-@SuiteClasses(Array(
-  classOf[SimpleJsonObjectGeneratorTestSuite]
-))
-class ScalaJsonObjectTestSuite {}
-
-trait SimpleJsonObjectTest {
-  @Before
-  def setUp() {
-    Guice.createInjector(new SimpleJsonObjectModule())
+class SimpleJsonObjectModule extends AbstractModule {
+  override def configure() {
+    bind(classOf[JsonObjectFactory]).to(classOf[SimpleJsonObjectFactoryImpl]).in(classOf[Singleton])
+    
+    requestStaticInjection(classOf[JsonObjectFactory])
   }
 }
