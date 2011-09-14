@@ -126,6 +126,7 @@
             <include>${package.path}/ScalaJsonObjectTestSuite.class</include>
           </includes>
         </configuration>
+        <!-- 
         <executions>
           <execution>
             <phase>verify</phase>
@@ -136,6 +137,36 @@
               <includes>
                 <include>**/test/feature/*FeatureSpec.class</include>
               </includes>
+            </configuration>
+          </execution>
+        </executions>
+        -->
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${version.plugin.exec}</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${java.home}/bin/java</executable>
+              <mainClass>org.scalatest.tools.Runner</mainClass>
+              <classpathScope>test</classpathScope>
+              <arguments>
+                <argument>-cp</argument>
+                <classpath/>
+                <argument>org.scalatest.tools.Runner</argument>
+                <argument>-p</argument>
+                <argument>.</argument>
+                <argument>-o</argument>
+                <argument>-s</argument>
+                <argument>org.kjots.json.object.test.feature.CreateJsonObjectFeatureSpec</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
