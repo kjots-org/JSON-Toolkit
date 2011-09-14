@@ -50,10 +50,11 @@
   <properties>
     <version.guice>3.0</version.guice>
     <version.asm>3.2</version.asm>
-    <version.scala>2.9.0</version.scala>
+    <version.scala>2.9.1</version.scala>
     
     <version.junit>4.8.2</version.junit>
     <version.mockito>1.8.0</version.mockito>
+    <version.scalatest>1.6.1</version.scalatest>
     
     <version.plugin.scala>2.15.2</version.plugin.scala>
     

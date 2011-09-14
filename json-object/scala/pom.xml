@@ -82,6 +82,12 @@
       <version>${version.mockito}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_2.9.1</artifactId>
+      <version>${version.scalatest}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   
   <build>
@@ -120,6 +126,19 @@
             <include>${package.path}/ScalaJsonObjectTestSuite.class</include>
           </includes>
         </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>**/test/feature/*FeatureSpec.class</include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
     
@@ -143,7 +162,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <execute/>
+                    <ignore/>
                   </action>
                 </pluginExecution>
               </pluginExecutions>
