@@ -157,10 +157,9 @@
             </goals>
             <configuration>
               <executable>${java.home}/bin/java</executable>
-              <mainClass>org.scalatest.tools.Runner</mainClass>
               <classpathScope>test</classpathScope>
               <arguments>
-                <argument>-cp</argument>
+                <argument>-classpath</argument>
                 <classpath/>
                 <argument>org.scalatest.tools.Runner</argument>
                 <argument>-p</argument>
