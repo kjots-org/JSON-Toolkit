@@ -35,6 +35,8 @@
   <properties>
     <package>org.kjots.json.object.scala</package>
     <package.path>org/kjots/json/object/scala</package.path>
+    
+    <scalatest.reporter.config></scalatest.reporter.config>
   </properties>
   
   <dependencies>
@@ -163,7 +165,7 @@
                 <argument>org.scalatest.tools.Runner</argument>
                 <argument>-p</argument>
                 <argument>.</argument>
-                <argument>-o</argument>
+                <argument>-o${scalatest.reporter.config}</argument>
                 <argument>-s</argument>
                 <argument>org.kjots.json.object.test.feature.CreateJsonObjectFeatureSpec</argument>
               </arguments>
