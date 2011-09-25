@@ -45,6 +45,11 @@
       <name>kjots.org Maven Snapshots</name>
       <url>http://kjots-org-maven-repository.googlecode.com/svn/repositories/snapshots/</url>
     </repository>
+    <repository>
+      <id>org.kjots.maven-third-party</id>
+      <name>kjots.org Maven Third-Party</name>
+      <url>http://kjots-org-maven-repository.googlecode.com/svn/repositories/third-party/</url>
+    </repository>
   </repositories>
   
   <properties>
