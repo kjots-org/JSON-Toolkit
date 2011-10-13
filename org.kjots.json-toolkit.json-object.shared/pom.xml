@@ -21,42 +21,34 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
+    <artifactId>maven-parent</artifactId>
     <version>1.2-SNAPSHOT</version>
-    <relativePath>../../maven-parent/pom.xml</relativePath>
+    <relativePath>../org.kjots.json-toolkit.maven-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>org.kjots.json-toolkit.json-object.js</artifactId>
+  <artifactId>json-object.shared</artifactId>
   
   <packaging>jar</packaging>
   
-  <name>JSON Toolkit - JSON Object - JS</name>
+  <name>JSON Toolkit - JSON Object - Shared</name>
   
   <properties>
-    <package>org.kjots.json.object.js</package>
-    <package.path>org/kjots/json/object/js</package.path>
+    <package>org.kjots.json.object.shared</package>
+    <package.path>org/kjots/json/object/shared</package.path>
   </properties>
   
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
+      <artifactId>json-content.shared</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
-      <version>${project.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
-      <version>${project.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${version.guice}</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -64,11 +56,38 @@
       <version>${version.junit}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${version.mockito}</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${version.plugin.maven-jar}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${version.plugin.maven-source}</version>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins> 
+  </build>
 </project>
