@@ -21,41 +21,40 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
+    <artifactId>maven-parent</artifactId>
     <version>1.2-scala-SNAPSHOT</version>
-    <relativePath>../../maven-parent/pom.xml</relativePath>
+    <relativePath>../org.kjots.json-toolkit.maven-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>org.kjots.json-toolkit.json-object.simple</artifactId>
+  <artifactId>json-object.native</artifactId>
   
   <packaging>jar</packaging>
   
-  <name>JSON Toolkit - JSON Object - Simple</name>
+  <name>JSON Toolkit - JSON Object - Native</name>
   
   <properties>
-    <package>org.kjots.json.object.simple</package>
-    <package.path>org/kjots/json/object/simple</package.path>
+    <package>org.kjots.json.object.ntive</package>
+    <package.path>org/kjots/json/object/ntive</package.path>
   </properties>
   
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
+      <artifactId>json-object.shared</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
+      <artifactId>json-object.shared</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
+      <artifactId>json-object.simple</artifactId>
       <version>${project.version}</version>
-      <type>test-jar</type>
       <scope>test</scope>
     </dependency>
     <dependency>

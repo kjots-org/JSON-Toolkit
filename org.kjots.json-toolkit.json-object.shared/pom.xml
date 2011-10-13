@@ -21,12 +21,12 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
+    <artifactId>maven-parent</artifactId>
     <version>1.2-scala-SNAPSHOT</version>
-    <relativePath>../../maven-parent/pom.xml</relativePath>
+    <relativePath>../org.kjots.json-toolkit.maven-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
+  <artifactId>json-object.shared</artifactId>
   
   <packaging>jar</packaging>
   
@@ -40,7 +40,7 @@
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-content.shared</artifactId>
+      <artifactId>json-content.shared</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>

@@ -21,13 +21,13 @@
   
   <parent>
     <groupId>org.kjots.maven-lib</groupId>
-    <artifactId>org.kjots.maven-lib.maven-base-pom</artifactId>
+    <artifactId>maven-base-pom</artifactId>
     <version>1.0-SNAPSHOT</version>
     <relativePath/>
   </parent>
   
   <groupId>org.kjots.json-toolkit</groupId>
-  <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
+  <artifactId>maven-parent</artifactId>
   <version>1.2-scala-SNAPSHOT</version>
   
   <packaging>pom</packaging>

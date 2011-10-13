@@ -21,54 +21,28 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>org.kjots.json-toolkit.maven-parent</artifactId>
+    <artifactId>maven-parent</artifactId>
     <version>1.2-scala-SNAPSHOT</version>
-    <relativePath>../../maven-parent/pom.xml</relativePath>
+    <relativePath>../org.kjots.json-toolkit.maven-parent/pom.xml</relativePath>
   </parent>
   
-  <artifactId>org.kjots.json-toolkit.json-object.js</artifactId>
+  <artifactId>json-content.jvm</artifactId>
   
   <packaging>jar</packaging>
   
-  <name>JSON Toolkit - JSON Object - JS</name>
+  <name>JSON Toolkit - JSON Content - JVM</name>
   
   <properties>
-    <package>org.kjots.json.object.js</package>
-    <package.path>org/kjots/json/object/js</package.path>
+    <package>org.kjots.json.content</package>
+    <package.path>org/kjots/json/content</package.path>
   </properties>
   
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
+      <artifactId>json-content.shared</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.shared</artifactId>
-      <version>${project.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kjots.json-toolkit</groupId>
-      <artifactId>org.kjots.json-toolkit.json-object.jvm-shared</artifactId>
-      <version>${project.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${version.mockito}</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
