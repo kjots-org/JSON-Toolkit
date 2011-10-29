@@ -21,9 +21,9 @@
   
   <parent>
     <groupId>org.kjots.json-toolkit</groupId>
-    <artifactId>maven-parent</artifactId>
+    <artifactId>org.kjots.json-toolkit</artifactId>
     <version>1.2-scala-SNAPSHOT</version>
-    <relativePath>../org.kjots.json-toolkit.maven-parent/pom.xml</relativePath>
+    <relativePath>../org.kjots.json-toolkit/pom.xml</relativePath>
   </parent>
   
   <artifactId>json-object.shared</artifactId>
