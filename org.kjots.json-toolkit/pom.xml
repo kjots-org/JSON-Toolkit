@@ -80,37 +80,10 @@
     
     <version.junit>4.8.2</version.junit>
     <version.mockito>1.8.0</version.mockito>
-    
-    <version.plugin.emma>1.0-alpha-3</version.plugin.emma>
   </properties>
   
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>emma-maven-plugin</artifactId>
-          <version>${version.plugin.emma}</version>
-          <executions>
-            <execution>
-              <id>emma</id>
-              <goals>
-                <goal>emma</goal>
-              </goals>
-              <phase>test</phase>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>emma-maven-plugin</artifactId>
-        <inherited>true</inherited>
-      </plugin>
-      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
