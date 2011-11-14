@@ -37,7 +37,6 @@
       <groupId>org.kjots.json-toolkit</groupId>
       <artifactId>json-object.jvm-shared</artifactId>
       <version>${project.version}</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
