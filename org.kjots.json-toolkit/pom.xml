@@ -86,11 +86,37 @@
     <version.plugin.scala>2.15.2</version.plugin.scala>
     
     <version.plugin.emma>1.0-alpha-3</version.plugin.emma>
+    
+    <version.plugin.exec>1.2</version.plugin.exec>
+    
+    <version.plugin.m2e-lifecycle-mapping>1.0.0</version.plugin.m2e-lifecycle-mapping>
   </properties>
   
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.scala-tools</groupId>
+          <artifactId>maven-scala-plugin</artifactId>
+          <version>${version.plugin.scala}</version>
+          <executions>
+            <execution>
+              <id>compile</id>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <phase>process-resources</phase>
+            </execution>
+            <execution>
+              <id>testCompile</id>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
+              <phase>process-test-resources</phase>
+            </execution>
+          </executions>
+        </plugin>
+        
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>emma-maven-plugin</artifactId>
@@ -104,6 +130,38 @@
               <phase>test</phase>
             </execution>
           </executions>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${version.plugin.exec}</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>${version.plugin.m2e-lifecycle-mapping}</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                  <groupId>org.scala-tools</groupId>
+                  <artifactId>maven-scala-plugin</artifactId>
+                    <versionRange>${version.plugin.scala}</versionRange>
+                    <goals>
+                      <goal>compile</goal>
+                      <goal>testCompile</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
