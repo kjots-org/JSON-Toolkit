@@ -32,11 +32,6 @@
   
   <name>JSON Toolkit - JSON Object - JS</name>
   
-  <properties>
-    <package>org.kjots.json.object.js</package>
-    <package.path>org/kjots/json/object/js</package.path>
-  </properties>
-  
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>

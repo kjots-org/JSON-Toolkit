@@ -32,11 +32,6 @@
   
   <name>JSON Toolkit - JSON Content - Shared</name>
   
-  <properties>
-    <package>org.kjots.json.content.shared</package>
-    <package.path>org/kjots/json/content/shared</package.path>
-  </properties>
-  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

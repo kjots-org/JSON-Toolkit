@@ -32,11 +32,6 @@
   
   <name>JSON Toolkit - JSON Object - Simple</name>
   
-  <properties>
-    <package>org.kjots.json.object.simple</package>
-    <package.path>org/kjots/json/object/simple</package.path>
-  </properties>
-  
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>

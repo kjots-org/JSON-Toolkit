@@ -32,11 +32,6 @@
   
   <name>JSON Toolkit - JSON Object - Native</name>
   
-  <properties>
-    <package>org.kjots.json.object.ntive</package>
-    <package.path>org/kjots/json/object/ntive</package.path>
-  </properties>
-  
   <dependencies>
     <dependency>
       <groupId>org.kjots.json-toolkit</groupId>
