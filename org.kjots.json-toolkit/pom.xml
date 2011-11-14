@@ -86,7 +86,6 @@
     <version.plugin.scala>2.15.2</version.plugin.scala>
     
     <version.plugin.scalatest>0-r2938</version.plugin.scalatest>
-    <version.plugin.emma>1.0-alpha-3</version.plugin.emma>
     
     <version.plugin.m2e-lifecycle-mapping>1.0.0</version.plugin.m2e-lifecycle-mapping>
   </properties>
@@ -123,21 +122,6 @@
         </plugin>
         
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>emma-maven-plugin</artifactId>
-          <version>${version.plugin.emma}</version>
-          <executions>
-            <execution>
-              <id>emma</id>
-              <goals>
-                <goal>emma</goal>
-              </goals>
-              <phase>test</phase>
-            </execution>
-          </executions>
-        </plugin>
-        
-        <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
           <version>${version.plugin.m2e-lifecycle-mapping}</version>
@@ -166,12 +150,6 @@
     </pluginManagement>
     
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>emma-maven-plugin</artifactId>
-        <inherited>true</inherited>
-      </plugin>
-      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
