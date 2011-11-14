@@ -89,55 +89,42 @@
   </properties>
   
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>emma-maven-plugin</artifactId>
+          <version>${version.plugin.emma}</version>
+          <executions>
+            <execution>
+              <id>emma</id>
+              <goals>
+                <goal>emma</goal>
+              </goals>
+              <phase>test</phase>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>emma-maven-plugin</artifactId>
-        <version>${version.plugin.emma}</version>
-        <executions>
-          <execution>
-            <phase>test</phase>
-            <goals>
-              <goal>emma</goal>
-            </goals>
-            <inherited>true</inherited>
-          </execution>
-        </executions>
-      </plugin>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${version.plugin.maven-source}</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <inherited>true</inherited>
-          </execution>
-        </executions>
+        <inherited>true</inherited>
       </plugin>
       
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${version.plugin.maven-javadoc}</version>
         <executions>
           <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <inherited>true</inherited>
-          </execution>
-          <execution>
             <id>aggregate</id>
-            <phase>package</phase>
             <goals>
               <goal>aggregate</goal>
             </goals>
+            <phase>package</phase>
             <inherited>false</inherited>
           </execution>
         </executions>
