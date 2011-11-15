@@ -48,15 +48,6 @@ public class SimpleJsonObjectImpl implements JsonObject {
   }
   
   /**
-   * Construct a new Simple JSON Object Implementation.
-   *
-   * @param simpleJsonValue The simple JSON value.
-   */
-  public SimpleJsonObjectImpl(SimpleJsonValue simpleJsonValue) {
-    this(JsonObject.class, simpleJsonValue);
-  }
-  
-  /**
    * Retrieve the JSON object class.
    *
    * @return The JSON object class.
@@ -371,5 +362,14 @@ public class SimpleJsonObjectImpl implements JsonObject {
   @Override
   public final String toString() {
     return this.simpleJsonValue.toString();
+  }
+
+  /**
+   * Construct a new Simple JSON Object Implementation.
+   *
+   * @param simpleJsonValue The simple JSON value.
+   */
+  protected SimpleJsonObjectImpl(SimpleJsonValue simpleJsonValue) {
+    this(JsonObject.class, simpleJsonValue);
   }
 }
