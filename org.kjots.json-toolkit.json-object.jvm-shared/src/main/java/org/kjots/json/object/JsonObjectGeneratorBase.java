@@ -153,6 +153,8 @@ public abstract class JsonObjectGeneratorBase<T extends JsonObject> {
   protected Constructor<T> getJsonObjectImplConstructor() {
     Constructor<?>[] constructors = this.jsonObjectImplClass.getConstructors();
     
+    assert constructors.length == 1 : "JSON object implementations must define only a single public constructor";
+    
     return (Constructor<T>)constructors[0];
   }
   
