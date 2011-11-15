@@ -45,7 +45,7 @@ class SimpleJsonObjectFactoryImpl extends JvmJsonObjectFactoryImplBase {
     def simpleJsonValue = obj.asInstanceOf[SimpleJsonValue]
 
     def simpleJsonObjectImpl = jsonObjectClass match {
-      case `JSON_OBJECT_CLASS` => new SimpleJsonObjectImpl(simpleJsonValue)
+      case `JSON_OBJECT_CLASS` => new SimpleJsonObjectImpl(classOf[JsonObject], simpleJsonValue)
       case `JSON_ARRAY_CLASS` => new SimpleJsonArrayImpl(simpleJsonValue)
       case `JSON_BOOLEAN_ARRAY_CLASS` => new SimpleJsonBooleanArrayImpl(simpleJsonValue)
       case `JSON_NUMBER_ARRAY_CLASS` => new SimpleJsonNumberArrayImpl(simpleJsonValue)
