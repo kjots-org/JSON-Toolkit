@@ -19,13 +19,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <parent>
-    <groupId>org.kjots.maven-lib</groupId>
-    <artifactId>maven-base-pom</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <relativePath/>
-  </parent>
-  
   <groupId>org.kjots.json-toolkit</groupId>
   <artifactId>org.kjots.json-toolkit</artifactId>
   <version>1.2-SNAPSHOT</version>
@@ -47,8 +40,31 @@
     <url>http://code.google.com/p/json-toolkit/source/browse/</url>
   </scm>
   
+  <developers>
+    <developer>
+      <id>kjots</id>
+      <name>Karl J. Ots</name>
+      <email>kjots@kjots.org</email>
+      <roles>
+        <role>owner</role>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+  
   <distributionManagement>
     <downloadUrl>http://code.google.com/p/json-toolkit/</downloadUrl>
+    <repository>
+      <id>kjots.org-releases</id>
+      <name>kjots.org Releases</name>
+      <url>${url.kjots.org-releases.deploy}</url>
+    </repository>
+    <snapshotRepository>
+      <id>kjots.org-snapshots</id>
+      <name>kjots.org Snapshots</name>
+      <url>${url.kjots.org-snapshots.deploy}</url>
+    </snapshotRepository>
   </distributionManagement>
   
   <issueManagement>
@@ -75,18 +91,98 @@
   </repositories>
   
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    
     <version.guice>3.0</version.guice>
     <version.asm>3.2</version.asm>
     
     <version.junit>4.8.2</version.junit>
     <version.mockito>1.8.0</version.mockito>
+    
+    <version.plugin.maven-surefire>2.8</version.plugin.maven-surefire>
+    <version.plugin.maven-jar>2.3.1</version.plugin.maven-jar>
+    <version.plugin.maven-source>2.1.2</version.plugin.maven-source>
+    <version.plugin.maven-javadoc>2.7</version.plugin.maven-javadoc>
+    
+    <version.plugin.emma>1.0-alpha-3</version.plugin.emma>
   </properties>
   
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${version.plugin.maven-surefire}</version>
+          <configuration>
+            <includes>
+              <include>**/*TestSuite.class</include>
+            </includes>
+            <systemPropertyVariables>
+              <emma.rt.control>false</emma.rt.control>
+            </systemPropertyVariables>       
+          </configuration>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${version.plugin.maven-jar}</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${version.plugin.maven-source}</version>
+          <executions>
+            <execution>
+              <id>jar</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <phase>package</phase>
+            </execution>
+          </executions>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${version.plugin.maven-javadoc}</version>
+          <executions>
+            <execution>
+              <id>jar</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+              <phase>package</phase>
+            </execution>
+          </executions>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>emma-maven-plugin</artifactId>
+          <version>${version.plugin.emma}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <inherited>true</inherited>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <inherited>true</inherited>
         <executions>
           <execution>
             <id>aggregate</id>
@@ -97,6 +193,12 @@
             <inherited>false</inherited>
           </execution>
         </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>emma-maven-plugin</artifactId>
+        <inherited>true</inherited>
       </plugin>
     </plugins>
   </build>
