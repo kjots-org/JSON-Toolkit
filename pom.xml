@@ -26,6 +26,8 @@
   <packaging>pom</packaging>
   
   <name>JSON Toolkit</name>
+  <description>JSON Toolkit</description>
+  <url>http://dev.kjots.org/JSON-Toolkit/</url>
   
   <licenses>
     <license>

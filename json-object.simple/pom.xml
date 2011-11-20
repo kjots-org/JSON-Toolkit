@@ -30,6 +30,7 @@
   <packaging>jar</packaging>
   
   <name>JSON Toolkit - JSON Object - Simple</name>
+  <description>JSON Toolkit - JSON Object - Simple</description>
   
   <dependencies>
     <dependency>

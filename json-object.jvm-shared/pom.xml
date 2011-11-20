@@ -30,6 +30,7 @@
   <packaging>jar</packaging>
   
   <name>JSON Toolkit - JSON Object - JVM Shared</name>
+  <description>JSON Toolkit - JSON Object - JVM Shared</description>
   
   <dependencies>
     <dependency>
