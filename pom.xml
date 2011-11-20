@@ -264,13 +264,13 @@
   </build>
   
   <modules>
-    <module>../org.kjots.json-toolkit.json-content.shared</module>
-    <module>../org.kjots.json-toolkit.json-content.jvm</module>
-    <module>../org.kjots.json-toolkit.json-object.shared</module>
-    <module>../org.kjots.json-toolkit.json-object.jvm-shared</module>
-    <module>../org.kjots.json-toolkit.json-object.simple</module>
-    <module>../org.kjots.json-toolkit.json-object.js</module>
-    <module>../org.kjots.json-toolkit.json-object.native</module>
+    <module>json-content.shared</module>
+    <module>json-content.jvm</module>
+    <module>json-object.shared</module>
+    <module>json-object.jvm-shared</module>
+    <module>json-object.simple</module>
+    <module>json-object.js</module>
+    <module>json-object.native</module>
     <module>../org.kjots.json-toolkit.json-object.scala</module>
   </modules>
 </project>

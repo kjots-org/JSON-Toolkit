@@ -23,7 +23,6 @@
     <groupId>org.kjots.json-toolkit</groupId>
     <artifactId>org.kjots.json-toolkit</artifactId>
     <version>1.2-scala-SNAPSHOT</version>
-    <relativePath>../org.kjots.json-toolkit/pom.xml</relativePath>
   </parent>
   
   <artifactId>json-content.shared</artifactId>
