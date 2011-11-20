@@ -34,9 +34,8 @@
   
   <dependencies>
     <dependency>
-      <groupId>org.kjots.json-toolkit</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>json-content.shared</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 </project>
