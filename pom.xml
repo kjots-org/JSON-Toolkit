@@ -100,6 +100,7 @@
     <version.plugin.maven-jar>2.3.1</version.plugin.maven-jar>
     <version.plugin.maven-source>2.1.2</version.plugin.maven-source>
     <version.plugin.maven-javadoc>2.7</version.plugin.maven-javadoc>
+    <version.plugin.maven-gpg>1.4</version.plugin.maven-gpg>
     <version.plugin.maven-site>3.0</version.plugin.maven-site>
     <version.plugin.maven-project-info-reports>2.4</version.plugin.maven-project-info-reports>
     
@@ -233,6 +234,12 @@
         
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${version.plugin.maven-gpg}</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
           <version>${version.plugin.maven-site}</version>
           <configuration>
@@ -319,6 +326,32 @@
       </plugin>
     </plugins>
   </reporting>
+  
+  <profiles>
+    <profile>
+      <id>sign</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <configuration>
+              <passphrase>${gpg.passphrase}</passphrase>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   
   <modules>
     <module>json-content.shared</module>
