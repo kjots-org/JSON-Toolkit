@@ -27,7 +27,7 @@
   
   <name>JSON Toolkit</name>
   <description>JSON Toolkit</description>
-  <url>http://dev.kjots.org/JSON-Toolkit/</url>
+  <url>http://kjots.org/JSON-Toolkit/</url>
   
   <licenses>
     <license>
@@ -61,13 +61,13 @@
     <site>
       <id>kjots.org-json-toolkit-site</id>
       <name>kjots.org JSON Toolkit Site</name>
-      <url>file:///</url>
+      <url>http://kjots.org/JSON-Toolkit/</url>
     </site>
   </distributionManagement>
   
   <organization>
     <name>kjots.org</name>
-    <url>http://dev.kjots.org/</url>
+    <url>http://kjots.org/</url>
   </organization>
   
   <developers>
