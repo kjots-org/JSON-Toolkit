@@ -23,16 +23,34 @@
     <groupId>org.kjots.json-toolkit</groupId>
     <artifactId>org.kjots.json-toolkit</artifactId>
     <version>1.2-SNAPSHOT</version>
-    <relativePath>../org.kjots.json-toolkit/pom.xml</relativePath>
   </parent>
   
-  <artifactId>json-content.shared</artifactId>
+  <artifactId>json-object.js</artifactId>
   
   <packaging>jar</packaging>
   
-  <name>JSON Toolkit - JSON Content - Shared</name>
+  <name>JSON Toolkit - JSON Object - JS</name>
   
   <dependencies>
+    <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>json-object.jvm-shared</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>json-object.shared</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kjots.json-toolkit</groupId>
+      <artifactId>json-object.jvm-shared</artifactId>
+      <version>${project.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
