@@ -30,6 +30,7 @@
   <packaging>jar</packaging>
   
   <name>JSON Toolkit - JSON Content - JVM</name>
+  <description>JSON Toolkit - JSON Content - JVM</description>
   
   <dependencies>
     <dependency>

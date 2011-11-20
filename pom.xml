@@ -26,19 +26,49 @@
   <packaging>pom</packaging>
   
   <name>JSON Toolkit</name>
+  <description>JSON Toolkit</description>
+  <url>http://dev.kjots.org/JSON-Toolkit/</url>
   
   <licenses>
     <license>
-      <name>Apache 2</name>
+      <name>The Apache Software License, Version 2.0</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
   
   <scm>
-    <connection>scm:hg:http://json-toolkit.googlecode.com/hg/</connection>
-    <developerConnection>scm:hg:https://json-toolkit.googlecode.com/hg/</developerConnection>
-    <url>http://code.google.com/p/json-toolkit/source/browse/</url>
+    <connection>scm:git:https://github.com/kjots-org/JSON-Toolkit.git</connection>
+    <developerConnection>scm:git:https://github.com/kjots-org/JSON-Toolkit.git</developerConnection>
+    <url>https://github.com/kjots-org/JSON-Toolkit/tree/master/</url>
   </scm>
+  
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/kjots-org/JSON-Toolkit/issues</url>
+  </issueManagement>
+  
+  <distributionManagement>
+    <repository>
+      <id>kjots.org-releases</id>
+      <name>kjots.org Releases</name>
+      <url>${url.kjots.org-releases.deploy}</url>
+    </repository>
+    <snapshotRepository>
+      <id>kjots.org-snapshots</id>
+      <name>kjots.org Snapshots</name>
+      <url>${url.kjots.org-snapshots.deploy}</url>
+    </snapshotRepository>
+    <site>
+      <id>kjots.org-json-toolkit-site</id>
+      <name>kjots.org JSON Toolkit Site</name>
+      <url>file:///</url>
+    </site>
+  </distributionManagement>
+  
+  <organization>
+    <name>kjots.org</name>
+    <url>http://dev.kjots.org/</url>
+  </organization>
   
   <developers>
     <developer>
@@ -52,43 +82,6 @@
       </roles>
     </developer>
   </developers>
-  
-  <distributionManagement>
-    <downloadUrl>http://code.google.com/p/json-toolkit/</downloadUrl>
-    <repository>
-      <id>kjots.org-releases</id>
-      <name>kjots.org Releases</name>
-      <url>${url.kjots.org-releases.deploy}</url>
-    </repository>
-    <snapshotRepository>
-      <id>kjots.org-snapshots</id>
-      <name>kjots.org Snapshots</name>
-      <url>${url.kjots.org-snapshots.deploy}</url>
-    </snapshotRepository>
-  </distributionManagement>
-  
-  <issueManagement>
-    <system>Google Code</system>
-    <url>http://code.google.com/p/json-toolkit/issues/list</url>
-  </issueManagement>
-  
-  <repositories>
-    <repository>
-      <id>org.kjots.maven-releases</id>
-      <name>kjots.org Maven Releases</name>
-      <url>http://kjots-org-maven-repository.googlecode.com/svn/repositories/releases</url>
-    </repository>
-    <repository>
-      <id>org.kjots.maven-snapshots</id>
-      <name>kjots.org Maven Snapshots</name>
-      <url>http://kjots-org-maven-repository.googlecode.com/svn/repositories/snapshots/</url>
-    </repository>
-    <repository>
-      <id>org.kjots.maven-third-party</id>
-      <name>kjots.org Maven Third-Party</name>
-      <url>http://kjots-org-maven-repository.googlecode.com/svn/repositories/third-party/</url>
-    </repository>
-  </repositories>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -109,6 +102,8 @@
     <version.plugin.maven-jar>2.3.1</version.plugin.maven-jar>
     <version.plugin.maven-source>2.1.2</version.plugin.maven-source>
     <version.plugin.maven-javadoc>2.7</version.plugin.maven-javadoc>
+    <version.plugin.maven-site>3.0</version.plugin.maven-site>
+    <version.plugin.maven-project-info-reports>2.4</version.plugin.maven-project-info-reports>
     <version.plugin.scala>2.15.2</version.plugin.scala>
     
     <version.plugin.scalatest>0-r2938</version.plugin.scalatest>
@@ -193,6 +188,21 @@
         </plugin>
         
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${version.plugin.maven-site}</version>
+          <configuration>
+            <stagingSiteURL>${url.kjots.org-json-toolkit.site.deploy}</stagingSiteURL>
+          </configuration>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>${version.plugin.maven-project-info-reports}</version>
+        </plugin>
+        
+        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>emma-maven-plugin</artifactId>
           <version>${version.plugin.emma}</version>
@@ -256,12 +266,43 @@
       </plugin>
       
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <inherited>true</inherited>
+      </plugin>
+      
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>emma-maven-plugin</artifactId>
         <inherited>true</inherited>
       </plugin>
     </plugins>
   </build>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${version.plugin.maven-project-info-reports}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+              <report>dependencies</report>
+              <report>issue-tracking</report>
+              <report>plugin-management</report>
+              <report>license</report>
+              <report>plugins</report>
+              <report>summary</report>
+              <report>project-team</report>
+              <report>scm</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
   
   <modules>
     <module>json-content.shared</module>

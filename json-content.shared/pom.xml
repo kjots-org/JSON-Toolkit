@@ -30,6 +30,7 @@
   <packaging>jar</packaging>
   
   <name>JSON Toolkit - JSON Content - Shared</name>
+  <description>JSON Toolkit - JSON Content - Shared</description>
   
   <dependencies>
     <dependency>
