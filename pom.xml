@@ -312,6 +312,6 @@
     <module>json-object.simple</module>
     <module>json-object.js</module>
     <module>json-object.native</module>
-    <module>../org.kjots.json-toolkit.json-object.scala</module>
+    <module>json-object.scala</module>
   </modules>
 </project>
