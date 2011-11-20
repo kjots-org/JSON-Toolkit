@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>About</title>
+    <title>Team list</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
@@ -17,7 +17,7 @@
   <body class="composite">
     <div id="banner">
                     <div id="bannerLeft">
-                JSON Toolkit
+                JSON Toolkit - JSON Object - Native
                 </div>
                     <div class="clear">
         <hr/>
@@ -30,7 +30,7 @@
         <span id="publishDate">Last Published: 2011-11-20</span>
                   &nbsp;| <span id="projectVersion">Version: 1.2-SNAPSHOT</span>
                       </div>
-            <div class="xright">                    <a href="./" title="JSON Toolkit">JSON Toolkit</a>
+            <div class="xright">                    <a href="./" title="JSON Toolkit - JSON Object - Native">JSON Toolkit - JSON Object - Native</a>
               
         
       </div>
@@ -42,28 +42,10 @@
       <div id="navcolumn">
              
         
-                                          <h5>Modules</h5>
+                                <h5>Parent Project</h5>
                   <ul>
                   <li class="none">
-                          <a href="json-content.shared/index.html" title="JSON Toolkit - JSON Content - Shared">JSON Toolkit - JSON Content - Shared</a>
-            </li>
-                  <li class="none">
-                          <a href="json-content.jvm/index.html" title="JSON Toolkit - JSON Content - JVM">JSON Toolkit - JSON Content - JVM</a>
-            </li>
-                  <li class="none">
-                          <a href="json-object.shared/index.html" title="JSON Toolkit - JSON Object - Shared">JSON Toolkit - JSON Object - Shared</a>
-            </li>
-                  <li class="none">
-                          <a href="json-object.jvm-shared/index.html" title="JSON Toolkit - JSON Object - JVM Shared">JSON Toolkit - JSON Object - JVM Shared</a>
-            </li>
-                  <li class="none">
-                          <a href="json-object.simple/index.html" title="JSON Toolkit - JSON Object - Simple">JSON Toolkit - JSON Object - Simple</a>
-            </li>
-                  <li class="none">
-                          <a href="json-object.js/index.html" title="JSON Toolkit - JSON Object - JS">JSON Toolkit - JSON Object - JS</a>
-            </li>
-                  <li class="none">
-                          <a href="json-object.native/index.html" title="JSON Toolkit - JSON Object - Native">JSON Toolkit - JSON Object - Native</a>
+                          <a href="../index.html" title="JSON Toolkit">JSON Toolkit</a>
             </li>
           </ul>
                        <h5>Project Documentation</h5>
@@ -72,8 +54,8 @@
                           <a href="project-info.html" title="Project Information">Project Information</a>
                     <ul>
                       <li class="none">
-            <strong>About</strong>
-          </li>
+                          <a href="index.html" title="About">About</a>
+            </li>
                       <li class="none">
                           <a href="dependencies.html" title="Dependencies">Dependencies</a>
             </li>
@@ -93,8 +75,8 @@
                           <a href="project-summary.html" title="Project Summary">Project Summary</a>
             </li>
                       <li class="none">
-                          <a href="team-list.html" title="Project Team">Project Team</a>
-            </li>
+            <strong>Project Team</strong>
+          </li>
                       <li class="none">
                           <a href="source-repository.html" title="Source Repository">Source Repository</a>
             </li>
@@ -110,7 +92,22 @@
     </div>
     <div id="bodyColumn">
       <div id="contentBox">
-        <div class="section"><h2>About JSON Toolkit<a name="About_JSON_Toolkit"></a></h2><a name="About_JSON_Toolkit"></a><p>JSON Toolkit</p></div>
+        <div class="section"><h2>The Team<a name="The_Team"></a></h2><a name="The_Team"></a><p>A successful project requires many people to play many roles. Some members write code or documentation, while others are valuable as testers, submitting patches and suggestions.</p><p>The team is comprised of Members and Contributors. Members have direct access to the source of a project and actively evolve the code-base. Contributors improve the project through submission of patches and suggestions to the Members. The number of Contributors to the project is unbounded. Get involved today. All contributions to the project are greatly appreciated.</p><div class="section"><h3>Members<a name="Members"></a></h3><a name="Members"></a><p>The following is a list of developers with commit privileges that have directly contributed to the project in one way or another.</p><table border="0" class="bodyTable"><tr class="a"><th>Id</th><th>Name</th><th>Email</th><th>Roles</th></tr><tr class="b"><td><a name="kjots"></a>kjots</td><td>Karl J. Ots</td><td><a class="externalLink" href="mailto:kjots@kjots.org">kjots@kjots.org</a></td><td>owner, architect, developer</td></tr></table></div><div class="section"><h3>Contributors<a name="Contributors"></a></h3><a name="Contributors"></a><p>There are no contributors listed for this project. Please check back again later.</p><script type="text/javascript">
+function offsetDate(id, offset) {
+    var now = new Date();
+    var nowTime = now.getTime();
+    var localOffset = now.getTimezoneOffset();
+    var developerTime = nowTime + ( offset * 60 * 60 * 1000 )+ ( localOffset * 60 * 1000 );
+    var developerDate = new Date(developerTime);
+
+    document.getElementById(id).innerHTML = developerDate;
+}
+
+function init(){
+}
+
+window.onLoad = init();
+</script></div></div>
       </div>
     </div>
     <div class="clear">
